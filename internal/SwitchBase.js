@@ -156,20 +156,14 @@ function createSwitch() {
       }
 
       return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref4 = SwitchBase.__proto__ || (0, _getPrototypeOf2.default)(SwitchBase)).call.apply(_ref4, [this].concat(args))), _this), _this.state = {}, _this.input = null, _this.button = null, _this.isControlled = null, _this.handleInputChange = function (event) {
-        var newChecked = void 0;
+        var checked = event.target.checked;
 
-        if (_this.isControlled) {
-          newChecked = !_this.props.checked;
-        } else {
-          newChecked = !_this.state.checked;
-          if (_this.input && _this.input.checked !== newChecked) {
-            _this.input.checked = newChecked;
-          }
-          _this.setState({ checked: !_this.state.checked });
+        if (!_this.isControlled) {
+          _this.setState({ checked: checked });
         }
 
         if (_this.props.onChange) {
-          _this.props.onChange(event, newChecked);
+          _this.props.onChange(event, checked);
         }
       }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
     }

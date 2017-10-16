@@ -44,7 +44,7 @@ var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFl
 var styles = exports.styles = function styles(theme) {
   return {
     root: {
-      transformOrigin: 'top left'
+      transformOrigin: 'top ' + (theme.direction === 'ltr' ? 'left' : 'right')
     },
     formControl: {
       position: 'absolute',
@@ -59,7 +59,7 @@ var styles = exports.styles = function styles(theme) {
     },
     shrink: {
       transform: 'translate(0, 1.5px) scale(0.75)',
-      transformOrigin: 'top left'
+      transformOrigin: 'top ' + (theme.direction === 'ltr' ? 'left' : 'right')
     },
     animated: {
       transition: theme.transitions.create('transform', {

@@ -485,4 +485,4 @@ var _initialiseProps = function _initialiseProps() {
   };
 };
 
-exports.default = (0, _withStyles2.default)(styles, { name: 'MuiModal' })(Modal);
+exports.default = (0, _withStyles2.default)(styles, { flip: false, name: 'MuiModal' })(Modal);

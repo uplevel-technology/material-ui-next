@@ -35,6 +35,8 @@ var _withStyles = require('../styles/withStyles');
 
 var _withStyles2 = _interopRequireDefault(_withStyles);
 
+var _helpers = require('../utils/helpers');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFlowReactPropTypes_proptype_Node || require('prop-types').any;
@@ -59,8 +61,6 @@ var styles = exports.styles = function styles(theme) {
   return {
     root: {
       borderBottom: '1px solid ' + theme.palette.text.lightDivider,
-      whiteSpace: 'nowrap',
-      textOverflow: 'ellipsis',
       textAlign: 'left'
     },
     numeric: {
@@ -68,22 +68,20 @@ var styles = exports.styles = function styles(theme) {
       flexDirection: 'row-reverse' // can be dynamically inherited at runtime by contents
     },
     head: {
-      whiteSpace: 'pre',
       fontWeight: theme.typography.fontWeightMedium,
       position: 'relative' // Workaround for Tooltip positioning issue.
     },
-    padding: {
-      padding: '0 ' + theme.spacing.unit * 7 + 'px 0 ' + theme.spacing.unit * 3 + 'px',
+    paddingDefault: {
+      padding: theme.spacing.unit / 2 + 'px ' + theme.spacing.unit * 7 + 'px ' + theme.spacing.unit / 2 + 'px ' + theme.spacing.unit * 3 + 'px',
       '&:last-child': {
         paddingRight: theme.spacing.unit * 3
       }
     },
-    dense: {
+    paddingDense: {
       paddingRight: theme.spacing.unit * 3
     },
-    checkbox: {
-      paddingLeft: 12,
-      paddingRight: 12
+    paddingCheckbox: {
+      padding: '0 12px'
     },
     footer: {
       borderBottom: 0
@@ -109,7 +107,8 @@ function TableCell(props, context) {
   } else {
     Component = table && table.head ? 'th' : 'td';
   }
-  var className = (0, _classnames2.default)(classes.root, (_classNames = {}, (0, _defineProperty3.default)(_classNames, classes.numeric, numeric), (0, _defineProperty3.default)(_classNames, classes.dense, padding === 'dense'), (0, _defineProperty3.default)(_classNames, classes.checkbox, padding === 'checkbox'), (0, _defineProperty3.default)(_classNames, classes.padding, padding !== 'none'), (0, _defineProperty3.default)(_classNames, classes.head, table && table.head), (0, _defineProperty3.default)(_classNames, classes.footer, table && table.footer), _classNames), classNameProp);
+
+  var className = (0, _classnames2.default)(classes.root, (_classNames = {}, (0, _defineProperty3.default)(_classNames, classes.numeric, numeric), (0, _defineProperty3.default)(_classNames, classes['padding' + (0, _helpers.capitalizeFirstLetter)(padding)], padding !== 'none' && padding !== 'default'), (0, _defineProperty3.default)(_classNames, classes.paddingDefault, padding !== 'none'), (0, _defineProperty3.default)(_classNames, classes.head, table && table.head), (0, _defineProperty3.default)(_classNames, classes.footer, table && table.footer), _classNames), classNameProp);
 
   return _react2.default.createElement(
     Component,

@@ -107,12 +107,16 @@ var styles = exports.styles = function styles(theme) {
       justifyContent: 'center',
       alignItems: 'center'
     },
-    anchorTopCenter: {
-      extend: [top, center]
-    },
-    anchorBottomCenter: {
-      extend: [bottom, center]
-    },
+    anchorTopCenter: (0, _defineProperty3.default)({
+      extend: [top]
+    }, theme.breakpoints.up('md'), {
+      extend: [center]
+    }),
+    anchorBottomCenter: (0, _defineProperty3.default)({
+      extend: [bottom]
+    }, theme.breakpoints.up('md'), {
+      extend: [center]
+    }),
     anchorTopRight: (0, _defineProperty3.default)({
       extend: [top, right]
     }, theme.breakpoints.up('md'), {
@@ -370,4 +374,4 @@ Snackbar.defaultProps = {
     exit: _transitions.duration.leavingScreen
   }
 };
-exports.default = (0, _withStyles2.default)(styles, { name: 'MuiSnackbar' })(Snackbar);
+exports.default = (0, _withStyles2.default)(styles, { flip: false, name: 'MuiSnackbar' })(Snackbar);

@@ -5,6 +5,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.styles = undefined;
 
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
+
 var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProperties');
 
 var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
@@ -55,10 +59,6 @@ var _TableCell = require('./TableCell');
 
 var _TableCell2 = _interopRequireDefault(_TableCell);
 
-var _TableRow = require('./TableRow');
-
-var _TableRow2 = _interopRequireDefault(_TableRow);
-
 var _Toolbar = require('../Toolbar');
 
 var _Toolbar2 = _interopRequireDefault(_Toolbar);
@@ -78,14 +78,16 @@ var _KeyboardArrowRight2 = _interopRequireDefault(_KeyboardArrowRight);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFlowReactPropTypes_proptype_Node || require('prop-types').any;
-// @inheritedComponent TableRow
+// @inheritedComponent TableCell
+
+var babelPluginFlowReactPropTypes_proptype_ElementType = require('react').babelPluginFlowReactPropTypes_proptype_ElementType || require('prop-types').any;
 
 var styles = exports.styles = function styles(theme) {
   return {
-    cell: {
+    root: {
       // Increase the specificity to override TableCell.
       '&:last-child': {
-        padding: '0'
+        padding: 0
       }
     },
     toolbar: {
@@ -96,6 +98,12 @@ var styles = exports.styles = function styles(theme) {
     spacer: {
       flex: '1 1 100%'
     },
+    caption: {
+      flexShrink: 0
+    },
+    selectRoot: {
+      marginRight: theme.spacing.unit * 4
+    },
     select: {
       marginLeft: theme.spacing.unit,
       width: 34,
@@ -105,10 +113,8 @@ var styles = exports.styles = function styles(theme) {
       height: 32,
       lineHeight: '32px'
     },
-    selectRoot: {
-      marginRight: theme.spacing.unit * 4
-    },
     actions: {
+      flexShrink: 0,
       color: theme.palette.text.secondary,
       marginLeft: theme.spacing.unit * 2.5
     }
@@ -123,7 +129,8 @@ var babelPluginFlowReactPropTypes_proptype_LabelDisplayedRowsArgs = {
 };
 var babelPluginFlowReactPropTypes_proptype_Props = {
   classes: require('prop-types').object,
-  className: require('prop-types').string,
+  component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType),
+  colSpan: require('prop-types').number,
   count: require('prop-types').number.isRequired,
   labelDisplayedRows: require('prop-types').func,
   labelRowsPerPage: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
@@ -131,14 +138,19 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   onChangeRowsPerPage: require('prop-types').func.isRequired,
   page: require('prop-types').number.isRequired,
   rowsPerPage: require('prop-types').number.isRequired,
-  rowsPerPageOptions: require('prop-types').arrayOf(require('prop-types').number)
+  rowsPerPageOptions: require('prop-types').arrayOf(require('prop-types').number),
+  theme: require('prop-types').object
 };
 
 var _ref3 = _react2.default.createElement(_Input2.default, { disableUnderline: true });
 
-var _ref4 = _react2.default.createElement(_KeyboardArrowLeft2.default, null);
+var _ref4 = _react2.default.createElement(_KeyboardArrowRight2.default, null);
 
-var _ref5 = _react2.default.createElement(_KeyboardArrowRight2.default, null);
+var _ref5 = _react2.default.createElement(_KeyboardArrowLeft2.default, null);
+
+var _ref6 = _react2.default.createElement(_KeyboardArrowLeft2.default, null);
+
+var _ref7 = _react2.default.createElement(_KeyboardArrowRight2.default, null);
 
 /**
  * A `TableRow` based component for placing inside `TableFooter` for pagination.
@@ -181,6 +193,8 @@ var TablePagination = function (_React$Component) {
     value: function render() {
       var _props = this.props,
           classes = _props.classes,
+          Component = _props.component,
+          colSpanProp = _props.colSpan,
           count = _props.count,
           labelDisplayedRows = _props.labelDisplayedRows,
           labelRowsPerPage = _props.labelRowsPerPage,
@@ -189,69 +203,69 @@ var TablePagination = function (_React$Component) {
           page = _props.page,
           rowsPerPage = _props.rowsPerPage,
           rowsPerPageOptions = _props.rowsPerPageOptions,
-          other = (0, _objectWithoutProperties3.default)(_props, ['classes', 'count', 'labelDisplayedRows', 'labelRowsPerPage', 'onChangePage', 'onChangeRowsPerPage', 'page', 'rowsPerPage', 'rowsPerPageOptions']);
+          theme = _props.theme,
+          other = (0, _objectWithoutProperties3.default)(_props, ['classes', 'component', 'colSpan', 'count', 'labelDisplayedRows', 'labelRowsPerPage', 'onChangePage', 'onChangeRowsPerPage', 'page', 'rowsPerPage', 'rowsPerPageOptions', 'theme']);
 
+
+      var colSpan = void 0;
+
+      if (Component === _TableCell2.default || Component === 'td') {
+        colSpan = colSpanProp || 9001; // col-span over everything
+      }
 
       return _react2.default.createElement(
-        _TableRow2.default,
-        other,
+        Component,
+        (0, _extends3.default)({ className: classes.root, colSpan: colSpan }, other),
         _react2.default.createElement(
-          _TableCell2.default,
-          {
-            className: classes.cell,
-            colSpan: 9001 // col-span over everything
-          },
+          _Toolbar2.default,
+          { className: classes.toolbar },
+          _react2.default.createElement('div', { className: classes.spacer }),
           _react2.default.createElement(
-            _Toolbar2.default,
-            { className: classes.toolbar },
-            _react2.default.createElement('div', { className: classes.spacer }),
+            _Typography2.default,
+            { type: 'caption', className: classes.caption },
+            labelRowsPerPage
+          ),
+          _react2.default.createElement(
+            _Select2.default,
+            {
+              classes: { root: classes.selectRoot, select: classes.select },
+              input: _ref3,
+              value: rowsPerPage,
+              onChange: onChangeRowsPerPage
+            },
+            rowsPerPageOptions.map(function (rowsPerPageOption) {
+              return _react2.default.createElement(
+                _Menu.MenuItem,
+                { key: rowsPerPageOption, value: rowsPerPageOption },
+                rowsPerPageOption
+              );
+            })
+          ),
+          _react2.default.createElement(
+            _Typography2.default,
+            { type: 'caption', className: classes.caption },
+            labelDisplayedRows({
+              from: count === 0 ? 0 : page * rowsPerPage + 1,
+              to: Math.min(count, (page + 1) * rowsPerPage),
+              count: count,
+              page: page
+            })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: classes.actions },
             _react2.default.createElement(
-              _Typography2.default,
-              { type: 'caption' },
-              labelRowsPerPage
+              _IconButton2.default,
+              { onClick: this.handleBackButtonClick, disabled: page === 0 },
+              theme.direction === 'rtl' ? _ref4 : _ref5
             ),
             _react2.default.createElement(
-              _Select2.default,
+              _IconButton2.default,
               {
-                classes: { root: classes.selectRoot, select: classes.select },
-                input: _ref3,
-                value: rowsPerPage,
-                onChange: onChangeRowsPerPage
+                onClick: this.handleNextButtonClick,
+                disabled: page >= Math.ceil(count / rowsPerPage) - 1
               },
-              rowsPerPageOptions.map(function (rowsPerPageOption) {
-                return _react2.default.createElement(
-                  _Menu.MenuItem,
-                  { key: rowsPerPageOption, value: rowsPerPageOption },
-                  rowsPerPageOption
-                );
-              })
-            ),
-            _react2.default.createElement(
-              _Typography2.default,
-              { type: 'caption' },
-              labelDisplayedRows({
-                from: count === 0 ? 0 : page * rowsPerPage + 1,
-                to: Math.min(count, (page + 1) * rowsPerPage),
-                count: count,
-                page: page
-              })
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: classes.actions },
-              _react2.default.createElement(
-                _IconButton2.default,
-                { onClick: this.handleBackButtonClick, disabled: page === 0 },
-                _ref4
-              ),
-              _react2.default.createElement(
-                _IconButton2.default,
-                {
-                  onClick: this.handleNextButtonClick,
-                  disabled: page >= Math.ceil(count / rowsPerPage) - 1
-                },
-                _ref5
-              )
+              theme.direction === 'rtl' ? _ref6 : _ref7
             )
           )
         )
@@ -262,13 +276,14 @@ var TablePagination = function (_React$Component) {
 }(_react2.default.Component);
 
 TablePagination.defaultProps = {
+  component: _TableCell2.default,
   labelRowsPerPage: 'Rows per page:',
-  labelDisplayedRows: function labelDisplayedRows(_ref6) {
-    var from = _ref6.from,
-        to = _ref6.to,
-        count = _ref6.count;
+  labelDisplayedRows: function labelDisplayedRows(_ref8) {
+    var from = _ref8.from,
+        to = _ref8.to,
+        count = _ref8.count;
     return from + '-' + to + ' of ' + count;
   },
   rowsPerPageOptions: [5, 10, 25]
 };
-exports.default = (0, _withStyles2.default)(styles, { name: 'MuiTablePagination' })(TablePagination);
+exports.default = (0, _withStyles2.default)(styles, { withTheme: true, name: 'MuiTablePagination' })(TablePagination);

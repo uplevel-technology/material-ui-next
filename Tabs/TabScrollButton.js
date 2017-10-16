@@ -57,7 +57,7 @@ var styles = exports.styles = function styles(theme) {
 var babelPluginFlowReactPropTypes_proptype_Props = {
   classes: require('prop-types').object,
   className: require('prop-types').string,
-  direction: require('prop-types').oneOf(['left', 'right']),
+  direction: require('prop-types').oneOf(['left', 'right']).isRequired,
   onClick: require('prop-types').func,
   visible: require('prop-types').bool
 };
@@ -93,7 +93,7 @@ function TabScrollButton(props) {
 
 TabScrollButton.propTypes = process.env.NODE_ENV !== "production" ? (_ref3 = {
   classes: require('prop-types').object.isRequired
-}, (0, _defineProperty3.default)(_ref3, 'classes', require('prop-types').object), (0, _defineProperty3.default)(_ref3, 'className', require('prop-types').string), (0, _defineProperty3.default)(_ref3, 'direction', require('prop-types').oneOf(['left', 'right'])), (0, _defineProperty3.default)(_ref3, 'onClick', require('prop-types').func), (0, _defineProperty3.default)(_ref3, 'visible', require('prop-types').bool), _ref3) : {};
+}, (0, _defineProperty3.default)(_ref3, 'classes', require('prop-types').object), (0, _defineProperty3.default)(_ref3, 'className', require('prop-types').string), (0, _defineProperty3.default)(_ref3, 'direction', require('prop-types').oneOf(['left', 'right']).isRequired), (0, _defineProperty3.default)(_ref3, 'onClick', require('prop-types').func), (0, _defineProperty3.default)(_ref3, 'visible', require('prop-types').bool), _ref3) : {};
 TabScrollButton.defaultProps = {
   visible: true
 };

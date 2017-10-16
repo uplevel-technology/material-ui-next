@@ -112,8 +112,7 @@ var styles = exports.styles = function styles(theme) {
       display: 'inline-block',
       position: 'relative',
       fontFamily: theme.typography.fontFamily,
-      color: theme.palette.input.inputText,
-      paddingBottom: 2
+      color: theme.palette.input.inputText
     },
     formControl: {
       'label + &': {
@@ -134,7 +133,8 @@ var styles = exports.styles = function styles(theme) {
         transition: theme.transitions.create('transform', {
           duration: theme.transitions.duration.shorter,
           easing: theme.transitions.easing.easeOut
-        })
+        }),
+        pointerEvent: 'none' // Transparent to the hover style.
       },
       '&$focused:after': {
         transform: 'scaleX(1)'
@@ -150,7 +150,7 @@ var styles = exports.styles = function styles(theme) {
       font: 'inherit',
       color: 'currentColor',
       // slight alteration to spec spacing to match visual spec result
-      padding: theme.spacing.unit - 1 + 'px 0',
+      padding: theme.spacing.unit - 1 + 'px 0 ' + (theme.spacing.unit + 1) + 'px',
       border: 0,
       display: 'block',
       boxSizing: 'content-box',
@@ -205,7 +205,8 @@ var styles = exports.styles = function styles(theme) {
         transition: theme.transitions.create('background-color', {
           duration: theme.transitions.duration.shorter,
           easing: theme.transitions.easing.ease
-        })
+        }),
+        pointerEvent: 'none' // Transparent to the hover style.
       },
       '&:hover:not($disabled):before': {
         backgroundColor: theme.palette.text.primary,
@@ -377,9 +378,7 @@ var Input = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _classNames,
-          _classNames2,
-          _this2 = this;
+      var _classNames, _classNames2;
 
       var _props = this.props,
           autoComplete = _props.autoComplete,
@@ -471,36 +470,28 @@ var Input = function (_React$Component) {
         }
       }
 
-      var renderInput = function renderInput(coercedValue) {
-        return _react2.default.createElement(
-          'div',
-          (0, _extends3.default)({ onBlur: _this2.handleBlur, onFocus: _this2.handleFocus, className: className }, other),
-          _react2.default.createElement(InputComponent, (0, _extends3.default)({
-            autoComplete: autoComplete,
-            autoFocus: autoFocus,
-            className: inputClassName,
-            onChange: _this2.handleChange,
-            onKeyUp: onKeyUp,
-            onKeyDown: onKeyDown,
-            disabled: disabled,
-            required: required ? true : undefined,
-            value: coercedValue,
-            id: id,
-            name: name,
-            defaultValue: defaultValue,
-            placeholder: placeholder,
-            type: type,
-            readOnly: readOnly,
-            rows: rows
-          }, inputProps))
-        );
-      };
-
-      // Textarea value coercion
-      if (InputComponent === _Textarea2.default) {
-        return renderInput(value ? String(value) : undefined);
-      }
-      return renderInput(value);
+      return _react2.default.createElement(
+        'div',
+        (0, _extends3.default)({ onBlur: this.handleBlur, onFocus: this.handleFocus, className: className }, other),
+        _react2.default.createElement(InputComponent, (0, _extends3.default)({
+          autoComplete: autoComplete,
+          autoFocus: autoFocus,
+          className: inputClassName,
+          onChange: this.handleChange,
+          onKeyUp: onKeyUp,
+          onKeyDown: onKeyDown,
+          disabled: disabled,
+          required: required ? true : undefined,
+          value: value,
+          id: id,
+          name: name,
+          defaultValue: defaultValue,
+          placeholder: placeholder,
+          type: type,
+          readOnly: readOnly,
+          rows: rows
+        }, inputProps))
+      );
     }
   }]);
   return Input;

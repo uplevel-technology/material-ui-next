@@ -8,9 +8,9 @@ var _extends2 = require('babel-runtime/helpers/extends');
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _createEagerFactory = require('recompose/createEagerFactory');
+var _react = require('react');
 
-var _createEagerFactory2 = _interopRequireDefault(_createEagerFactory);
+var _react2 = _interopRequireDefault(_react);
 
 var _wrapDisplayName = require('recompose/wrapDisplayName');
 
@@ -42,14 +42,13 @@ var withResponsiveFullScreen = function withResponsiveFullScreen() {
     var breakpoint = options.breakpoint;
 
 
-    var factory = (0, _createEagerFactory2.default)(Component);
-
     function ResponsiveFullScreen(props) {
-      return factory((0, _extends3.default)({
-        fullScreen: (0, _withWidth.isWidthDown)(breakpoint, props.width)
-      }, props));
+      return _react2.default.createElement(Component, (0, _extends3.default)({ fullScreen: (0, _withWidth.isWidthDown)(breakpoint, props.width) }, props));
     }
 
+    ResponsiveFullScreen.propTypes = process.env.NODE_ENV !== "production" ? {
+      width: require('prop-types').string.isRequired
+    } : {};
     if (process.env.NODE_ENV !== 'production') {
       ResponsiveFullScreen.displayName = (0, _wrapDisplayName2.default)(Component, 'withResponsiveFullScreen');
     }

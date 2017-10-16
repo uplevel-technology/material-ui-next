@@ -55,7 +55,7 @@ var styles = exports.styles = function styles(theme) {
       // When interacting quickly, the text can end up selected.
       // Native select can't be selected either.
       userSelect: 'none',
-      padding: '0 ' + theme.spacing.unit * 4 + 'px 0 0',
+      padding: '0 ' + theme.spacing.unit * 4 + 'px 2px 0',
       width: 'calc(100% - ' + theme.spacing.unit * 4 + 'px)',
       minWidth: theme.spacing.unit * 2, // So it doesn't collapse.
       height: 'calc(1em + ' + (theme.spacing.unit * 2 - 2) + 'px)',
@@ -94,6 +94,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   autoWidth: require('prop-types').bool,
   children: typeof $ReadOnlyArray === 'function' ? require('prop-types').instanceOf($ReadOnlyArray).isRequired : require('prop-types').any.isRequired,
   classes: require('prop-types').object,
+  displayEmpty: require('prop-types').bool,
   input: typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element),
   native: require('prop-types').bool,
   multiple: require('prop-types').bool,
@@ -107,12 +108,13 @@ function Select(props) {
   var autoWidth = props.autoWidth,
       children = props.children,
       classes = props.classes,
+      displayEmpty = props.displayEmpty,
       input = props.input,
       native = props.native,
       multiple = props.multiple,
       MenuProps = props.MenuProps,
       renderValue = props.renderValue,
-      other = (0, _objectWithoutProperties3.default)(props, ['autoWidth', 'children', 'classes', 'input', 'native', 'multiple', 'MenuProps', 'renderValue']);
+      other = (0, _objectWithoutProperties3.default)(props, ['autoWidth', 'children', 'classes', 'displayEmpty', 'input', 'native', 'multiple', 'MenuProps', 'renderValue']);
 
   // Instead of `Element<typeof Input>` to have more flexibility.
 
@@ -127,6 +129,7 @@ function Select(props) {
       autoWidth: autoWidth,
       children: children,
       classes: classes,
+      displayEmpty: displayEmpty,
       native: native,
       multiple: multiple,
       MenuProps: MenuProps,
@@ -137,6 +140,7 @@ function Select(props) {
 
 Select.defaultProps = {
   autoWidth: false,
+  displayEmpty: false,
   input: _react2.default.createElement(_Input2.default, null),
   native: false,
   multiple: false

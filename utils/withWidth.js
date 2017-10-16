@@ -45,10 +45,6 @@ var _debounce = require('lodash/debounce');
 
 var _debounce2 = _interopRequireDefault(_debounce);
 
-var _createEagerFactory = require('recompose/createEagerFactory');
-
-var _createEagerFactory2 = _interopRequireDefault(_createEagerFactory);
-
 var _wrapDisplayName = require('recompose/wrapDisplayName');
 
 var _wrapDisplayName2 = _interopRequireDefault(_wrapDisplayName);
@@ -115,9 +111,6 @@ var withWidth = function withWidth() {
   return function (Component) {
     var _options$resizeInterv = options.resizeInterval,
         resizeInterval = _options$resizeInterv === undefined ? 166 : _options$resizeInterv;
-
-
-    var factory = (0, _createEagerFactory2.default)(Component);
 
     // `theme` is injected below by withTheme
 
@@ -216,7 +209,7 @@ var withWidth = function withWidth() {
           return _react2.default.createElement(
             _reactEventListener2.default,
             { target: 'window', onResize: this.handleResize },
-            factory(props)
+            _react2.default.createElement(Component, props)
           );
         }
       }]);

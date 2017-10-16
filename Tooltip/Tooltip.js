@@ -157,6 +157,21 @@ var styles = exports.styles = function styles(theme) {
 
 var babelPluginFlowReactPropTypes_proptype_Placement = require('prop-types').oneOf(['bottom-end', 'bottom-start', 'bottom', 'left-end', 'left-start', 'left', 'right-end', 'right-start', 'right', 'top-end', 'top-start', 'top']);
 
+function flipPlacement(placement) {
+  switch (placement) {
+    case 'bottom-end':
+      return 'bottom-start';
+    case 'bottom-start':
+      return 'bottom-end';
+    case 'top-end':
+      return 'top-start';
+    case 'top-start':
+      return 'top-end';
+    default:
+      return placement;
+  }
+}
+
 var babelPluginFlowReactPropTypes_proptype_Props = {
   children: typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element.isRequired ? babelPluginFlowReactPropTypes_proptype_Element.isRequired : babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element).isRequired,
   classes: require('prop-types').object,
@@ -172,7 +187,8 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   enterDelay: require('prop-types').number,
   leaveDelay: require('prop-types').number,
   placement: require('prop-types').oneOf(['bottom-end', 'bottom-start', 'bottom', 'left-end', 'left-start', 'left', 'right-end', 'right-start', 'right', 'top-end', 'top-start', 'top']),
-  PopperProps: require('prop-types').object
+  PopperProps: require('prop-types').object,
+  theme: require('prop-types').object
 };
 
 var Tooltip = function (_React$Component2) {
@@ -331,15 +347,17 @@ var Tooltip = function (_React$Component2) {
           openProp = _props.open,
           onRequestClose = _props.onRequestClose,
           onRequestOpen = _props.onRequestOpen,
+          theme = _props.theme,
           title = _props.title,
-          placement = _props.placement,
+          rawPlacement = _props.placement,
           _props$PopperProps = _props.PopperProps;
       _props$PopperProps = _props$PopperProps === undefined ? {} : _props$PopperProps;
       var PopperClassName = _props$PopperProps.PopperClassName,
           PopperOther = (0, _objectWithoutProperties3.default)(_props$PopperProps, ['PopperClassName']),
-          other = (0, _objectWithoutProperties3.default)(_props, ['children', 'classes', 'className', 'disableTriggerFocus', 'disableTriggerHover', 'disableTriggerTouch', 'enterDelay', 'id', 'leaveDelay', 'open', 'onRequestClose', 'onRequestOpen', 'title', 'placement', 'PopperProps']);
+          other = (0, _objectWithoutProperties3.default)(_props, ['children', 'classes', 'className', 'disableTriggerFocus', 'disableTriggerHover', 'disableTriggerTouch', 'enterDelay', 'id', 'leaveDelay', 'open', 'onRequestClose', 'onRequestOpen', 'theme', 'title', 'placement', 'PopperProps']);
 
 
+      var placement = theme.direction === 'rtl' ? flipPlacement(rawPlacement) : rawPlacement;
       var open = this.isControlled ? openProp : this.state.open;
       var childrenProps = {};
 
@@ -412,4 +430,4 @@ Tooltip.defaultProps = {
   leaveDelay: 0,
   placement: 'bottom'
 };
-exports.default = (0, _withStyles2.default)(styles, { name: 'MuiTooltip' })(Tooltip);
+exports.default = (0, _withStyles2.default)(styles, { name: 'MuiTooltip', withTheme: true })(Tooltip);

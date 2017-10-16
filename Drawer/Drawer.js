@@ -207,7 +207,7 @@ var Drawer = function (_React$Component) {
           other = (0, _objectWithoutProperties3.default)(_props, ['anchor', 'children', 'classes', 'className', 'elevation', 'transitionDuration', 'ModalProps', 'onRequestClose', 'open', 'SlideProps', 'theme', 'type']);
 
 
-      var rtl = theme.dir === 'rtl';
+      var rtl = theme.direction === 'rtl';
       var anchor = anchorProp;
       if (rtl && ['left', 'right'].includes(anchor)) {
         anchor = anchor === 'left' ? 'right' : 'left';
@@ -276,4 +276,4 @@ Drawer.defaultProps = {
   open: false,
   type: 'temporary' // Mobile first.
 };
-exports.default = (0, _withStyles2.default)(styles, { withTheme: true, name: 'MuiDrawer' })(Drawer);
+exports.default = (0, _withStyles2.default)(styles, { flip: false, withTheme: true, name: 'MuiDrawer' })(Drawer);

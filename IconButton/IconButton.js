@@ -138,7 +138,7 @@ function IconButton(props) {
         { className: classes.icon },
         children
       ) : _react2.default.Children.map(children, function (child) {
-        if ((0, _reactHelpers.isMuiElement)(child, ['Icon'])) {
+        if ((0, _reactHelpers.isMuiElement)(child, ['Icon', 'SvgIcon'])) {
           return _react2.default.cloneElement(child, {
             className: (0, _classnames2.default)(classes.icon, child.props.className)
           });

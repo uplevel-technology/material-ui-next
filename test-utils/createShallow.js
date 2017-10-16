@@ -22,9 +22,9 @@ var _until2 = _interopRequireDefault(_until);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// Generate an enhanced shallow function.
-//  weak
+var babelPluginFlowReactPropTypes_proptype_Element = require('react').babelPluginFlowReactPropTypes_proptype_Element || require('prop-types').any; //  weak
 
+// Generate an enhanced shallow function.
 function createShallow() {
   var options1 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var _options1$shallow = options1.shallow,
@@ -39,16 +39,18 @@ function createShallow() {
   var shallowWithContext = function shallowWithContext(node) {
     var options2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-    var wrapper = shallow(node, (0, _extends3.default)({}, other1, options2, {
+    var options = (0, _extends3.default)({}, other1, options2, {
       context: (0, _extends3.default)({}, other1.context, options2.context)
-    }));
+    });
+
+    var wrapper = shallow(node, options);
 
     if (dive) {
       return wrapper.dive();
     }
 
     if (untilSelector) {
-      return _until2.default.call(wrapper, untilSelector);
+      return _until2.default.call(wrapper, untilSelector, options);
     }
 
     return wrapper;

@@ -40,7 +40,8 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   mdDown: require('prop-types').bool,
   lgDown: require('prop-types').bool,
   xlDown: require('prop-types').bool,
-  implementation: require('prop-types').oneOf(['js', 'css'])
+  implementation: require('prop-types').oneOf(['js', 'css']),
+  initialWidth: require('prop-types').number
 };
 
 

@@ -13,6 +13,10 @@ var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProp
 
 var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
+var _isNan = require('babel-runtime/core-js/number/is-nan');
+
+var _isNan2 = _interopRequireDefault(_isNan);
+
 var _warning = require('warning');
 
 var _warning2 = _interopRequireDefault(_warning);
@@ -59,7 +63,7 @@ var isString = exports.isString = function isString(value) {
   return typeof value === 'string';
 };
 var isNumber = exports.isNumber = function isNumber(value) {
-  return !isNaN(parseFloat(value));
+  return !(0, _isNan2.default)(parseFloat(value));
 };
 
 /**

@@ -78,6 +78,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   classes: require('prop-types').object,
   className: require('prop-types').string,
   disabled: require('prop-types').bool,
+  displayEmpty: require('prop-types').bool.isRequired,
   native: require('prop-types').bool.isRequired,
   multiple: require('prop-types').bool.isRequired,
   MenuProps: require('prop-types').object,
@@ -207,6 +208,7 @@ var SelectInput = function (_React$Component) {
           classNameProp = _props.className,
           classes = _props.classes,
           disabled = _props.disabled,
+          displayEmpty = _props.displayEmpty,
           name = _props.name,
           native = _props.native,
           multiple = _props.multiple,
@@ -219,11 +221,13 @@ var SelectInput = function (_React$Component) {
           renderValue = _props.renderValue,
           selectRef = _props.selectRef,
           value = _props.value,
-          other = (0, _objectWithoutProperties3.default)(_props, ['autoWidth', 'children', 'className', 'classes', 'disabled', 'name', 'native', 'multiple', 'MenuProps', 'onBlur', 'onChange', 'onFocus', 'readOnly', 'renderValue', 'selectRef', 'value']);
+          other = (0, _objectWithoutProperties3.default)(_props, ['autoWidth', 'children', 'className', 'classes', 'disabled', 'displayEmpty', 'name', 'native', 'multiple', 'MenuProps', 'onBlur', 'onChange', 'onFocus', 'readOnly', 'renderValue', 'selectRef', 'value']);
 
 
       if (native) {
         process.env.NODE_ENV !== "production" ? (0, _warning2.default)(multiple === false, 'Material-UI: you can not use the `native` and `multiple` properties ' + 'at the same time on a `Select` component.') : void 0;
+        process.env.NODE_ENV !== "production" ? (0, _warning2.default)(!renderValue, 'Material-UI: the `renderValue` property is not used by the native implementation.') : void 0;
+        process.env.NODE_ENV !== "production" ? (0, _warning2.default)(!displayEmpty, 'Material-UI: the `displayEmpty` property is not used by the native implementation.') : void 0;
 
         return _react2.default.createElement(
           'div',
@@ -257,7 +261,7 @@ var SelectInput = function (_React$Component) {
       var computeDisplay = false;
 
       // No need to display any value if the field is empty.
-      if ((0, _Input.isDirty)(this.props)) {
+      if ((0, _Input.isDirty)(this.props) || displayEmpty) {
         if (renderValue) {
           display = renderValue(value);
         } else {

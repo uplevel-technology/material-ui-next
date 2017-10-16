@@ -43,7 +43,8 @@ var styles = exports.styles = {
     flexWrap: 'wrap',
     overflowY: 'auto',
     listStyle: 'none',
-    padding: 0
+    padding: 0,
+    WebkitOverflowScrolling: 'touch' // Add iOS momentum scrolling.
   }
 };
 

@@ -10,20 +10,25 @@ import { StyledComponent } from '..';
  * here.
  */
 export type TableCellProps = {
-  checkbox?: boolean;
-  compact?: boolean;
-  disablePadding?: boolean;
+  padding?: Padding;
   numeric?: boolean;
 } & React.ThHTMLAttributes<HTMLTableHeaderCellElement> &
   React.TdHTMLAttributes<HTMLTableDataCellElement>;
+
+export type Padding =
+  | 'default'
+  | 'checkbox'
+  | 'dense'
+  | 'none'
+  ;
 
 export type TableCellClassKey =
   | 'root'
   | 'numeric'
   | 'head'
-  | 'padding'
-  | 'compact'
-  | 'checkbox'
+  | 'paddingDefault'
+  | 'paddingCompact'
+  | 'paddingCheckbox'
   | 'footer'
   ;
 
