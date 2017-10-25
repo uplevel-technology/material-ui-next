@@ -48,7 +48,7 @@ var _debounce = require('lodash/debounce');
 
 var _debounce2 = _interopRequireDefault(_debounce);
 
-var _Transition = require('../internal/Transition');
+var _Transition = require('react-transition-group/Transition');
 
 var _Transition2 = _interopRequireDefault(_Transition);
 
@@ -61,27 +61,28 @@ var _transitions = require('../styles/transitions');
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var babelPluginFlowReactPropTypes_proptype_Element = require('react').babelPluginFlowReactPropTypes_proptype_Element || require('prop-types').any;
+// @inheritedComponent Transition
 
-var babelPluginFlowReactPropTypes_proptype_TransitionCallback = require('../internal/Transition').babelPluginFlowReactPropTypes_proptype_TransitionCallback || require('prop-types').any;
+var babelPluginFlowReactPropTypes_proptype_TransitionCallback = require('../internal/transition').babelPluginFlowReactPropTypes_proptype_TransitionCallback || require('prop-types').any;
 
-var babelPluginFlowReactPropTypes_proptype_TransitionDuration = require('../internal/Transition').babelPluginFlowReactPropTypes_proptype_TransitionDuration || require('prop-types').any;
+var babelPluginFlowReactPropTypes_proptype_TransitionDuration = require('../internal/transition').babelPluginFlowReactPropTypes_proptype_TransitionDuration || require('prop-types').any;
 
 var GUTTER = 24;
 
-// Translate the element so he can't be seen in the screen.
-// Later, we gonna translate back the element to his original location
+// Translate the node so he can't be seen on the screen.
+// Later, we gonna translate back the node to his original location
 // with `translate3d(0, 0, 0)`.`
-function getTranslateValue(props, element) {
+function getTranslateValue(props, node) {
   var direction = props.direction;
 
-  var rect = element.getBoundingClientRect();
+  var rect = node.getBoundingClientRect();
 
   var transform = void 0;
 
-  if (element.fakeTransform) {
-    transform = element.fakeTransform;
+  if (node.fakeTransform) {
+    transform = node.fakeTransform;
   } else {
-    var computedStyle = window.getComputedStyle(element);
+    var computedStyle = window.getComputedStyle(node);
     transform = computedStyle.getPropertyValue('-webkit-transform') || computedStyle.getPropertyValue('transform');
   }
 
@@ -97,7 +98,7 @@ function getTranslateValue(props, element) {
   if (direction === 'left') {
     return 'translateX(100vw) translateX(-' + (rect.left - offsetX) + 'px)';
   } else if (direction === 'right') {
-    return 'translateX(-' + (rect.left + rect.width + GUTTER) + 'px)';
+    return 'translateX(-' + (rect.left + rect.width + GUTTER - offsetX) + 'px)';
   } else if (direction === 'up') {
     return 'translateY(100vh) translateY(-' + (rect.top - offsetY) + 'px)';
   }
@@ -106,29 +107,35 @@ function getTranslateValue(props, element) {
   return 'translate3d(0, ' + (0 - (rect.top + rect.height)) + 'px, 0)';
 }
 
-function setTranslateValue(props, element) {
-  var transform = getTranslateValue(props, element);
+function setTranslateValue(props, node) {
+  var transform = getTranslateValue(props, node);
 
   if (transform) {
-    element.style.transform = transform;
-    element.style.webkitTransform = transform;
+    node.style.transform = transform;
+    node.style.webkitTransform = transform;
   }
 }
 
 var babelPluginFlowReactPropTypes_proptype_Direction = require('prop-types').oneOf(['left', 'right', 'up', 'down']);
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
-  children: typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element),
+  children: typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element.isRequired ? babelPluginFlowReactPropTypes_proptype_Element.isRequired : babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element).isRequired,
   direction: require('prop-types').oneOf(['left', 'right', 'up', 'down']),
-  in: require('prop-types').bool,
+  in: require('prop-types').bool.isRequired,
   onEnter: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
   onEntering: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
   onEntered: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
   onExit: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
   onExiting: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
   onExited: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
-  transitionDuration: typeof babelPluginFlowReactPropTypes_proptype_TransitionDuration === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionDuration : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionDuration),
+  style: require('prop-types').object,
+  timeout: typeof babelPluginFlowReactPropTypes_proptype_TransitionDuration === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionDuration : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionDuration),
   theme: require('prop-types').object
+};
+
+
+var reflow = function reflow(node) {
+  return node.scrollTop;
 };
 
 var Slide = function (_React$Component) {
@@ -145,63 +152,63 @@ var Slide = function (_React$Component) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = Slide.__proto__ || (0, _getPrototypeOf2.default)(Slide)).call.apply(_ref, [this].concat(args))), _this), _this.transition = null, _this.handleResize = (0, _debounce2.default)(function () {
+    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = Slide.__proto__ || (0, _getPrototypeOf2.default)(Slide)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+      // We use this state to handle the server-side rendering.
+      firstMount: true
+    }, _this.transition = null, _this.firstRender = false, _this.handleResize = (0, _debounce2.default)(function () {
       // Skip configuration where the position is screen size invariant.
       if (_this.props.in || _this.props.direction === 'down' || _this.props.direction === 'right') {
         return;
       }
 
-      var element = (0, _reactDom.findDOMNode)(_this.transition);
-      if (element instanceof HTMLElement) {
-        setTranslateValue(_this.props, element);
+      var node = (0, _reactDom.findDOMNode)(_this.transition);
+      if (node instanceof HTMLElement) {
+        setTranslateValue(_this.props, node);
       }
-    }, 166), _this.handleEnter = function (element) {
-      // Reset the transformation when needed.
-      // This is triggering a reflow.
-      if (element.style.transform) {
-        element.style.transform = 'translate3d(0, 0, 0)';
-        element.style.webkitTransform = 'translate3d(0, 0, 0)';
-      }
-      setTranslateValue(_this.props, element);
+    }, 166), _this.handleEnter = function (node) {
+      setTranslateValue(_this.props, node);
+      reflow(node);
 
       if (_this.props.onEnter) {
-        _this.props.onEnter(element);
+        _this.props.onEnter(node);
       }
-    }, _this.handleEntering = function (element) {
+    }, _this.handleEntering = function (node) {
       var _this$props = _this.props,
           theme = _this$props.theme,
-          transitionDuration = _this$props.transitionDuration;
+          timeout = _this$props.timeout;
 
-      element.style.transition = theme.transitions.create('transform', {
-        duration: typeof transitionDuration === 'number' ? transitionDuration : transitionDuration.enter,
+      node.style.transition = theme.transitions.create('transform', {
+        duration: typeof timeout === 'number' ? timeout : timeout.enter,
         easing: theme.transitions.easing.easeOut
       });
-      element.style.webkitTransition = theme.transitions.create('-webkit-transform', {
-        duration: typeof transitionDuration === 'number' ? transitionDuration : transitionDuration.enter,
+      // $FlowFixMe - https://github.com/facebook/flow/pull/5161
+      node.style.webkitTransition = theme.transitions.create('-webkit-transform', {
+        duration: typeof timeout === 'number' ? timeout : timeout.enter,
         easing: theme.transitions.easing.easeOut
       });
-      element.style.transform = 'translate3d(0, 0, 0)';
-      element.style.webkitTransform = 'translate3d(0, 0, 0)';
+      node.style.transform = 'translate3d(0, 0, 0)';
+      node.style.webkitTransform = 'translate3d(0, 0, 0)';
       if (_this.props.onEntering) {
-        _this.props.onEntering(element);
+        _this.props.onEntering(node);
       }
-    }, _this.handleExit = function (element) {
+    }, _this.handleExit = function (node) {
       var _this$props2 = _this.props,
           theme = _this$props2.theme,
-          transitionDuration = _this$props2.transitionDuration;
+          timeout = _this$props2.timeout;
 
-      element.style.transition = theme.transitions.create('transform', {
-        duration: typeof transitionDuration === 'number' ? transitionDuration : transitionDuration.exit,
+      node.style.transition = theme.transitions.create('transform', {
+        duration: typeof timeout === 'number' ? timeout : timeout.exit,
         easing: theme.transitions.easing.sharp
       });
-      element.style.webkitTransition = theme.transitions.create('-webkit-transform', {
-        duration: typeof transitionDuration === 'number' ? transitionDuration : transitionDuration.exit,
+      // $FlowFixMe - https://github.com/facebook/flow/pull/5161
+      node.style.webkitTransition = theme.transitions.create('-webkit-transform', {
+        duration: typeof timeout === 'number' ? timeout : timeout.exit,
         easing: theme.transitions.easing.sharp
       });
-      setTranslateValue(_this.props, element);
+      setTranslateValue(_this.props, node);
 
       if (_this.props.onExit) {
-        _this.props.onExit(element);
+        _this.props.onExit(node);
       }
     }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
   }
@@ -214,9 +221,17 @@ var Slide = function (_React$Component) {
         // otherwise component will be shown when in=false.
         var element = (0, _reactDom.findDOMNode)(this.transition);
         if (element instanceof HTMLElement) {
+          element.style.visibility = 'visible';
           setTranslateValue(this.props, element);
         }
       }
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps() {
+      this.setState({
+        firstMount: false
+      });
     }
   }, {
     key: 'componentWillUnmount',
@@ -233,10 +248,16 @@ var Slide = function (_React$Component) {
           onEnter = _props.onEnter,
           onEntering = _props.onEntering,
           onExit = _props.onExit,
-          transitionDuration = _props.transitionDuration,
+          styleProp = _props.style,
           theme = _props.theme,
-          other = (0, _objectWithoutProperties3.default)(_props, ['children', 'onEnter', 'onEntering', 'onExit', 'transitionDuration', 'theme']);
+          other = (0, _objectWithoutProperties3.default)(_props, ['children', 'onEnter', 'onEntering', 'onExit', 'style', 'theme']);
 
+
+      var style = (0, _extends3.default)({}, styleProp);
+
+      if (!this.props.in && this.state.firstMount) {
+        style.visibility = 'hidden';
+      }
 
       return _react2.default.createElement(
         _reactEventListener2.default,
@@ -247,12 +268,13 @@ var Slide = function (_React$Component) {
             onEnter: this.handleEnter,
             onEntering: this.handleEntering,
             onExit: this.handleExit,
-            timeout: transitionDuration,
-            transitionAppear: true,
+            appear: true,
+            style: style
+          }, other, {
             ref: function ref(node) {
               _this2.transition = node;
             }
-          }, other),
+          }),
           children
         )
       );
@@ -263,7 +285,7 @@ var Slide = function (_React$Component) {
 
 Slide.defaultProps = {
   direction: 'down',
-  transitionDuration: {
+  timeout: {
     enter: _transitions.duration.enteringScreen,
     exit: _transitions.duration.leavingScreen
   }

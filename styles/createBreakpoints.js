@@ -36,7 +36,7 @@ function createBreakpoints(breakpoints) {
       _breakpoints$unit = breakpoints.unit,
       unit = _breakpoints$unit === undefined ? 'px' : _breakpoints$unit,
       _breakpoints$step = breakpoints.step,
-      step = _breakpoints$step === undefined ? 1 : _breakpoints$step,
+      step = _breakpoints$step === undefined ? 5 : _breakpoints$step,
       other = (0, _objectWithoutProperties3.default)(breakpoints, ['values', 'unit', 'step']);
 
 

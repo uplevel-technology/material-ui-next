@@ -243,13 +243,14 @@ var Textarea = function (_React$Component) {
           value: value
         }),
         _react2.default.createElement('textarea', (0, _extends3.default)({
-          ref: this.handleRefInput,
           rows: rows,
           className: (0, _classnames2.default)(classes.textarea, className),
           defaultValue: defaultValue,
           value: value,
           onChange: this.handleChange
-        }, other))
+        }, other, {
+          ref: this.handleRefInput
+        }))
       );
     }
   }]);

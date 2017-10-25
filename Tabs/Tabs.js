@@ -13,6 +13,10 @@ var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProp
 
 var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
+var _isNan = require('babel-runtime/core-js/number/is-nan');
+
+var _isNan2 = _interopRequireDefault(_isNan);
+
 var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
@@ -145,9 +149,6 @@ var babelPluginFlowReactPropTypes_proptype_TabsMeta = {
   right: require('prop-types').number.isRequired
 };
 
-/**
- * Notice that this Component is incompatible with server side rendering.
- */
 var Tabs = function (_React$Component) {
   (0, _inherits3.default)(Tabs, _React$Component);
 
@@ -322,10 +323,13 @@ var Tabs = function (_React$Component) {
     key: 'componentDidUpdate',
     value: function componentDidUpdate(prevProps, prevState) {
       this.updateScrollButtonState();
+
+      // The index might have changed at the same time.
+      // We need to check again the right indicator position.
+      this.updateIndicatorState(this.props);
+
       if (this.state.indicatorStyle !== prevState.indicatorStyle) {
         this.scrollSelectedIntoView();
-      } else {
-        this.updateIndicatorState(this.props);
       }
     }
   }, {
@@ -357,7 +361,7 @@ var Tabs = function (_React$Component) {
         width: tabMeta ? tabMeta.width : 0
       };
 
-      if (indicatorStyle.left !== this.state.indicatorStyle.left || indicatorStyle.width !== this.state.indicatorStyle.width) {
+      if ((indicatorStyle.left !== this.state.indicatorStyle.left || indicatorStyle.width !== this.state.indicatorStyle.width) && !(0, _isNan2.default)(indicatorStyle.left) && !(0, _isNan2.default)(indicatorStyle.width)) {
         this.setState({ indicatorStyle: indicatorStyle });
       }
     }

@@ -54,6 +54,11 @@ var _exactProp2 = _interopRequireDefault(_exactProp);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * This component takes a `theme` property.
+ * It makes the `theme` available down the React tree thanks to React context.
+ * This component should preferably be used at **the root of your component tree**.
+ */
 var MuiThemeProvider = function (_React$Component) {
   (0, _inherits3.default)(MuiThemeProvider, _React$Component);
 
@@ -75,13 +80,12 @@ var MuiThemeProvider = function (_React$Component) {
   (0, _createClass3.default)(MuiThemeProvider, [{
     key: 'getChildContext',
     value: function getChildContext() {
-      if (this.props.sheetsManager) {
-        var _ref;
+      var _ref;
 
-        return _ref = {}, (0, _defineProperty3.default)(_ref, _themeListener.CHANNEL, this.broadcast), (0, _defineProperty3.default)(_ref, 'sheetsManager', this.props.sheetsManager), _ref;
-      }
-
-      return (0, _defineProperty3.default)({}, _themeListener.CHANNEL, this.broadcast);
+      return _ref = {}, (0, _defineProperty3.default)(_ref, _themeListener.CHANNEL, this.broadcast), (0, _defineProperty3.default)(_ref, 'muiThemeProviderOptions', {
+        sheetsManager: this.props.sheetsManager,
+        disableStylesGeneration: this.props.disableStylesGeneration
+      }), _ref;
     }
   }, {
     key: 'componentDidMount',
@@ -138,15 +142,30 @@ var MuiThemeProvider = function (_React$Component) {
   return MuiThemeProvider;
 }(_react2.default.Component);
 
+MuiThemeProvider.defaultProps = {
+  disableStylesGeneration: false,
+  sheetsManager: null
+};
+
+
 MuiThemeProvider.propTypes = process.env.NODE_ENV !== "production" ? {
   /**
    * You can only provide a single element.
    */
   children: _propTypes2.default.element.isRequired,
   /**
-   * The sheetsManager is used in order to only inject once a style sheet in a page for
-   * a given theme object.
-   * You should provide on the server.
+   * You can disable the generation of the styles with this option.
+   * It can be useful when traversing the React tree outside of the HTML
+   * rendering step on the server.
+   * Let's say you are using react-apollo to extract all
+   * the queries made by the interface server side.
+   * You can significantly speed up the traversal with this property.
+   */
+  disableStylesGeneration: _propTypes2.default.bool,
+  /**
+   * The sheetsManager is used to deduplicate style sheet injection in the page.
+   * It's deduplicating using the (theme, styles) couple.
+   * On the server, you should provide a new instance for each request.
    */
   sheetsManager: _propTypes2.default.object,
   /**
@@ -156,7 +175,7 @@ MuiThemeProvider.propTypes = process.env.NODE_ENV !== "production" ? {
 } : {};
 
 MuiThemeProvider.childContextTypes = (0, _extends3.default)({}, _themeListener2.default.contextTypes, {
-  sheetsManager: _propTypes2.default.object
+  muiThemeProviderOptions: _propTypes2.default.object
 });
 
 MuiThemeProvider.contextTypes = _themeListener2.default.contextTypes;

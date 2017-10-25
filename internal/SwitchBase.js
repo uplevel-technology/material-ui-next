@@ -234,12 +234,6 @@ function createSwitch() {
           }, other),
           icon,
           _react2.default.createElement('input', (0, _extends3.default)({
-            ref: function ref(node) {
-              _this2.input = node;
-              if (inputRef) {
-                inputRef(node);
-              }
-            },
             type: inputType,
             name: name,
             checked: this.isControlled ? checkedProp : undefined,
@@ -248,7 +242,14 @@ function createSwitch() {
             disabled: disabled,
             tabIndex: tabIndex,
             value: value
-          }, inputProps))
+          }, inputProps, {
+            ref: function ref(node) {
+              _this2.input = node;
+              if (inputRef) {
+                inputRef(node);
+              }
+            }
+          }))
         );
       }
     }]);

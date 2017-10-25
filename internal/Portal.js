@@ -130,7 +130,6 @@ var Portal = function (_React$Component) {
         // funnels React's hierarchical updates through to a DOM node on an
         // entirely different part of the page.
         var layerElement = _react2.default.Children.only(children);
-        // $FlowFixMe
         _reactDom2.default.unstable_renderSubtreeIntoContainer(this, layerElement, this.getLayer());
       } else {
         this.unrenderLayer();

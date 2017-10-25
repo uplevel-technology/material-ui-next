@@ -242,9 +242,7 @@ var Chip = function (_React$Component) {
       if (avatarProp && _react2.default.isValidElement(avatarProp)) {
         // $FlowFixMe - this looks strictly correct, not sure why it errors.
         avatar = _react2.default.cloneElement(avatarProp, {
-          // $FlowFixMe - this looks strictly correct, not sure why it errors.
           className: (0, _classnames2.default)(classes.avatar, avatarProp.props.className),
-          // $FlowFixMe - this looks strictly correct, not sure why it errors.
           childrenClassName: (0, _classnames2.default)(classes.avatarChildren, avatarProp.props.childrenClassName)
         });
       }
@@ -262,11 +260,12 @@ var Chip = function (_React$Component) {
           className: className,
           tabIndex: tabIndex,
           onClick: onClick,
-          onKeyDown: this.handleKeyDown,
+          onKeyDown: this.handleKeyDown
+        }, other, {
           ref: function ref(node) {
             _this2.chipRef = node;
           }
-        }, other),
+        }),
         avatar,
         _react2.default.createElement(
           'span',

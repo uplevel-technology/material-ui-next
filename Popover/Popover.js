@@ -41,10 +41,6 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
 var _warning = require('warning');
 
 var _warning2 = _interopRequireDefault(_warning);
@@ -81,7 +77,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFlowReactPropTypes_proptype_Node || require('prop-types').any;
 
-var babelPluginFlowReactPropTypes_proptype_TransitionCallback = require('../internal/Transition').babelPluginFlowReactPropTypes_proptype_TransitionCallback || require('prop-types').any;
+var babelPluginFlowReactPropTypes_proptype_TransitionClasses = require('../internal/transition').babelPluginFlowReactPropTypes_proptype_TransitionClasses || require('prop-types').any;
+
+var babelPluginFlowReactPropTypes_proptype_TransitionCallback = require('../internal/transition').babelPluginFlowReactPropTypes_proptype_TransitionCallback || require('prop-types').any;
 
 function getOffsetTop(rect, vertical) {
   var offset = 0;
@@ -152,13 +150,9 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   }),
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node.isRequired ? babelPluginFlowReactPropTypes_proptype_Node.isRequired : babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node).isRequired,
   classes: require('prop-types').object,
-  className: require('prop-types').string,
   elevation: require('prop-types').number,
-  enteredClassName: require('prop-types').string,
-  enteringClassName: require('prop-types').string,
-  exitedClassName: require('prop-types').string,
-  exitingClassName: require('prop-types').string,
   getContentAnchorEl: require('prop-types').func,
+  marginThreshold: require('prop-types').number,
   onEnter: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
   onEntering: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
   onEntered: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
@@ -166,14 +160,18 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   onExiting: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
   onExited: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
   onRequestClose: require('prop-types').func,
-  open: require('prop-types').bool,
+  open: require('prop-types').bool.isRequired,
   PaperProps: require('prop-types').object,
   role: require('prop-types').string,
   transformOrigin: require('prop-types').shape({
     horizontal: require('prop-types').oneOfType([require('prop-types').oneOf(['left']), require('prop-types').oneOf(['center']), require('prop-types').oneOf(['right']), require('prop-types').number]).isRequired,
     vertical: require('prop-types').oneOfType([require('prop-types').oneOf(['top']), require('prop-types').oneOf(['center']), require('prop-types').oneOf(['bottom']), require('prop-types').number]).isRequired
   }),
-  transitionDuration: require('prop-types').oneOfType([require('prop-types').number, require('prop-types').oneOf(['auto'])])
+  transitionClasses: typeof babelPluginFlowReactPropTypes_proptype_TransitionClasses === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionClasses : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionClasses),
+  transitionDuration: require('prop-types').oneOfType([require('prop-types').number, require('prop-types').shape({
+    enter: require('prop-types').number,
+    exit: require('prop-types').number
+  }), require('prop-types').oneOf(['auto'])])
 };
 
 var Popover = function (_React$Component) {
@@ -209,23 +207,21 @@ var Popover = function (_React$Component) {
     }, _this.handleResize = (0, _debounce2.default)(function () {
       var element = _reactDom2.default.findDOMNode(_this.transitionEl);
       _this.setPositioningStyles(element);
-    }, 166), _this.marginThreshold = 16, _this.handleGetOffsetTop = getOffsetTop, _this.handleGetOffsetLeft = getOffsetLeft, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
-  }
+    }, 166), _this.getPositioningStyle = function (element) {
+      var marginThreshold = _this.props.marginThreshold;
 
-  (0, _createClass3.default)(Popover, [{
-    key: 'getPositioningStyle',
-    value: function getPositioningStyle(element) {
       // Check if the parent has requested anchoring on an inner content node
-      var contentAnchorOffset = this.getContentAnchorOffset(element);
+
+      var contentAnchorOffset = _this.getContentAnchorOffset(element);
       // Get the offset of of the anchoring element
-      var anchorOffset = this.getAnchorOffset(contentAnchorOffset);
+      var anchorOffset = _this.getAnchorOffset(contentAnchorOffset);
 
       var elemRect = {
         width: element.clientWidth,
         height: element.clientHeight
       };
       // Get the transform origin point on the element itself
-      var transformOrigin = this.getTransformOrigin(elemRect, contentAnchorOffset);
+      var transformOrigin = _this.getTransformOrigin(elemRect, contentAnchorOffset);
 
       // Calculate element positioning
       var top = anchorOffset.top - transformOrigin.vertical;
@@ -234,12 +230,12 @@ var Popover = function (_React$Component) {
       var right = left + elemRect.width;
 
       // Window thresholds taking required margin into account
-      var heightThreshold = window.innerHeight - this.marginThreshold;
-      var widthThreshold = window.innerWidth - this.marginThreshold;
+      var heightThreshold = window.innerHeight - marginThreshold;
+      var widthThreshold = window.innerWidth - marginThreshold;
 
       // Check if the vertical axis needs shifting
-      if (top < this.marginThreshold) {
-        var diff = top - this.marginThreshold;
+      if (top < marginThreshold) {
+        var diff = top - marginThreshold;
         top -= diff;
         transformOrigin.vertical += diff;
       } else if (bottom > heightThreshold) {
@@ -249,8 +245,8 @@ var Popover = function (_React$Component) {
       }
 
       // Check if the horizontal axis needs shifting
-      if (left < this.marginThreshold) {
-        var _diff2 = left - this.marginThreshold;
+      if (left < marginThreshold) {
+        var _diff2 = left - marginThreshold;
         left -= _diff2;
         transformOrigin.horizontal += _diff2;
       } else if (right > widthThreshold) {
@@ -264,8 +260,10 @@ var Popover = function (_React$Component) {
         left: left + 'px',
         transformOrigin: getTransformOriginValue(transformOrigin)
       };
-    }
-  }, {
+    }, _this.handleGetOffsetTop = getOffsetTop, _this.handleGetOffsetLeft = getOffsetLeft, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
+  }
+
+  (0, _createClass3.default)(Popover, [{
     key: 'getAnchorOffset',
 
 
@@ -303,7 +301,7 @@ var Popover = function (_React$Component) {
         }
 
         // != the default value
-        process.env.NODE_ENV !== "production" ? (0, _warning2.default)(this.props.anchorOrigin.vertical === 'top', ['Material-UI: you can change the `anchorOrigin.vertical` value when also ', 'providing the `getContentAnchorEl` property. Pick one.'].join()) : void 0;
+        process.env.NODE_ENV !== "production" ? (0, _warning2.default)(this.props.anchorOrigin.vertical === 'top', ['Material-UI: you can not change the `anchorOrigin.vertical` value when also ', 'providing the `getContentAnchorEl` property. Pick one.'].join()) : void 0;
       }
 
       return contentAnchorOffset;
@@ -333,13 +331,9 @@ var Popover = function (_React$Component) {
           anchorOrigin = _props2.anchorOrigin,
           children = _props2.children,
           classes = _props2.classes,
-          className = _props2.className,
           elevation = _props2.elevation,
-          enteredClassName = _props2.enteredClassName,
-          enteringClassName = _props2.enteringClassName,
-          exitedClassName = _props2.exitedClassName,
-          exitingClassName = _props2.exitingClassName,
           getContentAnchorEl = _props2.getContentAnchorEl,
+          marginThreshold = _props2.marginThreshold,
           onEnter = _props2.onEnter,
           onEntering = _props2.onEntering,
           onEntered = _props2.onEntered,
@@ -350,21 +344,19 @@ var Popover = function (_React$Component) {
           PaperProps = _props2.PaperProps,
           role = _props2.role,
           transformOrigin = _props2.transformOrigin,
+          transitionClasses = _props2.transitionClasses,
           transitionDuration = _props2.transitionDuration,
-          other = (0, _objectWithoutProperties3.default)(_props2, ['anchorEl', 'anchorOrigin', 'children', 'classes', 'className', 'elevation', 'enteredClassName', 'enteringClassName', 'exitedClassName', 'exitingClassName', 'getContentAnchorEl', 'onEnter', 'onEntering', 'onEntered', 'onExit', 'onExiting', 'onExited', 'open', 'PaperProps', 'role', 'transformOrigin', 'transitionDuration']);
+          other = (0, _objectWithoutProperties3.default)(_props2, ['anchorEl', 'anchorOrigin', 'children', 'classes', 'elevation', 'getContentAnchorEl', 'marginThreshold', 'onEnter', 'onEntering', 'onEntered', 'onExit', 'onExiting', 'onExited', 'open', 'PaperProps', 'role', 'transformOrigin', 'transitionClasses', 'transitionDuration']);
 
 
       return _react2.default.createElement(
         _Modal2.default,
-        (0, _extends3.default)({ show: open, backdropInvisible: true }, other),
+        (0, _extends3.default)({ show: open, BackdropInvisible: true }, other),
         _react2.default.createElement(
           _Grow2.default,
           {
+            appear: true,
             'in': open,
-            enteredClassName: enteredClassName,
-            enteringClassName: enteringClassName,
-            exitedClassName: exitedClassName,
-            exitingClassName: exitingClassName,
             onEnter: this.handleEnter,
             onEntering: onEntering,
             onEntered: onEntered,
@@ -372,8 +364,8 @@ var Popover = function (_React$Component) {
             onExiting: onExiting,
             onExited: onExited,
             role: role,
-            transitionAppear: true,
-            transitionDuration: transitionDuration,
+            transitionClasses: transitionClasses,
+            timeout: transitionDuration,
             rootRef: function rootRef(node) {
               _this2.transitionEl = node;
             }
@@ -381,7 +373,7 @@ var Popover = function (_React$Component) {
           _react2.default.createElement(
             _Paper2.default,
             (0, _extends3.default)({
-              className: (0, _classnames2.default)(classes.paper, className),
+              className: classes.paper,
               elevation: elevation
             }, PaperProps),
             _react2.default.createElement(_reactEventListener2.default, { target: 'window', onResize: this.handleResize }),
@@ -399,12 +391,12 @@ Popover.defaultProps = {
     vertical: 'top',
     horizontal: 'left'
   },
-  open: false,
   transformOrigin: {
     vertical: 'top',
     horizontal: 'left'
   },
   transitionDuration: 'auto',
-  elevation: 8
+  elevation: 8,
+  marginThreshold: 16
 };
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiPopover' })(Popover);

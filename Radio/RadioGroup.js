@@ -127,7 +127,9 @@ var RadioGroup = function (_React$Component) {
             key: index,
             name: name,
             inputRef: function inputRef(node) {
-              _this2.radios.push(node);
+              if (node) {
+                _this2.radios.push(node);
+              }
             },
             checked: value === child.props.value,
             onChange: _this2.handleRadioChange

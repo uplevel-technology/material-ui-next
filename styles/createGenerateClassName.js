@@ -46,7 +46,12 @@ function createGenerateClassName() {
     }
 
     if (sheet && sheet.options.meta) {
-      return sheet.options.meta + '-' + rule.key + '-' + ruleCounter;
+      var meta = sheet.options.meta;
+      // Sanitize the string as will be used in development to prefix the generated
+      // class name.
+      meta = meta.replace(new RegExp(/[!"#$%&'()*+,./:; <=>?@[\\\]^`{|}~]/g), '-');
+
+      return meta + '-' + rule.key + '-' + ruleCounter;
     }
 
     return rule.key + '-' + ruleCounter;

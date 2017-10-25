@@ -128,7 +128,7 @@ var List = function (_React$Component) {
 
       return _react2.default.createElement(
         ComponentProp,
-        (0, _extends3.default)({ ref: rootRef, className: className }, other),
+        (0, _extends3.default)({ className: className }, other, { ref: rootRef }),
         subheader,
         children
       );

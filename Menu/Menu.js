@@ -64,7 +64,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFlowReactPropTypes_proptype_Node || require('prop-types').any;
 // @inheritedComponent Popover
 
-var babelPluginFlowReactPropTypes_proptype_TransitionCallback = require('../internal/Transition').babelPluginFlowReactPropTypes_proptype_TransitionCallback || require('prop-types').any;
+var babelPluginFlowReactPropTypes_proptype_TransitionCallback = require('../internal/transition').babelPluginFlowReactPropTypes_proptype_TransitionCallback || require('prop-types').any;
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
   anchorEl: typeof HTMLElement === 'function' ? require('prop-types').instanceOf(HTMLElement) : require('prop-types').any,
@@ -81,7 +81,10 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   onRequestClose: require('prop-types').func,
   open: require('prop-types').bool,
   theme: require('prop-types').object,
-  transitionDuration: require('prop-types').oneOfType([require('prop-types').number, require('prop-types').oneOf(['auto'])])
+  transitionDuration: require('prop-types').oneOfType([require('prop-types').number, require('prop-types').shape({
+    enter: require('prop-types').number,
+    exit: require('prop-types').number
+  }), require('prop-types').oneOf(['auto'])])
 };
 
 
@@ -221,11 +224,12 @@ var Menu = function (_React$Component) {
           _MenuList2.default,
           (0, _extends3.default)({
             role: 'menu',
+            onKeyDown: this.handleListKeyDown
+          }, MenuListProps, {
             ref: function ref(node) {
               _this2.menuList = node;
-            },
-            onKeyDown: this.handleListKeyDown
-          }, MenuListProps),
+            }
+          }),
           children
         )
       );

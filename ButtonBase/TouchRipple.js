@@ -184,7 +184,9 @@ var TouchRipple = function (_React$Component) {
       var _options$pulsate = options.pulsate,
           pulsate = _options$pulsate === undefined ? false : _options$pulsate,
           _options$center = options.center,
-          center = _options$center === undefined ? _this.props.center || options.pulsate : _options$center;
+          center = _options$center === undefined ? _this.props.center || options.pulsate : _options$center,
+          _options$fakeElement = options.fakeElement,
+          fakeElement = _options$fakeElement === undefined ? false : _options$fakeElement;
 
 
       if (event.type === 'mousedown' && _this.ignoringMouseDown) {
@@ -196,7 +198,7 @@ var TouchRipple = function (_React$Component) {
         _this.ignoringMouseDown = true;
       }
 
-      var element = _reactDom2.default.findDOMNode(_this);
+      var element = fakeElement ? null : _reactDom2.default.findDOMNode(_this);
       var rect = element ? // $FlowFixMe
       element.getBoundingClientRect() : {
         width: 0,

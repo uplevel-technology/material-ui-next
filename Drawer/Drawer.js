@@ -69,7 +69,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFlowReactPropTypes_proptype_Node || require('prop-types').any;
 
-var babelPluginFlowReactPropTypes_proptype_TransitionDuration = require('../internal/Transition').babelPluginFlowReactPropTypes_proptype_TransitionDuration || require('prop-types').any;
+var babelPluginFlowReactPropTypes_proptype_TransitionDuration = require('../internal/transition').babelPluginFlowReactPropTypes_proptype_TransitionDuration || require('prop-types').any;
 
 function getSlideDirection(anchor) {
   if (anchor === 'left') {
@@ -236,8 +236,8 @@ var Drawer = function (_React$Component) {
         (0, _extends3.default)({
           'in': open,
           direction: getSlideDirection(anchor),
-          transitionDuration: transitionDuration,
-          transitionAppear: !this.state.firstMount
+          timeout: transitionDuration,
+          appear: !this.state.firstMount
         }, SlideProps),
         drawer
       );
@@ -254,7 +254,7 @@ var Drawer = function (_React$Component) {
       return _react2.default.createElement(
         _Modal2.default,
         (0, _extends3.default)({
-          backdropTransitionDuration: transitionDuration,
+          BackdropTransitionDuration: transitionDuration,
           className: (0, _classnames2.default)(classes.modal, className),
           show: open,
           onRequestClose: onRequestClose

@@ -190,14 +190,25 @@ var withStyles = function withStyles(stylesOrCreator) {
         _this.state = {};
         _this.unsubscribeId = null;
         _this.jss = null;
-        _this.sheetsManager = null;
+        _this.sheetsManager = sheetsManager;
+        _this.disableStylesGeneration = false;
         _this.stylesCreatorSaved = null;
         _this.theme = null;
         _this.sheetOptions = null;
         _this.theme = null;
+        var muiThemeProviderOptions = _this.context.muiThemeProviderOptions;
+
 
         _this.jss = _this.context[ns.jss] || jss;
-        _this.sheetsManager = _this.context.sheetsManager || sheetsManager;
+
+        if (muiThemeProviderOptions) {
+          if (muiThemeProviderOptions.sheetsManager) {
+            _this.sheetsManager = muiThemeProviderOptions.sheetsManager;
+          }
+
+          _this.disableStylesGeneration = muiThemeProviderOptions.disableStylesGeneration;
+        }
+
         // Attach the stylesCreator to the instance of the component as in the context
         // of react-hot-loader the hooks can be executed in a different closure context:
         // https://github.com/gaearon/react-hot-loader/blob/master/src/patch.dev.js#L107
@@ -253,6 +264,10 @@ var withStyles = function withStyles(stylesOrCreator) {
       }, {
         key: 'attach',
         value: function attach(theme) {
+          if (this.disableStylesGeneration) {
+            return;
+          }
+
           var stylesCreatorSaved = this.stylesCreatorSaved;
           var sheetManager = this.sheetsManager.get(stylesCreatorSaved);
 
@@ -277,9 +292,6 @@ var withStyles = function withStyles(stylesOrCreator) {
 
             if (process.env.NODE_ENV !== 'production') {
               _meta = name || (0, _getDisplayName2.default)(Component);
-              // Sanitize the string as will be used in development to prefix the generated
-              // class name.
-              _meta = _meta.replace(new RegExp(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g), '-');
             }
 
             var sheet = this.jss.createStyleSheet(styles, (0, _extends3.default)({
@@ -304,6 +316,10 @@ var withStyles = function withStyles(stylesOrCreator) {
       }, {
         key: 'detach',
         value: function detach(theme) {
+          if (this.disableStylesGeneration) {
+            return;
+          }
+
           var stylesCreatorSaved = this.stylesCreatorSaved;
           var sheetManager = this.sheetsManager.get(stylesCreatorSaved);
           var sheetManagerTheme = sheetManager.get(theme);
@@ -322,6 +338,8 @@ var withStyles = function withStyles(stylesOrCreator) {
       }, {
         key: 'render',
         value: function render() {
+          var _this3 = this;
+
           var _props = this.props,
               classesProp = _props.classes,
               innerRef = _props.innerRef,
@@ -329,13 +347,17 @@ var withStyles = function withStyles(stylesOrCreator) {
 
 
           var classes = void 0;
-          var sheetManager = this.sheetsManager.get(this.stylesCreatorSaved);
-          var sheetsManagerTheme = sheetManager.get(this.theme);
-          var renderedClasses = sheetsManagerTheme.sheet.classes;
+          var renderedClasses = {};
+
+          if (!this.disableStylesGeneration) {
+            var sheetManager = this.sheetsManager.get(this.stylesCreatorSaved);
+            var sheetsManagerTheme = sheetManager.get(this.theme);
+            renderedClasses = sheetsManagerTheme.sheet.classes;
+          }
 
           if (classesProp) {
             classes = (0, _extends3.default)({}, renderedClasses, (0, _keys2.default)(classesProp).reduce(function (accumulator, key) {
-              process.env.NODE_ENV !== "production" ? (0, _warning2.default)(renderedClasses[key], ['Material-UI: the key `' + key + '` ' + ('provided to the classes property is not implemented in ' + (0, _getDisplayName2.default)(Component) + '.'), 'You can only override one of the following: ' + (0, _keys2.default)(renderedClasses).join(',')].join('\n')) : void 0;
+              process.env.NODE_ENV !== "production" ? (0, _warning2.default)(renderedClasses[key] || _this3.disableStylesGeneration, ['Material-UI: the key `' + key + '` ' + ('provided to the classes property is not implemented in ' + (0, _getDisplayName2.default)(Component) + '.'), 'You can only override one of the following: ' + (0, _keys2.default)(renderedClasses).join(',')].join('\n')) : void 0;
 
               process.env.NODE_ENV !== "production" ? (0, _warning2.default)(!classesProp[key] || typeof classesProp[key] === 'string', ['Material-UI: the key `' + key + '` ' + ('provided to the classes property is not valid for ' + (0, _getDisplayName2.default)(Component) + '.'), 'You need to provide a non empty string instead of: ' + classesProp[key] + '.'].join('\n')) : void 0;
 
@@ -357,14 +379,14 @@ var withStyles = function withStyles(stylesOrCreator) {
             more.theme = this.theme;
           }
 
-          return _react2.default.createElement(Component, (0, _extends3.default)({ classes: classes, ref: innerRef }, more, other));
+          return _react2.default.createElement(Component, (0, _extends3.default)({ classes: classes }, more, other, { ref: innerRef }));
         }
       }]);
       return Style;
     }(_react2.default.Component);
 
     Style.contextTypes = (0, _extends3.default)({
-      sheetsManager: _propTypes2.default.object
+      muiThemeProviderOptions: _propTypes2.default.object
     }, _contextTypes2.default, listenToTheme ? _themeListener2.default.contextTypes : {});
     Style.Naked = Component;
     Style.propTypes = process.env.NODE_ENV !== "production" ? {

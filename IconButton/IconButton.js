@@ -42,11 +42,14 @@ var _Icon = require('../Icon');
 
 var _Icon2 = _interopRequireDefault(_Icon);
 
+require('../SvgIcon');
+
 var _reactHelpers = require('../utils/reactHelpers');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFlowReactPropTypes_proptype_Node || require('prop-types').any;
+var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFlowReactPropTypes_proptype_Node || require('prop-types').any; // Ensure CSS specificity
+
 
 var styles = exports.styles = function styles(theme) {
   return {
@@ -127,9 +130,10 @@ function IconButton(props) {
       className: (0, _classnames2.default)(classes.root, (_classNames = {}, (0, _defineProperty3.default)(_classNames, classes['color' + (0, _helpers.capitalizeFirstLetter)(color)], color !== 'default'), (0, _defineProperty3.default)(_classNames, classes.disabled, disabled), _classNames), className),
       centerRipple: true,
       keyboardFocusedClassName: classes.keyboardFocused,
-      disabled: disabled,
+      disabled: disabled
+    }, other, {
       ref: rootRef
-    }, other),
+    }),
     _react2.default.createElement(
       'span',
       { className: classes.label },

@@ -22,17 +22,13 @@ function shallowRecursively(wrapper, selector, _ref) {
   var context = _ref.context,
       other = (0, _objectWithoutProperties3.default)(_ref, ['context']);
 
-  // enzyme@3
-  // if (wrapper.isEmptyRender() || typeof wrapper.getElement().type === 'string') {
-  if (wrapper.isEmptyRender() || typeof wrapper.node.type === 'string') {
+  if (wrapper.isEmptyRender() || typeof wrapper.getElement().type === 'string') {
     return wrapper;
   }
 
   var newContext = context;
 
-  // enzyme@3
-  // const instance = wrapper.root().instance();
-  var instance = wrapper.root.instance();
+  var instance = wrapper.root().instance();
   // The instance can be null with a stateless functional component and react >= 16.
   if (instance && instance.getChildContext) {
     newContext = (0, _extends3.default)({}, context, instance.getChildContext());

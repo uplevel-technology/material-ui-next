@@ -105,13 +105,15 @@ var _Portal2 = _interopRequireDefault(_Portal);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var babelPluginFlowReactPropTypes_proptype_ElementType = require('react').babelPluginFlowReactPropTypes_proptype_ElementType || require('prop-types').any;
+
 var babelPluginFlowReactPropTypes_proptype_Element = require('react').babelPluginFlowReactPropTypes_proptype_Element || require('prop-types').any;
 
 // Modals don't open on the server so this won't break concurrency.
 // Could also put this on context.
-var babelPluginFlowReactPropTypes_proptype_TransitionCallback = require('../internal/Transition').babelPluginFlowReactPropTypes_proptype_TransitionCallback || require('prop-types').any;
+var babelPluginFlowReactPropTypes_proptype_TransitionCallback = require('../internal/transition').babelPluginFlowReactPropTypes_proptype_TransitionCallback || require('prop-types').any;
 
-var babelPluginFlowReactPropTypes_proptype_TransitionDuration = require('../internal/Transition').babelPluginFlowReactPropTypes_proptype_TransitionDuration || require('prop-types').any;
+var babelPluginFlowReactPropTypes_proptype_TransitionDuration = require('../internal/transition').babelPluginFlowReactPropTypes_proptype_TransitionDuration || require('prop-types').any;
 
 var modalManager = (0, _modalManager2.default)();
 
@@ -133,10 +135,10 @@ var styles = exports.styles = function styles(theme) {
 };
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
-  backdropClassName: require('prop-types').string,
-  backdropComponent: require('prop-types').func,
-  backdropInvisible: require('prop-types').bool,
-  backdropTransitionDuration: typeof babelPluginFlowReactPropTypes_proptype_TransitionDuration === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionDuration : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionDuration),
+  BackdropClassName: require('prop-types').string,
+  BackdropComponent: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType),
+  BackdropInvisible: require('prop-types').bool,
+  BackdropTransitionDuration: typeof babelPluginFlowReactPropTypes_proptype_TransitionDuration === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionDuration : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionDuration),
   children: typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element),
   classes: require('prop-types').object,
   className: require('prop-types').string,
@@ -275,19 +277,19 @@ var Modal = function (_React$Component) {
     value: function renderBackdrop() {
       var other = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       var _props = this.props,
-          BackdropComponent = _props.backdropComponent,
-          backdropClassName = _props.backdropClassName,
-          backdropTransitionDuration = _props.backdropTransitionDuration,
-          backdropInvisible = _props.backdropInvisible,
+          BackdropComponent = _props.BackdropComponent,
+          BackdropClassName = _props.BackdropClassName,
+          BackdropTransitionDuration = _props.BackdropTransitionDuration,
+          BackdropInvisible = _props.BackdropInvisible,
           show = _props.show;
 
 
       return _react2.default.createElement(
         _Fade2.default,
-        (0, _extends3.default)({ 'in': show, transitionAppear: true, transitionDuration: backdropTransitionDuration }, other),
+        (0, _extends3.default)({ appear: true, 'in': show, timeout: BackdropTransitionDuration }, other),
         _react2.default.createElement(BackdropComponent, {
-          invisible: backdropInvisible,
-          className: backdropClassName,
+          invisible: BackdropInvisible,
+          className: BackdropClassName,
           onClick: this.handleBackdropClick
         })
       );
@@ -299,10 +301,10 @@ var Modal = function (_React$Component) {
 
       var _props2 = this.props,
           disableBackdrop = _props2.disableBackdrop,
-          backdropComponent = _props2.backdropComponent,
-          backdropClassName = _props2.backdropClassName,
-          backdropTransitionDuration = _props2.backdropTransitionDuration,
-          backdropInvisible = _props2.backdropInvisible,
+          BackdropComponent = _props2.BackdropComponent,
+          BackdropClassName = _props2.BackdropClassName,
+          BackdropTransitionDuration = _props2.BackdropTransitionDuration,
+          BackdropInvisible = _props2.BackdropInvisible,
           ignoreBackdropClick = _props2.ignoreBackdropClick,
           ignoreEscapeKeyUp = _props2.ignoreEscapeKeyUp,
           children = _props2.children,
@@ -320,7 +322,7 @@ var Modal = function (_React$Component) {
           onExiting = _props2.onExiting,
           onExited = _props2.onExited,
           show = _props2.show,
-          other = (0, _objectWithoutProperties3.default)(_props2, ['disableBackdrop', 'backdropComponent', 'backdropClassName', 'backdropTransitionDuration', 'backdropInvisible', 'ignoreBackdropClick', 'ignoreEscapeKeyUp', 'children', 'classes', 'className', 'keepMounted', 'modalManager', 'onBackdropClick', 'onEscapeKeyUp', 'onRequestClose', 'onEnter', 'onEntering', 'onEntered', 'onExit', 'onExiting', 'onExited', 'show']);
+          other = (0, _objectWithoutProperties3.default)(_props2, ['disableBackdrop', 'BackdropComponent', 'BackdropClassName', 'BackdropTransitionDuration', 'BackdropInvisible', 'ignoreBackdropClick', 'ignoreEscapeKeyUp', 'children', 'classes', 'className', 'keepMounted', 'modalManager', 'onBackdropClick', 'onEscapeKeyUp', 'onRequestClose', 'onEnter', 'onEntering', 'onEntered', 'onExit', 'onExiting', 'onExited', 'show']);
 
 
       if (!keepMounted && !show && this.state.exited) {
@@ -377,11 +379,12 @@ var Modal = function (_React$Component) {
         _react2.default.createElement(
           'div',
           (0, _extends3.default)({
-            className: (0, _classnames2.default)(classes.root, className, (0, _defineProperty3.default)({}, classes.hidden, this.state.exited)),
+            className: (0, _classnames2.default)(classes.root, className, (0, _defineProperty3.default)({}, classes.hidden, this.state.exited))
+          }, other, {
             ref: function ref(node) {
               _this2.modal = node;
             }
-          }, other),
+          }),
           !disableBackdrop && (!keepMounted || show || !this.state.exited) && this.renderBackdrop(backdropProps),
           modalChild
         )
@@ -392,9 +395,9 @@ var Modal = function (_React$Component) {
 }(_react2.default.Component);
 
 Modal.defaultProps = {
-  backdropComponent: _Backdrop2.default,
-  backdropTransitionDuration: 300,
-  backdropInvisible: false,
+  BackdropComponent: _Backdrop2.default,
+  BackdropTransitionDuration: 300,
+  BackdropInvisible: false,
   keepMounted: false,
   disableBackdrop: false,
   ignoreBackdropClick: false,

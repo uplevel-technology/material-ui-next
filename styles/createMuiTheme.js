@@ -16,6 +16,10 @@ var _deepmerge = require('deepmerge');
 
 var _deepmerge2 = _interopRequireDefault(_deepmerge);
 
+var _warning = require('warning');
+
+var _warning2 = _interopRequireDefault(_warning);
+
 var _createTypography = require('./createTypography');
 
 var _createTypography2 = _interopRequireDefault(_createTypography);
@@ -50,7 +54,6 @@ var _spacing2 = _interopRequireDefault(_spacing);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// < 1kb payload overhead when lodash/merge is > 3kb.
 function createMuiTheme() {
   var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var _options$palette = options.palette,
@@ -61,24 +64,28 @@ function createMuiTheme() {
       mixinsInput = _options$mixins === undefined ? {} : _options$mixins,
       _options$typography = options.typography,
       typographyInput = _options$typography === undefined ? {} : _options$typography,
-      other = (0, _objectWithoutProperties3.default)(options, ['palette', 'breakpoints', 'mixins', 'typography']);
+      shadowsInput = options.shadows,
+      other = (0, _objectWithoutProperties3.default)(options, ['palette', 'breakpoints', 'mixins', 'typography', 'shadows']);
 
 
   var palette = (0, _createPalette2.default)(paletteInput);
   var breakpoints = (0, _createBreakpoints2.default)(breakpointsInput);
 
-  return (0, _extends3.default)({
+  var muiTheme = (0, _extends3.default)({
     direction: 'ltr',
     palette: palette,
     typography: (0, _createTypography2.default)(palette, typographyInput),
     mixins: (0, _createMixins2.default)(breakpoints, _spacing2.default, mixinsInput),
-    breakpoints: breakpoints
+    breakpoints: breakpoints,
+    shadows: shadowsInput || _shadows2.default
   }, (0, _deepmerge2.default)({
-    shadows: _shadows2.default,
     transitions: _transitions2.default,
     spacing: _spacing2.default,
     zIndex: _zIndex2.default
   }, other));
-}
 
+  process.env.NODE_ENV !== "production" ? (0, _warning2.default)(muiTheme.shadows.length === 25, 'Material-UI: the shadows array provided to createMuiTheme should support 25 elevations.') : void 0;
+
+  return muiTheme;
+} // < 1kb payload overhead when lodash/merge is > 3kb.
 exports.default = createMuiTheme;

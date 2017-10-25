@@ -46,7 +46,8 @@ var babelPluginFlowReactPropTypes_proptype_ChildrenArray = require('react').babe
 var styles = exports.styles = function styles(theme) {
   return {
     root: {
-      position: 'relative'
+      position: 'relative',
+      width: '100%'
     },
     select: {
       '-moz-appearance': 'none', // Remove Firefox custom style

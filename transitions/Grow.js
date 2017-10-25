@@ -38,20 +38,23 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _CSSTransition = require('react-transition-group/CSSTransition');
+
+var _CSSTransition2 = _interopRequireDefault(_CSSTransition);
+
 var _withTheme = require('../styles/withTheme');
 
 var _withTheme2 = _interopRequireDefault(_withTheme);
 
-var _Transition = require('../internal/Transition');
-
-var _Transition2 = _interopRequireDefault(_Transition);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var babelPluginFlowReactPropTypes_proptype_Element = require('react').babelPluginFlowReactPropTypes_proptype_Element || require('prop-types').any;
+// @inheritedComponent CSSTransition
 
 // Only exported for tests.
-var babelPluginFlowReactPropTypes_proptype_TransitionCallback = require('../internal/Transition').babelPluginFlowReactPropTypes_proptype_TransitionCallback || require('prop-types').any;
+var babelPluginFlowReactPropTypes_proptype_TransitionClasses = require('../internal/transition').babelPluginFlowReactPropTypes_proptype_TransitionClasses || require('prop-types').any;
+
+var babelPluginFlowReactPropTypes_proptype_TransitionCallback = require('../internal/transition').babelPluginFlowReactPropTypes_proptype_TransitionCallback || require('prop-types').any;
 
 function getScale(value) {
   return 'scale(' + value + ', ' + Math.pow(value, 2) + ')';
@@ -63,7 +66,9 @@ var babelPluginFlowReactPropTypes_proptype_TransitionDuration = require('prop-ty
 }), require('prop-types').oneOf(['auto'])]);
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
-  children: typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element),
+  appear: require('prop-types').bool,
+  children: typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element.isRequired ? babelPluginFlowReactPropTypes_proptype_Element.isRequired : babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element).isRequired,
+  in: require('prop-types').bool.isRequired,
   onEnter: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
   onEntering: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
   onEntered: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
@@ -71,15 +76,18 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   onExiting: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
   onExited: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
   rootRef: require('prop-types').func,
+  style: require('prop-types').object,
+  transitionClasses: typeof babelPluginFlowReactPropTypes_proptype_TransitionClasses === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionClasses : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionClasses),
   theme: require('prop-types').object,
-  transitionDuration: require('prop-types').oneOfType([require('prop-types').number, require('prop-types').shape({
+  timeout: require('prop-types').oneOfType([require('prop-types').number, require('prop-types').shape({
     enter: require('prop-types').number,
     exit: require('prop-types').number
   }), require('prop-types').oneOf(['auto'])])
 };
 
 /**
- * Grow transition used by popovers such as Menu.
+ * The Grow transition is used by the Popover component.
+ * It's using [react-transition-group](https://github.com/reactjs/react-transition-group) internally.
  */
 var Grow = function (_React$Component) {
   (0, _inherits3.default)(Grow, _React$Component);
@@ -95,79 +103,84 @@ var Grow = function (_React$Component) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = Grow.__proto__ || (0, _getPrototypeOf2.default)(Grow)).call.apply(_ref, [this].concat(args))), _this), _this.autoTransitionDuration = undefined, _this.handleEnter = function (element) {
-      element.style.opacity = '0';
-      element.style.transform = getScale(0.75);
+    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = Grow.__proto__ || (0, _getPrototypeOf2.default)(Grow)).call.apply(_ref, [this].concat(args))), _this), _this.autoTimeout = undefined, _this.handleEnter = function (node) {
+      node.style.opacity = '0';
+      node.style.transform = getScale(0.75);
 
       if (_this.props.onEnter) {
-        _this.props.onEnter(element);
+        _this.props.onEnter(node);
       }
-
+    }, _this.handleEntering = function (node) {
       var _this$props = _this.props,
           theme = _this$props.theme,
-          transitionDuration = _this$props.transitionDuration;
+          timeout = _this$props.timeout;
 
       var duration = 0;
 
-      if (transitionDuration === 'auto') {
-        duration = theme.transitions.getAutoHeightDuration(element.clientHeight);
-        _this.autoTransitionDuration = duration;
-      } else if (typeof transitionDuration === 'number') {
-        duration = transitionDuration;
-      } else if (transitionDuration) {
-        duration = transitionDuration.enter;
+      if (timeout === 'auto') {
+        duration = theme.transitions.getAutoHeightDuration(node.clientHeight);
+        _this.autoTimeout = duration;
+      } else if (typeof timeout === 'number') {
+        duration = timeout;
+      } else if (timeout) {
+        duration = timeout.enter;
       } else {
         // The propType will warn in this case.
       }
 
-      element.style.transition = [theme.transitions.create('opacity', {
+      node.style.transition = [theme.transitions.create('opacity', {
         duration: duration
       }), theme.transitions.create('transform', {
         duration: duration * 0.666
       })].join(',');
-    }, _this.handleEntering = function (element) {
-      element.style.opacity = '1';
-      element.style.transform = getScale(1);
+
+      node.style.opacity = '1';
+      node.style.transform = getScale(1);
 
       if (_this.props.onEntering) {
-        _this.props.onEntering(element);
+        _this.props.onEntering(node);
       }
-    }, _this.handleExit = function (element) {
+    }, _this.handleExit = function (node) {
       var _this$props2 = _this.props,
           theme = _this$props2.theme,
-          transitionDuration = _this$props2.transitionDuration;
+          timeout = _this$props2.timeout;
 
       var duration = 0;
 
-      if (transitionDuration === 'auto') {
-        duration = theme.transitions.getAutoHeightDuration(element.clientHeight);
-        _this.autoTransitionDuration = duration;
-      } else if (typeof transitionDuration === 'number') {
-        duration = transitionDuration;
-      } else if (transitionDuration) {
-        duration = transitionDuration.exit;
+      if (timeout === 'auto') {
+        duration = theme.transitions.getAutoHeightDuration(node.clientHeight);
+        _this.autoTimeout = duration;
+      } else if (typeof timeout === 'number') {
+        duration = timeout;
+      } else if (timeout) {
+        duration = timeout.exit;
       } else {
         // The propType will warn in this case.
       }
 
-      element.style.transition = [theme.transitions.create('opacity', {
+      node.style.transition = [theme.transitions.create('opacity', {
         duration: duration
       }), theme.transitions.create('transform', {
         duration: duration * 0.666,
         delay: duration * 0.333
       })].join(',');
 
-      element.style.opacity = '0';
-      element.style.transform = getScale(0.75);
+      node.style.opacity = '0';
+      node.style.transform = getScale(0.75);
 
       if (_this.props.onExit) {
-        _this.props.onExit(element);
+        _this.props.onExit(node);
       }
-    }, _this.handleRequestTimeout = function () {
-      if (_this.props.transitionDuration === 'auto') {
-        return _this.autoTransitionDuration || 0;
+    }, _this.addEndListener = function (node, next) {
+      var timeout = void 0;
+
+      if (_this.props.timeout === 'auto') {
+        timeout = _this.autoTimeout || 0;
+      } else {
+        timeout = _this.props.timeout;
       }
-      return _this.props.transitionDuration;
+
+      setTimeout(next, timeout);
     }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
   }
 
@@ -175,24 +188,36 @@ var Grow = function (_React$Component) {
     key: 'render',
     value: function render() {
       var _props = this.props,
+          appear = _props.appear,
           children = _props.children,
-          transitionDuration = _props.transitionDuration,
           onEnter = _props.onEnter,
           onEntering = _props.onEntering,
           onExit = _props.onExit,
           rootRef = _props.rootRef,
+          styleProp = _props.style,
+          transitionClasses = _props.transitionClasses,
+          timeout = _props.timeout,
           theme = _props.theme,
-          other = (0, _objectWithoutProperties3.default)(_props, ['children', 'transitionDuration', 'onEnter', 'onEntering', 'onExit', 'rootRef', 'theme']);
+          other = (0, _objectWithoutProperties3.default)(_props, ['appear', 'children', 'onEnter', 'onEntering', 'onExit', 'rootRef', 'style', 'transitionClasses', 'timeout', 'theme']);
 
+
+      var style = (0, _extends3.default)({}, children.props.style, styleProp);
+
+      // For server side rendering.
+      if (!this.props.in || appear) {
+        style.opacity = '0';
+      }
 
       return _react2.default.createElement(
-        _Transition2.default,
+        _CSSTransition2.default,
         (0, _extends3.default)({
+          classNames: transitionClasses,
           onEnter: this.handleEnter,
           onEntering: this.handleEntering,
           onExit: this.handleExit,
-          onRequestTimeout: this.handleRequestTimeout,
-          transitionAppear: true
+          addEndListener: this.addEndListener,
+          appear: appear,
+          style: style
         }, other, {
           ref: rootRef
         }),
@@ -204,6 +229,8 @@ var Grow = function (_React$Component) {
 }(_react2.default.Component);
 
 Grow.defaultProps = {
-  transitionDuration: 'auto'
+  appear: true,
+  timeout: 'auto',
+  transitionClasses: {}
 };
 exports.default = (0, _withTheme2.default)()(Grow);

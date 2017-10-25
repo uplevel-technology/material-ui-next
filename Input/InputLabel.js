@@ -105,7 +105,7 @@ function InputLabel(props, context) {
   var shrink = shrinkProp;
 
   if (typeof shrink === 'undefined' && muiFormControl) {
-    shrink = muiFormControl.dirty || muiFormControl.focused;
+    shrink = muiFormControl.dirty || muiFormControl.focused || muiFormControl.adorned;
   }
 
   var margin = marginProp;

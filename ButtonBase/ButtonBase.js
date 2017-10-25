@@ -89,7 +89,10 @@ var styles = exports.styles = function styles(theme) {
       appearance: 'none',
       textDecoration: 'none',
       // So we take precedent over the style of a native <a /> element.
-      color: 'inherit'
+      color: 'inherit',
+      '&::-moz-focus-inner': {
+        borderStyle: 'none' // Remove Firefox dotted outline.
+      }
     },
     disabled: {
       pointerEvents: 'none', // Disable link interactions
@@ -142,7 +145,7 @@ var ButtonBase = function (_React$Component) {
 
     return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = ButtonBase.__proto__ || (0, _getPrototypeOf2.default)(ButtonBase)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
       keyboardFocused: false
-    }, _this.ripple = null, _this.keyDown = false, _this.button = null, _this.keyboardFocusTimeout = null, _this.keyboardFocusCheckTime = 40, _this.keyboardFocusMaxCheckTimes = 5, _this.handleKeyDown = function (event) {
+    }, _this.ripple = null, _this.keyDown = false, _this.button = null, _this.keyboardFocusTimeout = null, _this.keyboardFocusCheckTime = 30, _this.keyboardFocusMaxCheckTimes = 5, _this.handleKeyDown = function (event) {
       var _this$props = _this.props,
           component = _this$props.component,
           focusRipple = _this$props.focusRipple,
@@ -191,18 +194,22 @@ var ButtonBase = function (_React$Component) {
         event.preventDefault();
       }
     }), _this.handleTouchStart = (0, _createRippleHandler2.default)(_this, 'TouchStart', 'start'), _this.handleTouchEnd = (0, _createRippleHandler2.default)(_this, 'TouchEnd', 'stop'), _this.handleTouchMove = (0, _createRippleHandler2.default)(_this, 'TouchEnd', 'stop'), _this.handleBlur = (0, _createRippleHandler2.default)(_this, 'Blur', 'stop', function () {
+      clearTimeout(_this.keyboardFocusTimeout);
+      (0, _keyboardFocus.focusKeyPressed)(false);
       _this.setState({ keyboardFocused: false });
     }), _this.handleFocus = function (event) {
       if (_this.props.disabled) {
         return;
       }
 
-      if (_this.button) {
-        event.persist();
-
-        var keyboardFocusCallback = _this.onKeyboardFocusHandler.bind(_this, event);
-        (0, _keyboardFocus.detectKeyboardFocus)(_this, _this.button, keyboardFocusCallback);
+      // Fix for https://github.com/facebook/react/issues/7769
+      if (!_this.button) {
+        _this.button = event.currentTarget;
       }
+
+      event.persist();
+      var keyboardFocusCallback = _this.onKeyboardFocusHandler.bind(_this, event);
+      (0, _keyboardFocus.detectKeyboardFocus)(_this, _this.button, keyboardFocusCallback);
 
       if (_this.props.onFocus) {
         _this.props.onFocus(event);
@@ -321,10 +328,11 @@ var ButtonBase = function (_React$Component) {
           onTouchEnd: this.handleTouchEnd,
           onTouchMove: this.handleTouchMove,
           onTouchStart: this.handleTouchStart,
-          ref: rootRef,
           tabIndex: disabled ? -1 : tabIndex,
           className: className
-        }, buttonProps, other),
+        }, buttonProps, other, {
+          ref: rootRef
+        }),
         children,
         this.renderRipple()
       );

@@ -55,9 +55,9 @@ var babelPluginFlowReactPropTypes_proptype_Element = require('react').babelPlugi
 
 var babelPluginFlowReactPropTypes_proptype_ComponentType = require('prop-types').func;
 
-var babelPluginFlowReactPropTypes_proptype_TransitionCallback = require('../internal/Transition').babelPluginFlowReactPropTypes_proptype_TransitionCallback || require('prop-types').any;
+var babelPluginFlowReactPropTypes_proptype_TransitionCallback = require('../internal/transition').babelPluginFlowReactPropTypes_proptype_TransitionCallback || require('prop-types').any;
 
-var babelPluginFlowReactPropTypes_proptype_TransitionDuration = require('../internal/Transition').babelPluginFlowReactPropTypes_proptype_TransitionDuration || require('prop-types').any;
+var babelPluginFlowReactPropTypes_proptype_TransitionDuration = require('../internal/transition').babelPluginFlowReactPropTypes_proptype_TransitionDuration || require('prop-types').any;
 
 var styles = exports.styles = function styles(theme) {
   return {
@@ -158,7 +158,7 @@ function Dialog(props) {
     _Modal2.default,
     (0, _extends3.default)({
       className: (0, _classnames2.default)(classes.root, className),
-      backdropTransitionDuration: transitionDuration,
+      BackdropTransitionDuration: transitionDuration,
       ignoreBackdropClick: ignoreBackdropClick,
       ignoreEscapeKeyUp: ignoreEscapeKeyUp,
       onBackdropClick: onBackdropClick,
@@ -169,9 +169,9 @@ function Dialog(props) {
     createTransitionFn(
     /* $FlowFixMe - FIXME See Snackbar for similar create vs clone example */
     transition, {
+      appear: true,
       in: open,
-      transitionAppear: true,
-      transitionDuration: transitionDuration,
+      timeout: transitionDuration,
       onEnter: onEnter,
       onEntering: onEntering,
       onEntered: onEntered,

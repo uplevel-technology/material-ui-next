@@ -44,10 +44,13 @@ var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFl
 var styles = exports.styles = function styles(theme) {
   return {
     root: {
+      color: 'inherit',
+      display: 'table-row',
       height: 48,
       '&:focus': {
         outline: 'none'
-      }
+      },
+      verticalAlign: 'middle'
     },
     head: {
       height: 56

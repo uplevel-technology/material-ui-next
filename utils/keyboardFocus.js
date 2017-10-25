@@ -27,16 +27,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 //  weak
 
-var FOCUS_KEYS = ['tab', 'enter', 'space', 'esc', 'up', 'down', 'left', 'right'];
-
 var internal = {
   listening: false,
   focusKeyPressed: false
 };
-
-function isFocusKey(event) {
-  return FOCUS_KEYS.indexOf((0, _keycode2.default)(event)) !== -1;
-}
 
 function focusKeyPressed(pressed) {
   if (typeof pressed !== 'undefined') {
@@ -61,7 +55,15 @@ function detectKeyboardFocus(instance, element, callback) {
   }, instance.keyboardFocusCheckTime);
 }
 
+var FOCUS_KEYS = ['tab', 'enter', 'space', 'esc', 'up', 'down', 'left', 'right'];
+
+function isFocusKey(event) {
+  return FOCUS_KEYS.indexOf((0, _keycode2.default)(event)) !== -1;
+}
+
 function listenForFocusKeys() {
+  // It's a singleton, we only need to listen once.
+  // Also, this logic is client side only, we don't need a teardown.
   if (!internal.listening) {
     (0, _addEventListener2.default)(window, 'keyup', function (event) {
       if (isFocusKey(event)) {

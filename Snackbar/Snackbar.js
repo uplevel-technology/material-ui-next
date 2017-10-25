@@ -77,9 +77,9 @@ var babelPluginFlowReactPropTypes_proptype_Element = require('react').babelPlugi
 
 var babelPluginFlowReactPropTypes_proptype_ComponentType = require('prop-types').func;
 
-var babelPluginFlowReactPropTypes_proptype_TransitionCallback = require('../internal/Transition').babelPluginFlowReactPropTypes_proptype_TransitionCallback || require('prop-types').any;
+var babelPluginFlowReactPropTypes_proptype_TransitionCallback = require('../internal/transition').babelPluginFlowReactPropTypes_proptype_TransitionCallback || require('prop-types').any;
 
-var babelPluginFlowReactPropTypes_proptype_TransitionDuration = require('../internal/Transition').babelPluginFlowReactPropTypes_proptype_TransitionDuration || require('prop-types').any;
+var babelPluginFlowReactPropTypes_proptype_TransitionDuration = require('../internal/transition').babelPluginFlowReactPropTypes_proptype_TransitionDuration || require('prop-types').any;
 
 var styles = exports.styles = function styles(theme) {
   var gutter = theme.spacing.unit * 3;
@@ -326,8 +326,8 @@ var Snackbar = function (_React$Component) {
 
       var transitionProps = {
         in: open,
-        transitionAppear: true,
-        transitionDuration: transitionDuration,
+        appear: true,
+        timeout: transitionDuration,
         onEnter: onEnter,
         onEntering: onEntering,
         onEntered: onEntered,
@@ -342,7 +342,9 @@ var Snackbar = function (_React$Component) {
         transition = _react2.default.createElement(transitionProp, transitionProps, transitionContent);
       } else {
         // $FlowFixMe - rosskevin - figure this out later
-        transition = _react2.default.cloneElement(transitionProp || _react2.default.createElement(_Slide2.default, { direction: vertical === 'top' ? 'down' : 'up' }), transitionProps, transitionContent);
+        transition = _react2.default.cloneElement(
+        // $FlowFixMe - flow isn't smart enough to handle this pattern
+        transitionProp || _react2.default.createElement(_Slide2.default, { direction: vertical === 'top' ? 'down' : 'up' }), transitionProps, transitionContent);
       }
 
       return _react2.default.createElement(

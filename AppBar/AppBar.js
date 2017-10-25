@@ -48,6 +48,7 @@ var styles = exports.styles = function styles(theme) {
       display: 'flex',
       flexDirection: 'column',
       width: '100%',
+      boxSizing: 'border-box', // Prevent padding issue with the Modal and fixed positioned AppBar.
       zIndex: theme.zIndex.appBar,
       flexShrink: 0
     },

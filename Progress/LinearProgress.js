@@ -37,7 +37,7 @@ var _withStyles2 = _interopRequireDefault(_withStyles);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var transitionDuration = 4; // 400ms
+var TRANSITION_DURATION = 4; // 400ms
 
 var styles = exports.styles = function styles(theme) {
   return {
@@ -85,7 +85,7 @@ var styles = exports.styles = function styles(theme) {
       animation: 'buffer 3s infinite linear'
     },
     bufferBar2: {
-      transition: 'transform .' + transitionDuration + 's linear'
+      transition: 'transform .' + TRANSITION_DURATION + 's linear'
     },
     rootBuffer: {
       backgroundColor: 'transparent'
@@ -106,18 +106,18 @@ var styles = exports.styles = function styles(theme) {
     },
     determinateBar1: {
       willChange: 'transform',
-      transition: 'transform .' + transitionDuration + 's linear'
+      transition: 'transform .' + TRANSITION_DURATION + 's linear'
     },
     bufferBar1: {
       zIndex: 1,
-      transition: 'transform .' + transitionDuration + 's linear'
+      transition: 'transform .' + TRANSITION_DURATION + 's linear'
     },
     bufferBar2Primary: {
-      transition: 'transform .' + transitionDuration + 's linear',
+      transition: 'transform .' + TRANSITION_DURATION + 's linear',
       backgroundColor: theme.palette.primary[100]
     },
     bufferBar2Accent: {
-      transition: 'transform .' + transitionDuration + 's linear',
+      transition: 'transform .' + TRANSITION_DURATION + 's linear',
       backgroundColor: theme.palette.secondary.A100
     },
     // Legends:

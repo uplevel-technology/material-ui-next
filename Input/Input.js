@@ -39,6 +39,7 @@ var _inherits3 = _interopRequireDefault(_inherits2);
 
 exports.hasValue = hasValue;
 exports.isDirty = isDirty;
+exports.isAdorned = isAdorned;
 
 var _react = require('react');
 
@@ -66,6 +67,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var babelPluginFlowReactPropTypes_proptype_ComponentType = require('prop-types').func; //  weak
 
+var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFlowReactPropTypes_proptype_Node || require('prop-types').any;
+
 // Supports determination of isControlled().
 // Controlled input accepts its current value as a prop.
 //
@@ -90,6 +93,17 @@ function isDirty(obj) {
   return obj && (hasValue(obj.value) && obj.value !== '' || SSR && hasValue(obj.defaultValue) && obj.defaultValue !== '');
 }
 
+// Determine if an Input is adorned
+//
+// Response determines if label is presented above field or as placeholder.
+//
+// @param obj
+// @returns {boolean} False when no adornments.
+//                    True when adorned.
+function isAdorned(obj) {
+  return obj.startAdornment || obj.endAdornment;
+}
+
 var styles = exports.styles = function styles(theme) {
   var placeholder = {
     color: 'currentColor',
@@ -109,7 +123,8 @@ var styles = exports.styles = function styles(theme) {
   return {
     root: {
       // Mimics the default input display property used by browsers for an input.
-      display: 'inline-block',
+      display: 'inline-flex',
+      alignItems: 'baseline',
       position: 'relative',
       fontFamily: theme.typography.fontFamily,
       color: theme.palette.input.inputText
@@ -152,11 +167,11 @@ var styles = exports.styles = function styles(theme) {
       // slight alteration to spec spacing to match visual spec result
       padding: theme.spacing.unit - 1 + 'px 0 ' + (theme.spacing.unit + 1) + 'px',
       border: 0,
-      display: 'block',
       boxSizing: 'content-box',
       verticalAlign: 'middle',
       background: 'none',
       margin: 0, // Reset for Safari
+      display: 'block',
       width: '100%',
       '&::-webkit-input-placeholder': placeholder,
       '&::-moz-placeholder': placeholder, // Firefox 19+
@@ -250,6 +265,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   defaultValue: require('prop-types').oneOfType([require('prop-types').string, require('prop-types').number]),
   disabled: require('prop-types').bool,
   disableUnderline: require('prop-types').bool,
+  endAdornment: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
   error: require('prop-types').bool,
   fullWidth: require('prop-types').bool,
   id: require('prop-types').string,
@@ -270,6 +286,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   placeholder: require('prop-types').string,
   rows: require('prop-types').oneOfType([require('prop-types').string, require('prop-types').number]),
   rowsMax: require('prop-types').oneOfType([require('prop-types').string, require('prop-types').number]),
+  startAdornment: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
   type: require('prop-types').string,
   value: require('prop-types').oneOfType([require('prop-types').string, require('prop-types').number, require('prop-types').arrayOf(require('prop-types').oneOfType([require('prop-types').string, require('prop-types').number]))])
 };
@@ -388,6 +405,7 @@ var Input = function (_React$Component) {
           defaultValue = _props.defaultValue,
           disabledProp = _props.disabled,
           disableUnderline = _props.disableUnderline,
+          endAdornment = _props.endAdornment,
           errorProp = _props.error,
           fullWidth = _props.fullWidth,
           id = _props.id,
@@ -411,9 +429,10 @@ var Input = function (_React$Component) {
           readOnly = _props.readOnly,
           rows = _props.rows,
           rowsMax = _props.rowsMax,
+          startAdornment = _props.startAdornment,
           type = _props.type,
           value = _props.value,
-          other = (0, _objectWithoutProperties3.default)(_props, ['autoComplete', 'autoFocus', 'classes', 'className', 'defaultValue', 'disabled', 'disableUnderline', 'error', 'fullWidth', 'id', 'inputComponent', 'inputProps', 'inputRef', 'margin', 'multiline', 'onBlur', 'onFocus', 'onChange', 'onClean', 'onDirty', 'onKeyDown', 'onKeyUp', 'placeholder', 'name', 'readOnly', 'rows', 'rowsMax', 'type', 'value']);
+          other = (0, _objectWithoutProperties3.default)(_props, ['autoComplete', 'autoFocus', 'classes', 'className', 'defaultValue', 'disabled', 'disableUnderline', 'endAdornment', 'error', 'fullWidth', 'id', 'inputComponent', 'inputProps', 'inputRef', 'margin', 'multiline', 'onBlur', 'onFocus', 'onChange', 'onClean', 'onDirty', 'onKeyDown', 'onKeyUp', 'placeholder', 'name', 'readOnly', 'rows', 'rowsMax', 'startAdornment', 'type', 'value']);
       var muiFormControl = this.context.muiFormControl;
 
 
@@ -473,6 +492,7 @@ var Input = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         (0, _extends3.default)({ onBlur: this.handleBlur, onFocus: this.handleFocus, className: className }, other),
+        startAdornment,
         _react2.default.createElement(InputComponent, (0, _extends3.default)({
           autoComplete: autoComplete,
           autoFocus: autoFocus,
@@ -490,7 +510,8 @@ var Input = function (_React$Component) {
           type: type,
           readOnly: readOnly,
           rows: rows
-        }, inputProps))
+        }, inputProps)),
+        endAdornment
       );
     }
   }]);

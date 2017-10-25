@@ -150,11 +150,12 @@ function TextField(props) {
     _FormControl2.default,
     (0, _extends3.default)({
       fullWidth: fullWidth,
-      ref: rootRef,
       className: className,
       error: error,
       required: required
-    }, other),
+    }, other, {
+      ref: rootRef
+    }),
     label && _react2.default.createElement(
       _Input.InputLabel,
       (0, _extends3.default)({ htmlFor: id, className: labelClassName }, InputLabelProps),

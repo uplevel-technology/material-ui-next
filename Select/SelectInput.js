@@ -238,13 +238,14 @@ var SelectInput = function (_React$Component) {
               className: (0, _classnames2.default)(classes.select, (0, _defineProperty3.default)({}, classes.disabled, disabled), classNameProp),
               name: name,
               disabled: disabled,
-              ref: selectRef,
               onBlur: onBlur,
               onChange: onChange,
               onFocus: onFocus,
               value: value,
               readOnly: readOnly
-            }, other),
+            }, other, {
+              ref: selectRef
+            }),
             children
           ),
           _react2.default.createElement(_ArrowDropDown2.default, { className: classes.icon })
@@ -325,11 +326,11 @@ var SelectInput = function (_React$Component) {
           display
         ),
         _react2.default.createElement('input', (0, _extends3.default)({
-          ref: this.handleSelectRef,
           value: Array.isArray(value) ? value.join(',') : value,
           name: name,
           readOnly: readOnly
         }, other, {
+          ref: this.handleSelectRef,
           type: 'hidden'
         })),
         _react2.default.createElement(_ArrowDropDown2.default, { className: classes.icon }),

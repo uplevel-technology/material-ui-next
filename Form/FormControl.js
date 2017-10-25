@@ -130,6 +130,7 @@ var FormControl = function (_React$Component) {
     }
 
     return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = FormControl.__proto__ || (0, _getPrototypeOf2.default)(FormControl)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+      adorned: false,
       dirty: false,
       focused: false
     }, _this.handleFocus = function (event) {
@@ -166,12 +167,14 @@ var FormControl = function (_React$Component) {
           required = _props.required,
           margin = _props.margin;
       var _state = this.state,
+          adorned = _state.adorned,
           dirty = _state.dirty,
           focused = _state.focused;
 
 
       return {
         muiFormControl: {
+          adorned: adorned,
           dirty: dirty,
           disabled: disabled,
           error: error,
@@ -198,6 +201,9 @@ var FormControl = function (_React$Component) {
         _react2.default.Children.forEach(children, function (child) {
           if ((0, _reactHelpers.isMuiElement)(child, ['Input', 'Select']) && (0, _Input.isDirty)(child.props, true)) {
             _this2.setState({ dirty: true });
+          }
+          if ((0, _reactHelpers.isMuiElement)(child, ['Input']) && (0, _Input.isAdorned)(child.props)) {
+            _this2.setState({ adorned: true });
           }
         });
       }

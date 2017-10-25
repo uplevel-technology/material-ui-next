@@ -5,6 +5,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.styles = undefined;
 
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
 var _extends2 = require('babel-runtime/helpers/extends');
 
 var _extends3 = _interopRequireDefault(_extends2);
@@ -37,25 +41,27 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _Transition = require('react-transition-group/Transition');
+
+var _Transition2 = _interopRequireDefault(_Transition);
+
 var _withStyles = require('../styles/withStyles');
 
 var _withStyles2 = _interopRequireDefault(_withStyles);
 
 var _transitions = require('../styles/transitions');
 
-var _Transition = require('../internal/Transition');
-
-var _Transition2 = _interopRequireDefault(_Transition);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// @inheritedComponent Transition
 
 var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFlowReactPropTypes_proptype_Node || require('prop-types').any;
 
-var babelPluginFlowReactPropTypes_proptype_TransitionCallback = require('../internal/Transition').babelPluginFlowReactPropTypes_proptype_TransitionCallback || require('prop-types').any;
-
-var reflow = function reflow(elem) {
-  return elem.offsetHeight;
-};
+var babelPluginFlowReactPropTypes_proptype_TransitionCallback = require('../internal/transition').babelPluginFlowReactPropTypes_proptype_TransitionCallback || require('prop-types').any;
 
 var styles = exports.styles = function styles(theme) {
   return {
@@ -65,8 +71,7 @@ var styles = exports.styles = function styles(theme) {
       transition: theme.transitions.create('height')
     },
     entered: {
-      height: 'auto',
-      transitionDuration: '0ms'
+      height: 'auto'
     }
   };
 };
@@ -77,21 +82,27 @@ var babelPluginFlowReactPropTypes_proptype_TransitionDuration = require('prop-ty
 }), require('prop-types').oneOf(['auto'])]);
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
-  children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+  appear: require('prop-types').bool,
+  children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node.isRequired ? babelPluginFlowReactPropTypes_proptype_Node.isRequired : babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node).isRequired,
   classes: require('prop-types').object,
   collapsedHeight: require('prop-types').string,
-  in: require('prop-types').bool,
+  in: require('prop-types').bool.isRequired,
   onEnter: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
   onEntering: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
   onEntered: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
   onExit: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
   onExiting: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
-  onExited: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+  style: require('prop-types').object,
   theme: require('prop-types').object,
-  transitionDuration: require('prop-types').oneOfType([require('prop-types').number, require('prop-types').shape({
+  timeout: require('prop-types').oneOfType([require('prop-types').number, require('prop-types').shape({
     enter: require('prop-types').number,
     exit: require('prop-types').number
   }), require('prop-types').oneOf(['auto'])])
+};
+
+
+var reflow = function reflow(node) {
+  return node.scrollTop;
 };
 
 var Collapse = function (_React$Component) {
@@ -108,78 +119,91 @@ var Collapse = function (_React$Component) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = Collapse.__proto__ || (0, _getPrototypeOf2.default)(Collapse)).call.apply(_ref, [this].concat(args))), _this), _this.wrapper = null, _this.autoTransitionDuration = undefined, _this.handleEnter = function (element) {
-      element.style.height = _this.props.collapsedHeight;
+    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = Collapse.__proto__ || (0, _getPrototypeOf2.default)(Collapse)).call.apply(_ref, [this].concat(args))), _this), _this.wrapper = null, _this.autoTransitionDuration = undefined, _this.handleEnter = function (node) {
+      node.style.height = _this.props.collapsedHeight;
+
       if (_this.props.onEnter) {
-        _this.props.onEnter(element);
+        _this.props.onEnter(node);
       }
-    }, _this.handleEntering = function (element) {
+    }, _this.handleEntering = function (node) {
       var _this$props = _this.props,
-          transitionDuration = _this$props.transitionDuration,
+          timeout = _this$props.timeout,
           theme = _this$props.theme;
 
       var wrapperHeight = _this.wrapper ? _this.wrapper.clientHeight : 0;
 
-      if (transitionDuration === 'auto') {
+      if (timeout === 'auto') {
         var duration2 = theme.transitions.getAutoHeightDuration(wrapperHeight);
-        element.style.transitionDuration = duration2 + 'ms';
+        node.style.transitionDuration = duration2 + 'ms';
         _this.autoTransitionDuration = duration2;
-      } else if (typeof transitionDuration === 'number') {
-        element.style.transitionDuration = transitionDuration + 'ms';
-      } else if (transitionDuration) {
-        element.style.transitionDuration = transitionDuration.enter + 'ms';
+      } else if (typeof timeout === 'number') {
+        node.style.transitionDuration = timeout + 'ms';
+      } else if (timeout) {
+        node.style.transitionDuration = timeout.enter + 'ms';
       } else {
         // The propType will warn in this case.
       }
 
-      element.style.height = wrapperHeight + 'px';
+      node.style.height = wrapperHeight + 'px';
 
       if (_this.props.onEntering) {
-        _this.props.onEntering(element);
+        _this.props.onEntering(node);
       }
-    }, _this.handleEntered = function (element) {
-      element.style.transitionDuration = '0ms'; // safari fix
-      element.style.height = 'auto';
-      reflow(element);
+    }, _this.handleEntered = function (node) {
+      node.style.height = 'auto';
+
       if (_this.props.onEntered) {
-        _this.props.onEntered(element);
+        _this.props.onEntered(node);
       }
-    }, _this.handleExit = function (element) {
+    }, _this.handleExit = function (node) {
       var wrapperHeight = _this.wrapper ? _this.wrapper.clientHeight : 0;
-      element.style.height = wrapperHeight + 'px';
+      reflow(node);
+      node.style.height = wrapperHeight + 'px';
+      reflow(node);
+
       if (_this.props.onExit) {
-        _this.props.onExit(element);
+        _this.props.onExit(node);
       }
-    }, _this.handleExiting = function (element) {
+    }, _this.handleExiting = function (node) {
       var _this$props2 = _this.props,
-          transitionDuration = _this$props2.transitionDuration,
+          timeout = _this$props2.timeout,
           theme = _this$props2.theme;
 
       var wrapperHeight = _this.wrapper ? _this.wrapper.clientHeight : 0;
 
-      if (transitionDuration) {
-        if (transitionDuration === 'auto') {
-          var duration2 = theme.transitions.getAutoHeightDuration(wrapperHeight);
-          element.style.transitionDuration = duration2 + 'ms';
-          _this.autoTransitionDuration = duration2;
-        } else if (typeof transitionDuration === 'number') {
-          element.style.transitionDuration = transitionDuration + 'ms';
-        } else if (transitionDuration) {
-          element.style.transitionDuration = transitionDuration.exit + 'ms';
-        } else {
-          // The propType will warn in this case.
-        }
+      reflow(node);
+
+      if (timeout === 'auto') {
+        var duration2 = theme.transitions.getAutoHeightDuration(wrapperHeight);
+        node.style.transitionDuration = duration2 + 'ms';
+        _this.autoTransitionDuration = duration2;
+      } else if (typeof timeout === 'number') {
+        node.style.transitionDuration = timeout + 'ms';
+      } else if (timeout) {
+        node.style.transitionDuration = timeout.exit + 'ms';
+      } else {
+        // The propType will warn in this case.
       }
 
-      element.style.height = _this.props.collapsedHeight;
+      reflow(node);
+
+      node.style.height = _this.props.collapsedHeight;
+
+      reflow(node);
+
       if (_this.props.onExiting) {
-        _this.props.onExiting(element);
+        _this.props.onExiting(node);
       }
-    }, _this.handleRequestTimeout = function () {
-      if (_this.props.transitionDuration === 'auto') {
-        return _this.autoTransitionDuration || 0;
+    }, _this.addEndListener = function (node, next) {
+      var timeout = void 0;
+
+      if (_this.props.timeout === 'auto') {
+        timeout = _this.autoTransitionDuration || 0;
+      } else {
+        timeout = _this.props.timeout;
       }
-      return _this.props.transitionDuration;
+
+      setTimeout(next, timeout);
     }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
   }
 
@@ -189,6 +213,7 @@ var Collapse = function (_React$Component) {
       var _this2 = this;
 
       var _props = this.props,
+          appear = _props.appear,
           children = _props.children,
           classes = _props.classes,
           collapsedHeight = _props.collapsedHeight,
@@ -197,39 +222,41 @@ var Collapse = function (_React$Component) {
           onEntered = _props.onEntered,
           onExit = _props.onExit,
           onExiting = _props.onExiting,
-          transitionDuration = _props.transitionDuration,
+          style = _props.style,
+          timeout = _props.timeout,
           theme = _props.theme,
-          other = (0, _objectWithoutProperties3.default)(_props, ['children', 'classes', 'collapsedHeight', 'onEnter', 'onEntering', 'onEntered', 'onExit', 'onExiting', 'transitionDuration', 'theme']);
+          other = (0, _objectWithoutProperties3.default)(_props, ['appear', 'children', 'classes', 'collapsedHeight', 'onEnter', 'onEntering', 'onEntered', 'onExit', 'onExiting', 'style', 'timeout', 'theme']);
 
 
       return _react2.default.createElement(
         _Transition2.default,
         (0, _extends3.default)({
+          appear: appear,
           onEntering: this.handleEntering,
           onEnter: this.handleEnter,
           onEntered: this.handleEntered,
-          enteredClassName: classes.entered,
           onExiting: this.handleExiting,
           onExit: this.handleExit,
-          onRequestTimeout: this.handleRequestTimeout,
-          style: {
-            // For supporting server side rendering.
-            minHeight: this.props.collapsedHeight
-          }
+          addEndListener: this.addEndListener,
+          style: (0, _extends3.default)({ minHeight: collapsedHeight }, style)
         }, other),
-        _react2.default.createElement(
-          'div',
-          { className: classes.container },
-          _react2.default.createElement(
+        function (state) {
+          return _react2.default.createElement(
             'div',
             {
-              ref: function ref(node) {
-                _this2.wrapper = node;
-              }
+              className: (0, _classnames2.default)(classes.container, (0, _defineProperty3.default)({}, classes.entered, state === 'entered'))
             },
-            children
-          )
-        )
+            _react2.default.createElement(
+              'div',
+              {
+                ref: function ref(node) {
+                  _this2.wrapper = node;
+                }
+              },
+              children
+            )
+          );
+        }
       );
     }
   }]);
@@ -237,9 +264,9 @@ var Collapse = function (_React$Component) {
 }(_react2.default.Component);
 
 Collapse.defaultProps = {
+  appear: false,
   collapsedHeight: '0px',
-  in: false,
-  transitionDuration: _transitions.duration.standard
+  timeout: _transitions.duration.standard
 };
 exports.default = (0, _withStyles2.default)(styles, {
   withTheme: true,

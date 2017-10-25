@@ -14,7 +14,7 @@ export { FormControl, FormGroup, FormLabel, FormHelperText, FormControlLabel } f
 export { default as Hidden } from './Hidden';
 export { default as Icon } from './Icon';
 export { default as IconButton } from './IconButton';
-export { default as Input, InputLabel } from './Input';
+export { default as Input, InputLabel, InputAdornment } from './Input';
 export { default as Grid } from './Grid';
 export { default as List, ListItem, ListItemAvatar, ListItemIcon, ListItemSecondaryAction, ListItemText, ListSubheader } from './List';
 export { default as Menu, MenuItem, MenuList } from './Menu';
