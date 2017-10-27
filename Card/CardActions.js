@@ -50,9 +50,24 @@ var styles = exports.styles = {
 };
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * The content of the component.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * If `true`, the card actions do not have additional margin.
+   */
   disableActionSpacing: require('prop-types').bool
 };
 

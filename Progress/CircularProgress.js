@@ -89,20 +89,61 @@ var styles = exports.styles = function styles(theme) {
   };
 };
 
-var babelPluginFlowReactPropTypes_proptype_Color = require('prop-types').oneOf(['primary', 'accent']);
+var babelPluginFlowReactPropTypes_proptype_Color = require('prop-types').oneOf(['primary', 'accent', 'inherit']);
 
 var babelPluginFlowReactPropTypes_proptype_Mode = require('prop-types').oneOf(['determinate', 'indeterminate']);
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
-  color: require('prop-types').oneOf(['primary', 'accent']),
+
+  /**
+   * The color of the component. It's using the theme palette when that makes sense.
+   */
+  color: require('prop-types').oneOf(['primary', 'accent', 'inherit']),
+
+  /**
+   * The max value of progress in determinate mode.
+   */
   max: require('prop-types').number,
+
+  /**
+   * The min value of progress in determinate mode.
+   */
   min: require('prop-types').number,
+
+  /**
+   * The mode of show your progress. Indeterminate
+   * for when there is no value for progress.
+   * Determinate for controlled progress value.
+   */
   mode: require('prop-types').oneOf(['determinate', 'indeterminate']),
+
+  /**
+   * The size of the circle.
+   */
   size: require('prop-types').number,
+
+  /**
+   * @ignore
+   */
   style: require('prop-types').object,
+
+  /**
+   * The thickness of the circle.
+   */
   thickness: require('prop-types').number,
+
+  /**
+   * The value of progress in determinate mode.
+   */
   value: require('prop-types').number
 };
 
@@ -141,7 +182,7 @@ function CircularProgress(props) {
   return _react2.default.createElement(
     'div',
     (0, _extends3.default)({
-      className: (0, _classnames2.default)(classes.root, classes[color + 'Color'], className),
+      className: (0, _classnames2.default)(classes.root, color !== 'inherit' && classes[color + 'Color'], className),
       style: (0, _extends3.default)({ width: size, height: size }, style),
       role: 'progressbar'
     }, rootProps, other),
@@ -166,13 +207,13 @@ function CircularProgress(props) {
 
 CircularProgress.propTypes = process.env.NODE_ENV !== "production" ? (_ref = {
   classes: require('prop-types').object.isRequired,
-  color: require('prop-types').oneOf(['primary', 'accent']).isRequired,
+  color: require('prop-types').oneOf(['primary', 'accent', 'inherit']).isRequired,
   size: require('prop-types').number.isRequired,
   mode: require('prop-types').oneOf(['determinate', 'indeterminate']).isRequired,
   value: require('prop-types').number.isRequired,
   min: require('prop-types').number.isRequired,
   max: require('prop-types').number.isRequired
-}, (0, _defineProperty3.default)(_ref, 'classes', require('prop-types').object), (0, _defineProperty3.default)(_ref, 'className', require('prop-types').string), (0, _defineProperty3.default)(_ref, 'color', require('prop-types').oneOf(['primary', 'accent'])), (0, _defineProperty3.default)(_ref, 'max', require('prop-types').number), (0, _defineProperty3.default)(_ref, 'min', require('prop-types').number), (0, _defineProperty3.default)(_ref, 'mode', require('prop-types').oneOf(['determinate', 'indeterminate'])), (0, _defineProperty3.default)(_ref, 'size', require('prop-types').number), (0, _defineProperty3.default)(_ref, 'style', require('prop-types').object), (0, _defineProperty3.default)(_ref, 'thickness', require('prop-types').number), (0, _defineProperty3.default)(_ref, 'value', require('prop-types').number), _ref) : {};
+}, (0, _defineProperty3.default)(_ref, 'classes', require('prop-types').object), (0, _defineProperty3.default)(_ref, 'className', require('prop-types').string), (0, _defineProperty3.default)(_ref, 'color', require('prop-types').oneOf(['primary', 'accent', 'inherit'])), (0, _defineProperty3.default)(_ref, 'max', require('prop-types').number), (0, _defineProperty3.default)(_ref, 'min', require('prop-types').number), (0, _defineProperty3.default)(_ref, 'mode', require('prop-types').oneOf(['determinate', 'indeterminate'])), (0, _defineProperty3.default)(_ref, 'size', require('prop-types').number), (0, _defineProperty3.default)(_ref, 'style', require('prop-types').object), (0, _defineProperty3.default)(_ref, 'thickness', require('prop-types').number), (0, _defineProperty3.default)(_ref, 'value', require('prop-types').number), _ref) : {};
 CircularProgress.defaultProps = {
   color: 'primary',
   size: 40,

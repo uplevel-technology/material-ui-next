@@ -82,18 +82,72 @@ var babelPluginFlowReactPropTypes_proptype_TransitionDuration = require('prop-ty
 }), require('prop-types').oneOf(['auto'])]);
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * @ignore
+   */
   appear: require('prop-types').bool,
+
+  /**
+   * The content node to be collapsed.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node.isRequired ? babelPluginFlowReactPropTypes_proptype_Node.isRequired : babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node).isRequired,
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * The height of the container when collapsed.
+   */
   collapsedHeight: require('prop-types').string,
+
+  /**
+   * If `true`, the component will transition in.
+   */
   in: require('prop-types').bool.isRequired,
+
+  /**
+   * @ignore
+   */
   onEnter: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * @ignore
+   */
   onEntering: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * @ignore
+   */
   onEntered: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * @ignore
+   */
   onExit: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * @ignore
+   */
   onExiting: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * @ignore
+   */
   style: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   theme: require('prop-types').object,
+
+  /**
+   * The duration for the transition, in milliseconds.
+   * You may specify a single timeout for all transitions, or individually with an object.
+   *
+   * Set to 'auto' to automatically calculate transition time based on height.
+   */
   timeout: require('prop-types').oneOfType([require('prop-types').number, require('prop-types').shape({
     enter: require('prop-types').number,
     exit: require('prop-types').number

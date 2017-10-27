@@ -74,16 +74,60 @@ var styles = exports.styles = function styles(theme) {
 };
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * The contents of the `InputLabel`.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * If `true`, the transition animation is disabled.
+   */
   disableAnimation: require('prop-types').bool,
+
+  /**
+   * If `true`, apply disabled class.
+   */
   disabled: require('prop-types').bool,
+
+  /**
+   * If `true`, the label will be displayed in an error state.
+   */
   error: require('prop-types').bool,
+
+  /**
+   * `classes` property applied to the `FormControl` element.
+   */
   FormControlClasses: require('prop-types').object,
+
+  /**
+   * If `true`, the input of this label is focused.
+   */
   focused: require('prop-types').bool,
+
+  /**
+   * If `dense`, will adjust vertical spacing. This is normally obtained via context from
+   * FormControl.
+   */
   margin: require('prop-types').oneOf(['dense']),
+
+  /**
+   * if `true`, the label will indicate that the input is required.
+   */
   required: require('prop-types').bool,
+
+  /**
+   * If `true`, the label is shrunk.
+   */
   shrink: require('prop-types').bool
 };
 

@@ -150,8 +150,20 @@ var styles = exports.styles = function styles(theme) {
 };
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * If `true`, the ripple starts at the center of the component
+   * rather than at the point of interaction.
+   */
   center: require('prop-types').bool,
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string
 };
 

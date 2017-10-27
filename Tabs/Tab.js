@@ -144,18 +144,71 @@ var styles = exports.styles = function styles(theme) {
 };
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * If `true`, the tab will be disabled.
+   */
   disabled: require('prop-types').bool,
+
+  /**
+   * @ignore
+   */
   fullWidth: require('prop-types').bool,
+
+  /**
+   * The icon element. If a string is provided, it will be used as a font ligature.
+   */
   icon: require('prop-types').oneOfType([require('prop-types').string, typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element)]),
+
+  /**
+   * @ignore
+   * For server side rendering consideration, we let the selected tab
+   * render the indicator.
+   */
   indicator: require('prop-types').oneOfType([require('prop-types').string, typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element)]),
+
+  /**
+   * The label element.
+   */
   label: require('prop-types').oneOfType([require('prop-types').string, typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element)]),
+
+  /**
+   * @ignore
+   */
   onChange: require('prop-types').func,
+
+  /**
+   * @ignore
+   */
   onClick: require('prop-types').func,
+
+  /**
+   * @ignore
+   */
   selected: require('prop-types').bool,
+
+  /**
+   * @ignore
+   */
   style: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   textColor: require('prop-types').oneOfType([require('prop-types').oneOf(['accent']), require('prop-types').oneOf(['primary']), require('prop-types').oneOf(['inherit']), require('prop-types').string]),
+
+  /**
+   * You can provide your own value. Otherwise, we fallback to the child position index.
+   */
   value: require('prop-types').any
 };
 

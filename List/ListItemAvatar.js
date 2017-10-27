@@ -56,8 +56,19 @@ var styles = exports.styles = {
 };
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * The content of the component, normally `Avatar`.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element.isRequired ? babelPluginFlowReactPropTypes_proptype_Element.isRequired : babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element).isRequired,
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string
 };
 

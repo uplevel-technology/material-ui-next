@@ -92,16 +92,60 @@ var styles = exports.styles = function styles(theme) {
 };
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * If true, the width of the popover will automatically be set according to the items inside the
+   * menu, otherwise it will be at least the width of the select input.
+   */
   autoWidth: require('prop-types').bool,
+
+  /**
+   * The option elements to populate the select with.
+   * Can be some `MenuItem` when `native` is false and `option` when `native` is true.
+   */
   children: typeof $ReadOnlyArray === 'function' ? require('prop-types').instanceOf($ReadOnlyArray).isRequired : require('prop-types').any.isRequired,
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * If `true`, the selected item is displayed even if its value is empty.
+   * You can only use it when the `native` property is `false` (default).
+   */
   displayEmpty: require('prop-types').bool,
+
+  /**
+   * An `Input` element; does not have to be a material-ui specific `Input`.
+   */
   input: typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element),
+
+  /**
+   * If `true`, the component will be using a native `select` element.
+   */
   native: require('prop-types').bool,
+
+  /**
+   * If true, `value` must be an array and the menu will support multiple selections.
+   * You can only use it when the `native` property is `false` (default).
+   */
   multiple: require('prop-types').bool,
+
+  /**
+   * Properties applied to the `Menu` element.
+   */
   MenuProps: require('prop-types').object,
+
+  /**
+   * Render the selected value.
+   * You can only use it when the `native` property is `false` (default).
+   */
   renderValue: require('prop-types').func,
-  value: require('prop-types').oneOfType([require('prop-types').arrayOf(require('prop-types').oneOfType([require('prop-types').string, require('prop-types').number])), require('prop-types').string, require('prop-types').number])
+
+  /**
+   * The input value, required for a controlled component.
+   */
+  value: require('prop-types').oneOfType([typeof $ReadOnlyArray === 'function' ? require('prop-types').instanceOf($ReadOnlyArray) : require('prop-types').any, require('prop-types').string, require('prop-types').number])
 };
 
 

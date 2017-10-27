@@ -2,10 +2,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
-/* eslint-disable react/no-multi-comp */
+/* eslint-disable react/no-multi-comp, no-underscore-dangle */
 import React, { Children } from 'react';
 
 import { findDOMNode } from 'react-dom';
+import EventListener from 'react-event-listener';
+import debounce from 'lodash/debounce';
 import warning from 'warning';
 import classNames from 'classnames';
 import { Manager, Target, Popper } from 'react-popper';
@@ -106,7 +108,11 @@ class Tooltip extends React.Component {
   constructor(...args) {
     var _temp;
 
-    return _temp = super(...args), this.state = {}, this.enterTimer = null, this.leaveTimer = null, this.touchTimer = null, this.isControlled = null, this.ignoreNonTouchEvents = false, this.handleRequestOpen = event => {
+    return _temp = super(...args), this.state = {}, this.enterTimer = null, this.leaveTimer = null, this.touchTimer = null, this.isControlled = null, this.popper = null, this.ignoreNonTouchEvents = false, this.handleResize = debounce(() => {
+      if (this.popper) {
+        this.popper._popper.scheduleUpdate();
+      }
+    }, 166), this.handleRequestOpen = event => {
       const { children } = this.props;
       if (typeof children !== 'string') {
         const childrenProps = Children.only(children).props;
@@ -223,6 +229,7 @@ class Tooltip extends React.Component {
   componentWillUnmount() {
     clearTimeout(this.enterTimer);
     clearTimeout(this.leaveTimer);
+    this.handleResize.cancel();
   }
 
   render() {
@@ -274,34 +281,42 @@ class Tooltip extends React.Component {
     }
 
     return React.createElement(
-      Manager,
-      _extends({ className: classNames(classes.root, className) }, other),
+      EventListener,
+      { target: 'window', onResize: this.handleResize },
       React.createElement(
-        Target,
-        null,
-        ({ targetProps }) => React.createElement(TargetChildren, {
-          element: typeof childrenProp !== 'string' ? React.cloneElement(childrenProp, childrenProps) : childrenProp,
-          ref: node => {
-            targetProps.ref(findDOMNode(node));
-          }
-        })
-      ),
-      React.createElement(
-        Popper,
-        _extends({
-          placement: placement,
-          eventsEnabled: open,
-          className: classNames(classes.popper, { [classes.popperClose]: !open }, PopperClassName)
-        }, PopperOther),
+        Manager,
+        _extends({ className: classNames(classes.root, className) }, other),
         React.createElement(
-          'div',
-          {
-            id: id,
-            role: 'tooltip',
-            'aria-hidden': !open,
-            className: classNames(classes.tooltip, { [classes.tooltipOpen]: open }, classes[`tooltip${capitalizeFirstLetter(placement.split('-')[0])}`])
-          },
-          title
+          Target,
+          null,
+          ({ targetProps }) => React.createElement(TargetChildren, {
+            element: typeof childrenProp !== 'string' ? React.cloneElement(childrenProp, childrenProps) : childrenProp,
+            ref: node => {
+              targetProps.ref(findDOMNode(node));
+            }
+          })
+        ),
+        React.createElement(
+          Popper,
+          _extends({
+            placement: placement,
+            eventsEnabled: open,
+            className: classNames(classes.popper, { [classes.popperClose]: !open }, PopperClassName)
+          }, PopperOther, {
+            ref: node => {
+              this.popper = node;
+            }
+          }),
+          React.createElement(
+            'div',
+            {
+              id: id,
+              role: 'tooltip',
+              'aria-hidden': !open,
+              className: classNames(classes.tooltip, { [classes.tooltipOpen]: open }, classes[`tooltip${capitalizeFirstLetter(placement.split('-')[0])}`])
+            },
+            title
+          )
         )
       )
     );

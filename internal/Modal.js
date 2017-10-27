@@ -135,27 +135,119 @@ var styles = exports.styles = function styles(theme) {
 };
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * The CSS class name of the backdrop element.
+   */
   BackdropClassName: require('prop-types').string,
+
+  /**
+   * Pass a component class to use as the backdrop.
+   */
   BackdropComponent: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType),
+
+  /**
+   * If `true`, the backdrop is invisible.
+   */
   BackdropInvisible: require('prop-types').bool,
+
+  /**
+   * The duration for the backdrop transition, in milliseconds.
+   * You may specify a single timeout for all transitions, or individually with an object.
+   */
   BackdropTransitionDuration: typeof babelPluginFlowReactPropTypes_proptype_TransitionDuration === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionDuration : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionDuration),
+
+  /**
+   * A single child content element.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element),
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * Always keep the children in the DOM.
+   * This property can be useful in SEO situation or
+   * when you want to maximize the responsiveness of the Modal.
+   */
   keepMounted: require('prop-types').bool,
+
+  /**
+   * If `true`, the backdrop is disabled.
+   */
   disableBackdrop: require('prop-types').bool,
+
+  /**
+   * If `true`, clicking the backdrop will not fire the `onRequestClose` callback.
+   */
   ignoreBackdropClick: require('prop-types').bool,
+
+  /**
+   * If `true`, hitting escape will not fire the `onRequestClose` callback.
+   */
   ignoreEscapeKeyUp: require('prop-types').bool,
+
+  /**
+   * @ignore
+   */
   modalManager: require('prop-types').object,
+
+  /**
+   * Callback fires when the backdrop is clicked on.
+   */
   onBackdropClick: require('prop-types').func,
+
+  /**
+   * Callback fired before the modal is entering.
+   */
   onEnter: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * Callback fired when the modal is entering.
+   */
   onEntering: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * Callback fired when the modal has entered.
+   */
   onEntered: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * Callback fires when the escape key is pressed and the modal is in focus.
+   */
   onEscapeKeyUp: require('prop-types').func,
+
+  /**
+   * Callback fired before the modal is exiting.
+   */
   onExit: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * Callback fired when the modal is exiting.
+   */
   onExiting: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * Callback fired when the modal has exited.
+   */
   onExited: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * Callback fired when the component requests to be closed.
+   *
+   * @param {object} event The event source of the callback
+   */
   onRequestClose: require('prop-types').func,
+
+  /**
+   * If `true`, the Modal is visible.
+   */
   show: require('prop-types').bool
 };
 

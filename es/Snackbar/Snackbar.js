@@ -198,7 +198,7 @@ class Snackbar extends React.Component {
       onRequestClose,
       open,
       SnackbarContentProps,
-      transition: transitionProp
+      transition: TransitionProp
     } = _props,
           other = _objectWithoutProperties(_props, ['action', 'anchorOrigin', 'autoHideDuration', 'resumeHideDuration', 'children', 'classes', 'className', 'transitionDuration', 'message', 'onEnter', 'onEntering', 'onEntered', 'onExit', 'onExiting', 'onExited', 'onMouseEnter', 'onMouseLeave', 'onRequestClose', 'open', 'SnackbarContentProps', 'transition']);
 
@@ -220,13 +220,18 @@ class Snackbar extends React.Component {
     const transitionContent = children || React.createElement(SnackbarContent, _extends({ message: message, action: action }, SnackbarContentProps));
 
     let transition;
-    if (typeof transitionProp === 'function') {
-      transition = React.createElement(transitionProp, transitionProps, transitionContent);
+    if (TransitionProp) {
+      transition = React.createElement(
+        TransitionProp,
+        transitionProps,
+        transitionContent
+      );
     } else {
-      // $FlowFixMe - rosskevin - figure this out later
-      transition = React.cloneElement(
-      // $FlowFixMe - flow isn't smart enough to handle this pattern
-      transitionProp || React.createElement(Slide, { direction: vertical === 'top' ? 'down' : 'up' }), transitionProps, transitionContent);
+      transition = React.createElement(
+        Slide,
+        _extends({ direction: vertical === 'top' ? 'down' : 'up' }, transitionProps),
+        transitionContent
+      );
     }
 
     return React.createElement(

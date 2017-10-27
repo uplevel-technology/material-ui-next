@@ -68,15 +68,63 @@ var styles = exports.styles = function styles(theme) {
 };
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * Used in combination with `src` or `srcSet` to
+   * provide an alt attribute for the rendered `img` element.
+   */
   alt: require('prop-types').string,
+
+  /**
+   * Used to render icon or text elements inside the Avatar.
+   * `src` and `alt` props will not be used and no `img` will
+   * be rendered by default.
+   *
+   * This can be an element, or just a string.
+   */
   children: require('prop-types').oneOfType([require('prop-types').string, typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element)]),
+
+  /**
+   * @ignore
+   * The className of the child element.
+   * Used by Chip and ListItemIcon to style the Avatar icon.
+   */
   childrenClassName: require('prop-types').string,
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a DOM element or a component.
+   */
   component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType),
+
+  /**
+   * Properties applied to the `img` element when the component
+   * is used to display an image.
+   */
   imgProps: require('prop-types').object,
+
+  /**
+   * The `sizes` attribute for the `img` element.
+   */
   sizes: require('prop-types').string,
+
+  /**
+   * The `src` attribute for the `img` element.
+   */
   src: require('prop-types').string,
+
+  /**
+   * The `srcSet` attribute for the `img` element.
+   */
   srcSet: require('prop-types').string
 };
 

@@ -51,13 +51,47 @@ var styles = exports.styles = {
 var babelPluginFlowReactPropTypes_proptype_CellHeight = require('prop-types').oneOfType([require('prop-types').number, require('prop-types').oneOf(['auto'])]);
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * Number of px for one cell height.
+   * You can set `'auto'` if you want to let the children determine the height.
+   */
   cellHeight: require('prop-types').oneOfType([require('prop-types').number, require('prop-types').oneOf(['auto'])]),
+
+  /**
+   * Grid Tiles that will be in Grid List.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node.isRequired ? babelPluginFlowReactPropTypes_proptype_Node.isRequired : babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node).isRequired,
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * Number of columns.
+   */
   cols: require('prop-types').number,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a DOM element or a component.
+   * By default we map the type to a good default headline component.
+   */
   component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType),
+
+  /**
+   * Number of px for the spacing between tiles.
+   */
   spacing: require('prop-types').number,
+
+  /**
+   * @ignore
+   */
   style: require('prop-types').object
 };
 

@@ -47,11 +47,38 @@ var styles = exports.styles = function styles(theme) {
 };
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * The content of the component.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node.isRequired ? babelPluginFlowReactPropTypes_proptype_Node.isRequired : babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node).isRequired,
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * Callback fired when the value changes.
+   *
+   * @param {object} event The event source of the callback
+   * @param {any} value We default to the index of the child
+   */
   onChange: require('prop-types').func,
+
+  /**
+   * If `true`, all `BottomNavigationButton`s will show their labels.
+   * By default only the selected `BottomNavigationButton` will show its label.
+   */
   showLabels: require('prop-types').bool,
+
+  /**
+   * The value of the currently selected `BottomNavigationButton`.
+   */
   value: require('prop-types').any.isRequired
 };
 

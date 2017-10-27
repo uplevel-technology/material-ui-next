@@ -88,10 +88,29 @@ var styles = exports.styles = function styles(theme) {
 var babelPluginFlowReactPropTypes_proptype_Direction = require('prop-types').oneOf(['asc', 'desc']);
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * If `true`, the label will have the active styling (should be true for the sorted column).
+   */
   active: require('prop-types').bool,
+
+  /**
+   * Label contents, the arrow will be appended automatically.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * The current sort direction.
+   */
   direction: require('prop-types').oneOf(['asc', 'desc'])
 };
 

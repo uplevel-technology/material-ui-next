@@ -198,23 +198,108 @@ var styles = exports.styles = function styles(theme) {
 var babelPluginFlowReactPropTypes_proptype_GridSizes = require('prop-types').oneOfType([require('prop-types').bool, require('prop-types').oneOf([1]), require('prop-types').oneOf([2]), require('prop-types').oneOf([3]), require('prop-types').oneOf([4]), require('prop-types').oneOf([5]), require('prop-types').oneOf([6]), require('prop-types').oneOf([7]), require('prop-types').oneOf([8]), require('prop-types').oneOf([9]), require('prop-types').oneOf([10]), require('prop-types').oneOf([11]), require('prop-types').oneOf([12])]);
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * The content of the component.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a DOM element or a component.
+   */
   component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType),
+
+  /**
+   * If `true`, the component will have the flex *container* behavior.
+   * You should be wrapping *items* with a *container*.
+   */
   container: require('prop-types').bool,
+
+  /**
+   * If `true`, the component will have the flex *item* behavior.
+   * You should be wrapping *items* with a *container*.
+   */
   item: require('prop-types').bool,
+
+  /**
+   * Defines the `align-content` style property.
+   * It's applied for all screen sizes.
+   */
   alignContent: require('prop-types').oneOf(['stretch', 'center', 'flex-start', 'flex-end', 'space-between', 'space-around']),
+
+  /**
+   * Defines the `align-items` style property.
+   * It's applied for all screen sizes.
+   */
   alignItems: require('prop-types').oneOf(['flex-start', 'center', 'flex-end', 'stretch', 'baseline']),
+
+  /**
+   * Defines the `flex-direction` style property.
+   * It is applied for all screen sizes.
+   */
   direction: require('prop-types').oneOf(['row', 'row-reverse', 'column', 'column-reverse']),
+
+  /**
+   * Defines the space between the type `item` component.
+   * It can only be used on a type `container` component.
+   */
   spacing: require('prop-types').oneOf([0, 8, 16, 24, 40]),
+
+  /**
+   * If provided, will wrap with [Hidden](/api/hidden) component and given properties.
+   */
   hidden: typeof babelPluginFlowReactPropTypes_proptype_HiddenProps === 'function' ? babelPluginFlowReactPropTypes_proptype_HiddenProps : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_HiddenProps),
+
+  /**
+   * Defines the `justify-content` style property.
+   * It is applied for all screen sizes.
+   */
   justify: require('prop-types').oneOf(['flex-start', 'center', 'flex-end', 'space-between', 'space-around']),
+
+  /**
+   * Defines the `flex-wrap` style property.
+   * It's applied for all screen sizes.
+   */
   wrap: require('prop-types').oneOf(['nowrap', 'wrap', 'wrap-reverse']),
+
+  /**
+   * Defines the number of grids the component is going to use.
+   * It's applied for all the screen sizes with the lowest priority.
+   */
   xs: require('prop-types').oneOfType([require('prop-types').bool, require('prop-types').oneOf([1]), require('prop-types').oneOf([2]), require('prop-types').oneOf([3]), require('prop-types').oneOf([4]), require('prop-types').oneOf([5]), require('prop-types').oneOf([6]), require('prop-types').oneOf([7]), require('prop-types').oneOf([8]), require('prop-types').oneOf([9]), require('prop-types').oneOf([10]), require('prop-types').oneOf([11]), require('prop-types').oneOf([12])]),
+
+  /**
+   * Defines the number of grids the component is going to use.
+   * It's applied for the `sm` breakpoint and wider screens if not overridden.
+   */
   sm: require('prop-types').oneOfType([require('prop-types').bool, require('prop-types').oneOf([1]), require('prop-types').oneOf([2]), require('prop-types').oneOf([3]), require('prop-types').oneOf([4]), require('prop-types').oneOf([5]), require('prop-types').oneOf([6]), require('prop-types').oneOf([7]), require('prop-types').oneOf([8]), require('prop-types').oneOf([9]), require('prop-types').oneOf([10]), require('prop-types').oneOf([11]), require('prop-types').oneOf([12])]),
+
+  /**
+   * Defines the number of grids the component is going to use.
+   * It's applied for the `md` breakpoint and wider screens if not overridden.
+   */
   md: require('prop-types').oneOfType([require('prop-types').bool, require('prop-types').oneOf([1]), require('prop-types').oneOf([2]), require('prop-types').oneOf([3]), require('prop-types').oneOf([4]), require('prop-types').oneOf([5]), require('prop-types').oneOf([6]), require('prop-types').oneOf([7]), require('prop-types').oneOf([8]), require('prop-types').oneOf([9]), require('prop-types').oneOf([10]), require('prop-types').oneOf([11]), require('prop-types').oneOf([12])]),
+
+  /**
+   * Defines the number of grids the component is going to use.
+   * It's applied for the `lg` breakpoint and wider screens if not overridden.
+   */
   lg: require('prop-types').oneOfType([require('prop-types').bool, require('prop-types').oneOf([1]), require('prop-types').oneOf([2]), require('prop-types').oneOf([3]), require('prop-types').oneOf([4]), require('prop-types').oneOf([5]), require('prop-types').oneOf([6]), require('prop-types').oneOf([7]), require('prop-types').oneOf([8]), require('prop-types').oneOf([9]), require('prop-types').oneOf([10]), require('prop-types').oneOf([11]), require('prop-types').oneOf([12])]),
+
+  /**
+   * Defines the number of grids the component is going to use.
+   * It's applied for the `xl` breakpoint and wider screens.
+   */
   xl: require('prop-types').oneOfType([require('prop-types').bool, require('prop-types').oneOf([1]), require('prop-types').oneOf([2]), require('prop-types').oneOf([3]), require('prop-types').oneOf([4]), require('prop-types').oneOf([5]), require('prop-types').oneOf([6]), require('prop-types').oneOf([7]), require('prop-types').oneOf([8]), require('prop-types').oneOf([9]), require('prop-types').oneOf([10]), require('prop-types').oneOf([11]), require('prop-types').oneOf([12])])
 };
 

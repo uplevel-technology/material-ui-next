@@ -67,20 +67,81 @@ var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFl
 var babelPluginFlowReactPropTypes_proptype_TransitionCallback = require('../internal/transition').babelPluginFlowReactPropTypes_proptype_TransitionCallback || require('prop-types').any;
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * The DOM element used to set the position of the menu.
+   */
   anchorEl: typeof HTMLElement === 'function' ? require('prop-types').instanceOf(HTMLElement) : require('prop-types').any,
+  // match Popover
+  /**
+   * Menu contents, normally `MenuItem`s.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * Properties applied to the `MenuList` element.
+   */
   MenuListProps: require('prop-types').object,
+
+  /**
+   * Callback fired before the Menu enters.
+   */
   onEnter: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * Callback fired when the Menu is entering.
+   */
   onEntering: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * Callback fired when the Menu has entered.
+   */
   onEntered: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * Callback fired before the Menu exits.
+   */
   onExit: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * Callback fired when the Menu is exiting.
+   */
   onExiting: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * Callback fired when the Menu has exited.
+   */
   onExited: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * Callback fired when the component requests to be closed.
+   *
+   * @param {object} event The event source of the callback
+   */
   onRequestClose: require('prop-types').func,
+
+  /**
+   * If `true`, the menu is visible.
+   */
   open: require('prop-types').bool,
+
+  /**
+   * @ignore
+   */
   theme: require('prop-types').object,
+
+  /**
+   * The length of the transition in `ms`, or 'auto'
+   */
   transitionDuration: require('prop-types').oneOfType([require('prop-types').number, require('prop-types').shape({
     enter: require('prop-types').number,
     exit: require('prop-types').number

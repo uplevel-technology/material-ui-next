@@ -143,17 +143,67 @@ var babelPluginFlowReactPropTypes_proptype_Anchor = require('prop-types').oneOf(
 var babelPluginFlowReactPropTypes_proptype_Type = require('prop-types').oneOf(['permanent', 'persistent', 'temporary']);
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * Side from which the drawer will appear.
+   */
   anchor: require('prop-types').oneOf(['left', 'top', 'right', 'bottom']),
+
+  /**
+   * The contents of the drawer.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node.isRequired ? babelPluginFlowReactPropTypes_proptype_Node.isRequired : babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node).isRequired,
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * The elevation of the drawer.
+   */
   elevation: require('prop-types').number,
+
+  /**
+   * The duration for the transition, in milliseconds.
+   * You may specify a single timeout for all transitions, or individually with an object.
+   */
   transitionDuration: typeof babelPluginFlowReactPropTypes_proptype_TransitionDuration === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionDuration : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionDuration),
+
+  /**
+   * Properties applied to the `Modal` element.
+   */
   ModalProps: require('prop-types').object,
+
+  /**
+   * Callback fired when the component requests to be closed.
+   *
+   * @param {object} event The event source of the callback
+   */
   onRequestClose: require('prop-types').func,
+
+  /**
+   * If `true`, the drawer is open.
+   */
   open: require('prop-types').bool,
+
+  /**
+   * @igonre
+   */
   theme: require('prop-types').object.isRequired,
+
+  /**
+   * Properties applied to the `Slide` element.
+   */
   SlideProps: require('prop-types').object,
+
+  /**
+   * The type of drawer.
+   */
   type: require('prop-types').oneOf(['permanent', 'persistent', 'temporary'])
 };
 

@@ -147,7 +147,14 @@ function getDefaultTheme() {
 }
 
 var babelPluginFlowReactPropTypes_proptype_RequiredProps = {
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * Use that property to pass a ref callback to the decorated component.
+   */
   innerRef: require('prop-types').func
 };
 var babelPluginFlowReactPropTypes_proptype_InjectedProps = {

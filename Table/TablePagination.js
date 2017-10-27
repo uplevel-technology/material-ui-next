@@ -128,17 +128,68 @@ var babelPluginFlowReactPropTypes_proptype_LabelDisplayedRowsArgs = {
   page: require('prop-types').number.isRequired
 };
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a DOM element or a component.
+   */
   component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType),
+
+  /**
+   * @ignore
+   */
   colSpan: require('prop-types').number,
+
+  /**
+   * The total number of rows.
+   */
   count: require('prop-types').number.isRequired,
+
+  /**
+   * Useful to customize the displayed rows label.
+   */
   labelDisplayedRows: require('prop-types').func,
+
+  /**
+   * Useful to customize the rows per page label. Invoked with a `{ from, to, count, page }`
+   * object.
+   */
   labelRowsPerPage: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * Callback fired when the page is changed. Invoked with two arguments: the event and the
+   * page to show.
+   */
   onChangePage: require('prop-types').func.isRequired,
+
+  /**
+   * Callback fired when the number of rows per page is changed. Invoked with two arguments: the
+   * event.
+   */
   onChangeRowsPerPage: require('prop-types').func.isRequired,
+
+  /**
+   * The zero-based index of the current page.
+   */
   page: require('prop-types').number.isRequired,
+
+  /**
+   * The number of rows per page.
+   */
   rowsPerPage: require('prop-types').number.isRequired,
+
+  /**
+   * Customizes the options of the rows per page select field.
+   */
   rowsPerPageOptions: require('prop-types').arrayOf(require('prop-types').number),
+
+  /**
+   * @ignore
+   */
   theme: require('prop-types').object
 };
 

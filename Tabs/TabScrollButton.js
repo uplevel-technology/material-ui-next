@@ -55,10 +55,29 @@ var styles = exports.styles = function styles(theme) {
 };
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * Which direction should the button indicate?
+   */
   direction: require('prop-types').oneOf(['left', 'right']).isRequired,
+
+  /**
+   * Callback to execute for button press.
+   */
   onClick: require('prop-types').func,
+
+  /**
+   * Should the button be present or just consume space.
+   */
   visible: require('prop-types').bool
 };
 

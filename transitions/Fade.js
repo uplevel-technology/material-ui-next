@@ -56,14 +56,50 @@ var babelPluginFlowReactPropTypes_proptype_TransitionCallback = require('../inte
 var babelPluginFlowReactPropTypes_proptype_TransitionDuration = require('../internal/transition').babelPluginFlowReactPropTypes_proptype_TransitionDuration || require('prop-types').any;
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * @ignore
+   */
   appear: require('prop-types').bool,
+
+  /**
+   * A single child content element.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element.isRequired ? babelPluginFlowReactPropTypes_proptype_Element.isRequired : babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element).isRequired,
+
+  /**
+   * If `true`, the component will transition in.
+   */
   in: require('prop-types').bool.isRequired,
+
+  /**
+   * @ignore
+   */
   onEnter: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * @ignore
+   */
   onEntering: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * @ignore
+   */
   onExit: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * @ignore
+   */
   theme: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   style: require('prop-types').object,
+
+  /**
+   * The duration for the transition, in milliseconds.
+   * You may specify a single timeout for all transitions, or individually with an object.
+   */
   timeout: typeof babelPluginFlowReactPropTypes_proptype_TransitionDuration === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionDuration : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionDuration)
 };
 

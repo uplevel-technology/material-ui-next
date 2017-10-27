@@ -102,30 +102,134 @@ var styles = exports.styles = function styles(theme) {
 };
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * If `true`, the ripples will be centered.
+   * They won't start at the cursor interaction position.
+   */
   centerRipple: require('prop-types').bool,
+
+  /**
+   * The content of the component.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a DOM element or a component.
+   * The default value is a `button`.
+   */
   component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType),
+
+  /**
+   * If `true`, the base button will be disabled.
+   */
   disabled: require('prop-types').bool,
+
+  /**
+   * If `true`, the ripple effect will be disabled.
+   */
   disableRipple: require('prop-types').bool,
+
+  /**
+   * If `true`, the base button will have a keyboard focus ripple.
+   * `disableRipple` must also be `false`.
+   */
   focusRipple: require('prop-types').bool,
+
+  /**
+   * The CSS class applied while the component is keyboard focused.
+   */
   keyboardFocusedClassName: require('prop-types').string,
+
+  /**
+   * @ignore
+   */
   onBlur: require('prop-types').func,
+
+  /**
+   * @ignore
+   */
   onClick: require('prop-types').func,
+
+  /**
+   * @ignore
+   */
   onFocus: require('prop-types').func,
+
+  /**
+   * Callback fired when the component is focused with a keyboard.
+   * We trigger a `onFocus` callback too.
+   */
   onKeyboardFocus: require('prop-types').func,
+
+  /**
+   * @ignore
+   */
   onKeyDown: require('prop-types').func,
+
+  /**
+   * @ignore
+   */
   onKeyUp: require('prop-types').func,
+
+  /**
+   * @ignore
+   */
   onMouseDown: require('prop-types').func,
+
+  /**
+   * @ignore
+   */
   onMouseLeave: require('prop-types').func,
+
+  /**
+   * @ignore
+   */
   onMouseUp: require('prop-types').func,
+
+  /**
+   * @ignore
+   */
   onTouchEnd: require('prop-types').func,
+
+  /**
+   * @ignore
+   */
   onTouchMove: require('prop-types').func,
+
+  /**
+   * @ignore
+   */
   onTouchStart: require('prop-types').func,
+
+  /**
+   * @ignore
+   */
   role: require('prop-types').string,
+
+  /**
+   * Use that property to pass a ref callback to the root component.
+   */
   rootRef: require('prop-types').func,
+
+  /**
+   * @ignore
+   */
   tabIndex: require('prop-types').oneOfType([require('prop-types').number, require('prop-types').string]),
+
+  /**
+   * @ignore
+   */
   type: require('prop-types').string.isRequired
 };
 

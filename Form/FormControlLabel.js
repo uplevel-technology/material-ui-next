@@ -64,15 +64,57 @@ var styles = exports.styles = function styles(theme) {
 };
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * If `true`, the component appears selected.
+   */
   checked: require('prop-types').oneOfType([require('prop-types').bool, require('prop-types').string]),
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * A control element. For instance, it can be be a `Radio`, a `Switch` or a `Checkbox`.
+   */
   control: typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element.isRequired ? babelPluginFlowReactPropTypes_proptype_Element.isRequired : babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element).isRequired,
+
+  /**
+   * If `true`, the control will be disabled.
+   */
   disabled: require('prop-types').bool,
+
+  /**
+   * Use that property to pass a ref callback to the native input component.
+   */
   inputRef: require('prop-types').func,
+
+  /**
+   * The text to be used in an enclosing label element.
+   */
   label: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node.isRequired ? babelPluginFlowReactPropTypes_proptype_Node.isRequired : babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node).isRequired,
+
+  /*
+   * @ignore
+   */
   name: require('prop-types').string,
+
+  /**
+   * Callback fired when the state is changed.
+   *
+   * @param {object} event The event source of the callback
+   * @param {boolean} checked The `checked` value of the switch
+   */
   onChange: require('prop-types').func,
+
+  /**
+   * The value of the component.
+   */
   value: require('prop-types').string
 };
 

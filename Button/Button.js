@@ -189,18 +189,73 @@ var styles = exports.styles = function styles(theme) {
 var babelPluginFlowReactPropTypes_proptype_Color = require('prop-types').oneOf(['default', 'inherit', 'primary', 'accent', 'contrast']);
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * The content of the button.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node.isRequired ? babelPluginFlowReactPropTypes_proptype_Node.isRequired : babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node).isRequired,
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * The color of the component. It's using the theme palette when that makes sense.
+   */
   color: require('prop-types').oneOf(['default', 'inherit', 'primary', 'accent', 'contrast']),
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a DOM element or a component.
+   * The default value is a `button`.
+   */
   component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType),
+
+  /**
+   * Uses a smaller minWidth, ideal for things like card actions.
+   */
   dense: require('prop-types').bool,
+
+  /**
+   * If `true`, the button will be disabled.
+   */
   disabled: require('prop-types').bool,
+
+  /**
+   * If `true`, the  keyboard focus ripple will be disabled.
+   * `disableRipple` must also be true.
+   */
   disableFocusRipple: require('prop-types').bool,
+
+  /**
+   * If `true`, the ripple effect will be disabled.
+   */
   disableRipple: require('prop-types').bool,
+
+  /**
+   * If `true`, will use floating action button styling.
+   */
   fab: require('prop-types').bool,
+
+  /**
+   * The URL to link to when the button is clicked.
+   * If defined, an `a` element will be used as the root node.
+   */
   href: require('prop-types').string,
+
+  /**
+   * If `true`, the button will use raised styling.
+   */
   raised: require('prop-types').bool,
+
+  /**
+   * @ignore
+   */
   type: require('prop-types').string
 };
 

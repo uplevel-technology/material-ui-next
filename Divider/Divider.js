@@ -61,9 +61,25 @@ var styles = exports.styles = function styles(theme) {
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
   absolute: require('prop-types').bool,
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * If `true`, the divider will be indented.
+   */
   inset: require('prop-types').bool,
+
+  /**
+   * If `true`, the divider will have a lighter color.
+   */
   light: require('prop-types').bool
 };
 

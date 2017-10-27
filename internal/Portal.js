@@ -41,7 +41,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFlowReactPropTypes_proptype_Node || require('prop-types').any;
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * The content to portal in order to escape the parent DOM node.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * If `true` the children will be mounted into the DOM.
+   */
   open: require('prop-types').bool
 };
 

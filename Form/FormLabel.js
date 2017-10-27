@@ -63,13 +63,45 @@ var styles = exports.styles = function styles(theme) {
 };
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * The content of the component.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a DOM element or a component.
+   */
   component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType),
+
+  /**
+   * If `true`, the label should be displayed in a disabled state.
+   */
   disabled: require('prop-types').bool,
+
+  /**
+   * If `true`, the label should be displayed in an error state.
+   */
   error: require('prop-types').bool,
+
+  /**
+   * If `true`, the input of this label is focused (used by `FormGroup` components).
+   */
   focused: require('prop-types').bool,
+
+  /**
+   * If `true`, the label will indicate that the input is required.
+   */
   required: require('prop-types').bool
 };
 

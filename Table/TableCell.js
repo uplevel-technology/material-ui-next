@@ -50,11 +50,35 @@ var babelPluginFlowReactPropTypes_proptype_Context = {
 var babelPluginFlowReactPropTypes_proptype_Padding = require('prop-types').oneOf(['default', 'checkbox', 'dense', 'none']);
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * The table cell contents.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a DOM element or a component.
+   */
   component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType),
+
+  /**
+   * If `true`, content will align to the right.
+   */
   numeric: require('prop-types').bool,
+
+  /**
+   * Sets the padding applied to the cell.
+   */
   padding: require('prop-types').oneOf(['default', 'checkbox', 'dense', 'none'])
 };
 var styles = exports.styles = function styles(theme) {

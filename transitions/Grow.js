@@ -66,19 +66,78 @@ var babelPluginFlowReactPropTypes_proptype_TransitionDuration = require('prop-ty
 }), require('prop-types').oneOf(['auto'])]);
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * @ignore
+   */
   appear: require('prop-types').bool,
+
+  /**
+   * A single child content element.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element.isRequired ? babelPluginFlowReactPropTypes_proptype_Element.isRequired : babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element).isRequired,
+
+  /**
+   * If `true`, show the component; triggers the enter or exit animation.
+   */
   in: require('prop-types').bool.isRequired,
+
+  /**
+   * @ignore
+   */
   onEnter: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * @ignore
+   */
   onEntering: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * @ignore
+   */
   onEntered: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * @ignore
+   */
   onExit: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * @ignore
+   */
   onExiting: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * @ignore
+   */
   onExited: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * Use that property to pass a ref callback to the root component.
+   */
   rootRef: require('prop-types').func,
+
+  /**
+   * @ignore
+   */
   style: require('prop-types').object,
+
+  /**
+   * The animation classNames applied to the component as it enters or exits.
+   * This property is a direct binding to [`CSSTransition.classNames`](https://reactcommunity.org/react-transition-group/#CSSTransition-prop-classNames).
+   */
   transitionClasses: typeof babelPluginFlowReactPropTypes_proptype_TransitionClasses === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionClasses : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionClasses),
+
+  /**
+   * @ignore
+   */
   theme: require('prop-types').object,
+
+  /**
+   * The duration for the transition, in milliseconds.
+   * You may specify a single timeout for all transitions, or individually with an object.
+   *
+   * Set to 'auto' to automatically calculate transition time based on height.
+   */
   timeout: require('prop-types').oneOfType([require('prop-types').number, require('prop-types').shape({
     enter: require('prop-types').number,
     exit: require('prop-types').number

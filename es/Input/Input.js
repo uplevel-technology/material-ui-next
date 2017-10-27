@@ -243,10 +243,28 @@ class Input extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    // The blur won't fire when the disabled state is set on a focused input.
+    // We need to book keep the focused state manually.
+    if (!this.props.disabled && nextProps.disabled) {
+      this.setState({
+        focused: false
+      });
+    }
+  }
+
   componentWillUpdate(nextProps) {
     if (this.isControlled()) {
       this.checkDirty(nextProps);
     } // else performed in the onChange
+
+    // Book keep the focused state.
+    if (!this.props.disabled && nextProps.disabled) {
+      const { muiFormControl } = this.context;
+      if (muiFormControl && muiFormControl.onBlur) {
+        muiFormControl.onBlur();
+      }
+    }
   }
 
   // Holds the input reference
@@ -296,7 +314,7 @@ class Input extends React.Component {
       fullWidth,
       id,
       inputComponent,
-      inputProps: { inputPropsClassName } = {},
+      inputProps: { className: inputPropsClassName } = {},
       inputRef,
       margin: marginProp,
       multiline,
@@ -317,7 +335,7 @@ class Input extends React.Component {
       // $FlowFixMe
       value
     } = _props,
-          inputPropsProp = _objectWithoutProperties(_props.inputProps, ['inputPropsClassName']),
+          inputPropsProp = _objectWithoutProperties(_props.inputProps, ['className']),
           other = _objectWithoutProperties(_props, ['autoComplete', 'autoFocus', 'classes', 'className', 'defaultValue', 'disabled', 'disableUnderline', 'endAdornment', 'error', 'fullWidth', 'id', 'inputComponent', 'inputProps', 'inputRef', 'margin', 'multiline', 'onBlur', 'onFocus', 'onChange', 'onClean', 'onDirty', 'onKeyDown', 'onKeyUp', 'placeholder', 'name', 'readOnly', 'rows', 'rowsMax', 'startAdornment', 'type', 'value']);
 
     const { muiFormControl } = this.context;

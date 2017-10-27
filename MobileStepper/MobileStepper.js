@@ -98,13 +98,45 @@ var babelPluginFlowReactPropTypes_proptype_Position = require('prop-types').oneO
 var babelPluginFlowReactPropTypes_proptype_Type = require('prop-types').oneOf(['text', 'dots', 'progress']);
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * Set the active step (zero based index).
+   * Defines which dot is highlighted when the type is 'dots'.
+   */
   activeStep: require('prop-types').number,
+
+  /**
+   * A back button element. For instance, it can be be a `Button` or a `IconButton`.
+   */
   backButton: typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element.isRequired ? babelPluginFlowReactPropTypes_proptype_Element.isRequired : babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element).isRequired,
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * A next button element. For instance, it can be be a `Button` or a `IconButton`.
+   */
   nextButton: typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element.isRequired ? babelPluginFlowReactPropTypes_proptype_Element.isRequired : babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element).isRequired,
+
+  /**
+   * Set the positioning type.
+   */
   position: require('prop-types').oneOf(['bottom', 'top', 'static']),
+
+  /**
+   * The total steps.
+   */
   steps: require('prop-types').number.isRequired,
+
+  /**
+   * The type of mobile stepper to use.
+   */
   type: require('prop-types').oneOf(['text', 'dots', 'progress'])
 };
 

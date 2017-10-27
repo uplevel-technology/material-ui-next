@@ -27,6 +27,9 @@ var babelPluginFlowReactPropTypes_proptype_HigherOrderComponent = require('react
 var babelPluginFlowReactPropTypes_proptype_Breakpoint = require('../styles/createBreakpoints').babelPluginFlowReactPropTypes_proptype_Breakpoint || require('prop-types').any;
 
 var babelPluginFlowReactPropTypes_proptype_InjectedProps = {
+  /**
+   * If isWidthDown(options.breakpoint), return true.
+   */
   fullScreen: require('prop-types').bool.isRequired
 };
 

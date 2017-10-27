@@ -66,9 +66,24 @@ var styles = exports.styles = function styles(theme) {
 var babelPluginFlowReactPropTypes_proptype_Color = require('prop-types').oneOf(['inherit', 'accent', 'action', 'contrast', 'disabled', 'error', 'primary']);
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * The name of the icon font ligature.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * The color of the component. It's using the theme palette when that makes sense.
+   */
   color: require('prop-types').oneOf(['inherit', 'accent', 'action', 'contrast', 'disabled', 'error', 'primary'])
 };
 

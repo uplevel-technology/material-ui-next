@@ -48,11 +48,37 @@ var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFl
 // @inheritedComponent FormGroup
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * The content of the component.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * The name used to reference the value of the control.
+   */
   name: require('prop-types').string,
+
+  /**
+   * @ignore
+   */
   onBlur: require('prop-types').func,
+
+  /**
+   * Callback fired when a radio button is selected.
+   *
+   * @param {object} event The event source of the callback
+   * @param {string} value The `value` of the selected radio button
+   */
   onChange: require('prop-types').func,
+
+  /**
+   * @ignore
+   */
   onKeyDown: require('prop-types').func,
+
+  /**
+   * Value of the selected radio button.
+   */
   value: require('prop-types').string
 };
 

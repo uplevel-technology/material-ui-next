@@ -75,11 +75,9 @@ function Dialog(props) {
     onExiting,
     onExited,
     onRequestClose,
-    transition
+    transition: TransitionProp
   } = props,
         other = _objectWithoutProperties(props, ['children', 'classes', 'className', 'fullScreen', 'ignoreBackdropClick', 'ignoreEscapeKeyUp', 'transitionDuration', 'maxWidth', 'fullWidth', 'open', 'onBackdropClick', 'onEscapeKeyUp', 'onEnter', 'onEntering', 'onEntered', 'onExit', 'onExiting', 'onExited', 'onRequestClose', 'transition']);
-
-  const createTransitionFn = typeof transition === 'function' ? React.createElement : React.cloneElement;
 
   return React.createElement(
     Modal,
@@ -93,30 +91,32 @@ function Dialog(props) {
       onRequestClose: onRequestClose,
       show: open
     }, other),
-    createTransitionFn(
-    /* $FlowFixMe - FIXME See Snackbar for similar create vs clone example */
-    transition, {
-      appear: true,
-      in: open,
-      timeout: transitionDuration,
-      onEnter,
-      onEntering,
-      onEntered,
-      onExit,
-      onExiting,
-      onExited
-    }, React.createElement(
-      Paper,
+    React.createElement(
+      TransitionProp,
       {
-        'data-mui-test': 'Dialog',
-        elevation: 24,
-        className: classNames(classes.paper, classes[`paperWidth${capitalizeFirstLetter(maxWidth)}`], {
-          [classes.fullScreen]: fullScreen,
-          [classes.fullWidth]: fullWidth
-        })
+        appear: true,
+        'in': open,
+        timeout: transitionDuration,
+        onEnter: onEnter,
+        onEntering: onEntering,
+        onEntered: onEntered,
+        onExit: onExit,
+        onExiting: onExiting,
+        onExited: onExited
       },
-      children
-    ))
+      React.createElement(
+        Paper,
+        {
+          'data-mui-test': 'Dialog',
+          elevation: 24,
+          className: classNames(classes.paper, classes[`paperWidth${capitalizeFirstLetter(maxWidth)}`], {
+            [classes.fullScreen]: fullScreen,
+            [classes.fullWidth]: fullWidth
+          })
+        },
+        children
+      )
+    )
   );
 }
 

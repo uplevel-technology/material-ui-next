@@ -68,11 +68,34 @@ var styles = exports.styles = function styles(theme) {
 };
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * The content of the component.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * The color of the component. It's using the theme palette when that makes sense.
+   */
   color: require('prop-types').oneOf(['default', 'primary', 'inherit']),
+
+  /**
+   * If `true`, the List Subheader will not stick to the top during scroll.
+   */
   disableSticky: require('prop-types').bool,
+
+  /**
+   * If `true`, the List Subheader will be indented.
+   */
   inset: require('prop-types').bool
 };
 

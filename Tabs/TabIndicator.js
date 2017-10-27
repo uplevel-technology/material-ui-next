@@ -58,9 +58,26 @@ var babelPluginFlowReactPropTypes_proptype_ProvidedProps = {
   classes: require('prop-types').object.isRequired
 };
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * @ignore
+   * The color of the tab indicator.
+   */
   color: require('prop-types').oneOfType([require('prop-types').oneOf(['accent']), require('prop-types').oneOf(['primary']), require('prop-types').string]).isRequired,
+
+  /**
+   * @ignore
+   * The style of the root element.
+   */
   style: require('prop-types').shape({
     left: require('prop-types').number.isRequired,
     width: require('prop-types').number.isRequired

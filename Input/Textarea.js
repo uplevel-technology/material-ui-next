@@ -88,14 +88,49 @@ var styles = exports.styles = {
 };
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * @ignore
+   */
   defaultValue: require('prop-types').oneOfType([require('prop-types').string, require('prop-types').number]),
+
+  /**
+   * @ignore
+   */
   disabled: require('prop-types').bool,
+
+  /**
+   * @ignore
+   */
   onChange: require('prop-types').func,
+
+  /**
+   * Number of rows to display when multiline option is set to true.
+   */
   rows: require('prop-types').oneOfType([require('prop-types').string, require('prop-types').number]),
+
+  /**
+   * Maximum number of rows to display when multiline option is set to true.
+   */
   rowsMax: require('prop-types').oneOfType([require('prop-types').string, require('prop-types').number]),
+
+  /**
+   * Use that property to pass a ref callback to the native textarea element.
+   */
   textareaRef: require('prop-types').func,
+
+  /**
+   * @ignore
+   */
   value: require('prop-types').oneOfType([require('prop-types').string, require('prop-types').number])
 };
 

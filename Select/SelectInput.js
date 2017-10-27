@@ -73,23 +73,98 @@ var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFl
 var babelPluginFlowReactPropTypes_proptype_Element = require('react').babelPluginFlowReactPropTypes_proptype_Element || require('prop-types').any;
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * If true, the width of the popover will automatically be set according to the items inside the
+   * menu, otherwise it will be at least the width of the select input.
+   */
   autoWidth: require('prop-types').bool.isRequired,
+
+  /**
+   * The option elements to populate the select with.
+   * Can be some `MenuItem` when `native` is false and `option` when `native` is true.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node.isRequired ? babelPluginFlowReactPropTypes_proptype_Node.isRequired : babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node).isRequired,
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * The CSS class name of the select element.
+   */
   className: require('prop-types').string,
+
+  /**
+   * If `true`, the select will be disabled.
+   */
   disabled: require('prop-types').bool,
+
+  /**
+   * If `true`, the selected item is displayed even if its value is empty.
+   * You can only use it when the `native` property is `false` (default).
+   */
   displayEmpty: require('prop-types').bool.isRequired,
+
+  /**
+   * If `true`, the component will be using a native `select` element.
+   */
   native: require('prop-types').bool.isRequired,
+
+  /**
+   * If true, `value` must be an array and the menu will support multiple selections.
+   * You can only use it when the `native` property is `false` (default).
+   */
   multiple: require('prop-types').bool.isRequired,
+
+  /**
+   * Properties applied to the `Menu` element.
+   */
   MenuProps: require('prop-types').object,
+
+  /**
+   * Name attribute of the `select` or hidden `input` element.
+   */
   name: require('prop-types').string,
+
+  /**
+   * @ignore
+   */
   onBlur: require('prop-types').func,
+
+  /**
+   * Callback function fired when a menu item is selected.
+   *
+   * @param {object} event The event source of the callback
+   * @param {object} child The react element that was selected
+   */
   onChange: require('prop-types').func,
+
+  /**
+   * @ignore
+   */
   onFocus: require('prop-types').func,
+
+  /**
+   * @ignore
+   */
   readOnly: require('prop-types').bool,
+
+  /**
+   * Render the selected value.
+   * You can only use it when the `native` property is `false` (default).
+   */
   renderValue: require('prop-types').func,
+
+  /**
+   * Use that property to pass a ref callback to the native select element.
+   */
   selectRef: require('prop-types').func,
-  value: require('prop-types').oneOfType([require('prop-types').string, require('prop-types').number, require('prop-types').arrayOf(require('prop-types').oneOfType([require('prop-types').string, require('prop-types').number]))])
+
+  /**
+   * The value of the component, required for a controlled component.
+   */
+  value: require('prop-types').oneOfType([require('prop-types').string, require('prop-types').number, typeof $ReadOnlyArray === 'function' ? require('prop-types').instanceOf($ReadOnlyArray) : require('prop-types').any])
 };
 
 /**

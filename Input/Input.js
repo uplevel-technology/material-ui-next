@@ -258,36 +258,168 @@ var styles = exports.styles = function styles(theme) {
 };
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * This property helps users to fill forms faster, especially on mobile devices.
+   * The name can be confusing, it's more like an autofill.
+   * You can learn more about it in this article
+   * https://developers.google.com/web/updates/2015/06/checkout-faster-with-autofill
+   */
   autoComplete: require('prop-types').string,
+
+  /**
+   * If `true`, the input will be focused during the first mount.
+   */
   autoFocus: require('prop-types').bool,
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * The CSS class name of the wrapper element.
+   */
   className: require('prop-types').string,
+
+  /**
+   * The default input value, useful when not controlling the component.
+   */
   defaultValue: require('prop-types').oneOfType([require('prop-types').string, require('prop-types').number]),
+
+  /**
+   * If `true`, the input will be disabled.
+   */
   disabled: require('prop-types').bool,
+
+  /**
+   * If `true`, the input will not have an underline.
+   */
   disableUnderline: require('prop-types').bool,
+
+  /**
+   * End `InputAdornment` for this component.
+   */
   endAdornment: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * If `true`, the input will indicate an error. This is normally obtained via context from
+   * FormControl.
+   */
   error: require('prop-types').bool,
+
+  /**
+   * If `true`, the input will take up the full width of its container.
+   */
   fullWidth: require('prop-types').bool,
+
+  /**
+   * The id of the `input` element.
+   */
   id: require('prop-types').string,
+
+  /**
+   * The component used for the input node.
+   * Either a string to use a DOM element or a component.
+   * It's an `input` by default.
+   */
   inputComponent: require('prop-types').oneOfType([require('prop-types').string, typeof babelPluginFlowReactPropTypes_proptype_ComponentType === 'function' ? babelPluginFlowReactPropTypes_proptype_ComponentType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ComponentType)]),
+
+  /**
+   * Properties applied to the `input` element.
+   */
   inputProps: require('prop-types').object,
+
+  /**
+   * Use that property to pass a ref callback to the native input component.
+   */
   inputRef: require('prop-types').func,
+
+  /**
+   * If `dense`, will adjust vertical spacing. This is normally obtained via context from
+   * FormControl.
+   */
   margin: require('prop-types').oneOf(['dense', 'none']),
+
+  /**
+   * If `true`, a textarea element will be rendered.
+   */
   multiline: require('prop-types').bool,
+
+  /**
+   * Name attribute of the `input` element.
+   */
   name: require('prop-types').string,
+
+  /**
+   * @ignore
+   */
   readOnly: require('prop-types').bool,
+
+  /**
+   * @ignore
+   */
   onBlur: require('prop-types').func,
+
+  /**
+   * Callback fired when the value is changed.
+   *
+   * @param {object} event The event source of the callback
+   */
   onChange: require('prop-types').func,
+
+  /**
+   * TODO
+   */
   onClean: require('prop-types').func,
+
+  /**
+   * TODO
+   */
   onDirty: require('prop-types').func,
+
+  /**
+   * @ignore
+   */
   onFocus: require('prop-types').func,
+
+  /**
+   * @ignore
+   */
   onKeyDown: require('prop-types').func,
+
+  /**
+   * @ignore
+   */
   onKeyUp: require('prop-types').func,
+
+  /**
+   * The short hint displayed in the input before the user enters a value.
+   */
   placeholder: require('prop-types').string,
+
+  /**
+   * Number of rows to display when multiline option is set to true.
+   */
   rows: require('prop-types').oneOfType([require('prop-types').string, require('prop-types').number]),
+
+  /**
+   * Maximum number of rows to display when multiline option is set to true.
+   */
   rowsMax: require('prop-types').oneOfType([require('prop-types').string, require('prop-types').number]),
+
+  /**
+   * Start `InputAdornment` for this component.
+   */
   startAdornment: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * Type of the input element. It should be a valid HTML5 input type.
+   */
   type: require('prop-types').string,
+
+  /**
+   * The input value, required for a controlled component.
+   */
   value: require('prop-types').oneOfType([require('prop-types').string, require('prop-types').number, require('prop-types').arrayOf(require('prop-types').oneOfType([require('prop-types').string, require('prop-types').number]))])
 };
 
@@ -349,11 +481,31 @@ var Input = function (_React$Component) {
       }
     }
   }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      // The blur won't fire when the disabled state is set on a focused input.
+      // We need to book keep the focused state manually.
+      if (!this.props.disabled && nextProps.disabled) {
+        this.setState({
+          focused: false
+        });
+      }
+    }
+  }, {
     key: 'componentWillUpdate',
     value: function componentWillUpdate(nextProps) {
       if (this.isControlled()) {
         this.checkDirty(nextProps);
       } // else performed in the onChange
+
+      // Book keep the focused state.
+      if (!this.props.disabled && nextProps.disabled) {
+        var muiFormControl = this.context.muiFormControl;
+
+        if (muiFormControl && muiFormControl.onBlur) {
+          muiFormControl.onBlur();
+        }
+      }
     }
 
     // Holds the input reference
@@ -412,8 +564,8 @@ var Input = function (_React$Component) {
           inputComponent = _props.inputComponent,
           _props$inputProps = _props.inputProps;
       _props$inputProps = _props$inputProps === undefined ? {} : _props$inputProps;
-      var inputPropsClassName = _props$inputProps.inputPropsClassName,
-          inputPropsProp = (0, _objectWithoutProperties3.default)(_props$inputProps, ['inputPropsClassName']),
+      var inputPropsClassName = _props$inputProps.className,
+          inputPropsProp = (0, _objectWithoutProperties3.default)(_props$inputProps, ['className']),
           inputRef = _props.inputRef,
           marginProp = _props.margin,
           multiline = _props.multiline,

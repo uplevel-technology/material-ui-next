@@ -124,20 +124,89 @@ var styles = exports.styles = function styles(theme) {
 };
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * The CSS class name of the scroll button elements.
+   */
   buttonClassName: require('prop-types').string,
+
+  /**
+   * If `true`, the tabs will be centered.
+   * This property is intended for large views.
+   */
   centered: require('prop-types').bool,
+
+  /**
+   * The content of the component.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * If `true`, the tabs will grow to use all the available space.
+   * This property is intended for small views, like on mobile.
+   */
   fullWidth: require('prop-types').bool,
+
+  /**
+   * The CSS class name of the indicator element.
+   */
   indicatorClassName: require('prop-types').string,
+
+  /**
+   * Determines the color of the indicator.
+   */
   indicatorColor: require('prop-types').oneOfType([require('prop-types').oneOf(['accent']), require('prop-types').oneOf(['primary']), require('prop-types').string]),
+
+  /**
+   * Callback fired when the value changes.
+   *
+   * @param {object} event The event source of the callback
+   * @param {number} value We default to the index of the child
+   */
   onChange: require('prop-types').func.isRequired,
+
+  /**
+   * True invokes scrolling properties and allow for horizontally scrolling
+   * (or swiping) the tab bar.
+   */
   scrollable: require('prop-types').bool,
+
+  /**
+   * Determine behavior of scroll buttons when tabs are set to scroll
+   * `auto` will only present them on medium and larger viewports
+   * `on` will always present them
+   * `off` will never present them
+   */
   scrollButtons: require('prop-types').oneOf(['auto', 'on', 'off']),
+
+  /**
+   * The component used to render the scroll buttons.
+   */
   TabScrollButton: typeof babelPluginFlowReactPropTypes_proptype_ComponentType === 'function' ? babelPluginFlowReactPropTypes_proptype_ComponentType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ComponentType),
+
+  /**
+   * Determines the color of the `Tab`.
+   */
   textColor: require('prop-types').oneOf(['accent', 'primary', 'inherit']),
+
+  /**
+   * @ignore
+   */
   theme: require('prop-types').object,
+
+  /**
+   * The value of the currently selected `Tab`.
+   * If you don't want any selected `Tab`, you can set this property to `false`.
+   */
   value: require('prop-types').any.isRequired
 };
 var babelPluginFlowReactPropTypes_proptype_TabsMeta = {
@@ -145,6 +214,8 @@ var babelPluginFlowReactPropTypes_proptype_TabsMeta = {
   scrollLeft: require('prop-types').number.isRequired,
   scrollLeftNormalized: require('prop-types').number.isRequired,
   scrollWidth: require('prop-types').number.isRequired,
+
+  // ClientRect
   left: require('prop-types').number.isRequired,
   right: require('prop-types').number.isRequired
 };

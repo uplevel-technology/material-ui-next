@@ -85,11 +85,37 @@ var styles = exports.styles = {
 };
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * Theoretically you can pass any node as children, but the main use case is to pass an img,
+   * in which case GridListTile takes care of making the image "cover" available space
+   * (similar to `background-size: cover` or to `object-fit: cover`).
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * Width of the tile in number of grid cells.
+   */
   cols: require('prop-types').number,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a DOM element or a component.
+   */
   component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType),
+
+  /**
+   * Height of the tile in number of grid cells.
+   */
   rows: require('prop-types').number
 };
 

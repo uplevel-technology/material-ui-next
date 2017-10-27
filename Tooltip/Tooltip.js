@@ -43,6 +43,14 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = require('react-dom');
 
+var _reactEventListener = require('react-event-listener');
+
+var _reactEventListener2 = _interopRequireDefault(_reactEventListener);
+
+var _debounce = require('lodash/debounce');
+
+var _debounce2 = _interopRequireDefault(_debounce);
+
 var _warning = require('warning');
 
 var _warning2 = _interopRequireDefault(_warning);
@@ -69,7 +77,7 @@ var _withStyles2 = _interopRequireDefault(_withStyles);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFlowReactPropTypes_proptype_Node || require('prop-types').any; /* eslint-disable react/no-multi-comp */
+var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFlowReactPropTypes_proptype_Node || require('prop-types').any; /* eslint-disable react/no-multi-comp, no-underscore-dangle */
 
 
 var babelPluginFlowReactPropTypes_proptype_Element = require('react').babelPluginFlowReactPropTypes_proptype_Element || require('prop-types').any;
@@ -173,21 +181,89 @@ function flipPlacement(placement) {
 }
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * Tooltip reference component.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element.isRequired ? babelPluginFlowReactPropTypes_proptype_Element.isRequired : babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element).isRequired,
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * Do not respond to focus events.
+   */
   disableTriggerFocus: require('prop-types').bool,
+
+  /**
+   * Do not respond to hover events.
+   */
   disableTriggerHover: require('prop-types').bool,
+
+  /**
+   * Do not respond to long press touch events.
+   */
   disableTriggerTouch: require('prop-types').bool,
+
+  /**
+   * The relationship between the tooltip and the wrapper componnet is not clear from the DOM.
+   * By providind this property, we can use aria-describedby to solve the accessibility issue.
+   */
   id: require('prop-types').string,
+
+  /**
+   * Callback fired when the tooltip requests to be closed.
+   *
+   * @param {object} event The event source of the callback
+   */
   onRequestClose: require('prop-types').func,
+
+  /**
+   * Callback fired when the tooltip requests to be open.
+   *
+   * @param {object} event The event source of the callback
+   */
   onRequestOpen: require('prop-types').func,
+
+  /**
+   * If `true`, the tooltip is shown.
+   */
   open: require('prop-types').bool,
+
+  /**
+   * Tooltip title.
+   */
   title: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node.isRequired ? babelPluginFlowReactPropTypes_proptype_Node.isRequired : babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node).isRequired,
+
+  /**
+   * The number of milliseconds to wait before showing the tooltip.
+   */
   enterDelay: require('prop-types').number,
+
+  /**
+   * The number of milliseconds to wait before hidding the tooltip.
+   */
   leaveDelay: require('prop-types').number,
+
+  /**
+   * Tooltip placement
+   */
   placement: require('prop-types').oneOf(['bottom-end', 'bottom-start', 'bottom', 'left-end', 'left-start', 'left', 'right-end', 'right-start', 'right', 'top-end', 'top-start', 'top']),
+
+  /**
+   * Properties applied to the `Popper` element.
+   */
   PopperProps: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   theme: require('prop-types').object
 };
 
@@ -205,7 +281,11 @@ var Tooltip = function (_React$Component2) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this2 = (0, _possibleConstructorReturn3.default)(this, (_ref = Tooltip.__proto__ || (0, _getPrototypeOf2.default)(Tooltip)).call.apply(_ref, [this].concat(args))), _this2), _this2.state = {}, _this2.enterTimer = null, _this2.leaveTimer = null, _this2.touchTimer = null, _this2.isControlled = null, _this2.ignoreNonTouchEvents = false, _this2.handleRequestOpen = function (event) {
+    return _ret = (_temp = (_this2 = (0, _possibleConstructorReturn3.default)(this, (_ref = Tooltip.__proto__ || (0, _getPrototypeOf2.default)(Tooltip)).call.apply(_ref, [this].concat(args))), _this2), _this2.state = {}, _this2.enterTimer = null, _this2.leaveTimer = null, _this2.touchTimer = null, _this2.isControlled = null, _this2.popper = null, _this2.ignoreNonTouchEvents = false, _this2.handleResize = (0, _debounce2.default)(function () {
+      if (_this2.popper) {
+        _this2.popper._popper.scheduleUpdate();
+      }
+    }, 166), _this2.handleRequestOpen = function (event) {
       var children = _this2.props.children;
 
       if (typeof children !== 'string') {
@@ -330,10 +410,13 @@ var Tooltip = function (_React$Component2) {
     value: function componentWillUnmount() {
       clearTimeout(this.enterTimer);
       clearTimeout(this.leaveTimer);
+      this.handleResize.cancel();
     }
   }, {
     key: 'render',
     value: function render() {
+      var _this3 = this;
+
       var _props = this.props,
           childrenProp = _props.children,
           classes = _props.classes,
@@ -383,37 +466,45 @@ var Tooltip = function (_React$Component2) {
       }
 
       return _react2.default.createElement(
-        _reactPopper.Manager,
-        (0, _extends3.default)({ className: (0, _classnames2.default)(classes.root, className) }, other),
+        _reactEventListener2.default,
+        { target: 'window', onResize: this.handleResize },
         _react2.default.createElement(
-          _reactPopper.Target,
-          null,
-          function (_ref2) {
-            var targetProps = _ref2.targetProps;
-            return _react2.default.createElement(TargetChildren, {
-              element: typeof childrenProp !== 'string' ? _react2.default.cloneElement(childrenProp, childrenProps) : childrenProp,
-              ref: function ref(node) {
-                targetProps.ref((0, _reactDom.findDOMNode)(node));
-              }
-            });
-          }
-        ),
-        _react2.default.createElement(
-          _reactPopper.Popper,
-          (0, _extends3.default)({
-            placement: placement,
-            eventsEnabled: open,
-            className: (0, _classnames2.default)(classes.popper, (0, _defineProperty3.default)({}, classes.popperClose, !open), PopperClassName)
-          }, PopperOther),
+          _reactPopper.Manager,
+          (0, _extends3.default)({ className: (0, _classnames2.default)(classes.root, className) }, other),
           _react2.default.createElement(
-            'div',
-            {
-              id: id,
-              role: 'tooltip',
-              'aria-hidden': !open,
-              className: (0, _classnames2.default)(classes.tooltip, (0, _defineProperty3.default)({}, classes.tooltipOpen, open), classes['tooltip' + (0, _helpers.capitalizeFirstLetter)(placement.split('-')[0])])
-            },
-            title
+            _reactPopper.Target,
+            null,
+            function (_ref2) {
+              var targetProps = _ref2.targetProps;
+              return _react2.default.createElement(TargetChildren, {
+                element: typeof childrenProp !== 'string' ? _react2.default.cloneElement(childrenProp, childrenProps) : childrenProp,
+                ref: function ref(node) {
+                  targetProps.ref((0, _reactDom.findDOMNode)(node));
+                }
+              });
+            }
+          ),
+          _react2.default.createElement(
+            _reactPopper.Popper,
+            (0, _extends3.default)({
+              placement: placement,
+              eventsEnabled: open,
+              className: (0, _classnames2.default)(classes.popper, (0, _defineProperty3.default)({}, classes.popperClose, !open), PopperClassName)
+            }, PopperOther, {
+              ref: function ref(node) {
+                _this3.popper = node;
+              }
+            }),
+            _react2.default.createElement(
+              'div',
+              {
+                id: id,
+                role: 'tooltip',
+                'aria-hidden': !open,
+                className: (0, _classnames2.default)(classes.tooltip, (0, _defineProperty3.default)({}, classes.tooltipOpen, open), classes['tooltip' + (0, _helpers.capitalizeFirstLetter)(placement.split('-')[0])])
+              },
+              title
+            )
           )
         )
       );

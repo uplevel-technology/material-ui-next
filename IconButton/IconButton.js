@@ -98,12 +98,40 @@ var styles = exports.styles = function styles(theme) {
 };
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * The icon element.
+   * If a string is provided, it will be used as an icon font ligature.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * The color of the component. It's using the theme palette when that makes sense.
+   */
   color: require('prop-types').oneOf(['default', 'inherit', 'primary', 'contrast', 'accent']),
+
+  /**
+   * If `true`, the button will be disabled.
+   */
   disabled: require('prop-types').bool,
+
+  /**
+   * If `true`, the ripple will be disabled.
+   */
   disableRipple: require('prop-types').bool,
+
+  /**
+   * Use that property to pass a ref callback to the root component.
+   */
   rootRef: require('prop-types').func
 };
 

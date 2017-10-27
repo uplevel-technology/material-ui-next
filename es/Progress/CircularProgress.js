@@ -93,7 +93,7 @@ function CircularProgress(props) {
   return React.createElement(
     'div',
     _extends({
-      className: classNames(classes.root, classes[`${color}Color`], className),
+      className: classNames(classes.root, color !== 'inherit' && classes[`${color}Color`], className),
       style: _extends({ width: size, height: size }, style),
       role: 'progressbar'
     }, rootProps, other),

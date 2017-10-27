@@ -98,7 +98,20 @@ var isWidthDown = exports.isWidthDown = function isWidthDown(breakpoint, screenW
 
 // optional props introduced by this HOC
 var babelPluginFlowReactPropTypes_proptype_HOCProps = {
+  /**
+   * As `window.innerWidth` is unavailable on the server,
+   * we default to rendering an empty componenent during the first mount.
+   * In some situation you might want to use an heristic to approximate
+   * the screen width of the client browser screen width.
+   *
+   * For instance, you could be using the user-agent or the client-hints.
+   * http://caniuse.com/#search=client%20hint
+   */
   initialWidth: typeof babelPluginFlowReactPropTypes_proptype_Breakpoint === 'function' ? babelPluginFlowReactPropTypes_proptype_Breakpoint : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Breakpoint),
+
+  /**
+   * Bypass the width calculation logic.
+   */
   width: typeof babelPluginFlowReactPropTypes_proptype_Breakpoint === 'function' ? babelPluginFlowReactPropTypes_proptype_Breakpoint : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Breakpoint)
 };
 var babelPluginFlowReactPropTypes_proptype_InjectedProps = {

@@ -51,11 +51,34 @@ var _Transition2 = _interopRequireDefault(_Transition);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * If `true`, the ripple pulsates, typically indicating the keyboard focus state of an element.
+   */
   pulsate: require('prop-types').bool,
+
+  /**
+   * Diameter of the ripple.
+   */
   rippleSize: require('prop-types').number.isRequired,
+
+  /**
+   * Horizontal position of the ripple center.
+   */
   rippleX: require('prop-types').number.isRequired,
+
+  /**
+   * Vertical position of the ripple center.
+   */
   rippleY: require('prop-types').number.isRequired
 }; //  weak
 

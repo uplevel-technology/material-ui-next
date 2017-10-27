@@ -123,14 +123,50 @@ var styles = exports.styles = function styles(theme) {
 };
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * If `true`, the ListItem will be a button.
+   */
   button: require('prop-types').bool,
+
+  /**
+   * The content of the component.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a DOM element or a component.
+   */
   component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType),
+
+  /**
+   * If `true`, compact vertical padding designed for keyboard and mouse input will be used.
+   */
   dense: require('prop-types').bool,
+
+  /**
+   * @ignore
+   */
   disabled: require('prop-types').bool,
+
+  /**
+   * If `true`, the left and right padding is removed.
+   */
   disableGutters: require('prop-types').bool,
+
+  /**
+   * If `true`, a 1px light border is added to the bottom of the list item.
+   */
   divider: require('prop-types').bool
 };
 

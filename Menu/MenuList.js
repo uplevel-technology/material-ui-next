@@ -68,9 +68,24 @@ var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFl
 // @inheritedComponent List
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * MenuList contents, normally `MenuItem`s.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * @ignore
+   */
   onBlur: require('prop-types').func,
+
+  /**
+   * @ignore
+   */
   onKeyDown: require('prop-types').func
 };
 

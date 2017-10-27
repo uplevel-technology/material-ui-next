@@ -174,11 +174,37 @@ var styles = exports.styles = function styles(theme) {
 };
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * The color of the component. It's using the theme palette when that makes sense.
+   */
   color: require('prop-types').oneOf(['primary', 'accent']),
+
+  /**
+   * The mode of show your progress, indeterminate
+   * for when there is no value for progress.
+   */
   mode: require('prop-types').oneOf(['determinate', 'indeterminate', 'buffer', 'query']),
+
+  /**
+   * The value of progress, only works in determinate and buffer mode.
+   * Value between 0 and 100.
+   */
   value: require('prop-types').number,
+
+  /**
+   * The value of buffer, only works in buffer mode.
+   * Value between 0 and 100.
+   */
   valueBuffer: require('prop-types').number
 };
 

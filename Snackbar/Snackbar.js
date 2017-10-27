@@ -149,30 +149,135 @@ var babelPluginFlowReactPropTypes_proptype_Origin = {
   vertical: require('prop-types').oneOfType([require('prop-types').oneOf(['top']), require('prop-types').oneOf(['center']), require('prop-types').oneOf(['bottom']), require('prop-types').number])
 };
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * The action to display.
+   */
   action: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * The anchor of the `Snackbar`.
+   */
   anchorOrigin: require('prop-types').shape({
     horizontal: require('prop-types').oneOfType([require('prop-types').oneOf(['left']), require('prop-types').oneOf(['center']), require('prop-types').oneOf(['right']), require('prop-types').number]),
     vertical: require('prop-types').oneOfType([require('prop-types').oneOf(['top']), require('prop-types').oneOf(['center']), require('prop-types').oneOf(['bottom']), require('prop-types').number])
   }),
+
+  /**
+   * The number of milliseconds to wait before automatically dismissing.
+   * This behavior is disabled by default with the `null` value.
+   */
   autoHideDuration: require('prop-types').number,
+
+  /**
+   * The number of milliseconds to wait before dismissing after user interaction.
+   * If `autoHideDuration` property isn't specified, it does nothing.
+   * If `autoHideDuration` property is specified but `resumeHideDuration` isn't,
+   * we default to `autoHideDuration / 2` ms.
+   */
   resumeHideDuration: require('prop-types').number,
+
+  /**
+   * If you wish the take control over the children of the component you can use that property.
+   * When using it, no `SnackbarContent` component will be rendered.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element),
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * When displaying multiple consecutive Snackbars from a parent rendering a single
+   * <Snackbar/>, add the key property to ensure independent treatment of each message.
+   * e.g. <Snackbar key={message} />, otherwise, the message may update-in-place and
+   * features such as autoHideDuration may be canceled.
+   */
   key: require('prop-types').any,
+
+  /**
+   * The message to display.
+   */
   message: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * Callback fired before the transition is entering.
+   */
   onEnter: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * Callback fired when the transition is entering.
+   */
   onEntering: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * Callback fired when the transition has entered.
+   */
   onEntered: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * Callback fired before the transition is exiting.
+   */
   onExit: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * Callback fired when the transition is exiting.
+   */
   onExiting: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * Callback fired when the transition has exited.
+   */
   onExited: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * @ignore
+   */
   onMouseEnter: require('prop-types').func,
+
+  /**
+   * @ignore
+   */
   onMouseLeave: require('prop-types').func,
+
+  /**
+   * Callback fired when the component requests to be closed.
+   *
+   * Typically `onRequestClose` is used to set state in the parent component,
+   * which is used to control the `Snackbar` `open` prop.
+   *
+   * The `reason` parameter can optionally be used to control the response to `onRequestClose`,
+   * for example ignoring `clickaway`.
+   *
+   * @param {object} event The event source of the callback
+   * @param {string} reason Can be:`"timeout"` (`autoHideDuration` expired) or: `"clickaway"`
+   */
   onRequestClose: require('prop-types').func,
+
+  /**
+   * If true, `Snackbar` is open.
+   */
   open: require('prop-types').bool.isRequired,
+
+  /**
+   * Properties applied to the `SnackbarContent` element.
+   */
   SnackbarContentProps: require('prop-types').object,
-  transition: require('prop-types').oneOfType([typeof babelPluginFlowReactPropTypes_proptype_ComponentType === 'function' ? babelPluginFlowReactPropTypes_proptype_ComponentType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ComponentType), typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element)]),
+
+  /**
+   * Transition component.
+   */
+  transition: typeof babelPluginFlowReactPropTypes_proptype_ComponentType === 'function' ? babelPluginFlowReactPropTypes_proptype_ComponentType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ComponentType),
+
+  /**
+   * The duration for the transition, in milliseconds.
+   * You may specify a single timeout for all transitions, or individually with an object.
+   */
   transitionDuration: typeof babelPluginFlowReactPropTypes_proptype_TransitionDuration === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionDuration : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionDuration)
 };
 
@@ -316,7 +421,7 @@ var Snackbar = function (_React$Component) {
           onRequestClose = _props.onRequestClose,
           open = _props.open,
           SnackbarContentProps = _props.SnackbarContentProps,
-          transitionProp = _props.transition,
+          TransitionProp = _props.transition,
           other = (0, _objectWithoutProperties3.default)(_props, ['action', 'anchorOrigin', 'autoHideDuration', 'resumeHideDuration', 'children', 'classes', 'className', 'transitionDuration', 'message', 'onEnter', 'onEntering', 'onEntered', 'onExit', 'onExiting', 'onExited', 'onMouseEnter', 'onMouseLeave', 'onRequestClose', 'open', 'SnackbarContentProps', 'transition']);
 
 
@@ -338,13 +443,18 @@ var Snackbar = function (_React$Component) {
       var transitionContent = children || _react2.default.createElement(_SnackbarContent2.default, (0, _extends3.default)({ message: message, action: action }, SnackbarContentProps));
 
       var transition = void 0;
-      if (typeof transitionProp === 'function') {
-        transition = _react2.default.createElement(transitionProp, transitionProps, transitionContent);
+      if (TransitionProp) {
+        transition = _react2.default.createElement(
+          TransitionProp,
+          transitionProps,
+          transitionContent
+        );
       } else {
-        // $FlowFixMe - rosskevin - figure this out later
-        transition = _react2.default.cloneElement(
-        // $FlowFixMe - flow isn't smart enough to handle this pattern
-        transitionProp || _react2.default.createElement(_Slide2.default, { direction: vertical === 'top' ? 'down' : 'up' }), transitionProps, transitionContent);
+        transition = _react2.default.createElement(
+          _Slide2.default,
+          (0, _extends3.default)({ direction: vertical === 'top' ? 'down' : 'up' }, transitionProps),
+          transitionContent
+        );
       }
 
       return _react2.default.createElement(

@@ -37,7 +37,15 @@ var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFl
 var babelPluginFlowReactPropTypes_proptype_HiddenProps = require('./types').babelPluginFlowReactPropTypes_proptype_HiddenProps || require('prop-types').any;
 
 var babelPluginFlowReactPropTypes_proptype_Props = (0, _extends3.default)({}, babelPluginFlowReactPropTypes_proptype_HiddenProps === require('prop-types').any ? {} : babelPluginFlowReactPropTypes_proptype_HiddenProps, {
+  /**
+   * The content of the component.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node.isRequired ? babelPluginFlowReactPropTypes_proptype_Node.isRequired : babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node).isRequired,
+
+  /**
+   * @ignore
+   * width prop provided by withWidth decorator
+   */
   width: require('prop-types').string.isRequired
 });
 

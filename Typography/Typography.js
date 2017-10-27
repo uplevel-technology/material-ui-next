@@ -102,14 +102,54 @@ var babelPluginFlowReactPropTypes_proptype_Type = require('prop-types').oneOf(['
 var babelPluginFlowReactPropTypes_proptype_Props = {
   align: require('prop-types').oneOf(['inherit', 'left', 'center', 'right', 'justify']),
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a DOM element or a component.
+   * By default we map the type to a good default headline component.
+   */
   component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType),
+
+  /**
+   * The color of the component. It's using the theme palette when that makes sense.
+   */
   color: require('prop-types').oneOf(['inherit', 'primary', 'secondary', 'accent', 'error', 'default']),
+
+  /**
+   * If `true`, the text will have a bottom margin.
+   */
   gutterBottom: require('prop-types').bool,
+
+  /**
+   * We are empirically mapping the type property to a range of different DOM element type.
+   * For instance, h1 to h6. If you wish to change that mapping, you can provide your own.
+   * Alternatively, you can use the `component` property.
+   */
   headlineMapping: require('prop-types').shape({}),
+
+  /**
+   * If `true`, the text will not wrap, but instead will truncate with an ellipsis.
+   */
   noWrap: require('prop-types').bool,
+
+  /**
+   * If `true`, the text will have a bottom margin.
+   */
   paragraph: require('prop-types').bool,
+
+  /**
+   * Applies the theme typography styles.
+   */
   type: require('prop-types').oneOf(['display4', 'display3', 'display2', 'display1', 'headline', 'title', 'subheading', 'body2', 'body1', 'caption', 'button'])
 };
 

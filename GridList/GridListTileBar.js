@@ -100,12 +100,40 @@ var babelPluginFlowReactPropTypes_proptype_TitlePosition = require('prop-types')
 var babelPluginFlowReactPropTypes_proptype_ActionPosition = require('prop-types').oneOf(['left', 'right']);
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * An IconButton element to be used as secondary action target
+   * (primary action target is the tile itself).
+   */
   actionIcon: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * Position of secondary action IconButton.
+   */
   actionPosition: require('prop-types').oneOf(['left', 'right']),
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * String or element serving as subtitle (support text).
+   */
   subtitle: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * Title to be displayed on tile.
+   */
   title: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node.isRequired ? babelPluginFlowReactPropTypes_proptype_Node.isRequired : babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node).isRequired,
+
+  /**
+   * Position of the title bar.
+   */
   titlePosition: require('prop-types').oneOf(['top', 'bottom'])
 };
 

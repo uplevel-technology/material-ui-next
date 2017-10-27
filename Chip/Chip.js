@@ -145,14 +145,50 @@ var styles = exports.styles = function styles(theme) {
 };
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * Avatar element.
+   */
   avatar: typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element),
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * Custom delete icon. Will be shown only if `onRequestDelete` is set.
+   */
   deleteIcon: typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element),
+
+  /**
+   * The content of the label.
+   */
   label: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * @ignore
+   */
   onClick: require('prop-types').func,
+
+  /**
+   * @ignore
+   */
   onKeyDown: require('prop-types').func,
+
+  /**
+   * Callback function fired when the delete icon is clicked.
+   * If set, the delete icon will be shown.
+   */
   onRequestDelete: require('prop-types').func,
+
+  /**
+   * @ignore
+   */
   tabIndex: require('prop-types').oneOfType([require('prop-types').number, require('prop-types').string])
 };
 

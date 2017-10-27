@@ -88,10 +88,29 @@ var babelPluginFlowReactPropTypes_proptype_Color = require('prop-types').oneOf([
 var babelPluginFlowReactPropTypes_proptype_Position = require('prop-types').oneOf(['static', 'fixed', 'absolute']);
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * The content of the component.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * The color of the component. It's using the theme palette when that makes sense.
+   */
   color: require('prop-types').oneOf(['inherit', 'primary', 'accent', 'default']),
+
+  /**
+   * The positioning type.
+   */
   position: require('prop-types').oneOf(['static', 'fixed', 'absolute'])
 };
 

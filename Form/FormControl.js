@@ -92,16 +92,61 @@ var styles = exports.styles = function styles(theme) {
 var babelPluginFlowReactPropTypes_proptype_Margin = require('prop-types').oneOf(['none', 'dense', 'normal']);
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * The contents of the form control.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   className: require('prop-types').string,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a DOM element or a component.
+   */
   component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType),
+
+  /**
+   * If `true`, the label, input and helper text should be displayed in a disabled state.
+   */
   disabled: require('prop-types').bool,
+
+  /**
+   * If `true`, the label should be displayed in an error state.
+   */
   error: require('prop-types').bool,
+
+  /**
+   * If `true`, the component, as well as its children,
+   * will take up the full width of its container.
+   */
   fullWidth: require('prop-types').bool,
+
+  /**
+   * @ignore
+   */
   onBlur: require('prop-types').func,
+
+  /**
+   * @ignore
+   */
   onFocus: require('prop-types').func,
+
+  /**
+   * If `true`, the label will indicate that the input is required.
+   */
   required: require('prop-types').bool,
+
+  /**
+   * If `dense` or `normal`, will adjust vertical spacing of this and contained components.
+   */
   margin: require('prop-types').oneOf(['none', 'dense', 'normal'])
 };
 

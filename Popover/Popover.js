@@ -143,31 +143,124 @@ var babelPluginFlowReactPropTypes_proptype_Origin = {
   vertical: require('prop-types').oneOfType([require('prop-types').oneOf(['top']), require('prop-types').oneOf(['center']), require('prop-types').oneOf(['bottom']), require('prop-types').number]).isRequired
 };
 var babelPluginFlowReactPropTypes_proptype_Props = {
+  /**
+   * This is the DOM element that will be used
+   * to set the position of the popover.
+   */
   anchorEl: typeof HTMLElement === 'function' ? require('prop-types').instanceOf(HTMLElement) : require('prop-types').any,
+
+  /**
+   * This is the point on the anchor where the popover's
+   * `anchorEl` will attach to.
+   *
+   * Options:
+   * vertical: [top, center, bottom];
+   * horizontal: [left, center, right].
+   */
   anchorOrigin: require('prop-types').shape({
     horizontal: require('prop-types').oneOfType([require('prop-types').oneOf(['left']), require('prop-types').oneOf(['center']), require('prop-types').oneOf(['right']), require('prop-types').number]).isRequired,
     vertical: require('prop-types').oneOfType([require('prop-types').oneOf(['top']), require('prop-types').oneOf(['center']), require('prop-types').oneOf(['bottom']), require('prop-types').number]).isRequired
   }),
+
+  /**
+   * The content of the component.
+   */
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node.isRequired ? babelPluginFlowReactPropTypes_proptype_Node.isRequired : babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node).isRequired,
+
+  /**
+   * Useful to extend the style applied to components.
+   */
   classes: require('prop-types').object,
+
+  /**
+   * The elevation of the popover.
+   */
   elevation: require('prop-types').number,
+
+  /**
+   * @ignore
+   */
   getContentAnchorEl: require('prop-types').func,
+
+  /**
+   * Specifies how close to the edge of the window the popover can appear.
+   */
   marginThreshold: require('prop-types').number,
+
+  /**
+   * Callback fired before the component is entering.
+   */
   onEnter: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * Callback fired when the component is entering.
+   */
   onEntering: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * Callback fired when the component has entered.
+   */
   onEntered: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * Callback fired before the component is exiting.
+   */
   onExit: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * Callback fired when the component is exiting.
+   */
   onExiting: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * Callback fired when the component has exited.
+   */
   onExited: typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback),
+
+  /**
+   * Callback fired when the component requests to be closed.
+   *
+   * @param {object} event The event source of the callback.
+   */
   onRequestClose: require('prop-types').func,
+
+  /**
+   * If `true`, the popover is visible.
+   */
   open: require('prop-types').bool.isRequired,
+
+  /**
+   * Properties applied to the `Paper` element.
+   */
   PaperProps: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   role: require('prop-types').string,
+
+  /**
+   * This is the point on the popover which
+   * will attach to the anchor's origin.
+   *
+   * Options:
+   * vertical: [top, center, bottom, x(px)];
+   * horizontal: [left, center, right, x(px)].
+   */
   transformOrigin: require('prop-types').shape({
     horizontal: require('prop-types').oneOfType([require('prop-types').oneOf(['left']), require('prop-types').oneOf(['center']), require('prop-types').oneOf(['right']), require('prop-types').number]).isRequired,
     vertical: require('prop-types').oneOfType([require('prop-types').oneOf(['top']), require('prop-types').oneOf(['center']), require('prop-types').oneOf(['bottom']), require('prop-types').number]).isRequired
   }),
+
+  /**
+   * The animation classNames applied to the component as it enters or exits.
+   * This property is a direct binding to [`CSSTransition.classNames`](https://reactcommunity.org/react-transition-group/#CSSTransition-prop-classNames).
+   */
   transitionClasses: typeof babelPluginFlowReactPropTypes_proptype_TransitionClasses === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionClasses : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionClasses),
+
+  /**
+   * Set to 'auto' to automatically calculate transition time based on height.
+   */
   transitionDuration: require('prop-types').oneOfType([require('prop-types').number, require('prop-types').shape({
     enter: require('prop-types').number,
     exit: require('prop-types').number
@@ -243,6 +336,8 @@ var Popover = function (_React$Component) {
         top -= _diff;
         transformOrigin.vertical += _diff;
       }
+
+      process.env.NODE_ENV !== "production" ? (0, _warning2.default)(elemRect.height < heightThreshold || !elemRect.height || !heightThreshold, ['Material-UI: the Popover component is too tall.', 'Some part of it can not be seen on the screen (' + (elemRect.height - heightThreshold) + 'px).', 'Please consider adding a `max-height` to improve the user-experience.'].join('\n')) : void 0;
 
       // Check if the horizontal axis needs shifting
       if (left < marginThreshold) {
