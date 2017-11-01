@@ -71,7 +71,7 @@ class Slide extends React.Component {
     return _temp = super(...args), this.state = {
       // We use this state to handle the server-side rendering.
       firstMount: true
-    }, this.transition = null, this.firstRender = false, this.handleResize = debounce(() => {
+    }, this.transition = null, this.handleResize = debounce(() => {
       // Skip configuration where the position is screen size invariant.
       if (this.props.in || this.props.direction === 'down' || this.props.direction === 'right') {
         return;
@@ -121,18 +121,6 @@ class Slide extends React.Component {
         this.props.onExit(node);
       }
     }, _temp;
-  }
-
-  componentDidMount() {
-    if (!this.props.in) {
-      // We need to set initial translate values of transition element
-      // otherwise component will be shown when in=false.
-      const element = findDOMNode(this.transition);
-      if (element instanceof HTMLElement) {
-        element.style.visibility = 'visible';
-        setTranslateValue(this.props, element);
-      }
-    }
   }
 
   componentWillReceiveProps() {

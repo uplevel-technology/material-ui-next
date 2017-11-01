@@ -262,7 +262,7 @@ function TextField(props) {
     }, inputProps);
   }
 
-  process.env.NODE_ENV !== "production" ? (0, _warning2.default)(!select || children, 'Material-UI: `children` must be passed when using the `TextField` component with `select`.') : void 0;
+  process.env.NODE_ENV !== "production" ? (0, _warning2.default)(!select || Boolean(children), 'Material-UI: `children` must be passed when using the `TextField` component with `select`.') : void 0;
 
   var InputComponent = _react2.default.createElement(_Input2.default, (0, _extends3.default)({
     autoComplete: autoComplete,

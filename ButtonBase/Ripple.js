@@ -102,14 +102,6 @@ var Ripple = function (_React$Component) {
     return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = Ripple.__proto__ || (0, _getPrototypeOf2.default)(Ripple)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
       rippleVisible: false,
       rippleLeaving: false
-    }, _this.handleEnter = function () {
-      _this.setState({
-        rippleVisible: true
-      });
-    }, _this.handleExit = function () {
-      _this.setState({
-        rippleLeaving: true
-      });
     }, _this.getRippleStyles = function (props) {
       var rippleSize = props.rippleSize,
           rippleX = props.rippleX,
@@ -122,6 +114,14 @@ var Ripple = function (_React$Component) {
         top: -(rippleSize / 2) + rippleY,
         left: -(rippleSize / 2) + rippleX
       };
+    }, _this.handleEnter = function () {
+      _this.setState({
+        rippleVisible: true
+      });
+    }, _this.handleExit = function () {
+      _this.setState({
+        rippleLeaving: true
+      });
     }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
   }
 

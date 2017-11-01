@@ -6,6 +6,7 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 
 import React from 'react';
 
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import withStyles from '../styles/withStyles';
 import Typography from '../Typography';
@@ -33,13 +34,13 @@ export const styles = theme => ({
  * Drop in replacement of the `Radio`, `Switch` and `Checkbox` component.
  * Use this component if you want to display an extra label.
  */
-function FormControlLabel(props) {
+function FormControlLabel(props, context) {
   const {
     checked,
     classes,
     className: classNameProp,
     control,
-    disabled,
+    disabled: disabledProp,
     inputRef,
     label,
     name,
@@ -47,6 +48,21 @@ function FormControlLabel(props) {
     value
   } = props,
         other = _objectWithoutProperties(props, ['checked', 'classes', 'className', 'control', 'disabled', 'inputRef', 'label', 'name', 'onChange', 'value']);
+
+  const { muiFormControl } = context;
+  let disabled = disabledProp;
+
+  if (typeof control.props.disabled !== 'undefined') {
+    if (typeof disabled === 'undefined') {
+      disabled = control.props.disabled;
+    }
+  }
+
+  if (muiFormControl) {
+    if (typeof disabled === 'undefined') {
+      disabled = muiFormControl.disabled;
+    }
+  }
 
   const className = classNames(classes.root, {
     [classes.disabled]: disabled
@@ -56,7 +72,7 @@ function FormControlLabel(props) {
     'label',
     _extends({ className: className }, other),
     React.cloneElement(control, {
-      disabled: typeof control.props.disabled === 'undefined' ? disabled : control.props.disabled,
+      disabled,
       checked: typeof control.props.checked === 'undefined' ? checked : control.props.checked,
       name: control.props.name || name,
       onChange: control.props.onChange || onChange,
@@ -71,8 +87,8 @@ function FormControlLabel(props) {
   );
 }
 
-FormControlLabel.defaultProps = {
-  disabled: false
+FormControlLabel.contextTypes = {
+  muiFormControl: PropTypes.object
 };
 
 export default withStyles(styles, { name: 'MuiFormControlLabel' })(FormControlLabel);

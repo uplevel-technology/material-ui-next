@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import withStyles from '../styles/withStyles';
-import { isDirty, isAdorned } from '../Input/Input';
+import { isDirty, isAdornedStart } from '../Input/Input';
 import { isMuiElement } from '../utils/reactHelpers';
 
 export const styles = theme => ({
@@ -45,45 +45,68 @@ export const styles = theme => ({
  *  - InputLabel
  */
 class FormControl extends React.Component {
-  constructor(...args) {
-    var _temp;
 
-    return _temp = super(...args), this.state = {
-      adorned: false,
+  constructor(props, context) {
+    super(props, context);
+
+    // We need to iterate through the children and find the Input in order
+    // to fully support server side rendering.
+    this.state = {
+      adornedStart: false,
       dirty: false,
       focused: false
-    }, this.handleFocus = event => {
+    };
+
+    this.handleFocus = event => {
       if (this.props.onFocus) {
         this.props.onFocus(event);
       }
       if (!this.state.focused) {
         this.setState({ focused: true });
       }
-    }, this.handleBlur = event => {
+    };
+
+    this.handleBlur = event => {
       if (this.props.onBlur) {
         this.props.onBlur(event);
       }
       if (this.state.focused) {
         this.setState({ focused: false });
       }
-    }, this.handleDirty = () => {
+    };
+
+    this.handleDirty = () => {
       if (!this.state.dirty) {
         this.setState({ dirty: true });
       }
-    }, this.handleClean = () => {
+    };
+
+    this.handleClean = () => {
       if (this.state.dirty) {
         this.setState({ dirty: false });
       }
-    }, _temp;
+    };
+
+    const { children } = this.props;
+    if (children) {
+      React.Children.forEach(children, child => {
+        if (isMuiElement(child, ['Input', 'Select']) && isDirty(child.props, true)) {
+          this.state.dirty = true;
+        }
+        if (isMuiElement(child, ['Input']) && isAdornedStart(child.props)) {
+          this.state.adornedStart = true;
+        }
+      });
+    }
   }
 
   getChildContext() {
     const { disabled, error, required, margin } = this.props;
-    const { adorned, dirty, focused } = this.state;
+    const { adornedStart, dirty, focused } = this.state;
 
     return {
       muiFormControl: {
-        adorned,
+        adornedStart,
         dirty,
         disabled,
         error,
@@ -96,22 +119,6 @@ class FormControl extends React.Component {
         onBlur: this.handleBlur
       }
     };
-  }
-
-  componentWillMount() {
-    // We need to iterate through the children and find the Input in order
-    // to fully support server side rendering.
-    const { children } = this.props;
-    if (children) {
-      React.Children.forEach(children, child => {
-        if (isMuiElement(child, ['Input', 'Select']) && isDirty(child.props, true)) {
-          this.setState({ dirty: true });
-        }
-        if (isMuiElement(child, ['Input']) && isAdorned(child.props)) {
-          this.setState({ adorned: true });
-        }
-      });
-    }
   }
 
   render() {

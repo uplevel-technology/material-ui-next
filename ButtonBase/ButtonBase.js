@@ -249,6 +249,13 @@ var ButtonBase = function (_React$Component) {
 
     return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = ButtonBase.__proto__ || (0, _getPrototypeOf2.default)(ButtonBase)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
       keyboardFocused: false
+    }, _this.onKeyboardFocusHandler = function (event) {
+      _this.keyDown = false;
+      _this.setState({ keyboardFocused: true });
+
+      if (_this.props.onKeyboardFocus) {
+        _this.props.onKeyboardFocus(event);
+      }
     }, _this.ripple = null, _this.keyDown = false, _this.button = null, _this.keyboardFocusTimeout = null, _this.keyboardFocusCheckTime = 30, _this.keyboardFocusMaxCheckTimes = 5, _this.handleKeyDown = function (event) {
       var _this$props = _this.props,
           component = _this$props.component,
@@ -317,13 +324,6 @@ var ButtonBase = function (_React$Component) {
 
       if (_this.props.onFocus) {
         _this.props.onFocus(event);
-      }
-    }, _this.onKeyboardFocusHandler = function (event) {
-      _this.keyDown = false;
-      _this.setState({ keyboardFocused: true });
-
-      if (_this.props.onKeyboardFocus) {
-        _this.props.onKeyboardFocus(event);
       }
     }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
   }

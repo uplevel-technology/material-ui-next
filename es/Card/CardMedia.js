@@ -25,7 +25,7 @@ function CardMedia(props) {
   const { classes, className, image, style, src, component: ComponentProp } = props,
         other = _objectWithoutProperties(props, ['classes', 'className', 'image', 'style', 'src', 'component']);
 
-  warning(image || src, 'Material-UI: either `image` or `src` property must be specified.');
+  warning(Boolean(image || src), 'Material-UI: either `image` or `src` property must be specified.');
 
   const isMediaComponent = mediaComponents.indexOf(ComponentProp) !== -1;
   const composedStyle = !isMediaComponent && image ? _extends({ backgroundImage: `url(${image})` }, style) : style;

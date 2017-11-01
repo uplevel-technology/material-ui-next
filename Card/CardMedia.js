@@ -101,7 +101,7 @@ function CardMedia(props) {
       other = (0, _objectWithoutProperties3.default)(props, ['classes', 'className', 'image', 'style', 'src', 'component']);
 
 
-  process.env.NODE_ENV !== "production" ? (0, _warning2.default)(image || src, 'Material-UI: either `image` or `src` property must be specified.') : void 0;
+  process.env.NODE_ENV !== "production" ? (0, _warning2.default)(Boolean(image || src), 'Material-UI: either `image` or `src` property must be specified.') : void 0;
 
   var isMediaComponent = mediaComponents.indexOf(ComponentProp) !== -1;
   var composedStyle = !isMediaComponent && image ? (0, _extends3.default)({ backgroundImage: 'url(' + image + ')' }, style) : style;

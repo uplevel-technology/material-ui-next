@@ -73,7 +73,7 @@ var styles = exports.styles = function styles(theme) {
       padding: theme.spacing.unit - 1 + 'px ' + theme.spacing.unit + 'px',
       minWidth: 64,
       minHeight: 32,
-      fontSize: theme.typography.fontSize - 1
+      fontSize: theme.typography.pxToRem(theme.typography.fontSize - 1)
     },
     label: {
       width: '100%',

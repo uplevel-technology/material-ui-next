@@ -35,6 +35,9 @@ export const styles = theme => ({
   caption: {
     flexShrink: 0
   },
+  input: {
+    fontSize: 'inherit'
+  },
   selectRoot: {
     marginRight: theme.spacing.unit * 4
   },
@@ -115,6 +118,9 @@ class TablePagination extends React.Component {
           Select,
           {
             classes: { root: classes.selectRoot, select: classes.select },
+            InputClasses: {
+              root: classes.input
+            },
             input: React.createElement(Input, { disableUnderline: true }),
             value: rowsPerPage,
             onChange: onChangeRowsPerPage

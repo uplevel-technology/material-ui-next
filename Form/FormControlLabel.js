@@ -24,6 +24,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _classnames = require('classnames');
 
 var _classnames2 = _interopRequireDefault(_classnames);
@@ -123,19 +127,33 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
  * Drop in replacement of the `Radio`, `Switch` and `Checkbox` component.
  * Use this component if you want to display an extra label.
  */
-function FormControlLabel(props) {
+function FormControlLabel(props, context) {
   var checked = props.checked,
       classes = props.classes,
       classNameProp = props.className,
       control = props.control,
-      disabled = props.disabled,
+      disabledProp = props.disabled,
       inputRef = props.inputRef,
       label = props.label,
       name = props.name,
       onChange = props.onChange,
       value = props.value,
       other = (0, _objectWithoutProperties3.default)(props, ['checked', 'classes', 'className', 'control', 'disabled', 'inputRef', 'label', 'name', 'onChange', 'value']);
+  var muiFormControl = context.muiFormControl;
 
+  var disabled = disabledProp;
+
+  if (typeof control.props.disabled !== 'undefined') {
+    if (typeof disabled === 'undefined') {
+      disabled = control.props.disabled;
+    }
+  }
+
+  if (muiFormControl) {
+    if (typeof disabled === 'undefined') {
+      disabled = muiFormControl.disabled;
+    }
+  }
 
   var className = (0, _classnames2.default)(classes.root, (0, _defineProperty3.default)({}, classes.disabled, disabled), classNameProp);
 
@@ -143,7 +161,7 @@ function FormControlLabel(props) {
     'label',
     (0, _extends3.default)({ className: className }, other),
     _react2.default.cloneElement(control, {
-      disabled: typeof control.props.disabled === 'undefined' ? disabled : control.props.disabled,
+      disabled: disabled,
       checked: typeof control.props.checked === 'undefined' ? checked : control.props.checked,
       name: control.props.name || name,
       onChange: control.props.onChange || onChange,
@@ -162,8 +180,8 @@ FormControlLabel.propTypes = process.env.NODE_ENV !== "production" ? (_ref = {
   classes: require('prop-types').object.isRequired,
   checked: require('prop-types').oneOfType([require('prop-types').bool, require('prop-types').string])
 }, (0, _defineProperty3.default)(_ref, 'classes', require('prop-types').object), (0, _defineProperty3.default)(_ref, 'className', require('prop-types').string), (0, _defineProperty3.default)(_ref, 'control', typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element.isRequired ? babelPluginFlowReactPropTypes_proptype_Element.isRequired : babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element).isRequired), (0, _defineProperty3.default)(_ref, 'disabled', require('prop-types').bool), (0, _defineProperty3.default)(_ref, 'inputRef', require('prop-types').func), (0, _defineProperty3.default)(_ref, 'label', typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node.isRequired ? babelPluginFlowReactPropTypes_proptype_Node.isRequired : babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node).isRequired), (0, _defineProperty3.default)(_ref, 'name', require('prop-types').string), (0, _defineProperty3.default)(_ref, 'onChange', require('prop-types').func), (0, _defineProperty3.default)(_ref, 'value', require('prop-types').string), _ref) : {};
-FormControlLabel.defaultProps = {
-  disabled: false
+FormControlLabel.contextTypes = {
+  muiFormControl: _propTypes2.default.object
 };
 
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiFormControlLabel' })(FormControlLabel);

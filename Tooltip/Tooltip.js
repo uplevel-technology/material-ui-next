@@ -117,7 +117,7 @@ var styles = exports.styles = function styles(theme) {
       borderRadius: 2,
       color: _common2.default.fullWhite,
       fontFamily: theme.typography.fontFamily,
-      fontSize: 14,
+      fontSize: theme.typography.pxToRem(14),
       minHeight: theme.spacing.unit * 4,
       lineHeight: '32px',
       opacity: 0,
@@ -130,7 +130,7 @@ var styles = exports.styles = function styles(theme) {
       minHeight: 22,
       lineHeight: '22px',
       padding: '0 ' + theme.spacing.unit + 'px',
-      fontSize: 10
+      fontSize: theme.typography.pxToRem(10)
     }),
     tooltipLeft: (0, _defineProperty3.default)({
       transformOrigin: 'right center',

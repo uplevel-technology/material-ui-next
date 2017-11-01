@@ -84,10 +84,14 @@ class MenuList extends React.Component {
     clearTimeout(this.blurTimer);
   }
 
+  setTabIndex(index) {
+    this.setState({ currentTabIndex: index });
+  }
+
   focus() {
     const { currentTabIndex } = this.state;
     const list = findDOMNode(this.list);
-    if (!list || !list.children) {
+    if (!list || !list.children || !list.firstChild) {
       return;
     }
 
@@ -116,10 +120,6 @@ class MenuList extends React.Component {
     }
 
     return this.setTabIndex(0);
-  }
-
-  setTabIndex(index) {
-    this.setState({ currentTabIndex: index });
   }
 
   render() {

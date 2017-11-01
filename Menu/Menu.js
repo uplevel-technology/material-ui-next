@@ -37,10 +37,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
 var _reactDom = require('react-dom');
 
 var _scrollbarSize = require('dom-helpers/util/scrollbarSize');
@@ -81,11 +77,6 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
    * Useful to extend the style applied to components.
    */
   classes: require('prop-types').object,
-
-  /**
-   * @ignore
-   */
-  className: require('prop-types').string,
 
   /**
    * Properties applied to the `MenuList` element.
@@ -137,6 +128,16 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * @ignore
    */
+  PaperProps: require('prop-types').object,
+
+  /**
+   * `classes` property applied to the `Popover` element.
+   */
+  PopoverClasses: require('prop-types').object,
+
+  /**
+   * @ignore
+   */
   theme: require('prop-types').object,
 
   /**
@@ -160,17 +161,13 @@ var ltrOrigin = {
 };
 
 var styles = exports.styles = {
-  root: {
+  paper: {
     // specZ: The maximum height of a simple menu should be one or more rows less than the view
     // height. This ensures a tappable area outside of the simple menu with which to dismiss
     // the menu.
     maxHeight: 'calc(100vh - 96px)',
     // Add iOS momentum scrolling.
-    WebkitOverflowScrolling: 'touch',
-    // So we see the menu when it's empty.
-    // It's most likely on issue on userland.
-    minWidth: 16,
-    minHeight: 16
+    WebkitOverflowScrolling: 'touch'
   }
 };
 
@@ -188,7 +185,14 @@ var Menu = function (_React$Component) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = Menu.__proto__ || (0, _getPrototypeOf2.default)(Menu)).call.apply(_ref, [this].concat(args))), _this), _this.menuList = undefined, _this.focus = function () {
+    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = Menu.__proto__ || (0, _getPrototypeOf2.default)(Menu)).call.apply(_ref, [this].concat(args))), _this), _this.getContentAnchorEl = function () {
+      if (!_this.menuList || !_this.menuList.selectedItem) {
+        // $FlowFixMe
+        return (0, _reactDom.findDOMNode)(_this.menuList).firstChild;
+      }
+
+      return (0, _reactDom.findDOMNode)(_this.menuList.selectedItem);
+    }, _this.menuList = undefined, _this.focus = function () {
       if (_this.menuList && _this.menuList.selectedItem) {
         // $FlowFixMe
         (0, _reactDom.findDOMNode)(_this.menuList.selectedItem).focus();
@@ -231,13 +235,6 @@ var Menu = function (_React$Component) {
           _this.props.onRequestClose(event);
         }
       }
-    }, _this.getContentAnchorEl = function () {
-      if (!_this.menuList || !_this.menuList.selectedItem) {
-        // $FlowFixMe
-        return (0, _reactDom.findDOMNode)(_this.menuList).firstChild;
-      }
-
-      return (0, _reactDom.findDOMNode)(_this.menuList.selectedItem);
     }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
   }
 
@@ -265,21 +262,28 @@ var Menu = function (_React$Component) {
       var _props = this.props,
           children = _props.children,
           classes = _props.classes,
-          className = _props.className,
           MenuListProps = _props.MenuListProps,
           onEnter = _props.onEnter,
+          _props$PaperProps = _props.PaperProps,
+          PaperProps = _props$PaperProps === undefined ? {} : _props$PaperProps,
+          PopoverClasses = _props.PopoverClasses,
           theme = _props.theme,
-          other = (0, _objectWithoutProperties3.default)(_props, ['children', 'classes', 'className', 'MenuListProps', 'onEnter', 'theme']);
+          other = (0, _objectWithoutProperties3.default)(_props, ['children', 'classes', 'MenuListProps', 'onEnter', 'PaperProps', 'PopoverClasses', 'theme']);
 
 
       return _react2.default.createElement(
         _Popover2.default,
         (0, _extends3.default)({
           getContentAnchorEl: this.getContentAnchorEl,
-          className: (0, _classnames2.default)(classes.root, className),
+          classes: PopoverClasses,
           onEnter: this.handleEnter,
           anchorOrigin: theme.direction === 'rtl' ? rtlOrigin : ltrOrigin,
-          transformOrigin: theme.direction === 'rtl' ? rtlOrigin : ltrOrigin
+          transformOrigin: theme.direction === 'rtl' ? rtlOrigin : ltrOrigin,
+          PaperProps: (0, _extends3.default)({}, PaperProps, {
+            classes: (0, _extends3.default)({}, PaperProps.classes, {
+              root: classes.paper
+            })
+          })
         }, other),
         _react2.default.createElement(
           _MenuList2.default,

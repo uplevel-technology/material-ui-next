@@ -45,10 +45,6 @@ var _minSafeInteger = require('babel-runtime/core-js/number/min-safe-integer');
 
 var _minSafeInteger2 = _interopRequireDefault(_minSafeInteger);
 
-var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
-
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -83,10 +79,6 @@ var _jssPresetDefault = require('jss-preset-default');
 
 var _jssPresetDefault2 = _interopRequireDefault(_jssPresetDefault);
 
-var _jssRtl = require('jss-rtl');
-
-var _jssRtl2 = _interopRequireDefault(_jssRtl);
-
 var _ns = require('react-jss/lib/ns');
 
 var ns = _interopRequireWildcard(_ns);
@@ -113,8 +105,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var babelPluginFlowReactPropTypes_proptype_HigherOrderComponent = require('react-flow-types').babelPluginFlowReactPropTypes_proptype_HigherOrderComponent || require('prop-types').any; //  weak
 
-var presets = (0, _jssPresetDefault2.default)().plugins;
-var jss = (0, _jss.create)({ plugins: [].concat((0, _toConsumableArray3.default)(presets), [(0, _jssRtl2.default)()]) });
+// New JSS instance.
+var jss = (0, _jss.create)((0, _jssPresetDefault2.default)());
 
 // Use a singleton or the provided one by the context.
 var generateClassName = (0, _createGenerateClassName2.default)();
@@ -254,10 +246,23 @@ var withStyles = function withStyles(stylesOrCreator) {
             _this2.attach(_this2.theme);
 
             // Rerender the component so the underlying component gets the theme update.
+            // By theme update we mean receiving and applying the new class names.
             _this2.setState({}, function () {
               _this2.detach(oldTheme);
             });
           });
+        }
+      }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps() {
+          // react-hot-loader specific logic
+          if (this.stylesCreatorSaved === stylesCreator || process.env.NODE_ENV === 'production') {
+            return;
+          }
+
+          this.detach(this.theme);
+          this.stylesCreatorSaved = stylesCreator;
+          this.attach(this.theme);
         }
       }, {
         key: 'componentWillUnmount',

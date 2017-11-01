@@ -173,12 +173,17 @@ var MenuList = function (_React$Component) {
       clearTimeout(this.blurTimer);
     }
   }, {
+    key: 'setTabIndex',
+    value: function setTabIndex(index) {
+      this.setState({ currentTabIndex: index });
+    }
+  }, {
     key: 'focus',
     value: function focus() {
       var currentTabIndex = this.state.currentTabIndex;
 
       var list = (0, _reactDom.findDOMNode)(this.list);
-      if (!list || !list.children) {
+      if (!list || !list.children || !list.firstChild) {
         return;
       }
 
@@ -208,11 +213,6 @@ var MenuList = function (_React$Component) {
       }
 
       return this.setTabIndex(0);
-    }
-  }, {
-    key: 'setTabIndex',
-    value: function setTabIndex(index) {
-      this.setState({ currentTabIndex: index });
     }
   }, {
     key: 'render',

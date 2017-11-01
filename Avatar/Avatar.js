@@ -50,7 +50,7 @@ var styles = exports.styles = function styles(theme) {
       width: 40,
       height: 40,
       fontFamily: theme.typography.fontFamily,
-      fontSize: 20,
+      fontSize: theme.typography.pxToRem(20),
       borderRadius: '50%',
       overflow: 'hidden',
       userSelect: 'none'

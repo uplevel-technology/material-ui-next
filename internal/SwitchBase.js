@@ -43,6 +43,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _classnames = require('classnames');
 
 var _classnames2 = _interopRequireDefault(_classnames);
@@ -272,7 +276,7 @@ function createSwitch() {
             classNameProp = _props.className,
             checkedClassName = _props.checkedClassName,
             checkedIcon = _props.checkedIcon,
-            disabled = _props.disabled,
+            disabledProp = _props.disabled,
             disabledClassName = _props.disabledClassName,
             iconProp = _props.icon,
             inputProps = _props.inputProps,
@@ -282,7 +286,15 @@ function createSwitch() {
             tabIndex = _props.tabIndex,
             value = _props.value,
             other = (0, _objectWithoutProperties3.default)(_props, ['checked', 'classes', 'className', 'checkedClassName', 'checkedIcon', 'disabled', 'disabledClassName', 'icon', 'inputProps', 'inputRef', 'name', 'onChange', 'tabIndex', 'value']);
+        var muiFormControl = this.context.muiFormControl;
 
+        var disabled = disabledProp;
+
+        if (muiFormControl) {
+          if (typeof disabled === 'undefined') {
+            disabled = muiFormControl.disabled;
+          }
+        }
 
         var checked = this.isControlled ? checkedProp : this.state.checked;
         var className = (0, _classnames2.default)(classes.root, classes.default, classNameProp, (_classNames = {}, (0, _defineProperty3.default)(_classNames, (0, _classnames2.default)(classes.checked, checkedClassName), checked), (0, _defineProperty3.default)(_classNames, (0, _classnames2.default)(classes.disabled, disabledClassName), disabled), _classNames));
@@ -337,6 +349,9 @@ function createSwitch() {
     checkedIcon: defaultCheckedIcon,
     disableRipple: false,
     icon: defaultIcon
+  };
+  SwitchBase.contextTypes = {
+    muiFormControl: _propTypes2.default.object
   };
 
 

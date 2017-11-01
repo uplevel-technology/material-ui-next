@@ -101,6 +101,9 @@ var styles = exports.styles = function styles(theme) {
     caption: {
       flexShrink: 0
     },
+    input: {
+      fontSize: 'inherit'
+    },
     selectRoot: {
       marginRight: theme.spacing.unit * 4
     },
@@ -280,6 +283,9 @@ var TablePagination = function (_React$Component) {
             _Select2.default,
             {
               classes: { root: classes.selectRoot, select: classes.select },
+              InputClasses: {
+                root: classes.input
+              },
               input: _ref3,
               value: rowsPerPage,
               onChange: onChangeRowsPerPage

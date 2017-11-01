@@ -150,9 +150,9 @@ MuiThemeProvider.defaultProps = {
 
 MuiThemeProvider.propTypes = process.env.NODE_ENV !== "production" ? {
   /**
-   * You can only provide a single element.
+   * You can only provide a single element with react@15, a node with react@16.
    */
-  children: _propTypes2.default.element.isRequired,
+  children: _propTypes2.default.node.isRequired,
   /**
    * You can disable the generation of the styles with this option.
    * It can be useful when traversing the React tree outside of the HTML

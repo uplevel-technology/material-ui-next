@@ -4,6 +4,7 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 
 import React from 'react';
 
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import withStyles from '../styles/withStyles';
 import IconButton from '../IconButton';
@@ -83,7 +84,7 @@ export default function createSwitch({
         className: classNameProp,
         checkedClassName,
         checkedIcon,
-        disabled,
+        disabled: disabledProp,
         disabledClassName,
         icon: iconProp,
         inputProps,
@@ -94,6 +95,15 @@ export default function createSwitch({
         value
       } = _props,
             other = _objectWithoutProperties(_props, ['checked', 'classes', 'className', 'checkedClassName', 'checkedIcon', 'disabled', 'disabledClassName', 'icon', 'inputProps', 'inputRef', 'name', 'onChange', 'tabIndex', 'value']);
+
+      const { muiFormControl } = this.context;
+      let disabled = disabledProp;
+
+      if (muiFormControl) {
+        if (typeof disabled === 'undefined') {
+          disabled = muiFormControl.disabled;
+        }
+      }
 
       const checked = this.isControlled ? checkedProp : this.state.checked;
       const className = classNames(classes.root, classes.default, classNameProp, {
@@ -150,6 +160,9 @@ export default function createSwitch({
     checkedIcon: defaultCheckedIcon,
     disableRipple: false,
     icon: defaultIcon
+  };
+  SwitchBase.contextTypes = {
+    muiFormControl: PropTypes.object
   };
   return withStyles(styles, { name: 'MuiSwitchBase' })(SwitchBase);
 }

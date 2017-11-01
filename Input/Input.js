@@ -39,7 +39,7 @@ var _inherits3 = _interopRequireDefault(_inherits2);
 
 exports.hasValue = hasValue;
 exports.isDirty = isDirty;
-exports.isAdorned = isAdorned;
+exports.isAdornedStart = isAdornedStart;
 
 var _react = require('react');
 
@@ -93,15 +93,14 @@ function isDirty(obj) {
   return obj && (hasValue(obj.value) && obj.value !== '' || SSR && hasValue(obj.defaultValue) && obj.defaultValue !== '');
 }
 
-// Determine if an Input is adorned
-//
-// Response determines if label is presented above field or as placeholder.
+// Determine if an Input is adorned on start.
+// It's corresponding to the left with LTR.
 //
 // @param obj
 // @returns {boolean} False when no adornments.
-//                    True when adorned.
-function isAdorned(obj) {
-  return obj.startAdornment || obj.endAdornment;
+//                    True when adorned at the start.
+function isAdornedStart(obj) {
+  return obj.startAdornment;
 }
 
 var styles = exports.styles = function styles(theme) {
@@ -127,7 +126,8 @@ var styles = exports.styles = function styles(theme) {
       alignItems: 'baseline',
       position: 'relative',
       fontFamily: theme.typography.fontFamily,
-      color: theme.palette.input.inputText
+      color: theme.palette.input.inputText,
+      fontSize: theme.typography.pxToRem(16)
     },
     formControl: {
       'label + &': {
@@ -149,7 +149,7 @@ var styles = exports.styles = function styles(theme) {
           duration: theme.transitions.duration.shorter,
           easing: theme.transitions.easing.easeOut
         }),
-        pointerEvent: 'none' // Transparent to the hover style.
+        pointerEvents: 'none' // Transparent to the hover style.
       },
       '&$focused:after': {
         transform: 'scaleX(1)'
@@ -221,7 +221,7 @@ var styles = exports.styles = function styles(theme) {
           duration: theme.transitions.duration.shorter,
           easing: theme.transitions.easing.ease
         }),
-        pointerEvent: 'none' // Transparent to the hover style.
+        pointerEvents: 'none' // Transparent to the hover style.
       },
       '&:hover:not($disabled):before': {
         backgroundColor: theme.palette.text.primary,
@@ -494,7 +494,7 @@ var Input = function (_React$Component) {
   }, {
     key: 'componentWillUpdate',
     value: function componentWillUpdate(nextProps) {
-      if (this.isControlled()) {
+      if (this.isControlled(nextProps)) {
         this.checkDirty(nextProps);
       } // else performed in the onChange
 
@@ -519,7 +519,9 @@ var Input = function (_React$Component) {
     // @see https://facebook.github.io/react/docs/forms.html#controlled-components
     // @returns {boolean} true if string (including '') or number (including zero)
     value: function isControlled() {
-      return hasValue(this.props.value);
+      var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.props;
+
+      return hasValue(props.value);
     }
   }, {
     key: 'checkDirty',
@@ -586,7 +588,6 @@ var Input = function (_React$Component) {
           value = _props.value,
           other = (0, _objectWithoutProperties3.default)(_props, ['autoComplete', 'autoFocus', 'classes', 'className', 'defaultValue', 'disabled', 'disableUnderline', 'endAdornment', 'error', 'fullWidth', 'id', 'inputComponent', 'inputProps', 'inputRef', 'margin', 'multiline', 'onBlur', 'onFocus', 'onChange', 'onClean', 'onDirty', 'onKeyDown', 'onKeyUp', 'placeholder', 'name', 'readOnly', 'rows', 'rowsMax', 'startAdornment', 'type', 'value']);
       var muiFormControl = this.context.muiFormControl;
-
 
       var disabled = disabledProp;
       var error = errorProp;

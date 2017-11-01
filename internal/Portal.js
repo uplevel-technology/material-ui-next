@@ -76,7 +76,7 @@ var Portal = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       // Support react@15.x, will be removed at some point
-      if (!_reactDom2.default.unstable_createPortal) {
+      if (!_reactDom2.default.createPortal) {
         this.renderLayer();
       }
     }
@@ -84,7 +84,7 @@ var Portal = function (_React$Component) {
     key: 'componentDidUpdate',
     value: function componentDidUpdate() {
       // Support react@15.x, will be removed at some point
-      if (!_reactDom2.default.unstable_createPortal) {
+      if (!_reactDom2.default.createPortal) {
         this.renderLayer();
       }
     }
@@ -114,7 +114,7 @@ var Portal = function (_React$Component) {
       }
 
       // Support react@15.x, will be removed at some point
-      if (!_reactDom2.default.unstable_createPortal) {
+      if (!_reactDom2.default.createPortal) {
         _reactDom2.default.unmountComponentAtNode(this.layer);
       }
 
@@ -151,14 +151,14 @@ var Portal = function (_React$Component) {
 
       // Support react@15.x, will be removed at some point
 
-      if (!_reactDom2.default.unstable_createPortal) {
+      if (!_reactDom2.default.createPortal) {
         return null;
       }
 
       // Can't be rendered server-side.
       if (_inDOM2.default) {
         if (open) {
-          return _reactDom2.default.unstable_createPortal(children, this.getLayer());
+          return _reactDom2.default.createPortal(children, this.getLayer());
         }
 
         this.unrenderLayer();

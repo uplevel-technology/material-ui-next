@@ -121,6 +121,11 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   input: typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element),
 
   /**
+   * `classes` property applied to the `Input` element.
+   */
+  InputClasses: require('prop-types').object,
+
+  /**
    * If `true`, the component will be using a native `select` element.
    */
   native: require('prop-types').bool,
@@ -155,11 +160,12 @@ function Select(props) {
       classes = props.classes,
       displayEmpty = props.displayEmpty,
       input = props.input,
+      InputClasses = props.InputClasses,
       native = props.native,
       multiple = props.multiple,
       MenuProps = props.MenuProps,
       renderValue = props.renderValue,
-      other = (0, _objectWithoutProperties3.default)(props, ['autoWidth', 'children', 'classes', 'displayEmpty', 'input', 'native', 'multiple', 'MenuProps', 'renderValue']);
+      other = (0, _objectWithoutProperties3.default)(props, ['autoWidth', 'children', 'classes', 'displayEmpty', 'input', 'InputClasses', 'native', 'multiple', 'MenuProps', 'renderValue']);
 
   // Instead of `Element<typeof Input>` to have more flexibility.
 
@@ -168,7 +174,8 @@ function Select(props) {
   return _react2.default.cloneElement(input, (0, _extends3.default)({
     // Most of the logic is implemented in `SelectInput`.
     // The `Select` component is a simple API wrapper to expose something better to play with.
-    inputComponent: _SelectInput2.default
+    inputComponent: _SelectInput2.default,
+    classes: InputClasses
   }, other, {
     inputProps: (0, _extends3.default)({}, input ? input.props.inputProps : {}, {
       autoWidth: autoWidth,

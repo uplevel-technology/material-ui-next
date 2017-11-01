@@ -79,7 +79,7 @@ export default function createPalette(palette) {
         other = _objectWithoutProperties(palette, ['primary', 'secondary', 'error', 'type']);
   const shades = { dark, light };
 
-  warning(shades[type], `Material-UI: the palette type \`${type}\` is not supported.`);
+  warning(Boolean(shades[type]), `Material-UI: the palette type \`${type}\` is not supported.`);
 
   const paletteOutput = deepmerge({
     common,

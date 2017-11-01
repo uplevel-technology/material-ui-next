@@ -44,7 +44,7 @@ var styles = exports.styles = function styles(theme) {
     root: {
       color: theme.palette.input.helperText,
       fontFamily: theme.typography.fontFamily,
-      fontSize: 12,
+      fontSize: theme.typography.pxToRem(12),
       textAlign: 'left',
       marginTop: theme.spacing.unit,
       lineHeight: '1em',

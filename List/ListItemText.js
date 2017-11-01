@@ -58,7 +58,7 @@ var styles = exports.styles = function styles(theme) {
       }
     },
     dense: {
-      fontSize: 13
+      fontSize: theme.typography.pxToRem(13)
     },
     text: {}, // Present to allow external customization
     textDense: {

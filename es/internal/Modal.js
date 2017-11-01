@@ -263,12 +263,12 @@ var _initialiseProps = function () {
   this.state = {
     exited: false
   };
+  this.onDocumentKeyUpListener = null;
+  this.onFocusListener = null;
   this.mounted = false;
   this.lastFocus = undefined;
   this.modal = null;
   this.mountNode = null;
-  this.onDocumentKeyUpListener = null;
-  this.onFocusListener = null;
 
   this.handleFocusListener = () => {
     if (!this.mounted || !this.props.modalManager.isTopModal(this)) {

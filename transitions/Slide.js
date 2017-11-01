@@ -203,7 +203,7 @@ var Slide = function (_React$Component) {
     return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = Slide.__proto__ || (0, _getPrototypeOf2.default)(Slide)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
       // We use this state to handle the server-side rendering.
       firstMount: true
-    }, _this.transition = null, _this.firstRender = false, _this.handleResize = (0, _debounce2.default)(function () {
+    }, _this.transition = null, _this.handleResize = (0, _debounce2.default)(function () {
       // Skip configuration where the position is screen size invariant.
       if (_this.props.in || _this.props.direction === 'down' || _this.props.direction === 'right') {
         return;
@@ -262,19 +262,6 @@ var Slide = function (_React$Component) {
   }
 
   (0, _createClass3.default)(Slide, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      if (!this.props.in) {
-        // We need to set initial translate values of transition element
-        // otherwise component will be shown when in=false.
-        var element = (0, _reactDom.findDOMNode)(this.transition);
-        if (element instanceof HTMLElement) {
-          element.style.visibility = 'visible';
-          setTranslateValue(this.props, element);
-        }
-      }
-    }
-  }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps() {
       this.setState({

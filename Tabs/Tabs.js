@@ -245,28 +245,7 @@ var Tabs = function (_React$Component) {
       showLeftScroll: false,
       showRightScroll: false,
       mounted: false
-    }, _this.tabs = undefined, _this.valueToIndex = {}, _this.handleResize = (0, _debounce2.default)(function () {
-      _this.updateIndicatorState(_this.props);
-      _this.updateScrollButtonState();
-    }, 166), _this.handleLeftScrollClick = function () {
-      if (_this.tabs) {
-        _this.moveTabsScroll(-_this.tabs.clientWidth);
-      }
-    }, _this.handleRightScrollClick = function () {
-      if (_this.tabs) {
-        _this.moveTabsScroll(_this.tabs.clientWidth);
-      }
-    }, _this.handleScrollbarSizeChange = function (_ref2) {
-      var scrollbarHeight = _ref2.scrollbarHeight;
-
-      _this.setState({
-        scrollerStyle: {
-          marginBottom: -scrollbarHeight
-        }
-      });
-    }, _this.handleTabsScroll = (0, _debounce2.default)(function () {
-      _this.updateScrollButtonState();
-    }, 166), _this.getConditionalElements = function () {
+    }, _this.getConditionalElements = function () {
       var _this$props = _this.props,
           classes = _this$props.classes,
           buttonClassName = _this$props.buttonClassName,
@@ -319,12 +298,33 @@ var Tabs = function (_React$Component) {
 
         if (_children.length > 0) {
           var tab = _children[_this.valueToIndex[value]];
-          process.env.NODE_ENV !== "production" ? (0, _warning2.default)(tab, 'Material-UI: the value provided `' + value + '` is invalid') : void 0;
+          process.env.NODE_ENV !== "production" ? (0, _warning2.default)(Boolean(tab), 'Material-UI: the value provided `' + value + '` is invalid') : void 0;
           tabMeta = tab ? tab.getBoundingClientRect() : null;
         }
       }
       return { tabsMeta: tabsMeta, tabMeta: tabMeta };
-    }, _this.moveTabsScroll = function (delta) {
+    }, _this.tabs = undefined, _this.valueToIndex = {}, _this.handleResize = (0, _debounce2.default)(function () {
+      _this.updateIndicatorState(_this.props);
+      _this.updateScrollButtonState();
+    }, 166), _this.handleLeftScrollClick = function () {
+      if (_this.tabs) {
+        _this.moveTabsScroll(-_this.tabs.clientWidth);
+      }
+    }, _this.handleRightScrollClick = function () {
+      if (_this.tabs) {
+        _this.moveTabsScroll(_this.tabs.clientWidth);
+      }
+    }, _this.handleScrollbarSizeChange = function (_ref2) {
+      var scrollbarHeight = _ref2.scrollbarHeight;
+
+      _this.setState({
+        scrollerStyle: {
+          marginBottom: -scrollbarHeight
+        }
+      });
+    }, _this.handleTabsScroll = (0, _debounce2.default)(function () {
+      _this.updateScrollButtonState();
+    }, 166), _this.moveTabsScroll = function (delta) {
       var theme = _this.props.theme;
 
 

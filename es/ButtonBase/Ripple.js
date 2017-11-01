@@ -18,14 +18,6 @@ class Ripple extends React.Component {
     return _temp = super(...args), this.state = {
       rippleVisible: false,
       rippleLeaving: false
-    }, this.handleEnter = () => {
-      this.setState({
-        rippleVisible: true
-      });
-    }, this.handleExit = () => {
-      this.setState({
-        rippleLeaving: true
-      });
     }, this.getRippleStyles = props => {
       const { rippleSize, rippleX, rippleY } = props;
 
@@ -35,6 +27,14 @@ class Ripple extends React.Component {
         top: -(rippleSize / 2) + rippleY,
         left: -(rippleSize / 2) + rippleX
       };
+    }, this.handleEnter = () => {
+      this.setState({
+        rippleVisible: true
+      });
+    }, this.handleExit = () => {
+      this.setState({
+        rippleLeaving: true
+      });
     }, _temp;
   }
 

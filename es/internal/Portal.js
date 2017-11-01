@@ -15,14 +15,14 @@ class Portal extends React.Component {
 
   componentDidMount() {
     // Support react@15.x, will be removed at some point
-    if (!ReactDOM.unstable_createPortal) {
+    if (!ReactDOM.createPortal) {
       this.renderLayer();
     }
   }
 
   componentDidUpdate() {
     // Support react@15.x, will be removed at some point
-    if (!ReactDOM.unstable_createPortal) {
+    if (!ReactDOM.createPortal) {
       this.renderLayer();
     }
   }
@@ -49,7 +49,7 @@ class Portal extends React.Component {
     }
 
     // Support react@15.x, will be removed at some point
-    if (!ReactDOM.unstable_createPortal) {
+    if (!ReactDOM.createPortal) {
       ReactDOM.unmountComponentAtNode(this.layer);
     }
 
@@ -78,14 +78,14 @@ class Portal extends React.Component {
     const { children, open } = this.props;
 
     // Support react@15.x, will be removed at some point
-    if (!ReactDOM.unstable_createPortal) {
+    if (!ReactDOM.createPortal) {
       return null;
     }
 
     // Can't be rendered server-side.
     if (canUseDom) {
       if (open) {
-        return ReactDOM.unstable_createPortal(children, this.getLayer());
+        return ReactDOM.createPortal(children, this.getLayer());
       }
 
       this.unrenderLayer();

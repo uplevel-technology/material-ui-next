@@ -364,11 +364,11 @@ var Snackbar = function (_React$Component) {
     value: function componentWillUnmount() {
       clearTimeout(this.timerAutoHide);
     }
-  }, {
-    key: 'setAutoHideTimer',
-
 
     // Timer that controls delay before snackbar auto hides
+
+  }, {
+    key: 'setAutoHideTimer',
     value: function setAutoHideTimer() {
       var _this2 = this;
 

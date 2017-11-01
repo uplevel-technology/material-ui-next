@@ -20,10 +20,15 @@ export const styles = theme => ({
   },
   entered: {
     height: 'auto'
+  },
+  wrapper: {
+    // Hack to get children with a negative margin to not falsify the height computation.
+    display: 'flex'
+  },
+  wrapperInner: {
+    width: '100%'
   }
 });
-
-const reflow = node => node.scrollTop;
 
 class Collapse extends React.Component {
   constructor(...args) {
@@ -64,9 +69,7 @@ class Collapse extends React.Component {
       }
     }, this.handleExit = node => {
       const wrapperHeight = this.wrapper ? this.wrapper.clientHeight : 0;
-      reflow(node);
       node.style.height = `${wrapperHeight}px`;
-      reflow(node);
 
       if (this.props.onExit) {
         this.props.onExit(node);
@@ -74,8 +77,6 @@ class Collapse extends React.Component {
     }, this.handleExiting = node => {
       const { timeout, theme } = this.props;
       const wrapperHeight = this.wrapper ? this.wrapper.clientHeight : 0;
-
-      reflow(node);
 
       if (timeout === 'auto') {
         const duration2 = theme.transitions.getAutoHeightDuration(wrapperHeight);
@@ -89,11 +90,7 @@ class Collapse extends React.Component {
         // The propType will warn in this case.
       }
 
-      reflow(node);
-
       node.style.height = this.props.collapsedHeight;
-
-      reflow(node);
 
       if (this.props.onExiting) {
         this.props.onExiting(node);
@@ -152,11 +149,16 @@ class Collapse extends React.Component {
           React.createElement(
             'div',
             {
+              className: classes.wrapper,
               ref: node => {
                 this.wrapper = node;
               }
             },
-            children
+            React.createElement(
+              'div',
+              { className: classes.wrapperInner },
+              children
+            )
           )
         );
       }

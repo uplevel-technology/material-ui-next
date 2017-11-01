@@ -6,7 +6,6 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 
 import React from 'react';
 
-import classNames from 'classnames';
 import { findDOMNode } from 'react-dom';
 import getScrollbarSize from 'dom-helpers/util/scrollbarSize';
 import withStyles from '../styles/withStyles';
@@ -25,17 +24,13 @@ const ltrOrigin = {
 };
 
 export const styles = {
-  root: {
+  paper: {
     // specZ: The maximum height of a simple menu should be one or more rows less than the view
     // height. This ensures a tappable area outside of the simple menu with which to dismiss
     // the menu.
     maxHeight: 'calc(100vh - 96px)',
     // Add iOS momentum scrolling.
-    WebkitOverflowScrolling: 'touch',
-    // So we see the menu when it's empty.
-    // It's most likely on issue on userland.
-    minWidth: 16,
-    minHeight: 16
+    WebkitOverflowScrolling: 'touch'
   }
 };
 
@@ -43,7 +38,14 @@ class Menu extends React.Component {
   constructor(...args) {
     var _temp;
 
-    return _temp = super(...args), this.menuList = undefined, this.focus = () => {
+    return _temp = super(...args), this.getContentAnchorEl = () => {
+      if (!this.menuList || !this.menuList.selectedItem) {
+        // $FlowFixMe
+        return findDOMNode(this.menuList).firstChild;
+      }
+
+      return findDOMNode(this.menuList.selectedItem);
+    }, this.menuList = undefined, this.focus = () => {
       if (this.menuList && this.menuList.selectedItem) {
         // $FlowFixMe
         findDOMNode(this.menuList.selectedItem).focus();
@@ -85,13 +87,6 @@ class Menu extends React.Component {
           this.props.onRequestClose(event);
         }
       }
-    }, this.getContentAnchorEl = () => {
-      if (!this.menuList || !this.menuList.selectedItem) {
-        // $FlowFixMe
-        return findDOMNode(this.menuList).firstChild;
-      }
-
-      return findDOMNode(this.menuList.selectedItem);
     }, _temp;
   }
 
@@ -111,17 +106,30 @@ class Menu extends React.Component {
 
   render() {
     const _props = this.props,
-          { children, classes, className, MenuListProps, onEnter, theme } = _props,
-          other = _objectWithoutProperties(_props, ['children', 'classes', 'className', 'MenuListProps', 'onEnter', 'theme']);
+          {
+      children,
+      classes,
+      MenuListProps,
+      onEnter,
+      PaperProps = {},
+      PopoverClasses,
+      theme
+    } = _props,
+          other = _objectWithoutProperties(_props, ['children', 'classes', 'MenuListProps', 'onEnter', 'PaperProps', 'PopoverClasses', 'theme']);
 
     return React.createElement(
       Popover,
       _extends({
         getContentAnchorEl: this.getContentAnchorEl,
-        className: classNames(classes.root, className),
+        classes: PopoverClasses,
         onEnter: this.handleEnter,
         anchorOrigin: theme.direction === 'rtl' ? rtlOrigin : ltrOrigin,
-        transformOrigin: theme.direction === 'rtl' ? rtlOrigin : ltrOrigin
+        transformOrigin: theme.direction === 'rtl' ? rtlOrigin : ltrOrigin,
+        PaperProps: _extends({}, PaperProps, {
+          classes: _extends({}, PaperProps.classes, {
+            root: classes.paper
+          })
+        })
       }, other),
       React.createElement(
         MenuList,

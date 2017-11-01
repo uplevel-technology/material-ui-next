@@ -163,44 +163,62 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
 var FormControl = function (_React$Component) {
   (0, _inherits3.default)(FormControl, _React$Component);
 
-  function FormControl() {
-    var _ref;
-
-    var _temp, _this, _ret;
-
+  function FormControl(props, context) {
     (0, _classCallCheck3.default)(this, FormControl);
 
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
+    // We need to iterate through the children and find the Input in order
+    // to fully support server side rendering.
+    var _this = (0, _possibleConstructorReturn3.default)(this, (FormControl.__proto__ || (0, _getPrototypeOf2.default)(FormControl)).call(this, props, context));
 
-    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = FormControl.__proto__ || (0, _getPrototypeOf2.default)(FormControl)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-      adorned: false,
+    _this.state = {
+      adornedStart: false,
       dirty: false,
       focused: false
-    }, _this.handleFocus = function (event) {
+    };
+
+    _this.handleFocus = function (event) {
       if (_this.props.onFocus) {
         _this.props.onFocus(event);
       }
       if (!_this.state.focused) {
         _this.setState({ focused: true });
       }
-    }, _this.handleBlur = function (event) {
+    };
+
+    _this.handleBlur = function (event) {
       if (_this.props.onBlur) {
         _this.props.onBlur(event);
       }
       if (_this.state.focused) {
         _this.setState({ focused: false });
       }
-    }, _this.handleDirty = function () {
+    };
+
+    _this.handleDirty = function () {
       if (!_this.state.dirty) {
         _this.setState({ dirty: true });
       }
-    }, _this.handleClean = function () {
+    };
+
+    _this.handleClean = function () {
       if (_this.state.dirty) {
         _this.setState({ dirty: false });
       }
-    }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
+    };
+
+    var children = _this.props.children;
+
+    if (children) {
+      _react2.default.Children.forEach(children, function (child) {
+        if ((0, _reactHelpers.isMuiElement)(child, ['Input', 'Select']) && (0, _Input.isDirty)(child.props, true)) {
+          _this.state.dirty = true;
+        }
+        if ((0, _reactHelpers.isMuiElement)(child, ['Input']) && (0, _Input.isAdornedStart)(child.props)) {
+          _this.state.adornedStart = true;
+        }
+      });
+    }
+    return _this;
   }
 
   (0, _createClass3.default)(FormControl, [{
@@ -212,14 +230,14 @@ var FormControl = function (_React$Component) {
           required = _props.required,
           margin = _props.margin;
       var _state = this.state,
-          adorned = _state.adorned,
+          adornedStart = _state.adornedStart,
           dirty = _state.dirty,
           focused = _state.focused;
 
 
       return {
         muiFormControl: {
-          adorned: adorned,
+          adornedStart: adornedStart,
           dirty: dirty,
           disabled: disabled,
           error: error,
@@ -232,26 +250,6 @@ var FormControl = function (_React$Component) {
           onBlur: this.handleBlur
         }
       };
-    }
-  }, {
-    key: 'componentWillMount',
-    value: function componentWillMount() {
-      var _this2 = this;
-
-      // We need to iterate through the children and find the Input in order
-      // to fully support server side rendering.
-      var children = this.props.children;
-
-      if (children) {
-        _react2.default.Children.forEach(children, function (child) {
-          if ((0, _reactHelpers.isMuiElement)(child, ['Input', 'Select']) && (0, _Input.isDirty)(child.props, true)) {
-            _this2.setState({ dirty: true });
-          }
-          if ((0, _reactHelpers.isMuiElement)(child, ['Input']) && (0, _Input.isAdorned)(child.props)) {
-            _this2.setState({ adorned: true });
-          }
-        });
-      }
     }
   }, {
     key: 'render',

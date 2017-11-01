@@ -63,26 +63,7 @@ class Tabs extends React.Component {
       showLeftScroll: false,
       showRightScroll: false,
       mounted: false
-    }, this.tabs = undefined, this.valueToIndex = {}, this.handleResize = debounce(() => {
-      this.updateIndicatorState(this.props);
-      this.updateScrollButtonState();
-    }, 166), this.handleLeftScrollClick = () => {
-      if (this.tabs) {
-        this.moveTabsScroll(-this.tabs.clientWidth);
-      }
-    }, this.handleRightScrollClick = () => {
-      if (this.tabs) {
-        this.moveTabsScroll(this.tabs.clientWidth);
-      }
-    }, this.handleScrollbarSizeChange = ({ scrollbarHeight }) => {
-      this.setState({
-        scrollerStyle: {
-          marginBottom: -scrollbarHeight
-        }
-      });
-    }, this.handleTabsScroll = debounce(() => {
-      this.updateScrollButtonState();
-    }, 166), this.getConditionalElements = () => {
+    }, this.getConditionalElements = () => {
       const {
         classes,
         buttonClassName,
@@ -139,12 +120,31 @@ class Tabs extends React.Component {
 
         if (children.length > 0) {
           const tab = children[this.valueToIndex[value]];
-          warning(tab, `Material-UI: the value provided \`${value}\` is invalid`);
+          warning(Boolean(tab), `Material-UI: the value provided \`${value}\` is invalid`);
           tabMeta = tab ? tab.getBoundingClientRect() : null;
         }
       }
       return { tabsMeta, tabMeta };
-    }, this.moveTabsScroll = delta => {
+    }, this.tabs = undefined, this.valueToIndex = {}, this.handleResize = debounce(() => {
+      this.updateIndicatorState(this.props);
+      this.updateScrollButtonState();
+    }, 166), this.handleLeftScrollClick = () => {
+      if (this.tabs) {
+        this.moveTabsScroll(-this.tabs.clientWidth);
+      }
+    }, this.handleRightScrollClick = () => {
+      if (this.tabs) {
+        this.moveTabsScroll(this.tabs.clientWidth);
+      }
+    }, this.handleScrollbarSizeChange = ({ scrollbarHeight }) => {
+      this.setState({
+        scrollerStyle: {
+          marginBottom: -scrollbarHeight
+        }
+      });
+    }, this.handleTabsScroll = debounce(() => {
+      this.updateScrollButtonState();
+    }, 166), this.moveTabsScroll = delta => {
       const { theme } = this.props;
 
       if (this.tabs) {

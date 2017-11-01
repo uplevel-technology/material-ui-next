@@ -59,7 +59,8 @@ var rowsHeight = 24;
 
 var styles = exports.styles = {
   root: {
-    position: 'relative' // because the shadow has position: 'absolute',
+    position: 'relative', // because the shadow has position: 'absolute',
+    width: '100%'
   },
   textarea: {
     width: '100%',

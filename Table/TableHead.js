@@ -58,7 +58,7 @@ var babelPluginFlowReactPropTypes_proptype_ElementType = require('react').babelP
 var styles = exports.styles = function styles(theme) {
   return {
     root: {
-      fontSize: 12,
+      fontSize: theme.typography.pxToRem(12),
       fontWeight: theme.typography.fontWeightMedium,
       color: theme.palette.text.secondary
     }

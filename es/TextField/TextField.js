@@ -57,7 +57,7 @@ function TextField(props) {
     }, inputProps);
   }
 
-  warning(!select || children, 'Material-UI: `children` must be passed when using the `TextField` component with `select`.');
+  warning(!select || Boolean(children), 'Material-UI: `children` must be passed when using the `TextField` component with `select`.');
 
   const InputComponent = React.createElement(Input, _extends({
     autoComplete: autoComplete,

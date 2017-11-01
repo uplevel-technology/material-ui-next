@@ -70,14 +70,14 @@ var styles = exports.styles = function styles(theme) {
       marginRight: 0
     },
     title: {
-      fontSize: 16,
+      fontSize: theme.typography.pxToRem(16),
       lineHeight: '24px',
       textOverflow: 'ellipsis',
       overflow: 'hidden',
       whiteSpace: 'nowrap'
     },
     subtitle: {
-      fontSize: 12,
+      fontSize: theme.typography.pxToRem(12),
       lineHeight: 1,
       textOverflow: 'ellipsis',
       overflow: 'hidden',

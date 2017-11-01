@@ -70,6 +70,7 @@ var styles = exports.styles = function styles(theme) {
       flex: '0 1 auto',
       position: 'relative',
       maxHeight: '90vh',
+      overflowY: 'auto', // Fix IE11 issue, to remove at some point.
       '&:focus': {
         outline: 'none'
       }

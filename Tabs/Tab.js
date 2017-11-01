@@ -132,13 +132,13 @@ var styles = exports.styles = function styles(theme) {
       paddingRight: theme.spacing.unit * 3
     }),
     label: (0, _defineProperty3.default)({
-      fontSize: theme.typography.fontSize,
+      fontSize: theme.typography.pxToRem(theme.typography.fontSize),
       whiteSpace: 'normal'
     }, theme.breakpoints.up('md'), {
-      fontSize: theme.typography.fontSize - 1
+      fontSize: theme.typography.pxToRem(theme.typography.fontSize - 1)
     }),
     labelWrapped: (0, _defineProperty3.default)({}, theme.breakpoints.down('md'), {
-      fontSize: theme.typography.fontSize - 2
+      fontSize: theme.typography.pxToRem(theme.typography.fontSize - 2)
     })
   };
 };

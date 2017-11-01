@@ -132,6 +132,11 @@ var styles = exports.styles = {
     position: 'absolute',
     overflowY: 'auto',
     overflowX: 'hidden',
+    // So we see the popover when it's empty.
+    // It's most likely on issue on userland.
+    minWidth: 16,
+    minHeight: 16,
+    maxHeight: 'calc(100vh - 32px)',
     '&:focus': {
       outline: 'none'
     }
@@ -283,7 +288,7 @@ var Popover = function (_React$Component) {
 
     return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = Popover.__proto__ || (0, _getPrototypeOf2.default)(Popover)).call.apply(_ref, [this].concat(args))), _this), _this.componentWillUnmount = function () {
       _this.handleResize.cancel();
-    }, _this.transitionEl = undefined, _this.setPositioningStyles = function (element) {
+    }, _this.setPositioningStyles = function (element) {
       if (element && element.style) {
         var positioning = _this.getPositioningStyle(element);
 
@@ -291,16 +296,7 @@ var Popover = function (_React$Component) {
         element.style.left = positioning.left;
         element.style.transformOrigin = positioning.transformOrigin;
       }
-    }, _this.handleEnter = function (element) {
-      if (_this.props.onEnter) {
-        _this.props.onEnter(element);
-      }
-
-      _this.setPositioningStyles(element);
-    }, _this.handleResize = (0, _debounce2.default)(function () {
-      var element = _reactDom2.default.findDOMNode(_this.transitionEl);
-      _this.setPositioningStyles(element);
-    }, 166), _this.getPositioningStyle = function (element) {
+    }, _this.getPositioningStyle = function (element) {
       var marginThreshold = _this.props.marginThreshold;
 
       // Check if the parent has requested anchoring on an inner content node
@@ -355,7 +351,16 @@ var Popover = function (_React$Component) {
         left: left + 'px',
         transformOrigin: getTransformOriginValue(transformOrigin)
       };
-    }, _this.handleGetOffsetTop = getOffsetTop, _this.handleGetOffsetLeft = getOffsetLeft, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
+    }, _this.transitionEl = undefined, _this.handleGetOffsetTop = getOffsetTop, _this.handleGetOffsetLeft = getOffsetLeft, _this.handleEnter = function (element) {
+      if (_this.props.onEnter) {
+        _this.props.onEnter(element);
+      }
+
+      _this.setPositioningStyles(element);
+    }, _this.handleResize = (0, _debounce2.default)(function () {
+      var element = _reactDom2.default.findDOMNode(_this.transitionEl);
+      _this.setPositioningStyles(element);
+    }, 166), _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
   }
 
   (0, _createClass3.default)(Popover, [{

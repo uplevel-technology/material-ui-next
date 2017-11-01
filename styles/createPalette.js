@@ -126,7 +126,7 @@ function createPalette(palette) {
 
   var shades = { dark: dark, light: light };
 
-  process.env.NODE_ENV !== "production" ? (0, _warning2.default)(shades[type], 'Material-UI: the palette type `' + type + '` is not supported.') : void 0;
+  process.env.NODE_ENV !== "production" ? (0, _warning2.default)(Boolean(shades[type]), 'Material-UI: the palette type `' + type + '` is not supported.') : void 0;
 
   var paletteOutput = (0, _deepmerge2.default)({
     common: _common2.default,

@@ -19,7 +19,7 @@ export const styles = theme => {
   return {
     root: {
       fontFamily: theme.typography.fontFamily,
-      fontSize: 13,
+      fontSize: theme.typography.pxToRem(13),
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -57,7 +57,7 @@ export const styles = theme => {
       marginRight: -4,
       width: 32,
       height: 32,
-      fontSize: 16
+      fontSize: theme.typography.pxToRem(16)
     },
     avatarChildren: {
       width: 19,

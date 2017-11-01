@@ -38,14 +38,19 @@ function createTypography(palette, typography) {
       htmlFontSize = _ref$htmlFontSize === undefined ? 16 : _ref$htmlFontSize,
       other = (0, _objectWithoutProperties3.default)(_ref, ['fontFamily', 'fontSize', 'fontWeightLight', 'fontWeightRegular', 'fontWeightMedium', 'htmlFontSize']);
 
+  function pxToRem(value) {
+    return value / htmlFontSize + 'rem';
+  }
+
   return (0, _deepmerge2.default)({
+    pxToRem: pxToRem,
     fontFamily: fontFamily,
     fontSize: fontSize,
     fontWeightLight: fontWeightLight,
     fontWeightRegular: fontWeightRegular,
     fontWeightMedium: fontWeightMedium,
     display4: {
-      fontSize: 112 / htmlFontSize + 'rem',
+      fontSize: pxToRem(112),
       fontWeight: fontWeightLight,
       fontFamily: fontFamily,
       letterSpacing: '-.04em',
@@ -54,7 +59,7 @@ function createTypography(palette, typography) {
       color: palette.text.secondary
     },
     display3: {
-      fontSize: 56 / htmlFontSize + 'rem',
+      fontSize: pxToRem(56),
       fontWeight: fontWeightRegular,
       fontFamily: fontFamily,
       letterSpacing: '-.02em',
@@ -63,7 +68,7 @@ function createTypography(palette, typography) {
       color: palette.text.secondary
     },
     display2: {
-      fontSize: 45 / htmlFontSize + 'rem',
+      fontSize: pxToRem(45),
       fontWeight: fontWeightRegular,
       fontFamily: fontFamily,
       lineHeight: round(48 / 45) + 'em',
@@ -71,7 +76,7 @@ function createTypography(palette, typography) {
       color: palette.text.secondary
     },
     display1: {
-      fontSize: 34 / htmlFontSize + 'rem',
+      fontSize: pxToRem(34),
       fontWeight: fontWeightRegular,
       fontFamily: fontFamily,
       lineHeight: round(41 / 34) + 'em',
@@ -79,49 +84,49 @@ function createTypography(palette, typography) {
       color: palette.text.secondary
     },
     headline: {
-      fontSize: 24 / htmlFontSize + 'rem',
+      fontSize: pxToRem(24),
       fontWeight: fontWeightRegular,
       fontFamily: fontFamily,
       lineHeight: round(32.5 / 24) + 'em',
       color: palette.text.primary
     },
     title: {
-      fontSize: 21 / htmlFontSize + 'rem',
+      fontSize: pxToRem(21),
       fontWeight: fontWeightMedium,
       fontFamily: fontFamily,
       lineHeight: round(24.5 / 21) + 'em',
       color: palette.text.primary
     },
     subheading: {
-      fontSize: 16 / htmlFontSize + 'rem',
+      fontSize: pxToRem(16),
       fontWeight: fontWeightRegular,
       fontFamily: fontFamily,
       lineHeight: round(24 / 16) + 'em',
       color: palette.text.primary
     },
     body2: {
-      fontSize: 14 / htmlFontSize + 'rem',
+      fontSize: pxToRem(14),
       fontWeight: fontWeightMedium,
       fontFamily: fontFamily,
       lineHeight: round(24 / 14) + 'em',
       color: palette.text.primary
     },
     body1: {
-      fontSize: 14 / htmlFontSize + 'rem',
+      fontSize: pxToRem(14),
       fontWeight: fontWeightRegular,
       fontFamily: fontFamily,
       lineHeight: round(20.5 / 14) + 'em',
       color: palette.text.primary
     },
     caption: {
-      fontSize: 12 / htmlFontSize + 'rem',
+      fontSize: pxToRem(12),
       fontWeight: fontWeightRegular,
       fontFamily: fontFamily,
       lineHeight: round(16.5 / 12) + 'em',
       color: palette.text.secondary
     },
     button: {
-      fontSize: fontSize,
+      fontSize: pxToRem(fontSize),
       textTransform: 'uppercase',
       fontWeight: fontWeightMedium,
       fontFamily: fontFamily

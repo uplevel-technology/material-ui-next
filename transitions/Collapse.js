@@ -72,6 +72,13 @@ var styles = exports.styles = function styles(theme) {
     },
     entered: {
       height: 'auto'
+    },
+    wrapper: {
+      // Hack to get children with a negative margin to not falsify the height computation.
+      display: 'flex'
+    },
+    wrapperInner: {
+      width: '100%'
     }
   };
 };
@@ -154,11 +161,6 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   }), require('prop-types').oneOf(['auto'])])
 };
 
-
-var reflow = function reflow(node) {
-  return node.scrollTop;
-};
-
 var Collapse = function (_React$Component) {
   (0, _inherits3.default)(Collapse, _React$Component);
 
@@ -211,9 +213,7 @@ var Collapse = function (_React$Component) {
       }
     }, _this.handleExit = function (node) {
       var wrapperHeight = _this.wrapper ? _this.wrapper.clientHeight : 0;
-      reflow(node);
       node.style.height = wrapperHeight + 'px';
-      reflow(node);
 
       if (_this.props.onExit) {
         _this.props.onExit(node);
@@ -224,8 +224,6 @@ var Collapse = function (_React$Component) {
           theme = _this$props2.theme;
 
       var wrapperHeight = _this.wrapper ? _this.wrapper.clientHeight : 0;
-
-      reflow(node);
 
       if (timeout === 'auto') {
         var duration2 = theme.transitions.getAutoHeightDuration(wrapperHeight);
@@ -239,11 +237,7 @@ var Collapse = function (_React$Component) {
         // The propType will warn in this case.
       }
 
-      reflow(node);
-
       node.style.height = _this.props.collapsedHeight;
-
-      reflow(node);
 
       if (_this.props.onExiting) {
         _this.props.onExiting(node);
@@ -303,11 +297,16 @@ var Collapse = function (_React$Component) {
             _react2.default.createElement(
               'div',
               {
+                className: classes.wrapper,
                 ref: function ref(node) {
                   _this2.wrapper = node;
                 }
               },
-              children
+              _react2.default.createElement(
+                'div',
+                { className: classes.wrapperInner },
+                children
+              )
             )
           );
         }

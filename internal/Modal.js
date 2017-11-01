@@ -504,12 +504,12 @@ var _initialiseProps = function _initialiseProps() {
   this.state = {
     exited: false
   };
+  this.onDocumentKeyUpListener = null;
+  this.onFocusListener = null;
   this.mounted = false;
   this.lastFocus = undefined;
   this.modal = null;
   this.mountNode = null;
-  this.onDocumentKeyUpListener = null;
-  this.onFocusListener = null;
 
   this.handleFocusListener = function () {
     if (!_this3.mounted || !_this3.props.modalManager.isTopModal(_this3)) {

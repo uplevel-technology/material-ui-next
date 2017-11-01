@@ -39,7 +39,7 @@ export const styles = theme => ({
     borderRadius: 2,
     color: common.fullWhite,
     fontFamily: theme.typography.fontFamily,
-    fontSize: 14,
+    fontSize: theme.typography.pxToRem(14),
     minHeight: theme.spacing.unit * 4,
     lineHeight: '32px',
     opacity: 0,
@@ -52,7 +52,7 @@ export const styles = theme => ({
       minHeight: 22,
       lineHeight: '22px',
       padding: `0 ${theme.spacing.unit}px`,
-      fontSize: 10
+      fontSize: theme.typography.pxToRem(10)
     }
   },
   tooltipLeft: {

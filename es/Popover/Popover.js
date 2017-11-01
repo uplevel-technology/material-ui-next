@@ -66,6 +66,11 @@ export const styles = {
     position: 'absolute',
     overflowY: 'auto',
     overflowX: 'hidden',
+    // So we see the popover when it's empty.
+    // It's most likely on issue on userland.
+    minWidth: 16,
+    minHeight: 16,
+    maxHeight: 'calc(100vh - 32px)',
     '&:focus': {
       outline: 'none'
     }
@@ -78,7 +83,7 @@ class Popover extends React.Component {
 
     return _temp = super(...args), this.componentWillUnmount = () => {
       this.handleResize.cancel();
-    }, this.transitionEl = undefined, this.setPositioningStyles = element => {
+    }, this.setPositioningStyles = element => {
       if (element && element.style) {
         const positioning = this.getPositioningStyle(element);
 
@@ -86,16 +91,7 @@ class Popover extends React.Component {
         element.style.left = positioning.left;
         element.style.transformOrigin = positioning.transformOrigin;
       }
-    }, this.handleEnter = element => {
-      if (this.props.onEnter) {
-        this.props.onEnter(element);
-      }
-
-      this.setPositioningStyles(element);
-    }, this.handleResize = debounce(() => {
-      const element = ReactDOM.findDOMNode(this.transitionEl);
-      this.setPositioningStyles(element);
-    }, 166), this.getPositioningStyle = element => {
+    }, this.getPositioningStyle = element => {
       const { marginThreshold } = this.props;
 
       // Check if the parent has requested anchoring on an inner content node
@@ -149,7 +145,16 @@ class Popover extends React.Component {
         left: `${left}px`,
         transformOrigin: getTransformOriginValue(transformOrigin)
       };
-    }, this.handleGetOffsetTop = getOffsetTop, this.handleGetOffsetLeft = getOffsetLeft, _temp;
+    }, this.transitionEl = undefined, this.handleGetOffsetTop = getOffsetTop, this.handleGetOffsetLeft = getOffsetLeft, this.handleEnter = element => {
+      if (this.props.onEnter) {
+        this.props.onEnter(element);
+      }
+
+      this.setPositioningStyles(element);
+    }, this.handleResize = debounce(() => {
+      const element = ReactDOM.findDOMNode(this.transitionEl);
+      this.setPositioningStyles(element);
+    }, 166), _temp;
   }
 
   // Returns the top/left offset of the position
