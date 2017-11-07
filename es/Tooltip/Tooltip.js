@@ -108,7 +108,7 @@ class Tooltip extends React.Component {
   constructor(...args) {
     var _temp;
 
-    return _temp = super(...args), this.state = {}, this.enterTimer = null, this.leaveTimer = null, this.touchTimer = null, this.isControlled = null, this.popper = null, this.ignoreNonTouchEvents = false, this.handleResize = debounce(() => {
+    return _temp = super(...args), this.state = {}, this.enterTimer = null, this.leaveTimer = null, this.touchTimer = null, this.isControlled = null, this.popper = null, this.children = null, this.ignoreNonTouchEvents = false, this.handleResize = debounce(() => {
       if (this.popper) {
         this.popper._popper.scheduleUpdate();
       }
@@ -226,6 +226,12 @@ class Tooltip extends React.Component {
     }
   }
 
+  componentDidMount() {
+    warning(!this.children || !this.children.disabled ||
+    // $FlowFixMe
+    !this.children.tagName.toLowerCase() === 'button', ['Material-UI: you are providing a disabled button children to the Tooltip component.', 'A disabled element do not fire events.', 'But the Tooltip needs to listen to the children element events to display the title.', '', 'Place a `div` over top of the element.'].join('\n'));
+  }
+
   componentWillUnmount() {
     clearTimeout(this.enterTimer);
     clearTimeout(this.leaveTimer);
@@ -292,7 +298,8 @@ class Tooltip extends React.Component {
           ({ targetProps }) => React.createElement(TargetChildren, {
             element: typeof childrenProp !== 'string' ? React.cloneElement(childrenProp, childrenProps) : childrenProp,
             ref: node => {
-              targetProps.ref(findDOMNode(node));
+              this.children = findDOMNode(node);
+              targetProps.ref(this.children);
             }
           })
         ),

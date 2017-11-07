@@ -95,14 +95,11 @@ var styles = exports.styles = function styles(theme) {
       flexDirection: 'column',
       height: '100vh',
       flex: '1 0 auto',
-      position: 'fixed',
-      top: 0,
       zIndex: theme.zIndex.navDrawer,
-      willChange: 'transform',
-      '&:focus': {
-        outline: 'none'
-      },
-      WebkitOverflowScrolling: 'touch' // Add iOS momentum scrolling.
+      WebkitOverflowScrolling: 'touch', // Add iOS momentum scrolling.
+      // temporary style
+      position: 'fixed',
+      top: 0
     },
     paperAnchorLeft: {
       left: 0,
@@ -131,8 +128,14 @@ var styles = exports.styles = function styles(theme) {
     paperAnchorDockedLeft: {
       borderRight: '1px solid ' + theme.palette.text.divider
     },
+    paperAnchorDockedTop: {
+      borderBottom: '1px solid ' + theme.palette.text.divider
+    },
     paperAnchorDockedRight: {
       borderLeft: '1px solid ' + theme.palette.text.divider
+    },
+    paperAnchorDockedBottom: {
+      borderTop: '1px solid ' + theme.palette.text.divider
     },
     modal: {} // Just here so people can override the style.
   };
@@ -239,8 +242,6 @@ var Drawer = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _classNames;
-
       var _props = this.props,
           anchorProp = _props.anchor,
           children = _props.children,
@@ -268,7 +269,7 @@ var Drawer = function (_React$Component) {
         {
           elevation: type === 'temporary' ? elevation : 0,
           square: true,
-          className: (0, _classnames2.default)(classes.paper, (_classNames = {}, (0, _defineProperty3.default)(_classNames, classes['paperAnchor' + (0, _helpers.capitalizeFirstLetter)(anchor)], type !== 'permanent'), (0, _defineProperty3.default)(_classNames, classes['paperAnchorDocked' + (0, _helpers.capitalizeFirstLetter)(anchor)], type !== 'temporary'), _classNames))
+          className: (0, _classnames2.default)(classes.paper, classes['paperAnchor' + (0, _helpers.capitalizeFirstLetter)(anchor)], (0, _defineProperty3.default)({}, classes['paperAnchorDocked' + (0, _helpers.capitalizeFirstLetter)(anchor)], type !== 'temporary'))
         },
         children
       );

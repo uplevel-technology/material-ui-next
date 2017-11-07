@@ -13,7 +13,7 @@ import { isMuiElement } from '../utils/reactHelpers';
 export const styles = theme => ({
   root: {
     display: 'flex',
-    justifyContent: 'initial',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     position: 'relative',
     textDecoration: 'none'

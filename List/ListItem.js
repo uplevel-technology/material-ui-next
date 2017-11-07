@@ -69,7 +69,7 @@ var styles = exports.styles = function styles(theme) {
   return {
     root: {
       display: 'flex',
-      justifyContent: 'initial',
+      justifyContent: 'flex-start',
       alignItems: 'center',
       position: 'relative',
       textDecoration: 'none'

@@ -59,6 +59,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // @inheritedComponent Transition
 
+var babelPluginFlowReactPropTypes_proptype_ElementType = require('react').babelPluginFlowReactPropTypes_proptype_ElementType || require('prop-types').any;
+
 var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFlowReactPropTypes_proptype_Node || require('prop-types').any;
 
 var babelPluginFlowReactPropTypes_proptype_TransitionCallback = require('../internal/transition').babelPluginFlowReactPropTypes_proptype_TransitionCallback || require('prop-types').any;
@@ -103,6 +105,13 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
    * Useful to extend the style applied to components.
    */
   classes: require('prop-types').object,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a DOM element or a component.
+   * The default value is a `button`.
+   */
+  component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType),
 
   /**
    * The height of the container when collapsed.
@@ -264,6 +273,7 @@ var Collapse = function (_React$Component) {
           appear = _props.appear,
           children = _props.children,
           classes = _props.classes,
+          ComponentProp = _props.component,
           collapsedHeight = _props.collapsedHeight,
           onEnter = _props.onEnter,
           onEntering = _props.onEntering,
@@ -273,7 +283,7 @@ var Collapse = function (_React$Component) {
           style = _props.style,
           timeout = _props.timeout,
           theme = _props.theme,
-          other = (0, _objectWithoutProperties3.default)(_props, ['appear', 'children', 'classes', 'collapsedHeight', 'onEnter', 'onEntering', 'onEntered', 'onExit', 'onExiting', 'style', 'timeout', 'theme']);
+          other = (0, _objectWithoutProperties3.default)(_props, ['appear', 'children', 'classes', 'component', 'collapsedHeight', 'onEnter', 'onEntering', 'onEntered', 'onExit', 'onExiting', 'style', 'timeout', 'theme']);
 
 
       return _react2.default.createElement(
@@ -290,7 +300,7 @@ var Collapse = function (_React$Component) {
         }, other),
         function (state) {
           return _react2.default.createElement(
-            'div',
+            ComponentProp,
             {
               className: (0, _classnames2.default)(classes.container, (0, _defineProperty3.default)({}, classes.entered, state === 'entered'))
             },
@@ -318,6 +328,7 @@ var Collapse = function (_React$Component) {
 
 Collapse.defaultProps = {
   appear: false,
+  component: 'div',
   collapsedHeight: '0px',
   timeout: _transitions.duration.standard
 };

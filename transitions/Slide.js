@@ -262,6 +262,21 @@ var Slide = function (_React$Component) {
   }
 
   (0, _createClass3.default)(Slide, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      // state.firstMount handle SSR, once the component is mounted, we need
+      // to propery hide it.
+      if (!this.props.in) {
+        // We need to set initial translate values of transition element
+        // otherwise component will be shown when in=false.
+        var element = (0, _reactDom.findDOMNode)(this.transition);
+        if (element instanceof HTMLElement) {
+          element.style.visibility = 'inherit';
+          setTranslateValue(this.props, element);
+        }
+      }
+    }
+  }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps() {
       this.setState({

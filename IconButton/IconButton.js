@@ -99,6 +99,11 @@ var styles = exports.styles = function styles(theme) {
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
+   * Use that property to pass a ref callback to the native button component.
+   */
+  buttonRef: require('prop-types').func,
+
+  /**
    * The icon element.
    * If a string is provided, it will be used as an icon font ligature.
    */
@@ -143,13 +148,14 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
 function IconButton(props) {
   var _classNames;
 
-  var children = props.children,
+  var buttonRef = props.buttonRef,
+      children = props.children,
       classes = props.classes,
       className = props.className,
       color = props.color,
       disabled = props.disabled,
       rootRef = props.rootRef,
-      other = (0, _objectWithoutProperties3.default)(props, ['children', 'classes', 'className', 'color', 'disabled', 'rootRef']);
+      other = (0, _objectWithoutProperties3.default)(props, ['buttonRef', 'children', 'classes', 'className', 'color', 'disabled', 'rootRef']);
 
 
   return _react2.default.createElement(
@@ -160,6 +166,7 @@ function IconButton(props) {
       keyboardFocusedClassName: classes.keyboardFocused,
       disabled: disabled
     }, other, {
+      rootRef: buttonRef,
       ref: rootRef
     }),
     _react2.default.createElement(
@@ -184,6 +191,7 @@ function IconButton(props) {
 
 IconButton.propTypes = process.env.NODE_ENV !== "production" ? (_ref = {
   classes: require('prop-types').object.isRequired,
+  buttonRef: require('prop-types').func,
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node)
 }, (0, _defineProperty3.default)(_ref, 'classes', require('prop-types').object), (0, _defineProperty3.default)(_ref, 'className', require('prop-types').string), (0, _defineProperty3.default)(_ref, 'color', require('prop-types').oneOf(['default', 'inherit', 'primary', 'contrast', 'accent'])), (0, _defineProperty3.default)(_ref, 'disabled', require('prop-types').bool), (0, _defineProperty3.default)(_ref, 'disableRipple', require('prop-types').bool), (0, _defineProperty3.default)(_ref, 'rootRef', require('prop-types').func), _ref) : {};
 IconButton.defaultProps = {

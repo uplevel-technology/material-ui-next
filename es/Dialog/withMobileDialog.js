@@ -11,18 +11,18 @@ import withWidth, { isWidthDown } from '../utils/withWidth';
  * (defaults to 'sm' for mobile devices).
  * Notice that this Higher-order Component is incompatible with server side rendering.
  */
-const withResponsiveFullScreen = (options = { breakpoint: 'sm' }) => Component => {
+const withMobileDialog = (options = { breakpoint: 'sm' }) => Component => {
   const { breakpoint } = options;
 
-  function ResponsiveFullScreen(props) {
+  function WithMobileDialog(props) {
     return React.createElement(Component, _extends({ fullScreen: isWidthDown(breakpoint, props.width) }, props));
   }
 
   if (process.env.NODE_ENV !== 'production') {
-    ResponsiveFullScreen.displayName = wrapDisplayName(Component, 'withResponsiveFullScreen');
+    WithMobileDialog.displayName = wrapDisplayName(Component, 'withMobileDialog');
   }
 
-  return withWidth()(ResponsiveFullScreen);
+  return withWidth()(WithMobileDialog);
 };
 
-export default withResponsiveFullScreen;
+export default withMobileDialog;

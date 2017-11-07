@@ -114,6 +114,7 @@ class Collapse extends React.Component {
       appear,
       children,
       classes,
+      component: ComponentProp,
       collapsedHeight,
       onEnter,
       onEntering,
@@ -124,7 +125,7 @@ class Collapse extends React.Component {
       timeout,
       theme
     } = _props,
-          other = _objectWithoutProperties(_props, ['appear', 'children', 'classes', 'collapsedHeight', 'onEnter', 'onEntering', 'onEntered', 'onExit', 'onExiting', 'style', 'timeout', 'theme']);
+          other = _objectWithoutProperties(_props, ['appear', 'children', 'classes', 'component', 'collapsedHeight', 'onEnter', 'onEntering', 'onEntered', 'onExit', 'onExiting', 'style', 'timeout', 'theme']);
 
     return React.createElement(
       Transition,
@@ -140,7 +141,7 @@ class Collapse extends React.Component {
       }, other),
       state => {
         return React.createElement(
-          'div',
+          ComponentProp,
           {
             className: classNames(classes.container, {
               [classes.entered]: state === 'entered'
@@ -168,6 +169,7 @@ class Collapse extends React.Component {
 
 Collapse.defaultProps = {
   appear: false,
+  component: 'div',
   collapsedHeight: '0px',
   timeout: duration.standard
 };

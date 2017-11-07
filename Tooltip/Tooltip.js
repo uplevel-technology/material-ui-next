@@ -281,7 +281,7 @@ var Tooltip = function (_React$Component2) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this2 = (0, _possibleConstructorReturn3.default)(this, (_ref = Tooltip.__proto__ || (0, _getPrototypeOf2.default)(Tooltip)).call.apply(_ref, [this].concat(args))), _this2), _this2.state = {}, _this2.enterTimer = null, _this2.leaveTimer = null, _this2.touchTimer = null, _this2.isControlled = null, _this2.popper = null, _this2.ignoreNonTouchEvents = false, _this2.handleResize = (0, _debounce2.default)(function () {
+    return _ret = (_temp = (_this2 = (0, _possibleConstructorReturn3.default)(this, (_ref = Tooltip.__proto__ || (0, _getPrototypeOf2.default)(Tooltip)).call.apply(_ref, [this].concat(args))), _this2), _this2.state = {}, _this2.enterTimer = null, _this2.leaveTimer = null, _this2.touchTimer = null, _this2.isControlled = null, _this2.popper = null, _this2.children = null, _this2.ignoreNonTouchEvents = false, _this2.handleResize = (0, _debounce2.default)(function () {
       if (_this2.popper) {
         _this2.popper._popper.scheduleUpdate();
       }
@@ -406,6 +406,13 @@ var Tooltip = function (_React$Component2) {
       }
     }
   }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      process.env.NODE_ENV !== "production" ? (0, _warning2.default)(!this.children || !this.children.disabled ||
+      // $FlowFixMe
+      !this.children.tagName.toLowerCase() === 'button', ['Material-UI: you are providing a disabled button children to the Tooltip component.', 'A disabled element do not fire events.', 'But the Tooltip needs to listen to the children element events to display the title.', '', 'Place a `div` over top of the element.'].join('\n')) : void 0;
+    }
+  }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       clearTimeout(this.enterTimer);
@@ -479,7 +486,8 @@ var Tooltip = function (_React$Component2) {
               return _react2.default.createElement(TargetChildren, {
                 element: typeof childrenProp !== 'string' ? _react2.default.cloneElement(childrenProp, childrenProps) : childrenProp,
                 ref: function ref(node) {
-                  targetProps.ref((0, _reactDom.findDOMNode)(node));
+                  _this3.children = (0, _reactDom.findDOMNode)(node);
+                  targetProps.ref(_this3.children);
                 }
               });
             }

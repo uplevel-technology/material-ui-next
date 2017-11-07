@@ -51,7 +51,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
 };
 
 /**
- * @ignore - internal component.
+ * Listen for click events that are triggered outside of the component children.
  */
 var ClickAwayListener = function (_React$Component) {
   (0, _inherits3.default)(ClickAwayListener, _React$Component);

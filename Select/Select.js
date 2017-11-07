@@ -70,9 +70,14 @@ var styles = exports.styles = function styles(theme) {
       '&:-moz-focusring': {
         color: 'transparent',
         textShadow: '0 0 0 #000'
+      },
+      // Remove IE11 arrow
+      '&::-ms-expand': {
+        display: 'none'
       }
     },
     selectMenu: {
+      width: 'auto', // Fix Safari textOverflow
       textOverflow: 'ellipsis',
       whiteSpace: 'nowrap',
       overflow: 'hidden',

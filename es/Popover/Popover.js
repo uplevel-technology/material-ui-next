@@ -70,6 +70,7 @@ export const styles = {
     // It's most likely on issue on userland.
     minWidth: 16,
     minHeight: 16,
+    maxWidth: 'calc(100vw - 32px)',
     maxHeight: 'calc(100vh - 32px)',
     '&:focus': {
       outline: 'none'
@@ -127,7 +128,7 @@ class Popover extends React.Component {
         transformOrigin.vertical += diff;
       }
 
-      warning(elemRect.height < heightThreshold || !elemRect.height || !heightThreshold, ['Material-UI: the Popover component is too tall.', `Some part of it can not be seen on the screen (${elemRect.height - heightThreshold}px).`, 'Please consider adding a `max-height` to improve the user-experience.'].join('\n'));
+      warning(elemRect.height < heightThreshold || !elemRect.height || !heightThreshold, ['Material-UI: the popover component is too tall.', `Some part of it can not be seen on the screen (${elemRect.height - heightThreshold}px).`, 'Please consider adding a `max-height` to improve the user-experience.'].join('\n'));
 
       // Check if the horizontal axis needs shifting
       if (left < marginThreshold) {
@@ -161,7 +162,12 @@ class Popover extends React.Component {
   // to attach to on the anchor element (or body if none is provided)
   getAnchorOffset(contentAnchorOffset) {
     // $FlowFixMe
-    const { anchorEl, anchorOrigin } = this.props;
+    const { anchorEl, anchorOrigin, anchorReference, anchorPosition } = this.props;
+
+    if (anchorReference === 'anchorPosition') {
+      return anchorPosition;
+    }
+
     const anchorElement = anchorEl || document.body;
     const anchorRect = anchorElement.getBoundingClientRect();
     const anchorVertical = contentAnchorOffset === 0 ? anchorOrigin.vertical : 'center';
@@ -174,10 +180,11 @@ class Popover extends React.Component {
 
   // Returns the vertical offset of inner content to anchor the transform on if provided
   getContentAnchorOffset(element) {
+    const { getContentAnchorEl, anchorReference } = this.props;
     let contentAnchorOffset = 0;
 
-    if (this.props.getContentAnchorEl) {
-      const contentAnchorEl = this.props.getContentAnchorEl(element);
+    if (getContentAnchorEl && anchorReference === 'anchorEl') {
+      const contentAnchorEl = getContentAnchorEl(element);
 
       if (contentAnchorEl && contains(element, contentAnchorEl)) {
         const scrollTop = getScrollParent(element, contentAnchorEl);
@@ -185,7 +192,7 @@ class Popover extends React.Component {
       }
 
       // != the default value
-      warning(this.props.anchorOrigin.vertical === 'top', ['Material-UI: you can not change the `anchorOrigin.vertical` value when also ', 'providing the `getContentAnchorEl` property. Pick one.'].join());
+      warning(this.props.anchorOrigin.vertical === 'top', ['Material-UI: you can not change the default `anchorOrigin.vertical` value when also ', 'providing the `getContentAnchorEl` property to the popover component.', 'Only use one of the two properties', 'Set `getContentAnchorEl` to null or left `anchorOrigin.vertical` unchanged'].join());
     }
 
     return contentAnchorOffset;
@@ -205,6 +212,8 @@ class Popover extends React.Component {
     const _props = this.props,
           {
       anchorEl,
+      anchorReference,
+      anchorPosition,
       anchorOrigin,
       children,
       classes,
@@ -224,7 +233,7 @@ class Popover extends React.Component {
       transitionClasses,
       transitionDuration
     } = _props,
-          other = _objectWithoutProperties(_props, ['anchorEl', 'anchorOrigin', 'children', 'classes', 'elevation', 'getContentAnchorEl', 'marginThreshold', 'onEnter', 'onEntering', 'onEntered', 'onExit', 'onExiting', 'onExited', 'open', 'PaperProps', 'role', 'transformOrigin', 'transitionClasses', 'transitionDuration']);
+          other = _objectWithoutProperties(_props, ['anchorEl', 'anchorReference', 'anchorPosition', 'anchorOrigin', 'children', 'classes', 'elevation', 'getContentAnchorEl', 'marginThreshold', 'onEnter', 'onEntering', 'onEntered', 'onExit', 'onExiting', 'onExited', 'open', 'PaperProps', 'role', 'transformOrigin', 'transitionClasses', 'transitionDuration']);
 
     return React.createElement(
       Modal,
@@ -263,6 +272,7 @@ class Popover extends React.Component {
 }
 
 Popover.defaultProps = {
+  anchorReference: 'anchorEl',
   anchorOrigin: {
     vertical: 'top',
     horizontal: 'left'

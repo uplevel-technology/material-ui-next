@@ -55,7 +55,7 @@ var _withStyles2 = _interopRequireDefault(_withStyles);
 
 var _transitions = require('../styles/transitions');
 
-var _ClickAwayListener = require('../internal/ClickAwayListener');
+var _ClickAwayListener = require('../utils/ClickAwayListener');
 
 var _ClickAwayListener2 = _interopRequireDefault(_ClickAwayListener);
 
@@ -198,7 +198,11 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
    * e.g. <Snackbar key={message} />, otherwise, the message may update-in-place and
    * features such as autoHideDuration may be canceled.
    */
-  key: require('prop-types').any,
+  key: function key(props, propName, componentName) {
+    if (!Object.prototype.hasOwnProperty.call(props, propName)) {
+      throw new Error('Prop `' + propName + '` has type \'any\', but was not provided to `' + componentName + '`. Pass undefined or any other value.');
+    }
+  },
 
   /**
    * The message to display.

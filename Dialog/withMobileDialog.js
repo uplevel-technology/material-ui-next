@@ -39,25 +39,25 @@ var babelPluginFlowReactPropTypes_proptype_InjectedProps = {
  * (defaults to 'sm' for mobile devices).
  * Notice that this Higher-order Component is incompatible with server side rendering.
  */
-var withResponsiveFullScreen = function withResponsiveFullScreen() {
+var withMobileDialog = function withMobileDialog() {
   var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { breakpoint: 'sm' };
   return function (Component) {
     var breakpoint = options.breakpoint;
 
 
-    function ResponsiveFullScreen(props) {
+    function WithMobileDialog(props) {
       return _react2.default.createElement(Component, (0, _extends3.default)({ fullScreen: (0, _withWidth.isWidthDown)(breakpoint, props.width) }, props));
     }
 
-    ResponsiveFullScreen.propTypes = process.env.NODE_ENV !== "production" ? {
+    WithMobileDialog.propTypes = process.env.NODE_ENV !== "production" ? {
       width: require('prop-types').string.isRequired
     } : {};
     if (process.env.NODE_ENV !== 'production') {
-      ResponsiveFullScreen.displayName = (0, _wrapDisplayName2.default)(Component, 'withResponsiveFullScreen');
+      WithMobileDialog.displayName = (0, _wrapDisplayName2.default)(Component, 'withMobileDialog');
     }
 
-    return (0, _withWidth2.default)()(ResponsiveFullScreen);
+    return (0, _withWidth2.default)()(WithMobileDialog);
   };
 };
 
-exports.default = withResponsiveFullScreen;
+exports.default = withMobileDialog;

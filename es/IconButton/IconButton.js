@@ -64,8 +64,8 @@ export const styles = theme => ({
  * regarding the available icon options.
  */
 function IconButton(props) {
-  const { children, classes, className, color, disabled, rootRef } = props,
-        other = _objectWithoutProperties(props, ['children', 'classes', 'className', 'color', 'disabled', 'rootRef']);
+  const { buttonRef, children, classes, className, color, disabled, rootRef } = props,
+        other = _objectWithoutProperties(props, ['buttonRef', 'children', 'classes', 'className', 'color', 'disabled', 'rootRef']);
 
   return React.createElement(
     ButtonBase,
@@ -78,6 +78,7 @@ function IconButton(props) {
       keyboardFocusedClassName: classes.keyboardFocused,
       disabled: disabled
     }, other, {
+      rootRef: buttonRef,
       ref: rootRef
     }),
     React.createElement(
