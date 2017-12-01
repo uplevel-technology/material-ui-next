@@ -17,23 +17,26 @@ export const styles = theme => ({
   }
 });
 
-function DialogTitle(props) {
-  const { children, classes, className, disableTypography } = props,
-        other = _objectWithoutProperties(props, ['children', 'classes', 'className', 'disableTypography']);
+class DialogTitle extends React.Component {
 
-  return React.createElement(
-    'div',
-    _extends({ 'data-mui-test': 'DialogTitle', className: classNames(classes.root, className) }, other),
-    disableTypography ? children : React.createElement(
-      Typography,
-      { type: 'title' },
-      children
-    )
-  );
+  render() {
+    const _props = this.props,
+          { children, classes, className, disableTypography } = _props,
+          other = _objectWithoutProperties(_props, ['children', 'classes', 'className', 'disableTypography']);
+
+    return React.createElement(
+      'div',
+      _extends({ 'data-mui-test': 'DialogTitle', className: classNames(classes.root, className) }, other),
+      disableTypography ? children : React.createElement(
+        Typography,
+        { type: 'title' },
+        children
+      )
+    );
+  }
 }
 
 DialogTitle.defaultProps = {
   disableTypography: false
 };
-
 export default withStyles(styles, { name: 'MuiDialogTitle' })(DialogTitle);

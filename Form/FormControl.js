@@ -111,23 +111,28 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
    * The component used for the root node.
    * Either a string to use a DOM element or a component.
    */
-  component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType),
+  component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType.isRequired ? babelPluginFlowReactPropTypes_proptype_ElementType.isRequired : babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType).isRequired,
 
   /**
    * If `true`, the label, input and helper text should be displayed in a disabled state.
    */
-  disabled: require('prop-types').bool,
+  disabled: require('prop-types').bool.isRequired,
 
   /**
    * If `true`, the label should be displayed in an error state.
    */
-  error: require('prop-types').bool,
+  error: require('prop-types').bool.isRequired,
 
   /**
    * If `true`, the component, as well as its children,
    * will take up the full width of its container.
    */
-  fullWidth: require('prop-types').bool,
+  fullWidth: require('prop-types').bool.isRequired,
+
+  /**
+   * If `dense` or `normal`, will adjust vertical spacing of this and contained components.
+   */
+  margin: require('prop-types').oneOf(['none', 'dense', 'normal']).isRequired,
 
   /**
    * @ignore
@@ -142,12 +147,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * If `true`, the label will indicate that the input is required.
    */
-  required: require('prop-types').bool,
-
-  /**
-   * If `dense` or `normal`, will adjust vertical spacing of this and contained components.
-   */
-  margin: require('prop-types').oneOf(['none', 'dense', 'normal'])
+  required: require('prop-types').bool.isRequired
 };
 
 /**
@@ -186,7 +186,10 @@ var FormControl = function (_React$Component) {
     };
 
     _this.handleBlur = function (event) {
-      if (_this.props.onBlur) {
+      // The event might be undefined.
+      // For instance, a child component might call this hook
+      // when an input is disabled but still having the focus.
+      if (_this.props.onBlur && event) {
         _this.props.onBlur(event);
       }
       if (_this.state.focused) {
@@ -260,7 +263,8 @@ var FormControl = function (_React$Component) {
           children = _props2.children,
           classes = _props2.classes,
           className = _props2.className,
-          ComponentProp = _props2.component,
+          _props2$component = _props2.component,
+          ComponentProp = _props2$component === undefined ? 'div' : _props2$component,
           disabled = _props2.disabled,
           error = _props2.error,
           fullWidth = _props2.fullWidth,

@@ -17,7 +17,25 @@ var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProp
 
 var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
-var _ref;
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _react = require('react');
 
@@ -60,7 +78,7 @@ var styles = exports.styles = function styles(theme) {
 };
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
-  absolute: require('prop-types').bool,
+  absolute: require('prop-types').bool.isRequired,
 
   /**
    * Useful to extend the style applied to components.
@@ -75,39 +93,47 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * If `true`, the divider will be indented.
    */
-  inset: require('prop-types').bool,
+  inset: require('prop-types').bool.isRequired,
 
   /**
    * If `true`, the divider will have a lighter color.
    */
-  light: require('prop-types').bool
+  light: require('prop-types').bool.isRequired
 };
 
+var Divider = function (_React$Component) {
+  (0, _inherits3.default)(Divider, _React$Component);
 
-function Divider(props) {
-  var _classNames;
+  function Divider() {
+    (0, _classCallCheck3.default)(this, Divider);
+    return (0, _possibleConstructorReturn3.default)(this, (Divider.__proto__ || (0, _getPrototypeOf2.default)(Divider)).apply(this, arguments));
+  }
 
-  var absolute = props.absolute,
-      classes = props.classes,
-      classNameProp = props.className,
-      inset = props.inset,
-      light = props.light,
-      other = (0, _objectWithoutProperties3.default)(props, ['absolute', 'classes', 'className', 'inset', 'light']);
+  (0, _createClass3.default)(Divider, [{
+    key: 'render',
+    value: function render() {
+      var _classNames;
+
+      var _props = this.props,
+          absolute = _props.absolute,
+          classes = _props.classes,
+          classNameProp = _props.className,
+          inset = _props.inset,
+          light = _props.light,
+          other = (0, _objectWithoutProperties3.default)(_props, ['absolute', 'classes', 'className', 'inset', 'light']);
 
 
-  var className = (0, _classnames2.default)(classes.root, (_classNames = {}, (0, _defineProperty3.default)(_classNames, classes.absolute, absolute), (0, _defineProperty3.default)(_classNames, classes.inset, inset), (0, _defineProperty3.default)(_classNames, light ? classes.light : classes.default, true), _classNames), classNameProp);
+      var className = (0, _classnames2.default)(classes.root, (_classNames = {}, (0, _defineProperty3.default)(_classNames, classes.absolute, absolute), (0, _defineProperty3.default)(_classNames, classes.inset, inset), (0, _defineProperty3.default)(_classNames, light ? classes.light : classes.default, true), _classNames), classNameProp);
 
-  return _react2.default.createElement('hr', (0, _extends3.default)({ className: className }, other));
-}
+      return _react2.default.createElement('hr', (0, _extends3.default)({ className: className }, other));
+    }
+  }]);
+  return Divider;
+}(_react2.default.Component);
 
-Divider.propTypes = process.env.NODE_ENV !== "production" ? (_ref = {
-  classes: require('prop-types').object.isRequired,
-  absolute: require('prop-types').bool
-}, (0, _defineProperty3.default)(_ref, 'classes', require('prop-types').object), (0, _defineProperty3.default)(_ref, 'className', require('prop-types').string), (0, _defineProperty3.default)(_ref, 'inset', require('prop-types').bool), (0, _defineProperty3.default)(_ref, 'light', require('prop-types').bool), _ref) : {};
 Divider.defaultProps = {
   absolute: false,
   inset: false,
   light: false
 };
-
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiDivider' })(Divider);

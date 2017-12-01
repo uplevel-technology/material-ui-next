@@ -6,16 +6,25 @@ import { Spacing } from './spacing';
 import { Transitions } from './transitions';
 import { Typography, TypographyOptions } from './createTypography';
 import { ZIndex } from './zIndex';
+import { Overrides } from './overrides'
+
+export type Direction = 'ltr' | 'rtl';
 
 export interface ThemeOptions {
-  breakpoints?: Partial<BreakpointsOptions> & Partial<Breakpoints>;
-  mixins?: Partial<Mixins>;
+  direction?: Direction;
   palette?: Partial<Palette>;
   typography?: TypographyOptions | ((palette: Palette) => TypographyOptions);
+  mixins?: Partial<Mixins>;
+  breakpoints?: Partial<BreakpointsOptions> & Partial<Breakpoints>;
+  shadows?: Shadows;
+  transitions?: Partial<Transitions>;
+  spacing?: Partial<Spacing>;
+  zIndex?: Partial<ZIndex>;
+  overrides?: Overrides;
 }
 
-export type Theme<T = {}> = {
-  direction: 'ltr' | 'rtl';
+export interface Theme {
+  direction: Direction;
   palette: Palette;
   typography: Typography;
   mixins: Mixins;
@@ -24,8 +33,9 @@ export type Theme<T = {}> = {
   transitions: Transitions;
   spacing: Spacing;
   zIndex: ZIndex;
-} & T;
+  overrides?: Overrides;
+}
 
-export default function createMuiTheme<T = {}>(
-  options?: ThemeOptions & T
-): Theme<T>;
+export default function createMuiTheme(
+  options?: ThemeOptions
+): Theme;

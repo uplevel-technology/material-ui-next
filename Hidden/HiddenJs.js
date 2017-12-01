@@ -36,6 +36,8 @@ var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFl
 
 var babelPluginFlowReactPropTypes_proptype_HiddenProps = require('./types').babelPluginFlowReactPropTypes_proptype_HiddenProps || require('prop-types').any;
 
+var babelPluginFlowReactPropTypes_proptype_Breakpoint = require('../styles/createBreakpoints').babelPluginFlowReactPropTypes_proptype_Breakpoint || require('prop-types').any;
+
 var babelPluginFlowReactPropTypes_proptype_Props = (0, _extends3.default)({}, babelPluginFlowReactPropTypes_proptype_HiddenProps === require('prop-types').any ? {} : babelPluginFlowReactPropTypes_proptype_HiddenProps, {
   /**
    * The content of the component.
@@ -46,7 +48,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = (0, _extends3.default)({}, ba
    * @ignore
    * width prop provided by withWidth decorator
    */
-  width: require('prop-types').string.isRequired
+  width: typeof babelPluginFlowReactPropTypes_proptype_Breakpoint === 'function' ? babelPluginFlowReactPropTypes_proptype_Breakpoint.isRequired ? babelPluginFlowReactPropTypes_proptype_Breakpoint.isRequired : babelPluginFlowReactPropTypes_proptype_Breakpoint : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Breakpoint).isRequired
 });
 
 

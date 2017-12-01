@@ -40,46 +40,32 @@ export const styles = theme => {
       justifyContent: 'center',
       alignItems: 'center'
     },
-    anchorTopCenter: {
-      extend: [top],
-      [theme.breakpoints.up('md')]: {
-        extend: [center]
-      }
-    },
-    anchorBottomCenter: {
-      extend: [bottom],
-      [theme.breakpoints.up('md')]: {
-        extend: [center]
-      }
-    },
-    anchorTopRight: {
-      extend: [top, right],
-      [theme.breakpoints.up('md')]: {
-        left: 'auto',
-        extend: [topSpace, rightSpace]
-      }
-    },
-    anchorBottomRight: {
-      extend: [bottom, right],
-      [theme.breakpoints.up('md')]: {
-        left: 'auto',
-        extend: [bottomSpace, rightSpace]
-      }
-    },
-    anchorTopLeft: {
-      extend: [top, left],
-      [theme.breakpoints.up('md')]: {
-        right: 'auto',
-        extend: [topSpace, leftSpace]
-      }
-    },
-    anchorBottomLeft: {
-      extend: [bottom, left],
-      [theme.breakpoints.up('md')]: {
-        right: 'auto',
-        extend: [bottomSpace, leftSpace]
-      }
-    }
+    anchorTopCenter: _extends({}, top, {
+      [theme.breakpoints.up('md')]: _extends({}, center)
+    }),
+    anchorBottomCenter: _extends({}, bottom, {
+      [theme.breakpoints.up('md')]: _extends({}, center)
+    }),
+    anchorTopRight: _extends({}, top, right, {
+      [theme.breakpoints.up('md')]: _extends({
+        left: 'auto'
+      }, topSpace, rightSpace)
+    }),
+    anchorBottomRight: _extends({}, bottom, right, {
+      [theme.breakpoints.up('md')]: _extends({
+        left: 'auto'
+      }, bottomSpace, rightSpace)
+    }),
+    anchorTopLeft: _extends({}, top, left, {
+      [theme.breakpoints.up('md')]: _extends({
+        right: 'auto'
+      }, topSpace, leftSpace)
+    }),
+    anchorBottomLeft: _extends({}, bottom, left, {
+      [theme.breakpoints.up('md')]: _extends({
+        right: 'auto'
+      }, bottomSpace, leftSpace)
+    })
   };
 };
 
@@ -107,7 +93,7 @@ class Snackbar extends React.Component {
     }, this.handlePause = () => {
       clearTimeout(this.timerAutoHide);
     }, this.handleResume = () => {
-      if (this.props.autoHideDuration !== undefined) {
+      if (this.props.autoHideDuration != null) {
         if (this.props.resumeHideDuration !== undefined) {
           this.setAutoHideTimer(this.props.resumeHideDuration);
           return;
@@ -153,13 +139,13 @@ class Snackbar extends React.Component {
 
   // Timer that controls delay before snackbar auto hides
   setAutoHideTimer(autoHideDuration = null) {
-    if (!this.props.onRequestClose || this.props.autoHideDuration === undefined) {
+    if (!this.props.onRequestClose || this.props.autoHideDuration == null) {
       return;
     }
 
     clearTimeout(this.timerAutoHide);
     this.timerAutoHide = setTimeout(() => {
-      if (!this.props.onRequestClose || this.props.autoHideDuration === undefined) {
+      if (!this.props.onRequestClose || this.props.autoHideDuration == null) {
         return;
       }
 

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.sheetsManager = undefined;
+exports.sheetsManager = exports.preset = undefined;
 
 var _keys = require('babel-runtime/core-js/object/keys');
 
@@ -75,9 +75,29 @@ var _contextTypes2 = _interopRequireDefault(_contextTypes);
 
 var _jss = require('jss');
 
-var _jssPresetDefault = require('jss-preset-default');
+var _jssGlobal = require('jss-global');
 
-var _jssPresetDefault2 = _interopRequireDefault(_jssPresetDefault);
+var _jssGlobal2 = _interopRequireDefault(_jssGlobal);
+
+var _jssNested = require('jss-nested');
+
+var _jssNested2 = _interopRequireDefault(_jssNested);
+
+var _jssCamelCase = require('jss-camel-case');
+
+var _jssCamelCase2 = _interopRequireDefault(_jssCamelCase);
+
+var _jssDefaultUnit = require('jss-default-unit');
+
+var _jssDefaultUnit2 = _interopRequireDefault(_jssDefaultUnit);
+
+var _jssVendorPrefixer = require('jss-vendor-prefixer');
+
+var _jssVendorPrefixer2 = _interopRequireDefault(_jssVendorPrefixer);
+
+var _jssPropsSort = require('jss-props-sort');
+
+var _jssPropsSort2 = _interopRequireDefault(_jssPropsSort);
 
 var _ns = require('react-jss/lib/ns');
 
@@ -105,8 +125,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var babelPluginFlowReactPropTypes_proptype_HigherOrderComponent = require('react-flow-types').babelPluginFlowReactPropTypes_proptype_HigherOrderComponent || require('prop-types').any; //  weak
 
+var preset = exports.preset = function preset() {
+  return {
+    plugins: [(0, _jssGlobal2.default)(), (0, _jssNested2.default)(), (0, _jssCamelCase2.default)(), (0, _jssDefaultUnit2.default)(), (0, _jssVendorPrefixer2.default)(), (0, _jssPropsSort2.default)()]
+  };
+};
+
 // New JSS instance.
-var jss = (0, _jss.create)((0, _jssPresetDefault2.default)());
+var jss = (0, _jss.create)(preset());
 
 // Use a singleton or the provided one by the context.
 var generateClassName = (0, _createGenerateClassName2.default)();
@@ -151,7 +177,7 @@ var babelPluginFlowReactPropTypes_proptype_RequiredProps = {
 };
 var babelPluginFlowReactPropTypes_proptype_InjectedProps = {
   classes: require('prop-types').object.isRequired,
-  theme: require('prop-types').object.isRequired
+  theme: require('prop-types').object
 };
 
 // Note, theme is conditionally injected, but flow is static analysis so we need to include it.

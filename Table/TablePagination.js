@@ -140,7 +140,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
    * The component used for the root node.
    * Either a string to use a DOM element or a component.
    */
-  component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType),
+  component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType.isRequired ? babelPluginFlowReactPropTypes_proptype_ElementType.isRequired : babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType).isRequired,
 
   /**
    * @ignore
@@ -155,23 +155,26 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * Useful to customize the displayed rows label.
    */
-  labelDisplayedRows: require('prop-types').func,
+  labelDisplayedRows: require('prop-types').func.isRequired,
 
   /**
    * Useful to customize the rows per page label. Invoked with a `{ from, to, count, page }`
    * object.
    */
-  labelRowsPerPage: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+  labelRowsPerPage: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node.isRequired ? babelPluginFlowReactPropTypes_proptype_Node.isRequired : babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node).isRequired,
 
   /**
-   * Callback fired when the page is changed. Invoked with two arguments: the event and the
-   * page to show.
+   * Callback fired when the page is changed.
+   *
+   * @param {object} event The event source of the callback
+   * @param {number} page The page selected
    */
   onChangePage: require('prop-types').func.isRequired,
 
   /**
-   * Callback fired when the number of rows per page is changed. Invoked with two arguments: the
-   * event.
+   * Callback fired when the number of rows per page is changed.
+   *
+   * @param {object} event The event source of the callback
    */
   onChangeRowsPerPage: require('prop-types').func.isRequired,
 
@@ -186,28 +189,22 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   rowsPerPage: require('prop-types').number.isRequired,
 
   /**
-   * Customizes the options of the rows per page select field.
+   * Customizes the options of the rows per page select field. If less than two options are
+   * available, no select field will be displayed.
    */
-  rowsPerPageOptions: require('prop-types').arrayOf(require('prop-types').number),
-
-  /**
-   * @ignore
-   */
-  theme: require('prop-types').object
+  rowsPerPageOptions: require('prop-types').arrayOf(require('prop-types').number).isRequired
 };
 
-var _ref3 = _react2.default.createElement(_Input2.default, { disableUnderline: true });
+var _ref2 = _react2.default.createElement(_KeyboardArrowRight2.default, null);
 
-var _ref4 = _react2.default.createElement(_KeyboardArrowRight2.default, null);
+var _ref3 = _react2.default.createElement(_KeyboardArrowLeft2.default, null);
 
-var _ref5 = _react2.default.createElement(_KeyboardArrowLeft2.default, null);
+var _ref4 = _react2.default.createElement(_KeyboardArrowLeft2.default, null);
 
-var _ref6 = _react2.default.createElement(_KeyboardArrowLeft2.default, null);
-
-var _ref7 = _react2.default.createElement(_KeyboardArrowRight2.default, null);
+var _ref5 = _react2.default.createElement(_KeyboardArrowRight2.default, null);
 
 /**
- * A `TableRow` based component for placing inside `TableFooter` for pagination.
+ * A `TableCell` based component for placing inside `TableFooter` for pagination.
  */
 var TablePagination = function (_React$Component) {
   (0, _inherits3.default)(TablePagination, _React$Component);
@@ -232,10 +229,10 @@ var TablePagination = function (_React$Component) {
 
   (0, _createClass3.default)(TablePagination, [{
     key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(_ref2) {
-      var count = _ref2.count,
-          onChangePage = _ref2.onChangePage,
-          rowsPerPage = _ref2.rowsPerPage;
+    value: function componentWillReceiveProps(nextProps) {
+      var count = nextProps.count,
+          onChangePage = nextProps.onChangePage,
+          rowsPerPage = nextProps.rowsPerPage;
 
       var newLastPage = Math.max(0, Math.ceil(count / rowsPerPage) - 1);
       if (this.props.page > newLastPage) {
@@ -264,8 +261,10 @@ var TablePagination = function (_React$Component) {
       var colSpan = void 0;
 
       if (Component === _TableCell2.default || Component === 'td') {
-        colSpan = colSpanProp || 9001; // col-span over everything
+        colSpan = colSpanProp || 1000; // col-span over everything
       }
+
+      var themeDirection = theme && theme.direction;
 
       return _react2.default.createElement(
         Component,
@@ -274,19 +273,21 @@ var TablePagination = function (_React$Component) {
           _Toolbar2.default,
           { className: classes.toolbar },
           _react2.default.createElement('div', { className: classes.spacer }),
-          _react2.default.createElement(
+          rowsPerPageOptions.length > 1 && _react2.default.createElement(
             _Typography2.default,
             { type: 'caption', className: classes.caption },
             labelRowsPerPage
           ),
-          _react2.default.createElement(
+          rowsPerPageOptions.length > 1 && _react2.default.createElement(
             _Select2.default,
             {
               classes: { root: classes.selectRoot, select: classes.select },
-              InputClasses: {
-                root: classes.input
-              },
-              input: _ref3,
+              input: _react2.default.createElement(_Input2.default, {
+                classes: {
+                  root: classes.input
+                },
+                disableUnderline: true
+              }),
               value: rowsPerPage,
               onChange: onChangeRowsPerPage
             },
@@ -314,7 +315,7 @@ var TablePagination = function (_React$Component) {
             _react2.default.createElement(
               _IconButton2.default,
               { onClick: this.handleBackButtonClick, disabled: page === 0 },
-              theme.direction === 'rtl' ? _ref4 : _ref5
+              themeDirection === 'rtl' ? _ref2 : _ref3
             ),
             _react2.default.createElement(
               _IconButton2.default,
@@ -322,7 +323,7 @@ var TablePagination = function (_React$Component) {
                 onClick: this.handleNextButtonClick,
                 disabled: page >= Math.ceil(count / rowsPerPage) - 1
               },
-              theme.direction === 'rtl' ? _ref6 : _ref7
+              themeDirection === 'rtl' ? _ref4 : _ref5
             )
           )
         )
@@ -335,10 +336,10 @@ var TablePagination = function (_React$Component) {
 TablePagination.defaultProps = {
   component: _TableCell2.default,
   labelRowsPerPage: 'Rows per page:',
-  labelDisplayedRows: function labelDisplayedRows(_ref8) {
-    var from = _ref8.from,
-        to = _ref8.to,
-        count = _ref8.count;
+  labelDisplayedRows: function labelDisplayedRows(_ref6) {
+    var from = _ref6.from,
+        to = _ref6.to,
+        count = _ref6.count;
     return from + '-' + to + ' of ' + count;
   },
   rowsPerPageOptions: [5, 10, 25]

@@ -21,28 +21,38 @@ export const styles = {
 
 const mediaComponents = ['video', 'audio', 'picture', 'iframe', 'img'];
 
-function CardMedia(props) {
-  const { classes, className, image, style, src, component: ComponentProp } = props,
-        other = _objectWithoutProperties(props, ['classes', 'className', 'image', 'style', 'src', 'component']);
+class CardMedia extends React.Component {
 
-  warning(Boolean(image || src), 'Material-UI: either `image` or `src` property must be specified.');
+  render() {
+    const _props = this.props,
+          {
+      classes,
+      className,
+      image,
+      style,
+      src,
+      component: ComponentProp
+    } = _props,
+          other = _objectWithoutProperties(_props, ['classes', 'className', 'image', 'style', 'src', 'component']);
 
-  const isMediaComponent = mediaComponents.indexOf(ComponentProp) !== -1;
-  const composedStyle = !isMediaComponent && image ? _extends({ backgroundImage: `url(${image})` }, style) : style;
-  const composedClassName = classNames({
-    [classes.root]: !isMediaComponent,
-    [classes.rootMedia]: isMediaComponent
-  }, className);
+    warning(Boolean(image || src), 'Material-UI: either `image` or `src` property must be specified.');
 
-  return React.createElement(ComponentProp, _extends({
-    className: composedClassName,
-    style: composedStyle,
-    src: isMediaComponent ? image || src : undefined
-  }, other));
+    const isMediaComponent = mediaComponents.indexOf(ComponentProp) !== -1;
+    const composedStyle = !isMediaComponent && image ? _extends({ backgroundImage: `url(${image})` }, style) : style;
+    const composedClassName = classNames({
+      [classes.root]: !isMediaComponent,
+      [classes.rootMedia]: isMediaComponent
+    }, className);
+
+    return React.createElement(ComponentProp, _extends({
+      className: composedClassName,
+      style: composedStyle,
+      src: isMediaComponent ? image || src : undefined
+    }, other));
+  }
 }
 
 CardMedia.defaultProps = {
   component: 'div'
 };
-
 export default withStyles(styles, { name: 'MuiCardMedia' })(CardMedia);

@@ -53,28 +53,31 @@ export const styles = theme => ({
 /**
  * A button based label for placing inside `TableCell` for column sorting.
  */
-function TableSortLabel(props) {
-  const { active, classes, className: classNameProp, children, direction } = props,
-        other = _objectWithoutProperties(props, ['active', 'classes', 'className', 'children', 'direction']);
-  const className = classNames(classes.root, {
-    [classes.active]: active
-  }, classNameProp);
+class TableSortLabel extends React.Component {
 
-  const iconClassName = classNames(classes.icon, {
-    [classes[direction]]: !!direction
-  });
+  render() {
+    const _props = this.props,
+          { active, classes, className: classNameProp, children, direction } = _props,
+          other = _objectWithoutProperties(_props, ['active', 'classes', 'className', 'children', 'direction']);
+    const className = classNames(classes.root, {
+      [classes.active]: active
+    }, classNameProp);
 
-  return React.createElement(
-    ButtonBase,
-    _extends({ className: className, component: 'span', disableRipple: true }, other),
-    children,
-    React.createElement(ArrowDownwardIcon, { className: iconClassName })
-  );
+    const iconClassName = classNames(classes.icon, {
+      [classes[direction]]: !!direction
+    });
+
+    return React.createElement(
+      ButtonBase,
+      _extends({ className: className, component: 'span', disableRipple: true }, other),
+      children,
+      React.createElement(ArrowDownwardIcon, { className: iconClassName })
+    );
+  }
 }
 
 TableSortLabel.defaultProps = {
   active: false,
   direction: 'desc'
 };
-
 export default withStyles(styles, { name: 'MuiTableSortLabel' })(TableSortLabel);

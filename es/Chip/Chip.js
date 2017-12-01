@@ -152,7 +152,6 @@ class Chip extends React.Component {
 
     let avatar = null;
     if (avatarProp && React.isValidElement(avatarProp)) {
-      // $FlowFixMe - this looks strictly correct, not sure why it errors.
       avatar = React.cloneElement(avatarProp, {
         className: classNames(classes.avatar, avatarProp.props.className),
         childrenClassName: classNames(classes.avatarChildren, avatarProp.props.childrenClassName)
@@ -189,4 +188,5 @@ class Chip extends React.Component {
   }
 }
 
+Chip.defaultProps = {};
 export default withStyles(styles, { name: 'MuiChip' })(Chip);

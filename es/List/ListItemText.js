@@ -33,43 +33,47 @@ export const styles = theme => ({
   }
 });
 
-function ListItemText(props, context) {
-  const {
-    classes,
-    className: classNameProp,
-    disableTypography,
-    primary,
-    secondary,
-    inset
-  } = props,
-        other = _objectWithoutProperties(props, ['classes', 'className', 'disableTypography', 'primary', 'secondary', 'inset']);
-  const { dense } = context;
-  const className = classNames(classes.root, {
-    [classes.dense]: dense,
-    [classes.inset]: inset
-  }, classNameProp);
+class ListItemText extends React.Component {
 
-  return React.createElement(
-    'div',
-    _extends({ className: className }, other),
-    primary && (disableTypography ? primary : React.createElement(
-      Typography,
-      {
-        type: 'subheading',
-        className: classNames(classes.text, { [classes.textDense]: dense })
-      },
-      primary
-    )),
-    secondary && (disableTypography ? secondary : React.createElement(
-      Typography,
-      {
-        color: 'secondary',
-        type: 'body1',
-        className: classNames(classes.text, { [classes.textDense]: dense })
-      },
-      secondary
-    ))
-  );
+  render() {
+    const _props = this.props,
+          {
+      classes,
+      className: classNameProp,
+      disableTypography,
+      primary,
+      secondary,
+      inset
+    } = _props,
+          other = _objectWithoutProperties(_props, ['classes', 'className', 'disableTypography', 'primary', 'secondary', 'inset']);
+    const { dense } = this.context;
+    const className = classNames(classes.root, {
+      [classes.dense]: dense,
+      [classes.inset]: inset
+    }, classNameProp);
+
+    return React.createElement(
+      'div',
+      _extends({ className: className }, other),
+      primary && (disableTypography ? primary : React.createElement(
+        Typography,
+        {
+          type: 'subheading',
+          className: classNames(classes.text, { [classes.textDense]: dense })
+        },
+        primary
+      )),
+      secondary && (disableTypography ? secondary : React.createElement(
+        Typography,
+        {
+          color: 'secondary',
+          type: 'body1',
+          className: classNames(classes.text, { [classes.textDense]: dense })
+        },
+        secondary
+      ))
+    );
+  }
 }
 
 ListItemText.defaultProps = {
@@ -78,9 +82,7 @@ ListItemText.defaultProps = {
   secondary: false,
   inset: false
 };
-
 ListItemText.contextTypes = {
   dense: PropTypes.bool
 };
-
 export default withStyles(styles, { name: 'MuiListItemText' })(ListItemText);

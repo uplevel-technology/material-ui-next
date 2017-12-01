@@ -106,7 +106,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
    * If `true`, the ripples will be centered.
    * They won't start at the cursor interaction position.
    */
-  centerRipple: require('prop-types').bool,
+  centerRipple: require('prop-types').bool.isRequired,
 
   /**
    * The content of the component.
@@ -138,13 +138,13 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * If `true`, the ripple effect will be disabled.
    */
-  disableRipple: require('prop-types').bool,
+  disableRipple: require('prop-types').bool.isRequired,
 
   /**
    * If `true`, the base button will have a keyboard focus ripple.
    * `disableRipple` must also be `false`.
    */
-  focusRipple: require('prop-types').bool,
+  focusRipple: require('prop-types').bool.isRequired,
 
   /**
    * The CSS class applied while the component is keyboard focused.
@@ -225,7 +225,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * @ignore
    */
-  tabIndex: require('prop-types').oneOfType([require('prop-types').number, require('prop-types').string]),
+  tabIndex: require('prop-types').oneOfType([require('prop-types').number, require('prop-types').string]).isRequired,
 
   /**
    * @ignore
@@ -333,6 +333,17 @@ var ButtonBase = function (_React$Component) {
     value: function componentDidMount() {
       this.button = (0, _reactDom.findDOMNode)(this);
       (0, _keyboardFocus.listenForFocusKeys)();
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      // The blur won't fire when the disabled state is set on a focused input.
+      // We need to book keep the focused state manually.
+      if (!this.props.disabled && nextProps.disabled) {
+        this.setState({
+          keyboardFocused: false
+        });
+      }
     }
   }, {
     key: 'componentWillUpdate',

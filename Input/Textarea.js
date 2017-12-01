@@ -117,7 +117,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * Number of rows to display when multiline option is set to true.
    */
-  rows: require('prop-types').oneOfType([require('prop-types').string, require('prop-types').number]),
+  rows: require('prop-types').oneOfType([require('prop-types').string, require('prop-types').number]).isRequired,
 
   /**
    * Maximum number of rows to display when multiline option is set to true.

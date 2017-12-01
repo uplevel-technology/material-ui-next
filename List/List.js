@@ -102,19 +102,19 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
    * The component used for the root node.
    * Either a string to use a DOM element or a component.
    */
-  component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType),
+  component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType.isRequired ? babelPluginFlowReactPropTypes_proptype_ElementType.isRequired : babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType).isRequired,
 
   /**
    * If `true`, compact vertical padding designed for keyboard and mouse input will be used for
    * the list and list items. The property is available to descendant components as the
    * `dense` context.
    */
-  dense: require('prop-types').bool,
+  dense: require('prop-types').bool.isRequired,
 
   /**
    * If `true`, vertical padding will be removed from the list.
    */
-  disablePadding: require('prop-types').bool,
+  disablePadding: require('prop-types').bool.isRequired,
 
   /**
    * Use that property to pass a ref callback to the root component.

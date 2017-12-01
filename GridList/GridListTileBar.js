@@ -17,7 +17,25 @@ var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProp
 
 var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
-var _ref; //  weak
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _react = require('react');
 
@@ -33,7 +51,7 @@ var _withStyles2 = _interopRequireDefault(_withStyles);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFlowReactPropTypes_proptype_Node || require('prop-types').any;
+var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFlowReactPropTypes_proptype_Node || require('prop-types').any; //  weak
 
 var styles = exports.styles = function styles(theme) {
   return {
@@ -137,60 +155,66 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   titlePosition: require('prop-types').oneOf(['top', 'bottom'])
 };
 
+var GridListTileBar = function (_React$Component) {
+  (0, _inherits3.default)(GridListTileBar, _React$Component);
 
-function GridListTileBar(props) {
-  var _classNames, _classNames2;
+  function GridListTileBar() {
+    (0, _classCallCheck3.default)(this, GridListTileBar);
+    return (0, _possibleConstructorReturn3.default)(this, (GridListTileBar.__proto__ || (0, _getPrototypeOf2.default)(GridListTileBar)).apply(this, arguments));
+  }
 
-  var actionIcon = props.actionIcon,
-      actionPosition = props.actionPosition,
-      classes = props.classes,
-      classNameProp = props.className,
-      subtitle = props.subtitle,
-      title = props.title,
-      titlePosition = props.titlePosition,
-      other = (0, _objectWithoutProperties3.default)(props, ['actionIcon', 'actionPosition', 'classes', 'className', 'subtitle', 'title', 'titlePosition']);
+  (0, _createClass3.default)(GridListTileBar, [{
+    key: 'render',
+    value: function render() {
+      var _classNames, _classNames2;
+
+      var _props = this.props,
+          actionIcon = _props.actionIcon,
+          actionPosition = _props.actionPosition,
+          classes = _props.classes,
+          classNameProp = _props.className,
+          subtitle = _props.subtitle,
+          title = _props.title,
+          titlePosition = _props.titlePosition,
+          other = (0, _objectWithoutProperties3.default)(_props, ['actionIcon', 'actionPosition', 'classes', 'className', 'subtitle', 'title', 'titlePosition']);
 
 
-  var actionPos = actionIcon && actionPosition;
-  var className = (0, _classnames2.default)(classes.root, (_classNames = {}, (0, _defineProperty3.default)(_classNames, classes.rootBottom, titlePosition === 'bottom'), (0, _defineProperty3.default)(_classNames, classes.rootTop, titlePosition === 'top'), (0, _defineProperty3.default)(_classNames, classes.rootWithSubtitle, subtitle), _classNames), classNameProp);
+      var actionPos = actionIcon && actionPosition;
+      var className = (0, _classnames2.default)(classes.root, (_classNames = {}, (0, _defineProperty3.default)(_classNames, classes.rootBottom, titlePosition === 'bottom'), (0, _defineProperty3.default)(_classNames, classes.rootTop, titlePosition === 'top'), (0, _defineProperty3.default)(_classNames, classes.rootWithSubtitle, subtitle), _classNames), classNameProp);
 
-  // Remove the margin between the title / subtitle wrapper, and the Action Icon
-  var titleWrapClassName = (0, _classnames2.default)(classes.titleWrap, (_classNames2 = {}, (0, _defineProperty3.default)(_classNames2, classes.titleWrapActionLeft, actionPos === 'left'), (0, _defineProperty3.default)(_classNames2, classes.titleWrapActionRight, actionPos === 'right'), _classNames2));
+      // Remove the margin between the title / subtitle wrapper, and the Action Icon
+      var titleWrapClassName = (0, _classnames2.default)(classes.titleWrap, (_classNames2 = {}, (0, _defineProperty3.default)(_classNames2, classes.titleWrapActionLeft, actionPos === 'left'), (0, _defineProperty3.default)(_classNames2, classes.titleWrapActionRight, actionPos === 'right'), _classNames2));
 
-  return _react2.default.createElement(
-    'div',
-    (0, _extends3.default)({ className: className }, other),
-    _react2.default.createElement(
-      'div',
-      { className: titleWrapClassName },
-      _react2.default.createElement(
+      return _react2.default.createElement(
         'div',
-        { className: classes.title },
-        title
-      ),
-      subtitle ? _react2.default.createElement(
-        'div',
-        { className: classes.subtitle },
-        subtitle
-      ) : null
-    ),
-    actionIcon ? _react2.default.createElement(
-      'div',
-      { className: (0, _classnames2.default)((0, _defineProperty3.default)({}, classes.actionIconPositionLeft, actionPos === 'left')) },
-      actionIcon
-    ) : null
-  );
-}
+        (0, _extends3.default)({ className: className }, other),
+        _react2.default.createElement(
+          'div',
+          { className: titleWrapClassName },
+          _react2.default.createElement(
+            'div',
+            { className: classes.title },
+            title
+          ),
+          subtitle ? _react2.default.createElement(
+            'div',
+            { className: classes.subtitle },
+            subtitle
+          ) : null
+        ),
+        actionIcon ? _react2.default.createElement(
+          'div',
+          { className: (0, _classnames2.default)((0, _defineProperty3.default)({}, classes.actionIconPositionLeft, actionPos === 'left')) },
+          actionIcon
+        ) : null
+      );
+    }
+  }]);
+  return GridListTileBar;
+}(_react2.default.Component);
 
-GridListTileBar.propTypes = process.env.NODE_ENV !== "production" ? (_ref = {
-  actionPosition: require('prop-types').oneOf(['left', 'right']).isRequired,
-  classes: require('prop-types').object.isRequired,
-  titlePosition: require('prop-types').oneOf(['top', 'bottom']).isRequired,
-  actionIcon: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node)
-}, (0, _defineProperty3.default)(_ref, 'actionPosition', require('prop-types').oneOf(['left', 'right'])), (0, _defineProperty3.default)(_ref, 'classes', require('prop-types').object), (0, _defineProperty3.default)(_ref, 'className', require('prop-types').string), (0, _defineProperty3.default)(_ref, 'subtitle', typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node)), (0, _defineProperty3.default)(_ref, 'title', typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node.isRequired ? babelPluginFlowReactPropTypes_proptype_Node.isRequired : babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node).isRequired), (0, _defineProperty3.default)(_ref, 'titlePosition', require('prop-types').oneOf(['top', 'bottom'])), _ref) : {};
 GridListTileBar.defaultProps = {
   actionPosition: 'right',
   titlePosition: 'bottom'
 };
-
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiGridListTileBar' })(GridListTileBar);

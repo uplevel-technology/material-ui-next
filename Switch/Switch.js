@@ -96,8 +96,6 @@ var styles = exports.styles = function styles(theme) {
   };
 };
 
-var SwitchBase = (0, _SwitchBase2.default)();
-
 var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * If `true`, the component is checked.
@@ -181,12 +179,12 @@ function Switch(props) {
       className = props.className,
       other = (0, _objectWithoutProperties3.default)(props, ['classes', 'className']);
 
-  var icon = _react2.default.createElement('div', { className: classes.icon });
+  var icon = _react2.default.createElement('span', { className: classes.icon });
 
   return _react2.default.createElement(
-    'div',
+    'span',
     { className: (0, _classnames2.default)(classes.root, className) },
-    _react2.default.createElement(SwitchBase, (0, _extends3.default)({
+    _react2.default.createElement(_SwitchBase2.default, (0, _extends3.default)({
       icon: icon,
       classes: {
         default: classes.default,
@@ -195,7 +193,7 @@ function Switch(props) {
       },
       checkedIcon: icon
     }, other)),
-    _react2.default.createElement('div', { className: classes.bar })
+    _react2.default.createElement('span', { className: classes.bar })
   );
 }
 

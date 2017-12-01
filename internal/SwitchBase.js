@@ -37,8 +37,6 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-exports.default = createSwitch;
-
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -72,8 +70,6 @@ var _Icon = require('../Icon');
 var _Icon2 = _interopRequireDefault(_Icon);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var babelPluginFlowReactPropTypes_proptype_Element = require('react').babelPluginFlowReactPropTypes_proptype_Element || require('prop-types').any;
 
 var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFlowReactPropTypes_proptype_Node || require('prop-types').any;
 
@@ -109,7 +105,12 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
    * The icon to display when the component is checked.
    * If a string is provided, it will be used as a font ligature.
    */
-  checkedIcon: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+  checkedIcon: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node.isRequired ? babelPluginFlowReactPropTypes_proptype_Node.isRequired : babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node).isRequired,
+
+  /**
+   * @ignore
+   */
+  children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
 
   /**
    * Useful to extend the style applied to components.
@@ -134,13 +135,13 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * If `true`, the ripple effect will be disabled.
    */
-  disableRipple: require('prop-types').bool,
+  disableRipple: require('prop-types').bool.isRequired,
 
   /**
    * The icon to display when the component is unchecked.
    * If a string is provided, it will be used as a font ligature.
    */
-  icon: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+  icon: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node.isRequired ? babelPluginFlowReactPropTypes_proptype_Node.isRequired : babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node).isRequired,
 
   /**
    * If `true`, the component appears indeterminate.
@@ -162,6 +163,11 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
    * Use that property to pass a ref callback to the native input component.
    */
   inputRef: require('prop-types').func,
+
+  /**
+   * The input component property `type`.
+   */
+  inputType: require('prop-types').string.isRequired,
 
   /*
    * @ignore
@@ -190,158 +196,138 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
 // NB: If changed, please update Checkbox, Switch and Radio
 // so that the API documentation is updated.
 
-var babelPluginFlowReactPropTypes_proptype_Options = {
-  defaultIcon: typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element.isRequired ? babelPluginFlowReactPropTypes_proptype_Element.isRequired : babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element).isRequired,
-  defaultCheckedIcon: typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element.isRequired ? babelPluginFlowReactPropTypes_proptype_Element.isRequired : babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element).isRequired,
-  inputType: require('prop-types').string
-};
+/**
+ * @ignore - internal component.
+ */
+var SwitchBase = function (_React$Component) {
+  (0, _inherits3.default)(SwitchBase, _React$Component);
 
-var _ref2 = _react2.default.createElement(_CheckBoxOutlineBlank2.default, null);
+  function SwitchBase() {
+    var _ref;
 
-var _ref3 = _react2.default.createElement(_CheckBox2.default, null);
+    var _temp, _this, _ret;
 
-function createSwitch() {
-  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      _ref$defaultIcon = _ref.defaultIcon,
-      defaultIcon = _ref$defaultIcon === undefined ? _ref2 : _ref$defaultIcon,
-      _ref$defaultCheckedIc = _ref.defaultCheckedIcon,
-      defaultCheckedIcon = _ref$defaultCheckedIc === undefined ? _ref3 : _ref$defaultCheckedIc,
-      _ref$inputType = _ref.inputType,
-      inputType = _ref$inputType === undefined ? 'checkbox' : _ref$inputType;
+    (0, _classCallCheck3.default)(this, SwitchBase);
 
-  /**
-   * @ignore - internal component.
-   */
-  var SwitchBase = function (_React$Component) {
-    (0, _inherits3.default)(SwitchBase, _React$Component);
-
-    function SwitchBase() {
-      var _ref4;
-
-      var _temp, _this, _ret;
-
-      (0, _classCallCheck3.default)(this, SwitchBase);
-
-      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
-
-      return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref4 = SwitchBase.__proto__ || (0, _getPrototypeOf2.default)(SwitchBase)).call.apply(_ref4, [this].concat(args))), _this), _this.state = {}, _this.input = null, _this.button = null, _this.isControlled = null, _this.handleInputChange = function (event) {
-        var checked = event.target.checked;
-
-        if (!_this.isControlled) {
-          _this.setState({ checked: checked });
-        }
-
-        if (_this.props.onChange) {
-          _this.props.onChange(event, checked);
-        }
-      }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
     }
 
-    (0, _createClass3.default)(SwitchBase, [{
-      key: 'componentWillMount',
-      value: function componentWillMount() {
-        var props = this.props;
+    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = SwitchBase.__proto__ || (0, _getPrototypeOf2.default)(SwitchBase)).call.apply(_ref, [this].concat(args))), _this), _this.state = {}, _this.input = null, _this.button = null, _this.isControlled = null, _this.handleInputChange = function (event) {
+      var checked = event.target.checked;
+
+      if (!_this.isControlled) {
+        _this.setState({ checked: checked });
+      }
+
+      if (_this.props.onChange) {
+        _this.props.onChange(event, checked);
+      }
+    }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
+  }
+
+  (0, _createClass3.default)(SwitchBase, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      var props = this.props;
 
 
-        this.isControlled = props.checked !== undefined;
+      this.isControlled = props.checked !== undefined;
 
-        if (!this.isControlled) {
-          // not controlled, use internal state
-          this.setState({
-            checked: props.defaultChecked !== undefined ? props.defaultChecked : false
-          });
+      if (!this.isControlled) {
+        // not controlled, use internal state
+        this.setState({
+          checked: props.defaultChecked !== undefined ? props.defaultChecked : false
+        });
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _classNames,
+          _this2 = this;
+
+      var _props = this.props,
+          checkedProp = _props.checked,
+          classes = _props.classes,
+          classNameProp = _props.className,
+          checkedIcon = _props.checkedIcon,
+          disabledProp = _props.disabled,
+          iconProp = _props.icon,
+          inputProps = _props.inputProps,
+          inputRef = _props.inputRef,
+          inputType = _props.inputType,
+          name = _props.name,
+          onChange = _props.onChange,
+          tabIndex = _props.tabIndex,
+          value = _props.value,
+          other = (0, _objectWithoutProperties3.default)(_props, ['checked', 'classes', 'className', 'checkedIcon', 'disabled', 'icon', 'inputProps', 'inputRef', 'inputType', 'name', 'onChange', 'tabIndex', 'value']);
+      var muiFormControl = this.context.muiFormControl;
+
+      var disabled = disabledProp;
+
+      if (muiFormControl) {
+        if (typeof disabled === 'undefined') {
+          disabled = muiFormControl.disabled;
         }
       }
-    }, {
-      key: 'render',
-      value: function render() {
-        var _classNames,
-            _this2 = this;
 
-        var _props = this.props,
-            checkedProp = _props.checked,
-            classes = _props.classes,
-            classNameProp = _props.className,
-            checkedIcon = _props.checkedIcon,
-            disabledProp = _props.disabled,
-            iconProp = _props.icon,
-            inputProps = _props.inputProps,
-            inputRef = _props.inputRef,
-            name = _props.name,
-            onChange = _props.onChange,
-            tabIndex = _props.tabIndex,
-            value = _props.value,
-            other = (0, _objectWithoutProperties3.default)(_props, ['checked', 'classes', 'className', 'checkedIcon', 'disabled', 'icon', 'inputProps', 'inputRef', 'name', 'onChange', 'tabIndex', 'value']);
-        var muiFormControl = this.context.muiFormControl;
+      var checked = this.isControlled ? checkedProp : this.state.checked;
+      var className = (0, _classnames2.default)(classes.root, classes.default, classNameProp, (_classNames = {}, (0, _defineProperty3.default)(_classNames, classes.checked, checked), (0, _defineProperty3.default)(_classNames, classes.disabled, disabled), _classNames));
 
-        var disabled = disabledProp;
+      var icon = checked ? checkedIcon : iconProp;
 
-        if (muiFormControl) {
-          if (typeof disabled === 'undefined') {
-            disabled = muiFormControl.disabled;
-          }
-        }
-
-        var checked = this.isControlled ? checkedProp : this.state.checked;
-        var className = (0, _classnames2.default)(classes.root, classes.default, classNameProp, (_classNames = {}, (0, _defineProperty3.default)(_classNames, classes.checked, checked), (0, _defineProperty3.default)(_classNames, classes.disabled, disabled), _classNames));
-
-        var icon = checked ? checkedIcon : iconProp;
-
-        if (typeof icon === 'string') {
-          icon = _react2.default.createElement(
-            _Icon2.default,
-            null,
-            icon
-          );
-        }
-
-        return _react2.default.createElement(
-          _IconButton2.default,
-          (0, _extends3.default)({
-            component: 'span',
-            className: className,
-            disabled: disabled,
-            tabIndex: null,
-            role: undefined,
-            rootRef: function rootRef(node) {
-              _this2.button = node;
-            }
-          }, other),
-          icon,
-          _react2.default.createElement('input', (0, _extends3.default)({
-            type: inputType,
-            name: name,
-            checked: this.isControlled ? checkedProp : undefined,
-            onChange: this.handleInputChange,
-            className: classes.input,
-            disabled: disabled,
-            tabIndex: tabIndex,
-            value: value
-          }, inputProps, {
-            ref: function ref(node) {
-              _this2.input = node;
-              if (inputRef) {
-                inputRef(node);
-              }
-            }
-          }))
+      if (typeof icon === 'string') {
+        icon = _react2.default.createElement(
+          _Icon2.default,
+          null,
+          icon
         );
       }
-    }]);
-    return SwitchBase;
-  }(_react2.default.Component);
 
-  SwitchBase.defaultProps = {
-    checkedIcon: defaultCheckedIcon,
-    disableRipple: false,
-    icon: defaultIcon
-  };
-  SwitchBase.contextTypes = {
-    muiFormControl: _propTypes2.default.object
-  };
+      return _react2.default.createElement(
+        _IconButton2.default,
+        (0, _extends3.default)({
+          component: 'span',
+          className: className,
+          disabled: disabled,
+          tabIndex: null,
+          role: undefined,
+          rootRef: function rootRef(node) {
+            _this2.button = node;
+          }
+        }, other),
+        icon,
+        _react2.default.createElement('input', (0, _extends3.default)({
+          type: inputType,
+          name: name,
+          checked: this.isControlled ? checkedProp : undefined,
+          onChange: this.handleInputChange,
+          className: classes.input,
+          disabled: disabled,
+          tabIndex: tabIndex,
+          value: value
+        }, inputProps, {
+          ref: function ref(node) {
+            _this2.input = node;
+            if (inputRef) {
+              inputRef(node);
+            }
+          }
+        }))
+      );
+    }
+  }]);
+  return SwitchBase;
+}(_react2.default.Component);
 
-
-  return (0, _withStyles2.default)(styles, { name: 'MuiSwitchBase' })(SwitchBase);
-}
+SwitchBase.defaultProps = {
+  checkedIcon: _react2.default.createElement(_CheckBox2.default, null), // defaultCheckedIcon
+  disableRipple: false,
+  icon: _react2.default.createElement(_CheckBoxOutlineBlank2.default, null), // defaultIcon
+  inputType: 'checkbox'
+};
+SwitchBase.contextTypes = {
+  muiFormControl: _propTypes2.default.object
+};
+exports.default = (0, _withStyles2.default)(styles, { name: 'MuiSwitchBase' })(SwitchBase);

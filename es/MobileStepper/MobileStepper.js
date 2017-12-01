@@ -56,43 +56,47 @@ export const styles = theme => ({
   }
 });
 
-function MobileStepper(props) {
-  const {
-    activeStep,
-    backButton,
-    classes,
-    className: classNameProp,
-    position,
-    type,
-    nextButton,
-    steps
-  } = props,
-        other = _objectWithoutProperties(props, ['activeStep', 'backButton', 'classes', 'className', 'position', 'type', 'nextButton', 'steps']);
+class MobileStepper extends React.Component {
 
-  const className = classNames(classes.root, classes[`position${capitalizeFirstLetter(position)}`], classNameProp);
+  render() {
+    const _props = this.props,
+          {
+      activeStep = 0,
+      backButton,
+      classes,
+      className: classNameProp,
+      position,
+      type,
+      nextButton,
+      steps
+    } = _props,
+          other = _objectWithoutProperties(_props, ['activeStep', 'backButton', 'classes', 'className', 'position', 'type', 'nextButton', 'steps']);
 
-  return React.createElement(
-    Paper,
-    _extends({ square: true, elevation: 0, className: className }, other),
-    backButton,
-    type === 'dots' && React.createElement(
-      'div',
-      { className: classes.dots },
-      [...new Array(steps)].map((_, step) => {
-        const dotClassName = classNames({
-          [classes.dotActive]: step === activeStep
-        }, classes.dot);
-        // eslint-disable-next-line react/no-array-index-key
-        return React.createElement('div', { key: step, className: dotClassName });
-      })
-    ),
-    type === 'progress' && React.createElement(
-      'div',
-      { className: classes.progress },
-      React.createElement(LinearProgress, { mode: 'determinate', value: Math.ceil(activeStep / (steps - 1) * 100) })
-    ),
-    nextButton
-  );
+    const className = classNames(classes.root, classes[`position${capitalizeFirstLetter(position)}`], classNameProp);
+
+    return React.createElement(
+      Paper,
+      _extends({ square: true, elevation: 0, className: className }, other),
+      backButton,
+      type === 'dots' && React.createElement(
+        'div',
+        { className: classes.dots },
+        [...new Array(steps)].map((_, step) => {
+          const dotClassName = classNames({
+            [classes.dotActive]: step === activeStep
+          }, classes.dot);
+          // eslint-disable-next-line react/no-array-index-key
+          return React.createElement('div', { key: step, className: dotClassName });
+        })
+      ),
+      type === 'progress' && React.createElement(
+        'div',
+        { className: classes.progress },
+        React.createElement(LinearProgress, { mode: 'determinate', value: Math.ceil(activeStep / (steps - 1) * 100) })
+      ),
+      nextButton
+    );
+  }
 }
 
 MobileStepper.defaultProps = {
@@ -100,5 +104,4 @@ MobileStepper.defaultProps = {
   position: 'bottom',
   type: 'dots'
 };
-
 export default withStyles(styles, { name: 'MuiMobileStepper' })(MobileStepper);

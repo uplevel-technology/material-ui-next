@@ -94,7 +94,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * @ignore
    */
-  appear: require('prop-types').bool,
+  appear: require('prop-types').bool.isRequired,
 
   /**
    * The content node to be collapsed.
@@ -107,16 +107,26 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   classes: require('prop-types').object,
 
   /**
+   * @ignore
+   */
+  className: typeof String === 'function' ? require('prop-types').instanceOf(String) : require('prop-types').any,
+
+  /**
    * The component used for the root node.
    * Either a string to use a DOM element or a component.
    * The default value is a `button`.
    */
-  component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType),
+  component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType.isRequired ? babelPluginFlowReactPropTypes_proptype_ElementType.isRequired : babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType).isRequired,
 
   /**
    * The height of the container when collapsed.
    */
-  collapsedHeight: require('prop-types').string,
+  collapsedHeight: require('prop-types').string.isRequired,
+
+  /**
+   * Properties applied to the `Collapse` container.
+   */
+  containerProps: require('prop-types').object,
 
   /**
    * If `true`, the component will transition in.
@@ -154,11 +164,6 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   style: require('prop-types').object,
 
   /**
-   * @ignore
-   */
-  theme: require('prop-types').object,
-
-  /**
    * The duration for the transition, in milliseconds.
    * You may specify a single timeout for all transitions, or individually with an object.
    *
@@ -167,7 +172,12 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   timeout: require('prop-types').oneOfType([require('prop-types').number, require('prop-types').shape({
     enter: require('prop-types').number,
     exit: require('prop-types').number
-  }), require('prop-types').oneOf(['auto'])])
+  }), require('prop-types').oneOf(['auto'])]).isRequired,
+
+  /**
+   * @ignore
+   */
+  unmountOnExit: require('prop-types').bool
 };
 
 var Collapse = function (_React$Component) {
@@ -203,7 +213,7 @@ var Collapse = function (_React$Component) {
         _this.autoTransitionDuration = duration2;
       } else if (typeof timeout === 'number') {
         node.style.transitionDuration = timeout + 'ms';
-      } else if (timeout) {
+      } else if (timeout && typeof timeout.enter === 'number') {
         node.style.transitionDuration = timeout.enter + 'ms';
       } else {
         // The propType will warn in this case.
@@ -240,7 +250,7 @@ var Collapse = function (_React$Component) {
         _this.autoTransitionDuration = duration2;
       } else if (typeof timeout === 'number') {
         node.style.transitionDuration = timeout + 'ms';
-      } else if (timeout) {
+      } else if (timeout && typeof timeout.exit === 'number') {
         node.style.transitionDuration = timeout.exit + 'ms';
       } else {
         // The propType will warn in this case.
@@ -252,15 +262,9 @@ var Collapse = function (_React$Component) {
         _this.props.onExiting(node);
       }
     }, _this.addEndListener = function (node, next) {
-      var timeout = void 0;
-
       if (_this.props.timeout === 'auto') {
-        timeout = _this.autoTransitionDuration || 0;
-      } else {
-        timeout = _this.props.timeout;
+        setTimeout(next, _this.autoTransitionDuration || 0);
       }
-
-      setTimeout(next, timeout);
     }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
   }
 
@@ -273,8 +277,10 @@ var Collapse = function (_React$Component) {
           appear = _props.appear,
           children = _props.children,
           classes = _props.classes,
+          className = _props.className,
           ComponentProp = _props.component,
           collapsedHeight = _props.collapsedHeight,
+          containerProps = _props.containerProps,
           onEnter = _props.onEnter,
           onEntering = _props.onEntering,
           onEntered = _props.onEntered,
@@ -283,7 +289,7 @@ var Collapse = function (_React$Component) {
           style = _props.style,
           timeout = _props.timeout,
           theme = _props.theme,
-          other = (0, _objectWithoutProperties3.default)(_props, ['appear', 'children', 'classes', 'component', 'collapsedHeight', 'onEnter', 'onEntering', 'onEntered', 'onExit', 'onExiting', 'style', 'timeout', 'theme']);
+          other = (0, _objectWithoutProperties3.default)(_props, ['appear', 'children', 'classes', 'className', 'component', 'collapsedHeight', 'containerProps', 'onEnter', 'onEntering', 'onEntered', 'onExit', 'onExiting', 'style', 'timeout', 'theme']);
 
 
       return _react2.default.createElement(
@@ -296,14 +302,15 @@ var Collapse = function (_React$Component) {
           onExiting: this.handleExiting,
           onExit: this.handleExit,
           addEndListener: this.addEndListener,
-          style: (0, _extends3.default)({ minHeight: collapsedHeight }, style)
+          style: (0, _extends3.default)({ minHeight: collapsedHeight }, style),
+          timeout: timeout === 'auto' ? null : timeout
         }, other),
         function (state) {
           return _react2.default.createElement(
             ComponentProp,
-            {
-              className: (0, _classnames2.default)(classes.container, (0, _defineProperty3.default)({}, classes.entered, state === 'entered'))
-            },
+            (0, _extends3.default)({
+              className: (0, _classnames2.default)(classes.container, (0, _defineProperty3.default)({}, classes.entered, state === 'entered'), className)
+            }, containerProps),
             _react2.default.createElement(
               'div',
               {

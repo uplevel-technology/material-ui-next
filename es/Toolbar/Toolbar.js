@@ -18,23 +18,26 @@ export const styles = theme => ({
   gutters: theme.mixins.gutters({})
 });
 
-function Toolbar(props) {
-  const { children, classes, className: classNameProp, disableGutters } = props,
-        other = _objectWithoutProperties(props, ['children', 'classes', 'className', 'disableGutters']);
+class Toolbar extends React.Component {
 
-  const className = classNames(classes.root, {
-    [classes.gutters]: !disableGutters
-  }, classNameProp);
+  render() {
+    const _props = this.props,
+          { children, classes, className: classNameProp, disableGutters } = _props,
+          other = _objectWithoutProperties(_props, ['children', 'classes', 'className', 'disableGutters']);
 
-  return React.createElement(
-    'div',
-    _extends({ className: className }, other),
-    children
-  );
+    const className = classNames(classes.root, {
+      [classes.gutters]: !disableGutters
+    }, classNameProp);
+
+    return React.createElement(
+      'div',
+      _extends({ className: className }, other),
+      children
+    );
+  }
 }
 
 Toolbar.defaultProps = {
   disableGutters: false
 };
-
 export default withStyles(styles, { name: 'MuiToolbar' })(Toolbar);

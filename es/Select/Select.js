@@ -63,41 +63,43 @@ export const styles = theme => ({
   }
 });
 
-function Select(props) {
-  const {
-    autoWidth,
-    children,
-    classes,
-    displayEmpty,
-    input,
-    InputClasses,
-    native,
-    multiple,
-    MenuProps,
-    renderValue
-  } = props,
-        other = _objectWithoutProperties(props, ['autoWidth', 'children', 'classes', 'displayEmpty', 'input', 'InputClasses', 'native', 'multiple', 'MenuProps', 'renderValue']);
+class Select extends React.Component {
 
-  // Instead of `Element<typeof Input>` to have more flexibility.
-  warning(isMuiElement(input, ['Input']), ['Material-UI: you have provided an invalid value to the `input` property.', 'We expect an element instance of the `Input` component.'].join('\n'));
-
-  return React.cloneElement(input, _extends({
-    // Most of the logic is implemented in `SelectInput`.
-    // The `Select` component is a simple API wrapper to expose something better to play with.
-    inputComponent: SelectInput,
-    classes: InputClasses
-  }, other, {
-    inputProps: _extends({}, input ? input.props.inputProps : {}, {
+  render() {
+    const _props = this.props,
+          {
       autoWidth,
       children,
       classes,
       displayEmpty,
+      input,
       native,
       multiple,
       MenuProps,
       renderValue
-    })
-  }));
+    } = _props,
+          other = _objectWithoutProperties(_props, ['autoWidth', 'children', 'classes', 'displayEmpty', 'input', 'native', 'multiple', 'MenuProps', 'renderValue']);
+
+    // Instead of `Element<typeof Input>` to have more flexibility.
+    warning(isMuiElement(input, ['Input']), ['Material-UI: you have provided an invalid value to the `input` property.', 'We expect an element instance of the `Input` component.'].join('\n'));
+
+    return React.cloneElement(input, _extends({
+      // Most of the logic is implemented in `SelectInput`.
+      // The `Select` component is a simple API wrapper to expose something better to play with.
+      inputComponent: SelectInput
+    }, other, {
+      inputProps: _extends({}, input ? input.props.inputProps : {}, {
+        autoWidth,
+        children,
+        classes,
+        displayEmpty,
+        native,
+        multiple,
+        MenuProps,
+        renderValue
+      })
+    }));
+  }
 }
 
 Select.defaultProps = {
@@ -107,7 +109,5 @@ Select.defaultProps = {
   native: false,
   multiple: false
 };
-
 Select.muiName = 'Select';
-
 export default withStyles(styles, { name: 'MuiSelect' })(Select);

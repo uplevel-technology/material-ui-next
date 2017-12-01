@@ -21,8 +21,25 @@ var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProp
 
 var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
-var _ref; //  weak
-// @inheritedComponent Paper
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _react = require('react');
 
@@ -46,7 +63,8 @@ var _Progress = require('../Progress');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var babelPluginFlowReactPropTypes_proptype_Element = require('react').babelPluginFlowReactPropTypes_proptype_Element || require('prop-types').any;
+var babelPluginFlowReactPropTypes_proptype_Element = require('react').babelPluginFlowReactPropTypes_proptype_Element || require('prop-types').any; //  weak
+// @inheritedComponent Paper
 
 var styles = exports.styles = function styles(theme) {
   return {
@@ -140,53 +158,60 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   type: require('prop-types').oneOf(['text', 'dots', 'progress'])
 };
 
+var MobileStepper = function (_React$Component) {
+  (0, _inherits3.default)(MobileStepper, _React$Component);
 
-function MobileStepper(props) {
-  var activeStep = props.activeStep,
-      backButton = props.backButton,
-      classes = props.classes,
-      classNameProp = props.className,
-      position = props.position,
-      type = props.type,
-      nextButton = props.nextButton,
-      steps = props.steps,
-      other = (0, _objectWithoutProperties3.default)(props, ['activeStep', 'backButton', 'classes', 'className', 'position', 'type', 'nextButton', 'steps']);
+  function MobileStepper() {
+    (0, _classCallCheck3.default)(this, MobileStepper);
+    return (0, _possibleConstructorReturn3.default)(this, (MobileStepper.__proto__ || (0, _getPrototypeOf2.default)(MobileStepper)).apply(this, arguments));
+  }
+
+  (0, _createClass3.default)(MobileStepper, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          _props$activeStep = _props.activeStep,
+          activeStep = _props$activeStep === undefined ? 0 : _props$activeStep,
+          backButton = _props.backButton,
+          classes = _props.classes,
+          classNameProp = _props.className,
+          position = _props.position,
+          type = _props.type,
+          nextButton = _props.nextButton,
+          steps = _props.steps,
+          other = (0, _objectWithoutProperties3.default)(_props, ['activeStep', 'backButton', 'classes', 'className', 'position', 'type', 'nextButton', 'steps']);
 
 
-  var className = (0, _classnames2.default)(classes.root, classes['position' + (0, _helpers.capitalizeFirstLetter)(position)], classNameProp);
+      var className = (0, _classnames2.default)(classes.root, classes['position' + (0, _helpers.capitalizeFirstLetter)(position)], classNameProp);
 
-  return _react2.default.createElement(
-    _Paper2.default,
-    (0, _extends3.default)({ square: true, elevation: 0, className: className }, other),
-    backButton,
-    type === 'dots' && _react2.default.createElement(
-      'div',
-      { className: classes.dots },
-      [].concat((0, _toConsumableArray3.default)(new Array(steps))).map(function (_, step) {
-        var dotClassName = (0, _classnames2.default)((0, _defineProperty3.default)({}, classes.dotActive, step === activeStep), classes.dot);
-        // eslint-disable-next-line react/no-array-index-key
-        return _react2.default.createElement('div', { key: step, className: dotClassName });
-      })
-    ),
-    type === 'progress' && _react2.default.createElement(
-      'div',
-      { className: classes.progress },
-      _react2.default.createElement(_Progress.LinearProgress, { mode: 'determinate', value: Math.ceil(activeStep / (steps - 1) * 100) })
-    ),
-    nextButton
-  );
-}
+      return _react2.default.createElement(
+        _Paper2.default,
+        (0, _extends3.default)({ square: true, elevation: 0, className: className }, other),
+        backButton,
+        type === 'dots' && _react2.default.createElement(
+          'div',
+          { className: classes.dots },
+          [].concat((0, _toConsumableArray3.default)(new Array(steps))).map(function (_, step) {
+            var dotClassName = (0, _classnames2.default)((0, _defineProperty3.default)({}, classes.dotActive, step === activeStep), classes.dot);
+            // eslint-disable-next-line react/no-array-index-key
+            return _react2.default.createElement('div', { key: step, className: dotClassName });
+          })
+        ),
+        type === 'progress' && _react2.default.createElement(
+          'div',
+          { className: classes.progress },
+          _react2.default.createElement(_Progress.LinearProgress, { mode: 'determinate', value: Math.ceil(activeStep / (steps - 1) * 100) })
+        ),
+        nextButton
+      );
+    }
+  }]);
+  return MobileStepper;
+}(_react2.default.Component);
 
-MobileStepper.propTypes = process.env.NODE_ENV !== "production" ? (_ref = {
-  activeStep: require('prop-types').number.isRequired,
-  classes: require('prop-types').object.isRequired,
-  position: require('prop-types').oneOf(['bottom', 'top', 'static']).isRequired,
-  type: require('prop-types').oneOf(['text', 'dots', 'progress']).isRequired
-}, (0, _defineProperty3.default)(_ref, 'activeStep', require('prop-types').number), (0, _defineProperty3.default)(_ref, 'backButton', typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element.isRequired ? babelPluginFlowReactPropTypes_proptype_Element.isRequired : babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element).isRequired), (0, _defineProperty3.default)(_ref, 'classes', require('prop-types').object), (0, _defineProperty3.default)(_ref, 'className', require('prop-types').string), (0, _defineProperty3.default)(_ref, 'nextButton', typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element.isRequired ? babelPluginFlowReactPropTypes_proptype_Element.isRequired : babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element).isRequired), (0, _defineProperty3.default)(_ref, 'position', require('prop-types').oneOf(['bottom', 'top', 'static'])), (0, _defineProperty3.default)(_ref, 'steps', require('prop-types').number.isRequired), (0, _defineProperty3.default)(_ref, 'type', require('prop-types').oneOf(['text', 'dots', 'progress'])), _ref) : {};
 MobileStepper.defaultProps = {
   activeStep: 0,
   position: 'bottom',
   type: 'dots'
 };
-
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiMobileStepper' })(MobileStepper);

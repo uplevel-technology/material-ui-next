@@ -69,7 +69,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * @ignore
    */
-  appear: require('prop-types').bool,
+  appear: require('prop-types').bool.isRequired,
 
   /**
    * A single child content element.
@@ -125,12 +125,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
    * The animation classNames applied to the component as it enters or exits.
    * This property is a direct binding to [`CSSTransition.classNames`](https://reactcommunity.org/react-transition-group/#CSSTransition-prop-classNames).
    */
-  transitionClasses: typeof babelPluginFlowReactPropTypes_proptype_TransitionClasses === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionClasses : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionClasses),
-
-  /**
-   * @ignore
-   */
-  theme: require('prop-types').object,
+  transitionClasses: typeof babelPluginFlowReactPropTypes_proptype_TransitionClasses === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionClasses.isRequired ? babelPluginFlowReactPropTypes_proptype_TransitionClasses.isRequired : babelPluginFlowReactPropTypes_proptype_TransitionClasses : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionClasses).isRequired,
 
   /**
    * The duration for the transition, in milliseconds.
@@ -141,7 +136,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   timeout: require('prop-types').oneOfType([require('prop-types').number, require('prop-types').shape({
     enter: require('prop-types').number,
     exit: require('prop-types').number
-  }), require('prop-types').oneOf(['auto'])])
+  }), require('prop-types').oneOf(['auto'])]).isRequired
 };
 
 /**
@@ -181,7 +176,7 @@ var Grow = function (_React$Component) {
         _this.autoTimeout = duration;
       } else if (typeof timeout === 'number') {
         duration = timeout;
-      } else if (timeout) {
+      } else if (timeout && typeof timeout.enter === 'number') {
         duration = timeout.enter;
       } else {
         // The propType will warn in this case.
@@ -211,7 +206,7 @@ var Grow = function (_React$Component) {
         _this.autoTimeout = duration;
       } else if (typeof timeout === 'number') {
         duration = timeout;
-      } else if (timeout) {
+      } else if (timeout && typeof timeout.exit === 'number') {
         duration = timeout.exit;
       } else {
         // The propType will warn in this case.
@@ -231,15 +226,9 @@ var Grow = function (_React$Component) {
         _this.props.onExit(node);
       }
     }, _this.addEndListener = function (node, next) {
-      var timeout = void 0;
-
       if (_this.props.timeout === 'auto') {
-        timeout = _this.autoTimeout || 0;
-      } else {
-        timeout = _this.props.timeout;
+        setTimeout(next, _this.autoTimeout || 0);
       }
-
-      setTimeout(next, timeout);
     }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
   }
 
@@ -276,7 +265,8 @@ var Grow = function (_React$Component) {
           onExit: this.handleExit,
           addEndListener: this.addEndListener,
           appear: appear,
-          style: style
+          style: style,
+          timeout: timeout === 'auto' ? null : timeout
         }, other, {
           ref: rootRef
         }),

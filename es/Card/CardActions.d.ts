@@ -3,14 +3,14 @@ import { StandardProps } from '..';
 
 export interface CardActionsProps extends StandardProps<
   React.HTMLAttributes<HTMLDivElement>,
-  CardActionClassKey
+  CardActionsClassKey
 > {
   disableActionSpacing?: boolean;
 }
 
-export type CardActionClassKey =
+export type CardActionsClassKey =
   | 'root'
-  | 'actionSpacing'
+  | 'action'
   ;
 
 declare const CardActions: React.ComponentType<CardActionsProps>;

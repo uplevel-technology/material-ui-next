@@ -2,10 +2,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
+// @inheritedComponent Modal
+
 import React from 'react';
 
 import classNames from 'classnames';
-import Modal from '../internal/Modal';
+import Modal from '../Modal';
 import withStyles from '../styles/withStyles';
 import Slide from '../transitions/Slide';
 import Paper from '../Paper';
@@ -40,7 +42,13 @@ export const styles = theme => ({
     WebkitOverflowScrolling: 'touch', // Add iOS momentum scrolling.
     // temporary style
     position: 'fixed',
-    top: 0
+    top: 0,
+    // We disable the focus ring for mouse, touch and keyboard users.
+    // At some point, it would be better to keep it for keyboard users.
+    // :focus-ring CSS pseudo-class will help.
+    '&:focus': {
+      outline: 'none'
+    }
   },
   paperAnchorLeft: {
     left: 0,
@@ -117,7 +125,7 @@ class Drawer extends React.Component {
     } = _props,
           other = _objectWithoutProperties(_props, ['anchor', 'children', 'classes', 'className', 'elevation', 'transitionDuration', 'ModalProps', 'onRequestClose', 'open', 'SlideProps', 'theme', 'type']);
 
-    const rtl = theme.direction === 'rtl';
+    const rtl = theme && theme.direction === 'rtl';
     let anchor = anchorProp;
     if (rtl && ['left', 'right'].includes(anchor)) {
       anchor = anchor === 'left' ? 'right' : 'left';

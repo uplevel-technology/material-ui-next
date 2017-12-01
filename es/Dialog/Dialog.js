@@ -2,12 +2,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
+// @inheritedComponent Modal
+
 import React from 'react';
 
 import classNames from 'classnames';
 import withStyles from '../styles/withStyles';
 import { capitalizeFirstLetter } from '../utils/helpers';
-import Modal from '../internal/Modal';
+import Modal from '../Modal';
 import Fade from '../transitions/Fade';
 import { duration } from '../styles/transitions';
 import Paper from '../Paper';
@@ -31,7 +33,7 @@ export const styles = theme => ({
     }
   },
   paperWidthXs: {
-    maxWidth: theme.breakpoints.values.xs
+    maxWidth: Math.max(theme.breakpoints.values.xs, 360)
   },
   paperWidthSm: {
     maxWidth: theme.breakpoints.values.sm
@@ -55,70 +57,74 @@ export const styles = theme => ({
 /**
  * Dialogs are overlaid modal paper based components with a backdrop.
  */
-function Dialog(props) {
-  const {
-    children,
-    classes,
-    className,
-    fullScreen,
-    ignoreBackdropClick,
-    ignoreEscapeKeyUp,
-    transitionDuration,
-    maxWidth,
-    fullWidth,
-    open,
-    onBackdropClick,
-    onEscapeKeyUp,
-    onEnter,
-    onEntering,
-    onEntered,
-    onExit,
-    onExiting,
-    onExited,
-    onRequestClose,
-    transition: TransitionProp
-  } = props,
-        other = _objectWithoutProperties(props, ['children', 'classes', 'className', 'fullScreen', 'ignoreBackdropClick', 'ignoreEscapeKeyUp', 'transitionDuration', 'maxWidth', 'fullWidth', 'open', 'onBackdropClick', 'onEscapeKeyUp', 'onEnter', 'onEntering', 'onEntered', 'onExit', 'onExiting', 'onExited', 'onRequestClose', 'transition']);
+class Dialog extends React.Component {
 
-  return React.createElement(
-    Modal,
-    _extends({
-      className: classNames(classes.root, className),
-      BackdropTransitionDuration: transitionDuration,
-      ignoreBackdropClick: ignoreBackdropClick,
-      ignoreEscapeKeyUp: ignoreEscapeKeyUp,
-      onBackdropClick: onBackdropClick,
-      onEscapeKeyUp: onEscapeKeyUp,
-      onRequestClose: onRequestClose,
-      show: open
-    }, other),
-    React.createElement(
-      TransitionProp,
-      {
-        appear: true,
-        'in': open,
-        timeout: transitionDuration,
-        onEnter: onEnter,
-        onEntering: onEntering,
-        onEntered: onEntered,
-        onExit: onExit,
-        onExiting: onExiting,
-        onExited: onExited
-      },
+  render() {
+    const _props = this.props,
+          {
+      children,
+      classes,
+      className,
+      fullScreen,
+      ignoreBackdropClick,
+      ignoreEscapeKeyUp,
+      transitionDuration,
+      maxWidth,
+      fullWidth,
+      open,
+      onBackdropClick,
+      onEscapeKeyUp,
+      onEnter,
+      onEntering,
+      onEntered,
+      onExit,
+      onExiting,
+      onExited,
+      onRequestClose,
+      transition: TransitionProp
+    } = _props,
+          other = _objectWithoutProperties(_props, ['children', 'classes', 'className', 'fullScreen', 'ignoreBackdropClick', 'ignoreEscapeKeyUp', 'transitionDuration', 'maxWidth', 'fullWidth', 'open', 'onBackdropClick', 'onEscapeKeyUp', 'onEnter', 'onEntering', 'onEntered', 'onExit', 'onExiting', 'onExited', 'onRequestClose', 'transition']);
+
+    return React.createElement(
+      Modal,
+      _extends({
+        className: classNames(classes.root, className),
+        BackdropTransitionDuration: transitionDuration,
+        ignoreBackdropClick: ignoreBackdropClick,
+        ignoreEscapeKeyUp: ignoreEscapeKeyUp,
+        onBackdropClick: onBackdropClick,
+        onEscapeKeyUp: onEscapeKeyUp,
+        onRequestClose: onRequestClose,
+        show: open
+      }, other),
       React.createElement(
-        Paper,
+        TransitionProp,
         {
-          'data-mui-test': 'Dialog',
-          elevation: 24,
-          className: classNames(classes.paper, classes[`paperWidth${capitalizeFirstLetter(maxWidth)}`], {
-            [classes.fullScreen]: fullScreen,
-            [classes.fullWidth]: fullWidth
-          })
+          appear: true,
+          'in': open,
+          timeout: transitionDuration,
+          onEnter: onEnter,
+          onEntering: onEntering,
+          onEntered: onEntered,
+          onExit: onExit,
+          onExiting: onExiting,
+          onExited: onExited
         },
-        children
+        React.createElement(
+          Paper,
+          {
+            'data-mui-test': 'Dialog',
+            elevation: 24,
+            className: classNames(classes.paper, classes[`paperWidth${capitalizeFirstLetter(maxWidth)}`], {
+              [classes.fullScreen]: fullScreen,
+              [classes.fullWidth]: fullWidth
+            })
+          },
+          children
+        )
       )
-    )
-  );
+    );
+  }
 }
 
 Dialog.defaultProps = {
@@ -134,5 +140,4 @@ Dialog.defaultProps = {
   open: false,
   transition: Fade
 };
-
 export default withStyles(styles, { name: 'MuiDialog' })(Dialog);

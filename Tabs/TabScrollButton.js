@@ -5,10 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.styles = undefined;
 
-var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
 var _extends2 = require('babel-runtime/helpers/extends');
 
 var _extends3 = _interopRequireDefault(_extends2);
@@ -17,7 +13,25 @@ var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProp
 
 var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
-var _ref3; //  weak
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _react = require('react');
 
@@ -44,6 +58,8 @@ var _KeyboardArrowRight = require('../svg-icons/KeyboardArrowRight');
 var _KeyboardArrowRight2 = _interopRequireDefault(_KeyboardArrowRight);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//  weak
 
 var styles = exports.styles = function styles(theme) {
   return {
@@ -88,33 +104,43 @@ var _ref2 = _react2.default.createElement(_KeyboardArrowRight2.default, null);
 /**
  * @ignore - internal component.
  */
-function TabScrollButton(props) {
-  var classes = props.classes,
-      classNameProp = props.className,
-      direction = props.direction,
-      onClick = props.onClick,
-      visible = props.visible,
-      other = (0, _objectWithoutProperties3.default)(props, ['classes', 'className', 'direction', 'onClick', 'visible']);
+var TabScrollButton = function (_React$Component) {
+  (0, _inherits3.default)(TabScrollButton, _React$Component);
 
-
-  var className = (0, _classnames2.default)(classes.root, classNameProp);
-
-  if (!visible) {
-    return _react2.default.createElement('div', { className: className });
+  function TabScrollButton() {
+    (0, _classCallCheck3.default)(this, TabScrollButton);
+    return (0, _possibleConstructorReturn3.default)(this, (TabScrollButton.__proto__ || (0, _getPrototypeOf2.default)(TabScrollButton)).apply(this, arguments));
   }
 
-  return _react2.default.createElement(
-    _ButtonBase2.default,
-    (0, _extends3.default)({ className: className, onClick: onClick, tabIndex: -1 }, other),
-    direction === 'left' ? _ref : _ref2
-  );
-}
+  (0, _createClass3.default)(TabScrollButton, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          classes = _props.classes,
+          classNameProp = _props.className,
+          direction = _props.direction,
+          onClick = _props.onClick,
+          visible = _props.visible,
+          other = (0, _objectWithoutProperties3.default)(_props, ['classes', 'className', 'direction', 'onClick', 'visible']);
 
-TabScrollButton.propTypes = process.env.NODE_ENV !== "production" ? (_ref3 = {
-  classes: require('prop-types').object.isRequired
-}, (0, _defineProperty3.default)(_ref3, 'classes', require('prop-types').object), (0, _defineProperty3.default)(_ref3, 'className', require('prop-types').string), (0, _defineProperty3.default)(_ref3, 'direction', require('prop-types').oneOf(['left', 'right']).isRequired), (0, _defineProperty3.default)(_ref3, 'onClick', require('prop-types').func), (0, _defineProperty3.default)(_ref3, 'visible', require('prop-types').bool), _ref3) : {};
+
+      var className = (0, _classnames2.default)(classes.root, classNameProp);
+
+      if (!visible) {
+        return _react2.default.createElement('div', { className: className });
+      }
+
+      return _react2.default.createElement(
+        _ButtonBase2.default,
+        (0, _extends3.default)({ className: className, onClick: onClick, tabIndex: -1 }, other),
+        direction === 'left' ? _ref : _ref2
+      );
+    }
+  }]);
+  return TabScrollButton;
+}(_react2.default.Component);
+
 TabScrollButton.defaultProps = {
   visible: true
 };
-
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiTabScrollButton' })(TabScrollButton);

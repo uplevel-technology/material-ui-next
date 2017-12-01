@@ -1,9 +1,11 @@
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 //  weak
 
 import React from 'react';
 
 import withStyles from '../styles/withStyles';
-import createSwitch from '../internal/SwitchBase';
+import SwitchBase from '../internal/SwitchBase';
 import RadioButtonCheckedIcon from '../svg-icons/RadioButtonChecked';
 import RadioButtonUncheckedIcon from '../svg-icons/RadioButtonUnchecked';
 
@@ -19,16 +21,13 @@ export const styles = theme => ({
   }
 });
 
-const Radio = withStyles(styles, { name: 'MuiRadio' })(createSwitch({
+// eslint-disable-next-line no-unused-vars
+const Radio = props => React.createElement(SwitchBase, _extends({
   inputType: 'radio',
-  defaultIcon: React.createElement(RadioButtonUncheckedIcon, null),
-  defaultCheckedIcon: React.createElement(RadioButtonCheckedIcon, null)
-}));
+  icon: React.createElement(RadioButtonUncheckedIcon, null),
+  checkedIcon: React.createElement(RadioButtonCheckedIcon, null)
+}, props));
 
 Radio.displayName = 'Radio';
 
-export default Radio;
-
-// This is here solely to trigger api doc generation
-// eslint-disable-next-line no-unused-vars
-export const RadioDocs = props => React.createElement('span', null);
+export default withStyles(styles, { name: 'MuiRadio' })(Radio);

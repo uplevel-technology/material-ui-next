@@ -2,6 +2,156 @@
 
 Changes. Changes everywhere!
 
+## 1.0.0-beta.22
+###### _Nov 28, 2017_
+
+Big thanks to the 26 contributors who made this release possible.
+
+Here are some highlights ✨:
+- Wait, what? A new component is coming, again 🎉.
+@andrzejbk has been implementing the `ExpansionPanel` component with the help of the community. Big thanks to him!
+- Support TypeScript@2.6 (#9124) @pelotom
+- Support Flow@0.57.x (#8983) @rsolomon, @rosskevin
+- A new organization: `mui-org` @hai-cea
+- And many more bug fixes and documentation improvements.
+
+### Breaking change
+
+- [Select] Remove InputClasses (#9159) @oliviertassinari
+
+It's a revert.
+I have made the unwise call of adding the InputClasses property in an unrelated refactorization pull-request #8942.
+It was not taking the input classes property into account.
+It was a breaking change and not needed.
+
+#### Component Fixes / Enhancements
+
+- [Tooltip] Fix typo in API page (#9128) @mizx
+- [Transition] Fix wrong addEndListener logic (#9142) @oliviertassinari
+- [TablePagination] export LabelDisplayedRowArgs interface and improve label (#8930) @t49tran
+- [Drawer] Hide focus ring (#9147) @rodrigofepy
+- [Drawer] Fix classes in typescript definition (#9145) @johnnynia
+- [CircularProgress] Fix behavior when dir=rtl (#9151) @alitaheri
+- [StepContent] Fix typings (#9150) @alitaheri
+- [Dialog] Fix maxWidth=xs (#9162) @oliviertassinari
+- [Select] Fix typescript typings (#9153) @alitaheri
+- [Slide] No default direction (#9165) @oliviertassinari
+- [TablePagination] Improve the API docs page (#9181) @oliviertassinari
+- [typescript] Strip keys from GridProps which won't get passed to override component (#9183) @pelotom
+- [Input] Fix input height on Firefox (#9184) @oliviertassinari
+- [Switch] Fixes non-valid HTML when div used inside of label element (#9188) @mikeriley131
+- [FormControlLabel] Fixes non-valid HTML when p used in label element (#9187) @mikeriley131
+- [Avatar] Fix alt align (#9193) @mctep
+- [Drawer] Fix typo @ignore for theme prop (#9195) @christophehurpeau
+- [style] Fix between media-query for xl (#9201) @michaelgruber
+- [transitions] Expose the transition components (#9210) @ajay2507
+- [Card] Add action prop to CardHeader (#9202) @lukePeavey
+- [Select] Add name to the target (#9216) @oliviertassinari
+- [TablePagination] Hide the rows per page selector if there are less than two options (#9213) @leMaik
+- [ButtonBase] Bookkeep the disable state (#9220) @oliviertassinari
+- [TextField] Better select support (#9224) @oliviertassinari
+- [TableCell] Use solid version of theme divider (#9229) @mbrookes
+- [ExpansionPanel] New component (#7651) @andrzejbk
+
+#### Docs
+
+- [docs] Additional tweaks (#9122) @mbrookes
+- [docs] Improved documentation for Menu style overrides (#9126) @lsemerini
+- [docs] Fix display on IE11 (#9166) @oliviertassinari
+- [docs] Fix broken link in README.md (#9177) @Primajin
+- [docs] Clean up code in IconLabelButton example (#9211) @xfumihiro
+- [docs] Fill enhanced table to always have the same height on all pages (#9214) @leMaik
+- [docs] Fix broken link to the API#spread (#9219) @oliviertassinari
+- [Guide] Add Interoperability guide (#9217) @FjVillar
+- [docs] Add a styled-components section (#9225) @oliviertassinari
+- [examples] rename organization to mui-org (#9273) @stormasm
+- [docs] Fix typo (#9288) @paulzmuda
+
+#### Core
+
+- [test] Fix flaky popper.js test (#9168) @oliviertassinari
+- [typescript] Support TypeScript 2.6 and --strictFunctionTypes (#9124) @pelotom
+- [typescript] Fix typing of withWidth (#9125) @pelotom
+- [typescript] Eliminate the need for type annotations on callback parameters (#9127) @pelotom
+- [core] Reduce bundle size by 2kB gzipped (#9129) @oliviertassinari
+- [core] Upgrade enzyme (#9167) @oliviertassinari
+- Add support for Flow@0.57.x (#8983) @rsolomon
+- [test] Avoid unspotted API docs changes (#9212) @oliviertassinari
+- [core] Increase the size-limit (#9215) @oliviertassinari
+- [flow] Continuation of Flow updates 0.57+ (#9203) @rosskevin
+- [flow] Bump react-flow-types version and fix errors (#9232) @rsolomon
+
+## 1.0.0-beta.21
+###### _Nov 13, 2017_
+
+Big thanks to the 18 contributors who made this release possible.
+
+Here are some highlights ✨:
+- @alexhayes and @vladimirpekez have done an awesome job migrating the Stepper component
+to the `v1-beta` branch (#8291). Thank you!
+- @kof Has been working hard and tightly with us to improve JSS, we have upgraded the dependency to v9 (#9111)
+- And many more bug fixes and documentation improvements.
+
+### Breaking change
+
+- [SwitchBase] Remove legacy properties (#9021) @oliviertassinari
+
+In the following diff `SwitchBase` can be a `Checkbox` a `Radio` or a `Switch`.
+
+```diff
+-<SwitchBase disabled disabledClassName={disabledClassName} />;
++<SwitchBase disabled classes={{ disabled: disabledClassName }} />;
+```
+
+#### Component Fixes / Enhancements
+
+- [InputLabel] Fix transformOrigin when direction=rtl (#9007) @alitaheri
+- [BottomNavigation] Allow null bottom navigation items (#9011) @ciroja
+- [Button] Include lineHeight in default theme button style (#9018) @mkornblum
+- [Select] Fix native width display (#8998) @oliviertassinari
+- [Modal] Expose the component to the public API (#9038) @oliviertassinari
+- [Drawer] Better support different anchor values (#9000) @oliviertassinari
+- [IconButton] Add missing TypeScript definition (#9016) @oliviertassinari
+- [List] Fix accessibility (#9017) @oliviertassinari
+- [ButtonBase] Restore the original keyboardFocusCheckTime value (#9019) @oliviertassinari
+- [Popover] Implement ability to pass coordinates as anchor (#9004) @jackyho112
+- [TextField] Fix undefined blur event (#9042) @nareshbhatia
+- [Slide] Support dynamic anchor (#9055) @oliviertassinari
+- [Input] Remove grey highlight on iOS (#9057) @oliviertassinari
+- [Grid] Add missing wrap-reverse classname (#9076) @dehli
+- [breakpoint] Fix xs value (#9078) @oliviertassinari
+- [TablePagination] Fix IE11 colSpan issue (#9086) @sakulstra
+- [Menu] Fix MenuList integration demo (#9088)
+- [Snackbar] Treat null properly and add a test for it (#9094) @leMaik
+- [Input] Fix inputProps.ref support (#9095) @oliviertassinari
+- [Slide] Refactor lifecycle logics (#9096) @alitaheri
+- [Stepper] First port of the component (#8291) @alexhayes @vladimirpekez
+- [InputLabel] Add missing FormControlClasses (#9110) @svachmic
+
+#### Docs
+
+- [docs] Fix escape in the API section (#9015) @oliviertassinari
+- [examples] Fix flow example (bdf5b6600fd82d2c5b64896994457001dac72104) @oliviertassinari
+- [examples] Fix missing props for BaseComponent (#9077) @aislanmaia
+- [docs] Add a AppBar/Menu integration example (#9067) @Tevinthuku
+- [docs] Add composed withStyles & withTheme HOCs to the FAQ (#9079) @mbrookes
+- [docs] Add file upload examples with the icon buttons (#9087) @Tevinthuku
+- [docs] Fix word (#9091) @Hissvard
+- [docs] Fix AppSearch horizontal rythm (#9107) @mbrookes
+- [docs] Fix misc typos, grammar and add minor clarifications (#9112) @mbrookes
+
+#### Core
+
+- [typescript] Conform Typography definition with React CSSProperties (#9023) @dewey92
+- [Modal] 100% coverage for modalManager.js (#9022) @oliviertassinari
+- [core] Upgrade dependencies (#9010) @oliviertassinari
+- [core] Upgrade flow-react-proptypes (#9029) @oliviertassinari
+- [typescript] Specify props type for overriding components (#9035) @pelotom
+- [core] Document the overhead of importing a single component (#9099) @oliviertassinari
+- [typescript] Fix screenWidth type and added is WidthDown (#9114) @stunaz
+- [core] Upgrade jss (#9111) @oliviertassinari
+- [core] Upgrade some dependencies (#9121) @oliviertassinari
+
 ## 1.0.0-beta.20
 ###### _Nov 5, 2017_
 
@@ -160,7 +310,7 @@ Big thanks to the 14 contributors who made this release possible.
 
 Here are some highlights ✨:
 - New InputAdornment component (#8504)
-- New [Frequently asked questions](https://github.com/callemall/material-ui/blob/4df547d56448cedf70977d6e2463b38eaf64d1c7/docs/src/pages/getting-started/frequently-asked-questions.md) documentation section
+- New [Frequently asked questions](https://github.com/mui-org/material-ui/blob/4df547d56448cedf70977d6e2463b38eaf64d1c7/docs/src/pages/getting-started/frequently-asked-questions.md) documentation section
 - We have saved 1 KB gzip by removing our internal react-transition-group fork (#8785)
 - We have made one step further in order to upgrade all our development dependencies to react@16 (#8804)
 
@@ -1634,7 +1784,7 @@ Big thanks to the 11 contributors who are pushing the `next` branch forward.
 
 We are continuing investing in the documentation and the test suite.
 
-Visual regression tests are now sent to [argos-ci](https://www.argos-ci.com/callemall/material-ui).
+Visual regression tests are now sent to [argos-ci](https://www.argos-ci.com/mui-org/material-ui).
 Thanks @agamrafaeli for increasing the test coverage of 1% since the last release (95.23%).
 Thanks @mbrookes for fixing the inconsistency of the API and improving the API.
 
@@ -1957,12 +2107,12 @@ We are releasing sooner than we use to for this **special day** :christmas_tree:
 
 2016 has been an exceptional year for Material-UI.
 - We went from 40k to 180k [downloads](https://npm-stat.com/charts.html?package=material-ui&from=2014-12-24&to=2016-12-25) a month. :package:
-- We went from 12k to 22k [stars](http://www.timqian.com/star-history/#callemall/material-ui). :star:
+- We went from 12k to 22k [stars](http://www.timqian.com/star-history/#mui-org/material-ui). :star:
 
 That wouldn't have been possible without this awesome community.
 **Thank you!**
 
-But this's just the beginning, some [exciting stuff](https://github.com/callemall/material-ui/blob/master/ROADMAP.md) is coming in 2017 :sparkles:.
+But this's just the beginning, some [exciting stuff](https://github.com/mui-org/material-ui/blob/master/ROADMAP.md) is coming in 2017 :sparkles:.
 You can preview a **very early** version of the `next` branch following [that link](https://material-ui-next.com).
 
 #### Component Fixes / Enhancements
@@ -2041,7 +2191,7 @@ This is another release improving the stability of `v0.16.x`.
 ## 0.16.3
 ###### _Nov 17, 2016_
 
-This release is intended to solve an [issue](https://github.com/callemall/material-ui/issues/5573) with `react-tap-event-plugin` following the release of React `v15.4.0`.
+This release is intended to solve an [issue](https://github.com/mui-org/material-ui/issues/5573) with `react-tap-event-plugin` following the release of React `v15.4.0`.
 
 #### Component Fixes / Enhancements
 
@@ -2150,7 +2300,7 @@ We are switching in goal so we can release changes more **often**.
 Regarding going forward, this is likely to be the last `minor` release using the **inline-style** approach.
 We are migrating all the components to a **CSS-in-JS** approach on the `next` branch.
 
-For more details, you can have a look a the [next milestone](https://github.com/callemall/material-ui/milestone/14) as well as the [next project](https://github.com/callemall/material-ui/projects/1)
+For more details, you can have a look a the [next milestone](https://github.com/mui-org/material-ui/milestone/14) as well as the [next project](https://github.com/mui-org/material-ui/projects/1)
 
 :warning: New features based on the `master` branch (inline-style) have low priority and will most likely not be reviewed nor merged.
 
@@ -2538,7 +2688,7 @@ documentation page.
 
 Have a ton of imports? almost had a heart attack? worry not, we also made a tool
 to ease your pain. checkout the
-[readme](https://github.com/callemall/material-ui/tree/master/packages/material-ui-codemod/README.md).
+[readme](https://github.com/mui-org/material-ui/tree/master/packages/material-ui-codemod/README.md).
 
 ##### Breaking Changes
 - [Core] Improve import path for published lib (#3921)
@@ -2728,7 +2878,7 @@ import MUI from 'material-ui'; // no changes here :D
 This release includes huge improvements to the implementation
 of components and utility modules. The most important improvement
 is the removal of mixins from the library, thanks to the
-[great efforts](https://github.com/callemall/material-ui/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aclosed+author%3Anewoga+style-propable)
+[great efforts](https://github.com/mui-org/material-ui/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aclosed+author%3Anewoga+style-propable)
 of @newoga :+1:
 
 There are also improvements to the unit testing infrastructure. We own this
@@ -3622,7 +3772,7 @@ We've cleaned up some of our click/tap events. (#771) Upgrade should be straight
     component specific. In addition to the benefits mentioned in the
     presentation, inline styles allow Material-UI to become CSS preprocessor
     agnostic and make Themeing much more dynamic and simple.
-    [Read our CSS in JS discussion](https://github.com/callemall/material-ui/issues/30)
+    [Read our CSS in JS discussion](https://github.com/mui-org/material-ui/issues/30)
   - Upgrade path:
     - *If you are overriding component CSS classes:* Redefine your overrides as
       an object following [React's inline styles format](https://facebook.github.io/react/tips/inline-styles.html),
@@ -3631,10 +3781,10 @@ We've cleaned up some of our click/tap events. (#771) Upgrade should be straight
       overriding a nested element of the component, check the component's
       documentation and see if there is a style prop available for that nested
       element. If a style prop does not exist for the component's nested element
-      that you are trying to override, [submit an issue](https://github.com/callemall/material-ui/issues/new)
+      that you are trying to override, [submit an issue](https://github.com/mui-org/material-ui/issues/new)
       requesting to have it added.
     - *If you are using any of Material-UI's Less files:* These files have been
-      refactored into their [own javascript files](https://github.com/callemall/material-ui/tree/css-in-js/src/styles)
+      refactored into their [own javascript files](https://github.com/mui-org/material-ui/tree/css-in-js/src/styles)
       and can be accessed like so `var FILENAME = require('material-ui').Styles.FILENAME;`.
       Material-UI has moved away from being a CSS Framework to being simply a
       set of React components.
@@ -3791,7 +3941,7 @@ We've cleaned up some of our click/tap events. (#771) Upgrade should be straight
       For FontIcon, create a custom font file and include it in your project and just pass the Icon
       className into the FontIcon component. For SvgIcon, create a new React component that represents
       that particular icon. This will allow you to package your icons inside your js files. Examples
-      can be found [here](https://github.com/callemall/material-ui/tree/master/src/js/svg-icons).
+      can be found [here](https://github.com/mui-org/material-ui/tree/master/src/js/svg-icons).
     - Additionally, all components that had an icon prop now take an iconClassName prop instead. These
       include FloatingActionButton, IconButton, Menu, MenuItem, and DropDownIcon.
 

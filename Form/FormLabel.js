@@ -17,7 +17,25 @@ var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProp
 
 var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
-var _ref;
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _react = require('react');
 
@@ -83,7 +101,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
    * The component used for the root node.
    * Either a string to use a DOM element or a component.
    */
-  component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType),
+  component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType.isRequired ? babelPluginFlowReactPropTypes_proptype_ElementType.isRequired : babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType).isRequired,
 
   /**
    * If `true`, the label should be displayed in a disabled state.
@@ -106,69 +124,75 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   required: require('prop-types').bool
 };
 
+var FormLabel = function (_React$Component) {
+  (0, _inherits3.default)(FormLabel, _React$Component);
 
-function FormLabel(props, context) {
-  var _classNames;
-
-  var children = props.children,
-      classes = props.classes,
-      classNameProp = props.className,
-      Component = props.component,
-      disabledProp = props.disabled,
-      errorProp = props.error,
-      focusedProp = props.focused,
-      requiredProp = props.required,
-      other = (0, _objectWithoutProperties3.default)(props, ['children', 'classes', 'className', 'component', 'disabled', 'error', 'focused', 'required']);
-  var muiFormControl = context.muiFormControl;
-
-
-  var required = requiredProp;
-  var focused = focusedProp;
-  var disabled = disabledProp;
-  var error = errorProp;
-
-  if (muiFormControl) {
-    if (typeof required === 'undefined') {
-      required = muiFormControl.required;
-    }
-    if (typeof focused === 'undefined') {
-      focused = muiFormControl.focused;
-    }
-    if (typeof disabled === 'undefined') {
-      disabled = muiFormControl.disabled;
-    }
-    if (typeof error === 'undefined') {
-      error = muiFormControl.error;
-    }
+  function FormLabel() {
+    (0, _classCallCheck3.default)(this, FormLabel);
+    return (0, _possibleConstructorReturn3.default)(this, (FormLabel.__proto__ || (0, _getPrototypeOf2.default)(FormLabel)).apply(this, arguments));
   }
 
-  var className = (0, _classnames2.default)(classes.root, (_classNames = {}, (0, _defineProperty3.default)(_classNames, classes.focused, focused), (0, _defineProperty3.default)(_classNames, classes.disabled, disabled), (0, _defineProperty3.default)(_classNames, classes.error, error), _classNames), classNameProp);
+  (0, _createClass3.default)(FormLabel, [{
+    key: 'render',
+    value: function render() {
+      var _classNames;
 
-  var asteriskClassName = (0, _classnames2.default)((0, _defineProperty3.default)({}, classes.error, error));
+      var _props = this.props,
+          children = _props.children,
+          classes = _props.classes,
+          classNameProp = _props.className,
+          Component = _props.component,
+          disabledProp = _props.disabled,
+          errorProp = _props.error,
+          focusedProp = _props.focused,
+          requiredProp = _props.required,
+          other = (0, _objectWithoutProperties3.default)(_props, ['children', 'classes', 'className', 'component', 'disabled', 'error', 'focused', 'required']);
+      var muiFormControl = this.context.muiFormControl;
 
-  return _react2.default.createElement(
-    Component,
-    (0, _extends3.default)({ className: className }, other),
-    children,
-    required && _react2.default.createElement(
-      'span',
-      { className: asteriskClassName },
-      '\u2009*'
-    )
-  );
-}
 
-FormLabel.propTypes = process.env.NODE_ENV !== "production" ? (_ref = {
-  classes: require('prop-types').object.isRequired,
-  component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType.isRequired ? babelPluginFlowReactPropTypes_proptype_ElementType.isRequired : babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType).isRequired,
-  children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node)
-}, (0, _defineProperty3.default)(_ref, 'classes', require('prop-types').object), (0, _defineProperty3.default)(_ref, 'className', require('prop-types').string), (0, _defineProperty3.default)(_ref, 'component', typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType)), (0, _defineProperty3.default)(_ref, 'disabled', require('prop-types').bool), (0, _defineProperty3.default)(_ref, 'error', require('prop-types').bool), (0, _defineProperty3.default)(_ref, 'focused', require('prop-types').bool), (0, _defineProperty3.default)(_ref, 'required', require('prop-types').bool), _ref) : {};
-FormLabel.defaultProps = {
-  component: 'label'
-};
+      var required = requiredProp;
+      var focused = focusedProp;
+      var disabled = disabledProp;
+      var error = errorProp;
+
+      if (muiFormControl) {
+        if (typeof required === 'undefined') {
+          required = muiFormControl.required;
+        }
+        if (typeof focused === 'undefined') {
+          focused = muiFormControl.focused;
+        }
+        if (typeof disabled === 'undefined') {
+          disabled = muiFormControl.disabled;
+        }
+        if (typeof error === 'undefined') {
+          error = muiFormControl.error;
+        }
+      }
+
+      var className = (0, _classnames2.default)(classes.root, (_classNames = {}, (0, _defineProperty3.default)(_classNames, classes.focused, focused), (0, _defineProperty3.default)(_classNames, classes.disabled, disabled), (0, _defineProperty3.default)(_classNames, classes.error, error), _classNames), classNameProp);
+
+      var asteriskClassName = (0, _classnames2.default)((0, _defineProperty3.default)({}, classes.error, error));
+
+      return _react2.default.createElement(
+        Component,
+        (0, _extends3.default)({ className: className }, other),
+        children,
+        required && _react2.default.createElement(
+          'span',
+          { className: asteriskClassName },
+          '\u2009*'
+        )
+      );
+    }
+  }]);
+  return FormLabel;
+}(_react2.default.Component);
 
 FormLabel.contextTypes = {
   muiFormControl: _propTypes2.default.object
 };
-
+FormLabel.defaultProps = {
+  component: 'label'
+};
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiFormLabel' })(FormLabel);

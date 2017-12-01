@@ -38,30 +38,34 @@ export const styles = theme => ({
  * Will automatically set dynamic row height
  * based on the material table element parent (head, body, etc).
  */
-function TableRow(props, context) {
-  const {
-    classes,
-    className: classNameProp,
-    children,
-    component: Component,
-    hover,
-    selected
-  } = props,
-        other = _objectWithoutProperties(props, ['classes', 'className', 'children', 'component', 'hover', 'selected']);
-  const { table } = context;
+class TableRow extends React.Component {
 
-  const className = classNames(classes.root, {
-    [classes.head]: table && table.head,
-    [classes.footer]: table && table.footer,
-    [classes.hover]: table && hover,
-    [classes.selected]: table && selected
-  }, classNameProp);
+  render() {
+    const _props = this.props,
+          {
+      classes,
+      className: classNameProp,
+      children,
+      component: Component,
+      hover,
+      selected
+    } = _props,
+          other = _objectWithoutProperties(_props, ['classes', 'className', 'children', 'component', 'hover', 'selected']);
+    const { table } = this.context;
 
-  return React.createElement(
-    Component,
-    _extends({ className: className }, other),
-    children
-  );
+    const className = classNames(classes.root, {
+      [classes.head]: table && table.head,
+      [classes.footer]: table && table.footer,
+      [classes.hover]: table && hover,
+      [classes.selected]: table && selected
+    }, classNameProp);
+
+    return React.createElement(
+      Component,
+      _extends({ className: className }, other),
+      children
+    );
+  }
 }
 
 TableRow.defaultProps = {
@@ -69,9 +73,7 @@ TableRow.defaultProps = {
   selected: false,
   component: 'tr'
 };
-
 TableRow.contextTypes = {
   table: PropTypes.object
 };
-
 export default withStyles(styles, { name: 'MuiTableRow' })(TableRow);

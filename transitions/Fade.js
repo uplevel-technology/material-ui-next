@@ -59,7 +59,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * @ignore
    */
-  appear: require('prop-types').bool,
+  appear: require('prop-types').bool.isRequired,
 
   /**
    * A single child content element.
@@ -89,18 +89,13 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * @ignore
    */
-  theme: require('prop-types').object,
-
-  /**
-   * @ignore
-   */
   style: require('prop-types').object,
 
   /**
    * The duration for the transition, in milliseconds.
    * You may specify a single timeout for all transitions, or individually with an object.
    */
-  timeout: typeof babelPluginFlowReactPropTypes_proptype_TransitionDuration === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionDuration : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionDuration)
+  timeout: typeof babelPluginFlowReactPropTypes_proptype_TransitionDuration === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionDuration.isRequired ? babelPluginFlowReactPropTypes_proptype_TransitionDuration.isRequired : babelPluginFlowReactPropTypes_proptype_TransitionDuration : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionDuration).isRequired
 };
 
 

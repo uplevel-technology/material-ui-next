@@ -133,7 +133,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
    * If `true`, the tabs will be centered.
    * This property is intended for large views.
    */
-  centered: require('prop-types').bool,
+  centered: require('prop-types').bool.isRequired,
 
   /**
    * The content of the component.
@@ -154,7 +154,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
    * If `true`, the tabs will grow to use all the available space.
    * This property is intended for small views, like on mobile.
    */
-  fullWidth: require('prop-types').bool,
+  fullWidth: require('prop-types').bool.isRequired,
 
   /**
    * The CSS class name of the indicator element.
@@ -164,7 +164,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * Determines the color of the indicator.
    */
-  indicatorColor: require('prop-types').oneOfType([require('prop-types').oneOf(['accent']), require('prop-types').oneOf(['primary']), require('prop-types').string]),
+  indicatorColor: require('prop-types').oneOfType([require('prop-types').oneOf(['accent']), require('prop-types').oneOf(['primary']), require('prop-types').string]).isRequired,
 
   /**
    * Callback fired when the value changes.
@@ -178,7 +178,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
    * True invokes scrolling properties and allow for horizontally scrolling
    * (or swiping) the tab bar.
    */
-  scrollable: require('prop-types').bool,
+  scrollable: require('prop-types').bool.isRequired,
 
   /**
    * Determine behavior of scroll buttons when tabs are set to scroll
@@ -186,22 +186,17 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
    * `on` will always present them
    * `off` will never present them
    */
-  scrollButtons: require('prop-types').oneOf(['auto', 'on', 'off']),
+  scrollButtons: require('prop-types').oneOf(['auto', 'on', 'off']).isRequired,
 
   /**
    * The component used to render the scroll buttons.
    */
-  TabScrollButton: typeof babelPluginFlowReactPropTypes_proptype_ComponentType === 'function' ? babelPluginFlowReactPropTypes_proptype_ComponentType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ComponentType),
+  TabScrollButton: typeof babelPluginFlowReactPropTypes_proptype_ComponentType === 'function' ? babelPluginFlowReactPropTypes_proptype_ComponentType.isRequired ? babelPluginFlowReactPropTypes_proptype_ComponentType.isRequired : babelPluginFlowReactPropTypes_proptype_ComponentType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ComponentType).isRequired,
 
   /**
    * Determines the color of the `Tab`.
    */
-  textColor: require('prop-types').oneOf(['accent', 'primary', 'inherit']),
-
-  /**
-   * @ignore
-   */
-  theme: require('prop-types').object,
+  textColor: require('prop-types').oneOf(['accent', 'primary', 'inherit']).isRequired,
 
   /**
    * The value of the currently selected `Tab`.
@@ -209,7 +204,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
    */
   value: function value(props, propName, componentName) {
     if (!Object.prototype.hasOwnProperty.call(props, propName)) {
-      throw new Error('Prop `' + propName + '` has type \'any\', but was not provided to `' + componentName + '`. Pass undefined or any other value.');
+      throw new Error('Prop `' + propName + '` has type \'any\' or \'mixed\', but was not provided to `' + componentName + '`. Pass undefined or any other value.');
     }
   }
 };
@@ -267,14 +262,14 @@ var Tabs = function (_React$Component) {
       var showScrollButtons = scrollable && (scrollButtons === 'auto' || scrollButtons === 'on');
 
       conditionalElements.scrollButtonLeft = showScrollButtons ? _react2.default.createElement(TabScrollButtonProp, {
-        direction: theme.direction === 'rtl' ? 'right' : 'left',
+        direction: theme && theme.direction === 'rtl' ? 'right' : 'left',
         onClick: _this.handleLeftScrollClick,
         visible: _this.state.showLeftScroll,
         className: (0, _classnames2.default)((0, _defineProperty3.default)({}, classes.buttonAuto, scrollButtons === 'auto'), buttonClassName)
       }) : null;
 
       conditionalElements.scrollButtonRight = showScrollButtons ? _react2.default.createElement(TabScrollButtonProp, {
-        direction: theme.direction === 'rtl' ? 'left' : 'right',
+        direction: theme && theme.direction === 'rtl' ? 'left' : 'right',
         onClick: _this.handleRightScrollClick,
         visible: _this.state.showRightScroll,
         className: (0, _classnames2.default)((0, _defineProperty3.default)({}, classes.buttonAuto, scrollButtons === 'auto'), buttonClassName)
@@ -333,10 +328,11 @@ var Tabs = function (_React$Component) {
 
 
       if (_this.tabs) {
-        var multiplier = theme.direction === 'rtl' ? -1 : 1;
+        var themeDirection = theme && theme.direction;
+        var multiplier = themeDirection === 'rtl' ? -1 : 1;
         var nextScrollLeft = _this.tabs.scrollLeft + delta * multiplier;
         // Fix for Edge
-        var invert = theme.direction === 'rtl' && (0, _normalizeScrollLeft.detectScrollType)() === 'reverse' ? -1 : 1;
+        var invert = themeDirection === 'rtl' && (0, _normalizeScrollLeft.detectScrollType)() === 'reverse' ? -1 : 1;
         _scroll2.default.left(_this.tabs, invert * nextScrollLeft);
       }
     }, _this.scrollSelectedIntoView = function () {
@@ -344,7 +340,10 @@ var Tabs = function (_React$Component) {
           theme = _this$props2.theme,
           value = _this$props2.value;
 
-      var _this$getTabsMeta = _this.getTabsMeta(value, theme.direction),
+
+      var themeDirection = theme && theme.direction;
+
+      var _this$getTabsMeta = _this.getTabsMeta(value, themeDirection),
           tabsMeta = _this$getTabsMeta.tabsMeta,
           tabMeta = _this$getTabsMeta.tabMeta;
 
@@ -367,17 +366,18 @@ var Tabs = function (_React$Component) {
           scrollButtons = _this$props3.scrollButtons,
           theme = _this$props3.theme;
 
+      var themeDirection = theme && theme.direction;
 
       if (_this.tabs && scrollable && scrollButtons !== 'off') {
         var _this$tabs = _this.tabs,
             _scrollWidth = _this$tabs.scrollWidth,
             _clientWidth = _this$tabs.clientWidth;
 
-        var _scrollLeft = (0, _normalizeScrollLeft.getNormalizedScrollLeft)(_this.tabs, theme.direction);
+        var _scrollLeft = (0, _normalizeScrollLeft.getNormalizedScrollLeft)(_this.tabs, themeDirection);
 
-        var _showLeftScroll = theme.direction === 'rtl' ? _scrollWidth > _clientWidth + _scrollLeft : _scrollLeft > 0;
+        var _showLeftScroll = themeDirection === 'rtl' ? _scrollWidth > _clientWidth + _scrollLeft : _scrollLeft > 0;
 
-        var _showRightScroll = theme.direction === 'rtl' ? _scrollLeft > 0 : _scrollWidth > _clientWidth + _scrollLeft;
+        var _showRightScroll = themeDirection === 'rtl' ? _scrollLeft > 0 : _scrollWidth > _clientWidth + _scrollLeft;
 
         if (_showLeftScroll !== _this.state.showLeftScroll || _showRightScroll !== _this.state.showRightScroll) {
           _this.setState({ showLeftScroll: _showLeftScroll, showRightScroll: _showRightScroll });
@@ -419,14 +419,17 @@ var Tabs = function (_React$Component) {
       var theme = props.theme,
           value = props.value;
 
-      var _getTabsMeta = this.getTabsMeta(value, theme.direction),
+
+      var themeDirection = theme && theme.direction;
+
+      var _getTabsMeta = this.getTabsMeta(value, themeDirection),
           tabsMeta = _getTabsMeta.tabsMeta,
           tabMeta = _getTabsMeta.tabMeta;
 
       var left = 0;
 
       if (tabMeta && tabsMeta) {
-        var correction = theme.direction === 'rtl' ? tabsMeta.scrollLeftNormalized + tabsMeta.clientWidth - tabsMeta.scrollWidth : tabsMeta.scrollLeft;
+        var correction = themeDirection === 'rtl' ? tabsMeta.scrollLeftNormalized + tabsMeta.clientWidth - tabsMeta.scrollWidth : tabsMeta.scrollLeft;
         left = tabMeta.left - tabsMeta.left + correction;
       }
 

@@ -5,10 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.styles = undefined;
 
-var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
 var _extends2 = require('babel-runtime/helpers/extends');
 
 var _extends3 = _interopRequireDefault(_extends2);
@@ -17,7 +13,25 @@ var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProp
 
 var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
-var _ref;
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _react = require('react');
 
@@ -52,8 +66,6 @@ var styles = exports.styles = function styles(theme) {
     }
   };
 };
-
-var SwitchBase = (0, _SwitchBase2.default)();
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
@@ -101,13 +113,13 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * If `true`, the component appears indeterminate.
    */
-  indeterminate: require('prop-types').bool,
+  indeterminate: require('prop-types').bool.isRequired,
 
   /**
    * The icon to display when the component is indeterminate.
    * If a string is provided, it will be used as a font ligature.
    */
-  indeterminateIcon: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
+  indeterminateIcon: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node.isRequired ? babelPluginFlowReactPropTypes_proptype_Node.isRequired : babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node).isRequired,
 
   /**
    * Properties applied to the `input` element.
@@ -143,29 +155,36 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   value: require('prop-types').string
 };
 
+var Checkbox = function (_React$Component) {
+  (0, _inherits3.default)(Checkbox, _React$Component);
 
-function Checkbox(props) {
-  var checkedIcon = props.checkedIcon,
-      icon = props.icon,
-      indeterminate = props.indeterminate,
-      indeterminateIcon = props.indeterminateIcon,
-      other = (0, _objectWithoutProperties3.default)(props, ['checkedIcon', 'icon', 'indeterminate', 'indeterminateIcon']);
+  function Checkbox() {
+    (0, _classCallCheck3.default)(this, Checkbox);
+    return (0, _possibleConstructorReturn3.default)(this, (Checkbox.__proto__ || (0, _getPrototypeOf2.default)(Checkbox)).apply(this, arguments));
+  }
+
+  (0, _createClass3.default)(Checkbox, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          checkedIcon = _props.checkedIcon,
+          icon = _props.icon,
+          indeterminate = _props.indeterminate,
+          indeterminateIcon = _props.indeterminateIcon,
+          other = (0, _objectWithoutProperties3.default)(_props, ['checkedIcon', 'icon', 'indeterminate', 'indeterminateIcon']);
 
 
-  return _react2.default.createElement(SwitchBase, (0, _extends3.default)({
-    checkedIcon: indeterminate ? indeterminateIcon : checkedIcon,
-    icon: indeterminate ? indeterminateIcon : icon
-  }, other));
-}
+      return _react2.default.createElement(_SwitchBase2.default, (0, _extends3.default)({
+        checkedIcon: indeterminate ? indeterminateIcon : checkedIcon,
+        icon: indeterminate ? indeterminateIcon : icon
+      }, other));
+    }
+  }]);
+  return Checkbox;
+}(_react2.default.Component);
 
-Checkbox.propTypes = process.env.NODE_ENV !== "production" ? (_ref = {
-  classes: require('prop-types').object.isRequired,
-  checked: require('prop-types').oneOfType([require('prop-types').bool, require('prop-types').string]),
-  checkedIcon: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node)
-}, (0, _defineProperty3.default)(_ref, 'classes', require('prop-types').object), (0, _defineProperty3.default)(_ref, 'className', require('prop-types').string), (0, _defineProperty3.default)(_ref, 'defaultChecked', require('prop-types').bool), (0, _defineProperty3.default)(_ref, 'disabled', require('prop-types').bool), (0, _defineProperty3.default)(_ref, 'disableRipple', require('prop-types').bool), (0, _defineProperty3.default)(_ref, 'icon', typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node)), (0, _defineProperty3.default)(_ref, 'indeterminate', require('prop-types').bool), (0, _defineProperty3.default)(_ref, 'indeterminateIcon', typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node)), (0, _defineProperty3.default)(_ref, 'inputProps', require('prop-types').object), (0, _defineProperty3.default)(_ref, 'inputRef', require('prop-types').func), (0, _defineProperty3.default)(_ref, 'name', require('prop-types').string), (0, _defineProperty3.default)(_ref, 'onChange', require('prop-types').func), (0, _defineProperty3.default)(_ref, 'tabIndex', require('prop-types').oneOfType([require('prop-types').number, require('prop-types').string])), (0, _defineProperty3.default)(_ref, 'value', require('prop-types').string), _ref) : {};
 Checkbox.defaultProps = {
   indeterminate: false,
   indeterminateIcon: _react2.default.createElement(_IndeterminateCheckBox2.default, null)
 };
-
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiCheckbox' })(Checkbox);

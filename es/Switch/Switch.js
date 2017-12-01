@@ -8,7 +8,7 @@ import React from 'react';
 
 import classNames from 'classnames';
 import withStyles from '../styles/withStyles';
-import createSwitch from '../internal/SwitchBase';
+import SwitchBase from '../internal/SwitchBase';
 
 export const styles = theme => ({
   root: {
@@ -65,15 +65,13 @@ export const styles = theme => ({
   }
 });
 
-const SwitchBase = createSwitch();
-
 function Switch(props) {
   const { classes, className } = props,
         other = _objectWithoutProperties(props, ['classes', 'className']);
-  const icon = React.createElement('div', { className: classes.icon });
+  const icon = React.createElement('span', { className: classes.icon });
 
   return React.createElement(
-    'div',
+    'span',
     { className: classNames(classes.root, className) },
     React.createElement(SwitchBase, _extends({
       icon: icon,
@@ -84,7 +82,7 @@ function Switch(props) {
       },
       checkedIcon: icon
     }, other)),
-    React.createElement('div', { className: classes.bar })
+    React.createElement('span', { className: classes.bar })
   );
 }
 

@@ -17,7 +17,25 @@ var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProp
 
 var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
-var _ref; //  weak
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _react = require('react');
 
@@ -41,7 +59,7 @@ var _Typography2 = _interopRequireDefault(_Typography);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFlowReactPropTypes_proptype_Node || require('prop-types').any;
+var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFlowReactPropTypes_proptype_Node || require('prop-types').any; //  weak
 
 var styles = exports.styles = function styles(theme) {
   return {
@@ -82,67 +100,75 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
    * If `true`, the children won't be wrapped by a typography component.
    * For instance, that can be useful to can render an h4 instead of a
    */
-  disableTypography: require('prop-types').bool,
+  disableTypography: require('prop-types').bool.isRequired,
 
   /**
    * If `true`, the children will be indented.
    * This should be used if there is no left avatar or left icon.
    */
-  inset: require('prop-types').bool,
-  primary: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
-  secondary: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node)
+  inset: require('prop-types').bool.isRequired,
+  primary: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node.isRequired ? babelPluginFlowReactPropTypes_proptype_Node.isRequired : babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node).isRequired,
+  secondary: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node.isRequired ? babelPluginFlowReactPropTypes_proptype_Node.isRequired : babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node).isRequired
 };
 
+var ListItemText = function (_React$Component) {
+  (0, _inherits3.default)(ListItemText, _React$Component);
 
-function ListItemText(props, context) {
-  var _classNames;
+  function ListItemText() {
+    (0, _classCallCheck3.default)(this, ListItemText);
+    return (0, _possibleConstructorReturn3.default)(this, (ListItemText.__proto__ || (0, _getPrototypeOf2.default)(ListItemText)).apply(this, arguments));
+  }
 
-  var classes = props.classes,
-      classNameProp = props.className,
-      disableTypography = props.disableTypography,
-      primary = props.primary,
-      secondary = props.secondary,
-      inset = props.inset,
-      other = (0, _objectWithoutProperties3.default)(props, ['classes', 'className', 'disableTypography', 'primary', 'secondary', 'inset']);
-  var dense = context.dense;
+  (0, _createClass3.default)(ListItemText, [{
+    key: 'render',
+    value: function render() {
+      var _classNames;
 
-  var className = (0, _classnames2.default)(classes.root, (_classNames = {}, (0, _defineProperty3.default)(_classNames, classes.dense, dense), (0, _defineProperty3.default)(_classNames, classes.inset, inset), _classNames), classNameProp);
+      var _props = this.props,
+          classes = _props.classes,
+          classNameProp = _props.className,
+          disableTypography = _props.disableTypography,
+          primary = _props.primary,
+          secondary = _props.secondary,
+          inset = _props.inset,
+          other = (0, _objectWithoutProperties3.default)(_props, ['classes', 'className', 'disableTypography', 'primary', 'secondary', 'inset']);
+      var dense = this.context.dense;
 
-  return _react2.default.createElement(
-    'div',
-    (0, _extends3.default)({ className: className }, other),
-    primary && (disableTypography ? primary : _react2.default.createElement(
-      _Typography2.default,
-      {
-        type: 'subheading',
-        className: (0, _classnames2.default)(classes.text, (0, _defineProperty3.default)({}, classes.textDense, dense))
-      },
-      primary
-    )),
-    secondary && (disableTypography ? secondary : _react2.default.createElement(
-      _Typography2.default,
-      {
-        color: 'secondary',
-        type: 'body1',
-        className: (0, _classnames2.default)(classes.text, (0, _defineProperty3.default)({}, classes.textDense, dense))
-      },
-      secondary
-    ))
-  );
-}
+      var className = (0, _classnames2.default)(classes.root, (_classNames = {}, (0, _defineProperty3.default)(_classNames, classes.dense, dense), (0, _defineProperty3.default)(_classNames, classes.inset, inset), _classNames), classNameProp);
 
-ListItemText.propTypes = process.env.NODE_ENV !== "production" ? (_ref = {
-  classes: require('prop-types').object.isRequired
-}, (0, _defineProperty3.default)(_ref, 'classes', require('prop-types').object), (0, _defineProperty3.default)(_ref, 'className', require('prop-types').string), (0, _defineProperty3.default)(_ref, 'disableTypography', require('prop-types').bool), (0, _defineProperty3.default)(_ref, 'inset', require('prop-types').bool), (0, _defineProperty3.default)(_ref, 'primary', typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node)), (0, _defineProperty3.default)(_ref, 'secondary', typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node)), _ref) : {};
+      return _react2.default.createElement(
+        'div',
+        (0, _extends3.default)({ className: className }, other),
+        primary && (disableTypography ? primary : _react2.default.createElement(
+          _Typography2.default,
+          {
+            type: 'subheading',
+            className: (0, _classnames2.default)(classes.text, (0, _defineProperty3.default)({}, classes.textDense, dense))
+          },
+          primary
+        )),
+        secondary && (disableTypography ? secondary : _react2.default.createElement(
+          _Typography2.default,
+          {
+            color: 'secondary',
+            type: 'body1',
+            className: (0, _classnames2.default)(classes.text, (0, _defineProperty3.default)({}, classes.textDense, dense))
+          },
+          secondary
+        ))
+      );
+    }
+  }]);
+  return ListItemText;
+}(_react2.default.Component);
+
 ListItemText.defaultProps = {
   disableTypography: false,
   primary: false,
   secondary: false,
   inset: false
 };
-
 ListItemText.contextTypes = {
   dense: _propTypes2.default.bool
 };
-
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiListItemText' })(ListItemText);

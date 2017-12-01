@@ -64,32 +64,36 @@ export const styles = theme => ({
   }
 });
 
-function Typography(props) {
-  const {
-    align,
-    classes,
-    className: classNameProp,
-    component: componentProp,
-    color,
-    gutterBottom,
-    headlineMapping,
-    noWrap,
-    paragraph,
-    type
-  } = props,
-        other = _objectWithoutProperties(props, ['align', 'classes', 'className', 'component', 'color', 'gutterBottom', 'headlineMapping', 'noWrap', 'paragraph', 'type']);
+class Typography extends React.Component {
 
-  const className = classNames(classes.root, classes[type], {
-    [classes[`color${capitalizeFirstLetter(color)}`]]: color !== 'default',
-    [classes.noWrap]: noWrap,
-    [classes.gutterBottom]: gutterBottom,
-    [classes.paragraph]: paragraph,
-    [classes[`align${capitalizeFirstLetter(align)}`]]: align !== 'inherit'
-  }, classNameProp);
+  render() {
+    const _props = this.props,
+          {
+      align,
+      classes,
+      className: classNameProp,
+      component: componentProp,
+      color,
+      gutterBottom,
+      headlineMapping,
+      noWrap,
+      paragraph,
+      type
+    } = _props,
+          other = _objectWithoutProperties(_props, ['align', 'classes', 'className', 'component', 'color', 'gutterBottom', 'headlineMapping', 'noWrap', 'paragraph', 'type']);
 
-  const Component = componentProp || (paragraph ? 'p' : headlineMapping[type]) || 'span';
+    const className = classNames(classes.root, classes[type], {
+      [classes[`color${capitalizeFirstLetter(color)}`]]: color !== 'default',
+      [classes.noWrap]: noWrap,
+      [classes.gutterBottom]: gutterBottom,
+      [classes.paragraph]: paragraph,
+      [classes[`align${capitalizeFirstLetter(align)}`]]: align !== 'inherit'
+    }, classNameProp);
 
-  return React.createElement(Component, _extends({ className: className }, other));
+    const Component = componentProp || (paragraph ? 'p' : headlineMapping[type]) || 'span';
+
+    return React.createElement(Component, _extends({ className: className }, other));
+  }
 }
 
 Typography.defaultProps = {
@@ -111,5 +115,4 @@ Typography.defaultProps = {
   paragraph: false,
   type: 'body1'
 };
-
 export default withStyles(styles, { name: 'MuiTypography' })(Typography);

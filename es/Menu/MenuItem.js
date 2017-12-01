@@ -30,26 +30,29 @@ export const styles = theme => ({
   }
 });
 
-function MenuItem(props) {
-  const { classes, className: classNameProp, component, selected, role } = props,
-        other = _objectWithoutProperties(props, ['classes', 'className', 'component', 'selected', 'role']);
+class MenuItem extends React.Component {
 
-  const className = classNames(classes.root, {
-    [classes.selected]: selected
-  }, classNameProp);
+  render() {
+    const _props = this.props,
+          { classes, className: classNameProp, component, selected, role } = _props,
+          other = _objectWithoutProperties(_props, ['classes', 'className', 'component', 'selected', 'role']);
 
-  return React.createElement(ListItem, _extends({
-    button: true,
-    role: role,
-    tabIndex: -1,
-    className: className,
-    component: component
-  }, other));
+    const className = classNames(classes.root, {
+      [classes.selected]: selected
+    }, classNameProp);
+
+    return React.createElement(ListItem, _extends({
+      button: true,
+      role: role,
+      tabIndex: -1,
+      className: className,
+      component: component
+    }, other));
+  }
 }
 
 MenuItem.defaultProps = {
   role: 'menuitem',
   selected: false
 };
-
 export default withStyles(styles, { name: 'MuiMenuItem' })(MenuItem);

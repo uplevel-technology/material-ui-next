@@ -21,25 +21,28 @@ export const styles = theme => ({
 /**
  * @ignore - internal component.
  */
-function TabScrollButton(props) {
-  const { classes, className: classNameProp, direction, onClick, visible } = props,
-        other = _objectWithoutProperties(props, ['classes', 'className', 'direction', 'onClick', 'visible']);
+class TabScrollButton extends React.Component {
 
-  const className = classNames(classes.root, classNameProp);
+  render() {
+    const _props = this.props,
+          { classes, className: classNameProp, direction, onClick, visible } = _props,
+          other = _objectWithoutProperties(_props, ['classes', 'className', 'direction', 'onClick', 'visible']);
 
-  if (!visible) {
-    return React.createElement('div', { className: className });
+    const className = classNames(classes.root, classNameProp);
+
+    if (!visible) {
+      return React.createElement('div', { className: className });
+    }
+
+    return React.createElement(
+      ButtonBase,
+      _extends({ className: className, onClick: onClick, tabIndex: -1 }, other),
+      direction === 'left' ? React.createElement(KeyboardArrowLeft, null) : React.createElement(KeyboardArrowRight, null)
+    );
   }
-
-  return React.createElement(
-    ButtonBase,
-    _extends({ className: className, onClick: onClick, tabIndex: -1 }, other),
-    direction === 'left' ? React.createElement(KeyboardArrowLeft, null) : React.createElement(KeyboardArrowRight, null)
-  );
 }
 
 TabScrollButton.defaultProps = {
   visible: true
 };
-
 export default withStyles(styles, { name: 'MuiTabScrollButton' })(TabScrollButton);

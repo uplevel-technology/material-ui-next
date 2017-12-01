@@ -39,7 +39,7 @@ class Grow extends React.Component {
         this.autoTimeout = duration;
       } else if (typeof timeout === 'number') {
         duration = timeout;
-      } else if (timeout) {
+      } else if (timeout && typeof timeout.enter === 'number') {
         duration = timeout.enter;
       } else {
         // The propType will warn in this case.
@@ -66,7 +66,7 @@ class Grow extends React.Component {
         this.autoTimeout = duration;
       } else if (typeof timeout === 'number') {
         duration = timeout;
-      } else if (timeout) {
+      } else if (timeout && typeof timeout.exit === 'number') {
         duration = timeout.exit;
       } else {
         // The propType will warn in this case.
@@ -86,15 +86,9 @@ class Grow extends React.Component {
         this.props.onExit(node);
       }
     }, this.addEndListener = (node, next) => {
-      let timeout;
-
       if (this.props.timeout === 'auto') {
-        timeout = this.autoTimeout || 0;
-      } else {
-        timeout = this.props.timeout;
+        setTimeout(next, this.autoTimeout || 0);
       }
-
-      setTimeout(next, timeout);
     }, _temp;
   }
 
@@ -130,7 +124,8 @@ class Grow extends React.Component {
         onExit: this.handleExit,
         addEndListener: this.addEndListener,
         appear: appear,
-        style: style
+        style: style,
+        timeout: timeout === 'auto' ? null : timeout
       }, other, {
         ref: rootRef
       }),

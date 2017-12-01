@@ -67,7 +67,10 @@ class FormControl extends React.Component {
     };
 
     this.handleBlur = event => {
-      if (this.props.onBlur) {
+      // The event might be undefined.
+      // For instance, a child component might call this hook
+      // when an input is disabled but still having the focus.
+      if (this.props.onBlur && event) {
         this.props.onBlur(event);
       }
       if (this.state.focused) {
@@ -127,7 +130,7 @@ class FormControl extends React.Component {
       children,
       classes,
       className,
-      component: ComponentProp,
+      component: ComponentProp = 'div',
       disabled,
       error,
       fullWidth,

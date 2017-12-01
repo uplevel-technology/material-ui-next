@@ -117,14 +117,15 @@ class Menu extends React.Component {
     } = _props,
           other = _objectWithoutProperties(_props, ['children', 'classes', 'MenuListProps', 'onEnter', 'PaperProps', 'PopoverClasses', 'theme']);
 
+    const themeDirection = theme && theme.direction;
     return React.createElement(
       Popover,
       _extends({
         getContentAnchorEl: this.getContentAnchorEl,
         classes: PopoverClasses,
         onEnter: this.handleEnter,
-        anchorOrigin: theme.direction === 'rtl' ? rtlOrigin : ltrOrigin,
-        transformOrigin: theme.direction === 'rtl' ? rtlOrigin : ltrOrigin,
+        anchorOrigin: themeDirection === 'rtl' ? rtlOrigin : ltrOrigin,
+        transformOrigin: themeDirection === 'rtl' ? rtlOrigin : ltrOrigin,
         PaperProps: _extends({}, PaperProps, {
           classes: _extends({}, PaperProps.classes, {
             root: classes.paper

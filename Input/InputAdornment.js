@@ -17,7 +17,25 @@ var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProp
 
 var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
-var _ref;
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _react = require('react');
 
@@ -45,7 +63,8 @@ var styles = exports.styles = function styles(theme) {
   return {
     root: {
       'label + div > &': {
-        marginTop: -theme.spacing.unit * 2
+        marginTop: -theme.spacing.unit * 2,
+        height: 26
       }
     },
     positionStart: {
@@ -77,12 +96,12 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
    * The component used for the root node.
    * Either a string to use a DOM element or a component.
    */
-  component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType),
+  component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType.isRequired ? babelPluginFlowReactPropTypes_proptype_ElementType.isRequired : babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType).isRequired,
 
   /**
    * If children is a string then disable wrapping in a Typography component.
    */
-  disableTypography: require('prop-types').bool,
+  disableTypography: require('prop-types').bool.isRequired,
 
   /**
    * The position this adornment should appear relative to the `Input`.
@@ -90,41 +109,47 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   position: require('prop-types').oneOf(['start', 'end']).isRequired
 };
 
+var InputAdornment = function (_React$Component) {
+  (0, _inherits3.default)(InputAdornment, _React$Component);
 
-function InputAdornment(props) {
-  var _classNames;
+  function InputAdornment() {
+    (0, _classCallCheck3.default)(this, InputAdornment);
+    return (0, _possibleConstructorReturn3.default)(this, (InputAdornment.__proto__ || (0, _getPrototypeOf2.default)(InputAdornment)).apply(this, arguments));
+  }
 
-  var children = props.children,
-      Component = props.component,
-      classes = props.classes,
-      className = props.className,
-      disableTypography = props.disableTypography,
-      position = props.position,
-      other = (0, _objectWithoutProperties3.default)(props, ['children', 'component', 'classes', 'className', 'disableTypography', 'position']);
+  (0, _createClass3.default)(InputAdornment, [{
+    key: 'render',
+    value: function render() {
+      var _classNames;
+
+      var _props = this.props,
+          children = _props.children,
+          Component = _props.component,
+          classes = _props.classes,
+          className = _props.className,
+          disableTypography = _props.disableTypography,
+          position = _props.position,
+          other = (0, _objectWithoutProperties3.default)(_props, ['children', 'component', 'classes', 'className', 'disableTypography', 'position']);
 
 
-  return _react2.default.createElement(
-    Component,
-    (0, _extends3.default)({
-      className: (0, _classnames2.default)(classes.root, (_classNames = {}, (0, _defineProperty3.default)(_classNames, classes.positionStart, position === 'start'), (0, _defineProperty3.default)(_classNames, classes.positionEnd, position === 'end'), _classNames), className)
-    }, other),
-    typeof children === 'string' && !disableTypography ? _react2.default.createElement(
-      _Typography2.default,
-      { color: 'secondary' },
-      children
-    ) : children
-  );
-}
+      return _react2.default.createElement(
+        Component,
+        (0, _extends3.default)({
+          className: (0, _classnames2.default)(classes.root, (_classNames = {}, (0, _defineProperty3.default)(_classNames, classes.positionStart, position === 'start'), (0, _defineProperty3.default)(_classNames, classes.positionEnd, position === 'end'), _classNames), className)
+        }, other),
+        typeof children === 'string' && !disableTypography ? _react2.default.createElement(
+          _Typography2.default,
+          { color: 'secondary' },
+          children
+        ) : children
+      );
+    }
+  }]);
+  return InputAdornment;
+}(_react2.default.Component);
 
-InputAdornment.propTypes = process.env.NODE_ENV !== "production" ? (_ref = {
-  classes: require('prop-types').object.isRequired,
-  component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType.isRequired ? babelPluginFlowReactPropTypes_proptype_ElementType.isRequired : babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType).isRequired,
-  disableTypography: require('prop-types').bool.isRequired,
-  children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node)
-}, (0, _defineProperty3.default)(_ref, 'classes', require('prop-types').object), (0, _defineProperty3.default)(_ref, 'className', require('prop-types').string), (0, _defineProperty3.default)(_ref, 'component', typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType)), (0, _defineProperty3.default)(_ref, 'disableTypography', require('prop-types').bool), (0, _defineProperty3.default)(_ref, 'position', require('prop-types').oneOf(['start', 'end']).isRequired), _ref) : {};
 InputAdornment.defaultProps = {
   component: 'div',
   disableTypography: false
 };
-
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiInputAdornment' })(InputAdornment);

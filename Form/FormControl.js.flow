@@ -35,16 +35,18 @@ export const styles = (theme: Object) => ({
 export type Margin = 'none' | 'dense' | 'normal';
 
 type ProvidedProps = {
-  disabled: boolean,
   classes: Object,
-  component: ElementType,
-  error: boolean,
-  fullWidth: boolean,
-  margin: Margin,
-  required: boolean,
+  /**
+   * @ignore
+   */
+  theme?: Object,
 };
 
 export type Props = {
+  /**
+   * Other base element props.
+   */
+  [otherProp: string]: any,
   /**
    * The contents of the form control.
    */
@@ -61,20 +63,24 @@ export type Props = {
    * The component used for the root node.
    * Either a string to use a DOM element or a component.
    */
-  component?: ElementType,
+  component: ElementType,
   /**
    * If `true`, the label, input and helper text should be displayed in a disabled state.
    */
-  disabled?: boolean,
+  disabled: boolean,
   /**
    * If `true`, the label should be displayed in an error state.
    */
-  error?: boolean,
+  error: boolean,
   /**
    * If `true`, the component, as well as its children,
    * will take up the full width of its container.
    */
-  fullWidth?: boolean,
+  fullWidth: boolean,
+  /**
+   * If `dense` or `normal`, will adjust vertical spacing of this and contained components.
+   */
+  margin: Margin,
   /**
    * @ignore
    */
@@ -86,11 +92,7 @@ export type Props = {
   /**
    * If `true`, the label will indicate that the input is required.
    */
-  required?: boolean,
-  /**
-   * If `dense` or `normal`, will adjust vertical spacing of this and contained components.
-   */
-  margin?: Margin,
+  required: boolean,
 };
 
 type State = {
@@ -111,7 +113,7 @@ type State = {
  */
 class FormControl extends React.Component<ProvidedProps & Props, State> {
   static defaultProps = {
-    component: 'div',
+    component: ('div': ElementType),
     disabled: false,
     error: false,
     fullWidth: false,
@@ -178,7 +180,10 @@ class FormControl extends React.Component<ProvidedProps & Props, State> {
   };
 
   handleBlur = event => {
-    if (this.props.onBlur) {
+    // The event might be undefined.
+    // For instance, a child component might call this hook
+    // when an input is disabled but still having the focus.
+    if (this.props.onBlur && event) {
       this.props.onBlur(event);
     }
     if (this.state.focused) {
@@ -203,7 +208,7 @@ class FormControl extends React.Component<ProvidedProps & Props, State> {
       children,
       classes,
       className,
-      component: ComponentProp,
+      component: ComponentProp = 'div',
       disabled,
       error,
       fullWidth,

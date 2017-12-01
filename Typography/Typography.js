@@ -17,7 +17,25 @@ var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProp
 
 var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
-var _ref;
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _react = require('react');
 
@@ -100,7 +118,7 @@ var styles = exports.styles = function styles(theme) {
 var babelPluginFlowReactPropTypes_proptype_Type = require('prop-types').oneOf(['display4', 'display3', 'display2', 'display1', 'headline', 'title', 'subheading', 'body2', 'body1', 'caption', 'button']);
 
 var babelPluginFlowReactPropTypes_proptype_Props = {
-  align: require('prop-types').oneOf(['inherit', 'left', 'center', 'right', 'justify']),
+  align: require('prop-types').oneOf(['inherit', 'left', 'center', 'right', 'justify']).isRequired,
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node),
 
   /**
@@ -123,67 +141,73 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * The color of the component. It's using the theme palette when that makes sense.
    */
-  color: require('prop-types').oneOf(['inherit', 'primary', 'secondary', 'accent', 'error', 'default']),
+  color: require('prop-types').oneOf(['inherit', 'primary', 'secondary', 'accent', 'error', 'default']).isRequired,
 
   /**
    * If `true`, the text will have a bottom margin.
    */
-  gutterBottom: require('prop-types').bool,
+  gutterBottom: require('prop-types').bool.isRequired,
 
   /**
    * We are empirically mapping the type property to a range of different DOM element type.
    * For instance, h1 to h6. If you wish to change that mapping, you can provide your own.
    * Alternatively, you can use the `component` property.
    */
-  headlineMapping: require('prop-types').shape({}),
+  headlineMapping: require('prop-types').shape({}).isRequired,
 
   /**
    * If `true`, the text will not wrap, but instead will truncate with an ellipsis.
    */
-  noWrap: require('prop-types').bool,
+  noWrap: require('prop-types').bool.isRequired,
 
   /**
    * If `true`, the text will have a bottom margin.
    */
-  paragraph: require('prop-types').bool,
+  paragraph: require('prop-types').bool.isRequired,
 
   /**
    * Applies the theme typography styles.
    */
-  type: require('prop-types').oneOf(['display4', 'display3', 'display2', 'display1', 'headline', 'title', 'subheading', 'body2', 'body1', 'caption', 'button'])
+  type: require('prop-types').oneOf(['display4', 'display3', 'display2', 'display1', 'headline', 'title', 'subheading', 'body2', 'body1', 'caption', 'button']).isRequired
 };
 
+var Typography = function (_React$Component) {
+  (0, _inherits3.default)(Typography, _React$Component);
 
-function Typography(props) {
-  var _classNames;
+  function Typography() {
+    (0, _classCallCheck3.default)(this, Typography);
+    return (0, _possibleConstructorReturn3.default)(this, (Typography.__proto__ || (0, _getPrototypeOf2.default)(Typography)).apply(this, arguments));
+  }
 
-  var align = props.align,
-      classes = props.classes,
-      classNameProp = props.className,
-      componentProp = props.component,
-      color = props.color,
-      gutterBottom = props.gutterBottom,
-      headlineMapping = props.headlineMapping,
-      noWrap = props.noWrap,
-      paragraph = props.paragraph,
-      type = props.type,
-      other = (0, _objectWithoutProperties3.default)(props, ['align', 'classes', 'className', 'component', 'color', 'gutterBottom', 'headlineMapping', 'noWrap', 'paragraph', 'type']);
+  (0, _createClass3.default)(Typography, [{
+    key: 'render',
+    value: function render() {
+      var _classNames;
+
+      var _props = this.props,
+          align = _props.align,
+          classes = _props.classes,
+          classNameProp = _props.className,
+          componentProp = _props.component,
+          color = _props.color,
+          gutterBottom = _props.gutterBottom,
+          headlineMapping = _props.headlineMapping,
+          noWrap = _props.noWrap,
+          paragraph = _props.paragraph,
+          type = _props.type,
+          other = (0, _objectWithoutProperties3.default)(_props, ['align', 'classes', 'className', 'component', 'color', 'gutterBottom', 'headlineMapping', 'noWrap', 'paragraph', 'type']);
 
 
-  var className = (0, _classnames2.default)(classes.root, classes[type], (_classNames = {}, (0, _defineProperty3.default)(_classNames, classes['color' + (0, _helpers.capitalizeFirstLetter)(color)], color !== 'default'), (0, _defineProperty3.default)(_classNames, classes.noWrap, noWrap), (0, _defineProperty3.default)(_classNames, classes.gutterBottom, gutterBottom), (0, _defineProperty3.default)(_classNames, classes.paragraph, paragraph), (0, _defineProperty3.default)(_classNames, classes['align' + (0, _helpers.capitalizeFirstLetter)(align)], align !== 'inherit'), _classNames), classNameProp);
+      var className = (0, _classnames2.default)(classes.root, classes[type], (_classNames = {}, (0, _defineProperty3.default)(_classNames, classes['color' + (0, _helpers.capitalizeFirstLetter)(color)], color !== 'default'), (0, _defineProperty3.default)(_classNames, classes.noWrap, noWrap), (0, _defineProperty3.default)(_classNames, classes.gutterBottom, gutterBottom), (0, _defineProperty3.default)(_classNames, classes.paragraph, paragraph), (0, _defineProperty3.default)(_classNames, classes['align' + (0, _helpers.capitalizeFirstLetter)(align)], align !== 'inherit'), _classNames), classNameProp);
 
-  var Component = componentProp || (paragraph ? 'p' : headlineMapping[type]) || 'span';
+      var Component = componentProp || (paragraph ? 'p' : headlineMapping[type]) || 'span';
 
-  return _react2.default.createElement(Component, (0, _extends3.default)({ className: className }, other));
-}
+      return _react2.default.createElement(Component, (0, _extends3.default)({ className: className }, other));
+    }
+  }]);
+  return Typography;
+}(_react2.default.Component);
 
-Typography.propTypes = process.env.NODE_ENV !== "production" ? (_ref = {
-  classes: require('prop-types').object.isRequired,
-  headlineMapping: require('prop-types').shape({}).isRequired,
-  type: require('prop-types').oneOf(['display4', 'display3', 'display2', 'display1', 'headline', 'title', 'subheading', 'body2', 'body1', 'caption', 'button']).isRequired,
-  align: require('prop-types').oneOf(['inherit', 'left', 'center', 'right', 'justify']),
-  children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node)
-}, (0, _defineProperty3.default)(_ref, 'classes', require('prop-types').object), (0, _defineProperty3.default)(_ref, 'className', require('prop-types').string), (0, _defineProperty3.default)(_ref, 'component', typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType)), (0, _defineProperty3.default)(_ref, 'color', require('prop-types').oneOf(['inherit', 'primary', 'secondary', 'accent', 'error', 'default'])), (0, _defineProperty3.default)(_ref, 'gutterBottom', require('prop-types').bool), (0, _defineProperty3.default)(_ref, 'headlineMapping', require('prop-types').shape({})), (0, _defineProperty3.default)(_ref, 'noWrap', require('prop-types').bool), (0, _defineProperty3.default)(_ref, 'paragraph', require('prop-types').bool), (0, _defineProperty3.default)(_ref, 'type', require('prop-types').oneOf(['display4', 'display3', 'display2', 'display1', 'headline', 'title', 'subheading', 'body2', 'body1', 'caption', 'button'])), _ref) : {};
 Typography.defaultProps = {
   align: 'inherit',
   color: 'default',
@@ -203,5 +227,4 @@ Typography.defaultProps = {
   paragraph: false,
   type: 'body1'
 };
-
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiTypography' })(Typography);

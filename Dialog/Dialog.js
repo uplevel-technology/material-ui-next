@@ -17,7 +17,25 @@ var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProp
 
 var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
-var _ref;
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _react = require('react');
 
@@ -33,7 +51,7 @@ var _withStyles2 = _interopRequireDefault(_withStyles);
 
 var _helpers = require('../utils/helpers');
 
-var _Modal = require('../internal/Modal');
+var _Modal = require('../Modal');
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
@@ -50,6 +68,7 @@ var _Paper2 = _interopRequireDefault(_Paper);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFlowReactPropTypes_proptype_Node || require('prop-types').any;
+// @inheritedComponent Modal
 
 var babelPluginFlowReactPropTypes_proptype_ComponentType = require('prop-types').func;
 
@@ -76,7 +95,7 @@ var styles = exports.styles = function styles(theme) {
       }
     },
     paperWidthXs: {
-      maxWidth: theme.breakpoints.values.xs
+      maxWidth: Math.max(theme.breakpoints.values.xs, 360)
     },
     paperWidthSm: {
       maxWidth: theme.breakpoints.values.sm
@@ -117,23 +136,23 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * If `true`, it will be full-screen
    */
-  fullScreen: require('prop-types').bool,
+  fullScreen: require('prop-types').bool.isRequired,
 
   /**
    * If `true`, clicking the backdrop will not fire the `onRequestClose` callback.
    */
-  ignoreBackdropClick: require('prop-types').bool,
+  ignoreBackdropClick: require('prop-types').bool.isRequired,
 
   /**
    * If `true`, hitting escape will not fire the `onRequestClose` callback.
    */
-  ignoreEscapeKeyUp: require('prop-types').bool,
+  ignoreEscapeKeyUp: require('prop-types').bool.isRequired,
 
   /**
    * The duration for the transition, in milliseconds.
    * You may specify a single timeout for all transitions, or individually with an object.
    */
-  transitionDuration: typeof babelPluginFlowReactPropTypes_proptype_TransitionDuration === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionDuration : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionDuration),
+  transitionDuration: typeof babelPluginFlowReactPropTypes_proptype_TransitionDuration === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionDuration.isRequired ? babelPluginFlowReactPropTypes_proptype_TransitionDuration.isRequired : babelPluginFlowReactPropTypes_proptype_TransitionDuration : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionDuration).isRequired,
 
   /**
    * Determine the max width of the dialog.
@@ -141,12 +160,12 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
    * on the desktop where you might need some coherent different width size across your
    * application.
    */
-  maxWidth: require('prop-types').oneOf(['xs', 'sm', 'md']),
+  maxWidth: require('prop-types').oneOf(['xs', 'sm', 'md']).isRequired,
 
   /**
    * If specified, stretches dialog to max width.
    */
-  fullWidth: require('prop-types').bool,
+  fullWidth: require('prop-types').bool.isRequired,
 
   /**
    * Callback fired when the backdrop is clicked.
@@ -198,86 +217,94 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * If `true`, the Dialog is open.
    */
-  open: require('prop-types').bool,
+  open: require('prop-types').bool.isRequired,
 
   /**
    * Transition component.
    */
-  transition: typeof babelPluginFlowReactPropTypes_proptype_ComponentType === 'function' ? babelPluginFlowReactPropTypes_proptype_ComponentType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ComponentType)
+  transition: typeof babelPluginFlowReactPropTypes_proptype_ComponentType === 'function' ? babelPluginFlowReactPropTypes_proptype_ComponentType.isRequired ? babelPluginFlowReactPropTypes_proptype_ComponentType.isRequired : babelPluginFlowReactPropTypes_proptype_ComponentType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ComponentType).isRequired
 };
-
 
 /**
  * Dialogs are overlaid modal paper based components with a backdrop.
  */
-function Dialog(props) {
-  var _classNames;
+var Dialog = function (_React$Component) {
+  (0, _inherits3.default)(Dialog, _React$Component);
 
-  var children = props.children,
-      classes = props.classes,
-      className = props.className,
-      fullScreen = props.fullScreen,
-      ignoreBackdropClick = props.ignoreBackdropClick,
-      ignoreEscapeKeyUp = props.ignoreEscapeKeyUp,
-      transitionDuration = props.transitionDuration,
-      maxWidth = props.maxWidth,
-      fullWidth = props.fullWidth,
-      open = props.open,
-      onBackdropClick = props.onBackdropClick,
-      onEscapeKeyUp = props.onEscapeKeyUp,
-      onEnter = props.onEnter,
-      onEntering = props.onEntering,
-      onEntered = props.onEntered,
-      onExit = props.onExit,
-      onExiting = props.onExiting,
-      onExited = props.onExited,
-      onRequestClose = props.onRequestClose,
-      TransitionProp = props.transition,
-      other = (0, _objectWithoutProperties3.default)(props, ['children', 'classes', 'className', 'fullScreen', 'ignoreBackdropClick', 'ignoreEscapeKeyUp', 'transitionDuration', 'maxWidth', 'fullWidth', 'open', 'onBackdropClick', 'onEscapeKeyUp', 'onEnter', 'onEntering', 'onEntered', 'onExit', 'onExiting', 'onExited', 'onRequestClose', 'transition']);
+  function Dialog() {
+    (0, _classCallCheck3.default)(this, Dialog);
+    return (0, _possibleConstructorReturn3.default)(this, (Dialog.__proto__ || (0, _getPrototypeOf2.default)(Dialog)).apply(this, arguments));
+  }
+
+  (0, _createClass3.default)(Dialog, [{
+    key: 'render',
+    value: function render() {
+      var _classNames;
+
+      var _props = this.props,
+          children = _props.children,
+          classes = _props.classes,
+          className = _props.className,
+          fullScreen = _props.fullScreen,
+          ignoreBackdropClick = _props.ignoreBackdropClick,
+          ignoreEscapeKeyUp = _props.ignoreEscapeKeyUp,
+          transitionDuration = _props.transitionDuration,
+          maxWidth = _props.maxWidth,
+          fullWidth = _props.fullWidth,
+          open = _props.open,
+          onBackdropClick = _props.onBackdropClick,
+          onEscapeKeyUp = _props.onEscapeKeyUp,
+          onEnter = _props.onEnter,
+          onEntering = _props.onEntering,
+          onEntered = _props.onEntered,
+          onExit = _props.onExit,
+          onExiting = _props.onExiting,
+          onExited = _props.onExited,
+          onRequestClose = _props.onRequestClose,
+          TransitionProp = _props.transition,
+          other = (0, _objectWithoutProperties3.default)(_props, ['children', 'classes', 'className', 'fullScreen', 'ignoreBackdropClick', 'ignoreEscapeKeyUp', 'transitionDuration', 'maxWidth', 'fullWidth', 'open', 'onBackdropClick', 'onEscapeKeyUp', 'onEnter', 'onEntering', 'onEntered', 'onExit', 'onExiting', 'onExited', 'onRequestClose', 'transition']);
 
 
-  return _react2.default.createElement(
-    _Modal2.default,
-    (0, _extends3.default)({
-      className: (0, _classnames2.default)(classes.root, className),
-      BackdropTransitionDuration: transitionDuration,
-      ignoreBackdropClick: ignoreBackdropClick,
-      ignoreEscapeKeyUp: ignoreEscapeKeyUp,
-      onBackdropClick: onBackdropClick,
-      onEscapeKeyUp: onEscapeKeyUp,
-      onRequestClose: onRequestClose,
-      show: open
-    }, other),
-    _react2.default.createElement(
-      TransitionProp,
-      {
-        appear: true,
-        'in': open,
-        timeout: transitionDuration,
-        onEnter: onEnter,
-        onEntering: onEntering,
-        onEntered: onEntered,
-        onExit: onExit,
-        onExiting: onExiting,
-        onExited: onExited
-      },
-      _react2.default.createElement(
-        _Paper2.default,
-        {
-          elevation: 24,
-          className: (0, _classnames2.default)(classes.paper, classes['paperWidth' + (0, _helpers.capitalizeFirstLetter)(maxWidth)], (_classNames = {}, (0, _defineProperty3.default)(_classNames, classes.fullScreen, fullScreen), (0, _defineProperty3.default)(_classNames, classes.fullWidth, fullWidth), _classNames))
-        },
-        children
-      )
-    )
-  );
-}
+      return _react2.default.createElement(
+        _Modal2.default,
+        (0, _extends3.default)({
+          className: (0, _classnames2.default)(classes.root, className),
+          BackdropTransitionDuration: transitionDuration,
+          ignoreBackdropClick: ignoreBackdropClick,
+          ignoreEscapeKeyUp: ignoreEscapeKeyUp,
+          onBackdropClick: onBackdropClick,
+          onEscapeKeyUp: onEscapeKeyUp,
+          onRequestClose: onRequestClose,
+          show: open
+        }, other),
+        _react2.default.createElement(
+          TransitionProp,
+          {
+            appear: true,
+            'in': open,
+            timeout: transitionDuration,
+            onEnter: onEnter,
+            onEntering: onEntering,
+            onEntered: onEntered,
+            onExit: onExit,
+            onExiting: onExiting,
+            onExited: onExited
+          },
+          _react2.default.createElement(
+            _Paper2.default,
+            {
+              elevation: 24,
+              className: (0, _classnames2.default)(classes.paper, classes['paperWidth' + (0, _helpers.capitalizeFirstLetter)(maxWidth)], (_classNames = {}, (0, _defineProperty3.default)(_classNames, classes.fullScreen, fullScreen), (0, _defineProperty3.default)(_classNames, classes.fullWidth, fullWidth), _classNames))
+            },
+            children
+          )
+        )
+      );
+    }
+  }]);
+  return Dialog;
+}(_react2.default.Component);
 
-Dialog.propTypes = process.env.NODE_ENV !== "production" ? (_ref = {
-  classes: require('prop-types').object.isRequired,
-  transition: typeof babelPluginFlowReactPropTypes_proptype_ComponentType === 'function' ? babelPluginFlowReactPropTypes_proptype_ComponentType.isRequired ? babelPluginFlowReactPropTypes_proptype_ComponentType.isRequired : babelPluginFlowReactPropTypes_proptype_ComponentType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ComponentType).isRequired,
-  children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node)
-}, (0, _defineProperty3.default)(_ref, 'classes', require('prop-types').object), (0, _defineProperty3.default)(_ref, 'className', require('prop-types').string), (0, _defineProperty3.default)(_ref, 'fullScreen', require('prop-types').bool), (0, _defineProperty3.default)(_ref, 'ignoreBackdropClick', require('prop-types').bool), (0, _defineProperty3.default)(_ref, 'ignoreEscapeKeyUp', require('prop-types').bool), (0, _defineProperty3.default)(_ref, 'transitionDuration', typeof babelPluginFlowReactPropTypes_proptype_TransitionDuration === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionDuration : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionDuration)), (0, _defineProperty3.default)(_ref, 'maxWidth', require('prop-types').oneOf(['xs', 'sm', 'md'])), (0, _defineProperty3.default)(_ref, 'fullWidth', require('prop-types').bool), (0, _defineProperty3.default)(_ref, 'onBackdropClick', require('prop-types').func), (0, _defineProperty3.default)(_ref, 'onEnter', typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback)), (0, _defineProperty3.default)(_ref, 'onEntering', typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback)), (0, _defineProperty3.default)(_ref, 'onEntered', typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback)), (0, _defineProperty3.default)(_ref, 'onEscapeKeyUp', require('prop-types').func), (0, _defineProperty3.default)(_ref, 'onExit', typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback)), (0, _defineProperty3.default)(_ref, 'onExiting', typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback)), (0, _defineProperty3.default)(_ref, 'onExited', typeof babelPluginFlowReactPropTypes_proptype_TransitionCallback === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionCallback : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionCallback)), (0, _defineProperty3.default)(_ref, 'onRequestClose', require('prop-types').func), (0, _defineProperty3.default)(_ref, 'open', require('prop-types').bool), (0, _defineProperty3.default)(_ref, 'transition', typeof babelPluginFlowReactPropTypes_proptype_ComponentType === 'function' ? babelPluginFlowReactPropTypes_proptype_ComponentType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ComponentType)), _ref) : {};
 Dialog.defaultProps = {
   fullScreen: false,
   ignoreBackdropClick: false,
@@ -291,5 +318,4 @@ Dialog.defaultProps = {
   open: false,
   transition: _Fade2.default
 };
-
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiDialog' })(Dialog);

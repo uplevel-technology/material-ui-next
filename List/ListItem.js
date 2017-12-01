@@ -126,7 +126,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * If `true`, the ListItem will be a button.
    */
-  button: require('prop-types').bool,
+  button: require('prop-types').bool.isRequired,
 
   /**
    * The content of the component.
@@ -147,27 +147,27 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
    * The component used for the root node.
    * Either a string to use a DOM element or a component.
    */
-  component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType),
+  component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType.isRequired ? babelPluginFlowReactPropTypes_proptype_ElementType.isRequired : babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType).isRequired,
 
   /**
    * If `true`, compact vertical padding designed for keyboard and mouse input will be used.
    */
-  dense: require('prop-types').bool,
+  dense: require('prop-types').bool.isRequired,
 
   /**
    * @ignore
    */
-  disabled: require('prop-types').bool,
+  disabled: require('prop-types').bool.isRequired,
 
   /**
    * If `true`, the left and right padding is removed.
    */
-  disableGutters: require('prop-types').bool,
+  disableGutters: require('prop-types').bool.isRequired,
 
   /**
    * If `true`, a 1px light border is added to the bottom of the list item.
    */
-  divider: require('prop-types').bool
+  divider: require('prop-types').bool.isRequired
 };
 
 var ListItem = function (_React$Component) {

@@ -5,10 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.styles = undefined;
 
-var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
 var _extends2 = require('babel-runtime/helpers/extends');
 
 var _extends3 = _interopRequireDefault(_extends2);
@@ -17,7 +13,25 @@ var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProp
 
 var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
-var _ref;
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _react = require('react');
 
@@ -80,44 +94,51 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
    * this means that the coordinates inside the svg will go from the top left corner (0,0)
    * to bottom right (50,20) and each unit will be worth 10px.
    */
-  viewBox: require('prop-types').string
+  viewBox: require('prop-types').string.isRequired
 };
 
+var SvgIcon = function (_React$Component) {
+  (0, _inherits3.default)(SvgIcon, _React$Component);
 
-function SvgIcon(props) {
-  var children = props.children,
-      classes = props.classes,
-      className = props.className,
-      titleAccess = props.titleAccess,
-      viewBox = props.viewBox,
-      other = (0, _objectWithoutProperties3.default)(props, ['children', 'classes', 'className', 'titleAccess', 'viewBox']);
+  function SvgIcon() {
+    (0, _classCallCheck3.default)(this, SvgIcon);
+    return (0, _possibleConstructorReturn3.default)(this, (SvgIcon.__proto__ || (0, _getPrototypeOf2.default)(SvgIcon)).apply(this, arguments));
+  }
+
+  (0, _createClass3.default)(SvgIcon, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          children = _props.children,
+          classes = _props.classes,
+          className = _props.className,
+          titleAccess = _props.titleAccess,
+          viewBox = _props.viewBox,
+          other = (0, _objectWithoutProperties3.default)(_props, ['children', 'classes', 'className', 'titleAccess', 'viewBox']);
 
 
-  return _react2.default.createElement(
-    'svg',
-    (0, _extends3.default)({
-      className: (0, _classnames2.default)(classes.root, className),
-      focusable: 'false',
-      viewBox: viewBox,
-      'aria-hidden': titleAccess ? 'false' : 'true'
-    }, other),
-    titleAccess ? _react2.default.createElement(
-      'title',
-      null,
-      titleAccess
-    ) : null,
-    children
-  );
-}
+      return _react2.default.createElement(
+        'svg',
+        (0, _extends3.default)({
+          className: (0, _classnames2.default)(classes.root, className),
+          focusable: 'false',
+          viewBox: viewBox,
+          'aria-hidden': titleAccess ? 'false' : 'true'
+        }, other),
+        titleAccess ? _react2.default.createElement(
+          'title',
+          null,
+          titleAccess
+        ) : null,
+        children
+      );
+    }
+  }]);
+  return SvgIcon;
+}(_react2.default.Component);
 
-SvgIcon.propTypes = process.env.NODE_ENV !== "production" ? (_ref = {
-  classes: require('prop-types').object.isRequired,
-  children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node.isRequired ? babelPluginFlowReactPropTypes_proptype_Node.isRequired : babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node).isRequired
-}, (0, _defineProperty3.default)(_ref, 'classes', require('prop-types').object), (0, _defineProperty3.default)(_ref, 'className', require('prop-types').string), (0, _defineProperty3.default)(_ref, 'titleAccess', require('prop-types').string), (0, _defineProperty3.default)(_ref, 'viewBox', require('prop-types').string), _ref) : {};
 SvgIcon.defaultProps = {
   viewBox: '0 0 24 24'
 };
-
 SvgIcon.muiName = 'SvgIcon';
-
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiSvgIcon' })(SvgIcon);

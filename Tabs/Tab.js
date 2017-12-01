@@ -157,7 +157,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * If `true`, the tab will be disabled.
    */
-  disabled: require('prop-types').bool,
+  disabled: require('prop-types').bool.isRequired,
 
   /**
    * @ignore
@@ -209,11 +209,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * You can provide your own value. Otherwise, we fallback to the child position index.
    */
-  value: function value(props, propName, componentName) {
-    if (!Object.prototype.hasOwnProperty.call(props, propName)) {
-      throw new Error('Prop `' + propName + '` has type \'any\', but was not provided to `' + componentName + '`. Pass undefined or any other value.');
-    }
-  }
+  value: require('prop-types').any
 };
 
 var Tab = function (_React$Component) {

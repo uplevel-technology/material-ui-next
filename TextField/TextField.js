@@ -300,7 +300,7 @@ function TextField(props) {
     ),
     select ? _react2.default.createElement(
       _Select2.default,
-      (0, _extends3.default)({ input: InputComponent }, SelectProps),
+      (0, _extends3.default)({ value: value, input: InputComponent }, SelectProps),
       children
     ) : InputComponent,
     helperText && _react2.default.createElement(

@@ -5,7 +5,7 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 import React from 'react';
 
 import withStyles from '../styles/withStyles';
-import createSwitch from '../internal/SwitchBase';
+import SwitchBase from '../internal/SwitchBase';
 import IndeterminateCheckBoxIcon from '../svg-icons/IndeterminateCheckBox';
 
 export const styles = theme => ({
@@ -20,21 +20,22 @@ export const styles = theme => ({
   }
 });
 
-const SwitchBase = createSwitch();
+class Checkbox extends React.Component {
 
-function Checkbox(props) {
-  const { checkedIcon, icon, indeterminate, indeterminateIcon } = props,
-        other = _objectWithoutProperties(props, ['checkedIcon', 'icon', 'indeterminate', 'indeterminateIcon']);
+  render() {
+    const _props = this.props,
+          { checkedIcon, icon, indeterminate, indeterminateIcon } = _props,
+          other = _objectWithoutProperties(_props, ['checkedIcon', 'icon', 'indeterminate', 'indeterminateIcon']);
 
-  return React.createElement(SwitchBase, _extends({
-    checkedIcon: indeterminate ? indeterminateIcon : checkedIcon,
-    icon: indeterminate ? indeterminateIcon : icon
-  }, other));
+    return React.createElement(SwitchBase, _extends({
+      checkedIcon: indeterminate ? indeterminateIcon : checkedIcon,
+      icon: indeterminate ? indeterminateIcon : icon
+    }, other));
+  }
 }
 
 Checkbox.defaultProps = {
   indeterminate: false,
   indeterminateIcon: React.createElement(IndeterminateCheckBoxIcon, null)
 };
-
 export default withStyles(styles, { name: 'MuiCheckbox' })(Checkbox);

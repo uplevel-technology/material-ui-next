@@ -118,13 +118,10 @@ function flipPlacement(placement: Placement): Placement {
 
 type ProvidedProps = {
   classes: Object,
-  disableTriggerFocus: boolean,
-  disableTriggerHover: boolean,
-  disableTriggerTouch: boolean,
-  enterDelay: number,
-  leaveDelay: number,
-  placement: Placement,
-  theme: Object,
+  /**
+   * @ignore
+   */
+  theme?: Object,
 };
 
 export type Props = {
@@ -143,18 +140,18 @@ export type Props = {
   /**
    * Do not respond to focus events.
    */
-  disableTriggerFocus?: boolean,
+  disableTriggerFocus: boolean,
   /**
    * Do not respond to hover events.
    */
-  disableTriggerHover?: boolean,
+  disableTriggerHover: boolean,
   /**
    * Do not respond to long press touch events.
    */
-  disableTriggerTouch?: boolean,
+  disableTriggerTouch: boolean,
   /**
-   * The relationship between the tooltip and the wrapper componnet is not clear from the DOM.
-   * By providind this property, we can use aria-describedby to solve the accessibility issue.
+   * The relationship between the tooltip and the wrapper component is not clear from the DOM.
+   * By providing this property, we can use aria-describedby to solve the accessibility issue.
    */
   id?: string,
   /**
@@ -180,23 +177,19 @@ export type Props = {
   /**
    * The number of milliseconds to wait before showing the tooltip.
    */
-  enterDelay?: number,
+  enterDelay: number,
   /**
    * The number of milliseconds to wait before hidding the tooltip.
    */
-  leaveDelay?: number,
+  leaveDelay: number,
   /**
    * Tooltip placement
    */
-  placement?: Placement,
+  placement: Placement,
   /**
    * Properties applied to the `Popper` element.
    */
   PopperProps?: Object,
-  /**
-   * @ignore
-   */
-  theme?: Object,
 };
 
 type State = {
@@ -395,7 +388,8 @@ class Tooltip extends React.Component<ProvidedProps & Props, State> {
       ...other
     } = this.props;
 
-    const placement = theme.direction === 'rtl' ? flipPlacement(rawPlacement) : rawPlacement;
+    const themeDirection = theme && theme.direction;
+    const placement = themeDirection === 'rtl' ? flipPlacement(rawPlacement) : rawPlacement;
     const open = this.isControlled ? openProp : this.state.open;
     const childrenProps = {};
 
@@ -457,18 +451,30 @@ class Tooltip extends React.Component<ProvidedProps & Props, State> {
               this.popper = node;
             }}
           >
-            <div
-              id={id}
-              role="tooltip"
-              aria-hidden={!open}
-              className={classNames(
-                classes.tooltip,
-                { [classes.tooltipOpen]: open },
-                classes[`tooltip${capitalizeFirstLetter(placement.split('-')[0])}`],
-              )}
-            >
-              {title}
-            </div>
+            {({ popperProps, restProps }) => (
+              <div
+                {...popperProps}
+                {...restProps}
+                style={{
+                  ...popperProps.style,
+                  left: popperProps.style.left || 0,
+                  ...restProps.style,
+                }}
+              >
+                <div
+                  id={id}
+                  role="tooltip"
+                  aria-hidden={!open}
+                  className={classNames(
+                    classes.tooltip,
+                    { [classes.tooltipOpen]: open },
+                    classes[`tooltip${capitalizeFirstLetter(placement.split('-')[0])}`],
+                  )}
+                >
+                  {title}
+                </div>
+              </div>
+            )}
           </Popper>
         </Manager>
       </EventListener>

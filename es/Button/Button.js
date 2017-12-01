@@ -151,50 +151,54 @@ export const styles = theme => ({
   }
 });
 
-function Button(props) {
-  const {
-    children,
-    classes,
-    className: classNameProp,
-    color,
-    dense,
-    disabled,
-    disableFocusRipple,
-    fab,
-    raised
-  } = props,
-        other = _objectWithoutProperties(props, ['children', 'classes', 'className', 'color', 'dense', 'disabled', 'disableFocusRipple', 'fab', 'raised']);
+class Button extends React.Component {
 
-  const flat = !raised && !fab;
-  const className = classNames({
-    [classes.root]: true,
-    [classes.raised]: raised || fab,
-    [classes.fab]: fab,
-    [classes.colorInherit]: color === 'inherit',
-    [classes.flatPrimary]: flat && color === 'primary',
-    [classes.flatAccent]: flat && color === 'accent',
-    [classes.flatContrast]: flat && color === 'contrast',
-    [classes.raisedPrimary]: !flat && color === 'primary',
-    [classes.raisedAccent]: !flat && color === 'accent',
-    [classes.raisedContrast]: !flat && color === 'contrast',
-    [classes.dense]: dense,
-    [classes.disabled]: disabled
-  }, classNameProp);
+  render() {
+    const _props = this.props,
+          {
+      children,
+      classes,
+      className: classNameProp,
+      color,
+      dense,
+      disabled,
+      disableFocusRipple,
+      fab,
+      raised
+    } = _props,
+          other = _objectWithoutProperties(_props, ['children', 'classes', 'className', 'color', 'dense', 'disabled', 'disableFocusRipple', 'fab', 'raised']);
 
-  return React.createElement(
-    ButtonBase,
-    _extends({
-      className: className,
-      disabled: disabled,
-      focusRipple: !disableFocusRipple,
-      keyboardFocusedClassName: classes.keyboardFocused
-    }, other),
-    React.createElement(
-      'span',
-      { className: classes.label },
-      children
-    )
-  );
+    const flat = !raised && !fab;
+    const className = classNames({
+      [classes.root]: true,
+      [classes.raised]: raised || fab,
+      [classes.fab]: fab,
+      [classes.colorInherit]: color === 'inherit',
+      [classes.flatPrimary]: flat && color === 'primary',
+      [classes.flatAccent]: flat && color === 'accent',
+      [classes.flatContrast]: flat && color === 'contrast',
+      [classes.raisedPrimary]: !flat && color === 'primary',
+      [classes.raisedAccent]: !flat && color === 'accent',
+      [classes.raisedContrast]: !flat && color === 'contrast',
+      [classes.dense]: dense,
+      [classes.disabled]: disabled
+    }, classNameProp);
+
+    return React.createElement(
+      ButtonBase,
+      _extends({
+        className: className,
+        disabled: disabled,
+        focusRipple: !disableFocusRipple,
+        keyboardFocusedClassName: classes.keyboardFocused
+      }, other),
+      React.createElement(
+        'span',
+        { className: classes.label },
+        children
+      )
+    );
+  }
 }
 
 Button.defaultProps = {
@@ -207,5 +211,4 @@ Button.defaultProps = {
   disableRipple: false,
   type: 'button'
 };
-
 export default withStyles(styles, { name: 'MuiButton' })(Button);

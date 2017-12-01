@@ -85,12 +85,16 @@ function DialogActions(props) {
   return _react2.default.createElement(
     'div',
     (0, _extends3.default)({ className: (0, _classnames2.default)(classes.root, className) }, other),
-    _react2.default.Children.map(children, function (button) {
-      return _react2.default.isValidElement(button) && _react2.default.createElement(
+    _react2.default.Children.map(children, function (child) {
+      if (!_react2.default.isValidElement(child)) {
+        return null;
+      }
+
+      return _react2.default.createElement(
         'div',
         { className: classes.action },
-        _react2.default.cloneElement(button, {
-          className: (0, _classnames2.default)(classes.button, button.props.className)
+        _react2.default.cloneElement(child, {
+          className: (0, _classnames2.default)(classes.button, child.props.className)
         })
       );
     })
@@ -99,6 +103,11 @@ function DialogActions(props) {
 
 DialogActions.propTypes = process.env.NODE_ENV !== "production" ? (_ref = {
   classes: require('prop-types').object.isRequired,
+
+  /**
+   * @ignore
+   */
+  theme: require('prop-types').object,
   children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node)
 }, (0, _defineProperty3.default)(_ref, 'classes', require('prop-types').object), (0, _defineProperty3.default)(_ref, 'className', require('prop-types').string), _ref) : {};
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiDialogActions' })(DialogActions);

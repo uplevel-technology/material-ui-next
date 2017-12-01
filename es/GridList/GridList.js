@@ -20,38 +20,42 @@ export const styles = {
   }
 };
 
-function GridList(props) {
-  const {
-    cols,
-    spacing,
-    cellHeight,
-    children,
-    classes,
-    className: classNameProp,
-    component: ComponentProp,
-    style
-  } = props,
-        other = _objectWithoutProperties(props, ['cols', 'spacing', 'cellHeight', 'children', 'classes', 'className', 'component', 'style']);
+class GridList extends React.Component {
 
-  return React.createElement(
-    ComponentProp,
-    _extends({
-      className: classNames(classes.root, classNameProp),
-      style: _extends({ margin: -spacing / 2 }, style)
-    }, other),
-    React.Children.map(children, currentChild => {
-      const childCols = currentChild.props.cols || 1;
-      const childRows = currentChild.props.rows || 1;
+  render() {
+    const _props = this.props,
+          {
+      cols,
+      spacing,
+      cellHeight,
+      children,
+      classes,
+      className: classNameProp,
+      component: ComponentProp,
+      style
+    } = _props,
+          other = _objectWithoutProperties(_props, ['cols', 'spacing', 'cellHeight', 'children', 'classes', 'className', 'component', 'style']);
 
-      return React.cloneElement(currentChild, {
-        style: _extends({
-          width: `${100 / cols * childCols}%`,
-          height: cellHeight === 'auto' ? 'auto' : cellHeight * childRows + spacing,
-          padding: spacing / 2
-        }, currentChild.props.style)
-      });
-    })
-  );
+    return React.createElement(
+      ComponentProp,
+      _extends({
+        className: classNames(classes.root, classNameProp),
+        style: _extends({ margin: -spacing / 2 }, style)
+      }, other),
+      React.Children.map(children, currentChild => {
+        const childCols = currentChild.props.cols || 1;
+        const childRows = currentChild.props.rows || 1;
+
+        return React.cloneElement(currentChild, {
+          style: _extends({
+            width: `${100 / cols * childCols}%`,
+            height: cellHeight === 'auto' ? 'auto' : cellHeight * childRows + spacing,
+            padding: spacing / 2
+          }, currentChild.props.style)
+        });
+      })
+    );
+  }
 }
 
 GridList.defaultProps = {
@@ -60,5 +64,4 @@ GridList.defaultProps = {
   cellHeight: 180,
   component: 'ul'
 };
-
 export default withStyles(styles, { name: 'MuiGridList' })(GridList);

@@ -21,31 +21,33 @@ export const styles = theme => ({
   }
 });
 
-function SvgIcon(props) {
-  const { children, classes, className, titleAccess, viewBox } = props,
-        other = _objectWithoutProperties(props, ['children', 'classes', 'className', 'titleAccess', 'viewBox']);
+class SvgIcon extends React.Component {
 
-  return React.createElement(
-    'svg',
-    _extends({
-      className: classNames(classes.root, className),
-      focusable: 'false',
-      viewBox: viewBox,
-      'aria-hidden': titleAccess ? 'false' : 'true'
-    }, other),
-    titleAccess ? React.createElement(
-      'title',
-      null,
-      titleAccess
-    ) : null,
-    children
-  );
+  render() {
+    const _props = this.props,
+          { children, classes, className, titleAccess, viewBox } = _props,
+          other = _objectWithoutProperties(_props, ['children', 'classes', 'className', 'titleAccess', 'viewBox']);
+
+    return React.createElement(
+      'svg',
+      _extends({
+        className: classNames(classes.root, className),
+        focusable: 'false',
+        viewBox: viewBox,
+        'aria-hidden': titleAccess ? 'false' : 'true'
+      }, other),
+      titleAccess ? React.createElement(
+        'title',
+        null,
+        titleAccess
+      ) : null,
+      children
+    );
+  }
 }
 
 SvgIcon.defaultProps = {
   viewBox: '0 0 24 24'
 };
-
 SvgIcon.muiName = 'SvgIcon';
-
 export default withStyles(styles, { name: 'MuiSvgIcon' })(SvgIcon);

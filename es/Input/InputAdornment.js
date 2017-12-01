@@ -11,7 +11,8 @@ import withStyles from '../styles/withStyles';
 export const styles = theme => ({
   root: {
     'label + div > &': {
-      marginTop: -theme.spacing.unit * 2
+      marginTop: -theme.spacing.unit * 2,
+      height: 26
     }
   },
   positionStart: {
@@ -22,36 +23,39 @@ export const styles = theme => ({
   }
 });
 
-function InputAdornment(props) {
-  const {
-    children,
-    component: Component,
-    classes,
-    className,
-    disableTypography,
-    position
-  } = props,
-        other = _objectWithoutProperties(props, ['children', 'component', 'classes', 'className', 'disableTypography', 'position']);
+class InputAdornment extends React.Component {
 
-  return React.createElement(
-    Component,
-    _extends({
-      className: classNames(classes.root, {
-        [classes.positionStart]: position === 'start',
-        [classes.positionEnd]: position === 'end'
-      }, className)
-    }, other),
-    typeof children === 'string' && !disableTypography ? React.createElement(
-      Typography,
-      { color: 'secondary' },
-      children
-    ) : children
-  );
+  render() {
+    const _props = this.props,
+          {
+      children,
+      component: Component,
+      classes,
+      className,
+      disableTypography,
+      position
+    } = _props,
+          other = _objectWithoutProperties(_props, ['children', 'component', 'classes', 'className', 'disableTypography', 'position']);
+
+    return React.createElement(
+      Component,
+      _extends({
+        className: classNames(classes.root, {
+          [classes.positionStart]: position === 'start',
+          [classes.positionEnd]: position === 'end'
+        }, className)
+      }, other),
+      typeof children === 'string' && !disableTypography ? React.createElement(
+        Typography,
+        { color: 'secondary' },
+        children
+      ) : children
+    );
+  }
 }
 
 InputAdornment.defaultProps = {
   component: 'div',
   disableTypography: false
 };
-
 export default withStyles(styles, { name: 'MuiInputAdornment' })(InputAdornment);

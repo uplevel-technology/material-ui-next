@@ -47,28 +47,37 @@ export const styles = theme => ({
   }
 });
 
-function Badge(props) {
-  const { badgeContent, classes, className: classNameProp, color, children } = props,
-        other = _objectWithoutProperties(props, ['badgeContent', 'classes', 'className', 'color', 'children']);
-  const className = classNames(classes.root, classNameProp);
-  const badgeClassName = classNames(classes.badge, {
-    [classes[`color${capitalizeFirstLetter(color)}`]]: color !== 'default'
-  });
+class Badge extends React.Component {
 
-  return React.createElement(
-    'div',
-    _extends({ className: className }, other),
-    children,
-    React.createElement(
-      'span',
-      { className: badgeClassName },
-      badgeContent
-    )
-  );
+  render() {
+    const _props = this.props,
+          {
+      badgeContent,
+      classes,
+      className: classNameProp,
+      color,
+      children
+    } = _props,
+          other = _objectWithoutProperties(_props, ['badgeContent', 'classes', 'className', 'color', 'children']);
+    const className = classNames(classes.root, classNameProp);
+    const badgeClassName = classNames(classes.badge, {
+      [classes[`color${capitalizeFirstLetter(color)}`]]: color !== 'default'
+    });
+
+    return React.createElement(
+      'div',
+      _extends({ className: className }, other),
+      children,
+      React.createElement(
+        'span',
+        { className: badgeClassName },
+        badgeContent
+      )
+    );
+  }
 }
 
 Badge.defaultProps = {
   color: 'default'
 };
-
 export default withStyles(styles, { name: 'MuiBadge' })(Badge);

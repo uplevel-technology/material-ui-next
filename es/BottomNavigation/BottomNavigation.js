@@ -18,39 +18,42 @@ export const styles = theme => ({
   }
 });
 
-function BottomNavigation(props) {
-  const {
-    children: childrenProp,
-    classes,
-    className: classNameProp,
-    onChange,
-    showLabels,
-    value
-  } = props,
-        other = _objectWithoutProperties(props, ['children', 'classes', 'className', 'onChange', 'showLabels', 'value']);
+class BottomNavigation extends React.Component {
 
-  const className = classNames(classes.root, classNameProp);
+  render() {
+    const _props = this.props,
+          {
+      children: childrenProp,
+      classes,
+      className: classNameProp,
+      onChange,
+      showLabels,
+      value
+    } = _props,
+          other = _objectWithoutProperties(_props, ['children', 'classes', 'className', 'onChange', 'showLabels', 'value']);
 
-  const children = React.Children.map(childrenProp, (child, childIndex) => {
-    if (!React.isValidElement(child)) return null;
-    const childValue = child.props.value || childIndex;
-    return React.cloneElement(child, {
-      selected: childValue === value,
-      showLabel: child.props.showLabel !== undefined ? child.props.showLabel : showLabels,
-      value: childValue,
-      onChange
+    const className = classNames(classes.root, classNameProp);
+
+    const children = React.Children.map(childrenProp, (child, childIndex) => {
+      if (!React.isValidElement(child)) return null;
+      const childValue = child.props.value || childIndex;
+      return React.cloneElement(child, {
+        selected: childValue === value,
+        showLabel: child.props.showLabel !== undefined ? child.props.showLabel : showLabels,
+        value: childValue,
+        onChange
+      });
     });
-  });
 
-  return React.createElement(
-    'div',
-    _extends({ className: className }, other),
-    children
-  );
+    return React.createElement(
+      'div',
+      _extends({ className: className }, other),
+      children
+    );
+  }
 }
 
 BottomNavigation.defaultProps = {
   showLabels: false
 };
-
 export default withStyles(styles, { name: 'MuiBottomNavigation' })(BottomNavigation);

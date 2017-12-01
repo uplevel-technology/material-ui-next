@@ -22,6 +22,8 @@ var _withWidth2 = _interopRequireDefault(_withWidth);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFlowReactPropTypes_proptype_Node || require('prop-types').any;
+
 var babelPluginFlowReactPropTypes_proptype_HigherOrderComponent = require('react-flow-types').babelPluginFlowReactPropTypes_proptype_HigherOrderComponent || require('prop-types').any;
 
 var babelPluginFlowReactPropTypes_proptype_Breakpoint = require('../styles/createBreakpoints').babelPluginFlowReactPropTypes_proptype_Breakpoint || require('prop-types').any;
@@ -30,7 +32,7 @@ var babelPluginFlowReactPropTypes_proptype_InjectedProps = {
   /**
    * If isWidthDown(options.breakpoint), return true.
    */
-  fullScreen: require('prop-types').bool.isRequired
+  fullScreen: require('prop-types').bool
 };
 
 
@@ -50,7 +52,7 @@ var withMobileDialog = function withMobileDialog() {
     }
 
     WithMobileDialog.propTypes = process.env.NODE_ENV !== "production" ? {
-      width: require('prop-types').string.isRequired
+      width: typeof babelPluginFlowReactPropTypes_proptype_Breakpoint === 'function' ? babelPluginFlowReactPropTypes_proptype_Breakpoint.isRequired ? babelPluginFlowReactPropTypes_proptype_Breakpoint.isRequired : babelPluginFlowReactPropTypes_proptype_Breakpoint : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Breakpoint).isRequired
     } : {};
     if (process.env.NODE_ENV !== 'production') {
       WithMobileDialog.displayName = (0, _wrapDisplayName2.default)(Component, 'withMobileDialog');

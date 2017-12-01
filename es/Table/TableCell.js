@@ -8,10 +8,14 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import withStyles from '../styles/withStyles';
 import { capitalizeFirstLetter } from '../utils/helpers';
+import { darken, fade, lighten } from '../styles/colorManipulator';
 
 export const styles = theme => ({
   root: {
-    borderBottom: `1px solid ${theme.palette.text.lightDivider}`,
+    // Workaround for a rendering bug with spanned columns in Chrome 62.0.
+    // Removes the alpha (sets it to 1), and lightens or darkens the theme color.
+    borderBottom: `1px solid 
+    ${theme.palette.type === 'light' ? lighten(fade(theme.palette.text.lightDivider, 1), 0.925) : darken(fade(theme.palette.text.lightDivider, 1), 0.685)}`,
     textAlign: 'left'
   },
   numeric: {
@@ -39,47 +43,49 @@ export const styles = theme => ({
   }
 });
 
-function TableCell(props, context) {
-  const {
-    classes,
-    className: classNameProp,
-    children,
-    numeric,
-    padding,
-    component
-  } = props,
-        other = _objectWithoutProperties(props, ['classes', 'className', 'children', 'numeric', 'padding', 'component']);
+class TableCell extends React.Component {
 
-  const { table } = context;
-  let Component;
-  if (component) {
-    Component = component;
-  } else {
-    Component = table && table.head ? 'th' : 'td';
+  render() {
+    const _props = this.props,
+          {
+      classes,
+      className: classNameProp,
+      children,
+      numeric,
+      padding,
+      component
+    } = _props,
+          other = _objectWithoutProperties(_props, ['classes', 'className', 'children', 'numeric', 'padding', 'component']);
+
+    const { table } = this.context;
+    let Component;
+    if (component) {
+      Component = component;
+    } else {
+      Component = table && table.head ? 'th' : 'td';
+    }
+
+    const className = classNames(classes.root, {
+      [classes.numeric]: numeric,
+      [classes[`padding${capitalizeFirstLetter(padding)}`]]: padding !== 'none' && padding !== 'default',
+      [classes.paddingDefault]: padding !== 'none',
+      [classes.head]: table && table.head,
+      [classes.footer]: table && table.footer
+    }, classNameProp);
+
+    return React.createElement(
+      Component,
+      _extends({ className: className }, other),
+      children
+    );
   }
-
-  const className = classNames(classes.root, {
-    [classes.numeric]: numeric,
-    [classes[`padding${capitalizeFirstLetter(padding)}`]]: padding !== 'none' && padding !== 'default',
-    [classes.paddingDefault]: padding !== 'none',
-    [classes.head]: table && table.head,
-    [classes.footer]: table && table.footer
-  }, classNameProp);
-
-  return React.createElement(
-    Component,
-    _extends({ className: className }, other),
-    children
-  );
 }
 
 TableCell.defaultProps = {
   numeric: false,
   padding: 'default'
 };
-
 TableCell.contextTypes = {
   table: PropTypes.object.isRequired
 };
-
 export default withStyles(styles, { name: 'MuiTableCell' })(TableCell);

@@ -133,4 +133,5 @@ class BottomNavigationButton extends React.Component {
   }
 }
 
+BottomNavigationButton.defaultProps = {};
 export default withStyles(styles, { name: 'MuiBottomNavigationButton' })(BottomNavigationButton);

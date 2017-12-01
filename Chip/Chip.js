@@ -151,14 +151,14 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   avatar: typeof babelPluginFlowReactPropTypes_proptype_Element === 'function' ? babelPluginFlowReactPropTypes_proptype_Element : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Element),
 
   /**
-   * Useful to extend the style applied to components.
-   */
-  classes: require('prop-types').object,
-
-  /**
    * @ignore
    */
   className: require('prop-types').string,
+
+  /**
+   * Useful to extend the style applied to components.
+   */
+  classes: require('prop-types').object,
 
   /**
    * Custom delete icon. Will be shown only if `onRequestDelete` is set.
@@ -276,7 +276,6 @@ var Chip = function (_React$Component) {
 
       var avatar = null;
       if (avatarProp && _react2.default.isValidElement(avatarProp)) {
-        // $FlowFixMe - this looks strictly correct, not sure why it errors.
         avatar = _react2.default.cloneElement(avatarProp, {
           className: (0, _classnames2.default)(classes.avatar, avatarProp.props.className),
           childrenClassName: (0, _classnames2.default)(classes.avatarChildren, avatarProp.props.childrenClassName)
@@ -315,4 +314,5 @@ var Chip = function (_React$Component) {
   return Chip;
 }(_react2.default.Component);
 
+Chip.defaultProps = {};
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiChip' })(Chip);

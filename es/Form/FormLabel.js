@@ -30,69 +30,71 @@ export const styles = theme => {
   };
 };
 
-function FormLabel(props, context) {
-  const {
-    children,
-    classes,
-    className: classNameProp,
-    component: Component,
-    disabled: disabledProp,
-    error: errorProp,
-    focused: focusedProp,
-    required: requiredProp
-  } = props,
-        other = _objectWithoutProperties(props, ['children', 'classes', 'className', 'component', 'disabled', 'error', 'focused', 'required']);
+class FormLabel extends React.Component {
 
-  const { muiFormControl } = context;
+  render() {
+    const _props = this.props,
+          {
+      children,
+      classes,
+      className: classNameProp,
+      component: Component,
+      disabled: disabledProp,
+      error: errorProp,
+      focused: focusedProp,
+      required: requiredProp
+    } = _props,
+          other = _objectWithoutProperties(_props, ['children', 'classes', 'className', 'component', 'disabled', 'error', 'focused', 'required']);
 
-  let required = requiredProp;
-  let focused = focusedProp;
-  let disabled = disabledProp;
-  let error = errorProp;
+    const { muiFormControl } = this.context;
 
-  if (muiFormControl) {
-    if (typeof required === 'undefined') {
-      required = muiFormControl.required;
+    let required = requiredProp;
+    let focused = focusedProp;
+    let disabled = disabledProp;
+    let error = errorProp;
+
+    if (muiFormControl) {
+      if (typeof required === 'undefined') {
+        required = muiFormControl.required;
+      }
+      if (typeof focused === 'undefined') {
+        focused = muiFormControl.focused;
+      }
+      if (typeof disabled === 'undefined') {
+        disabled = muiFormControl.disabled;
+      }
+      if (typeof error === 'undefined') {
+        error = muiFormControl.error;
+      }
     }
-    if (typeof focused === 'undefined') {
-      focused = muiFormControl.focused;
-    }
-    if (typeof disabled === 'undefined') {
-      disabled = muiFormControl.disabled;
-    }
-    if (typeof error === 'undefined') {
-      error = muiFormControl.error;
-    }
+
+    const className = classNames(classes.root, {
+      [classes.focused]: focused,
+      [classes.disabled]: disabled,
+      [classes.error]: error
+    }, classNameProp);
+
+    const asteriskClassName = classNames({
+      [classes.error]: error
+    });
+
+    return React.createElement(
+      Component,
+      _extends({ className: className }, other),
+      children,
+      required && React.createElement(
+        'span',
+        { className: asteriskClassName, 'data-mui-test': 'FormLabelAsterisk' },
+        '\u2009*'
+      )
+    );
   }
-
-  const className = classNames(classes.root, {
-    [classes.focused]: focused,
-    [classes.disabled]: disabled,
-    [classes.error]: error
-  }, classNameProp);
-
-  const asteriskClassName = classNames({
-    [classes.error]: error
-  });
-
-  return React.createElement(
-    Component,
-    _extends({ className: className }, other),
-    children,
-    required && React.createElement(
-      'span',
-      { className: asteriskClassName, 'data-mui-test': 'FormLabelAsterisk' },
-      '\u2009*'
-    )
-  );
 }
-
-FormLabel.defaultProps = {
-  component: 'label'
-};
 
 FormLabel.contextTypes = {
   muiFormControl: PropTypes.object
 };
-
+FormLabel.defaultProps = {
+  component: 'label'
+};
 export default withStyles(styles, { name: 'MuiFormLabel' })(FormLabel);

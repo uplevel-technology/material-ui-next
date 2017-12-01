@@ -84,7 +84,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
    * The component used for the root node.
    * Either a string to use a DOM element or a component.
    */
-  component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType)
+  component: typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType.isRequired ? babelPluginFlowReactPropTypes_proptype_ElementType.isRequired : babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType).isRequired
 };
 
 var TableBody = function (_React$Component) {
@@ -112,7 +112,8 @@ var TableBody = function (_React$Component) {
           classes = _props.classes,
           classNameProp = _props.className,
           children = _props.children,
-          ComponentProp = _props.component,
+          _props$component = _props.component,
+          ComponentProp = _props$component === undefined ? 'tbody' : _props$component,
           other = (0, _objectWithoutProperties3.default)(_props, ['classes', 'className', 'children', 'component']);
 
       var className = (0, _classnames2.default)(classes.root, classNameProp);

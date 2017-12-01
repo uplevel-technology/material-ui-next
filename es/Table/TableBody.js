@@ -32,7 +32,7 @@ class TableBody extends React.Component {
       classes,
       className: classNameProp,
       children,
-      component: ComponentProp
+      component: ComponentProp = 'tbody'
     } = _props,
           other = _objectWithoutProperties(_props, ['classes', 'className', 'children', 'component']);
     const className = classNames(classes.root, classNameProp);

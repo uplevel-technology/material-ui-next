@@ -207,7 +207,9 @@ var SelectInput = function (_React$Component) {
         }
 
         if (_this.props.onChange) {
-          var _onChange = _this.props.onChange;
+          var _this$props = _this.props,
+              _onChange = _this$props.onChange,
+              _name = _this$props.name;
 
           var _value = void 0;
           var _target = void 0;
@@ -229,7 +231,7 @@ var SelectInput = function (_React$Component) {
           }
 
           event.persist();
-          event.target = (0, _extends3.default)({}, _target, { value: _value });
+          event.target = (0, _extends3.default)({}, _target, { value: _value, name: _name });
 
           _onChange(event, child);
         }

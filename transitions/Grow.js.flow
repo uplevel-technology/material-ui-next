@@ -15,16 +15,21 @@ export function getScale(value: number) {
 export type TransitionDuration = number | { enter?: number, exit?: number } | 'auto';
 
 type ProvidedProps = {
-  appear: boolean,
-  timeout: TransitionDuration,
+  /**
+   * @ignore
+   */
   theme: Object,
 };
 
 export type Props = {
   /**
+   * Other base element props.
+   */
+  [otherProp: string]: any,
+  /**
    * @ignore
    */
-  appear?: boolean,
+  appear: boolean,
   /**
    * A single child content element.
    */
@@ -69,18 +74,14 @@ export type Props = {
    * The animation classNames applied to the component as it enters or exits.
    * This property is a direct binding to [`CSSTransition.classNames`](https://reactcommunity.org/react-transition-group/#CSSTransition-prop-classNames).
    */
-  transitionClasses?: TransitionClasses,
-  /**
-   * @ignore
-   */
-  theme?: Object,
+  transitionClasses: TransitionClasses,
   /**
    * The duration for the transition, in milliseconds.
    * You may specify a single timeout for all transitions, or individually with an object.
    *
    * Set to 'auto' to automatically calculate transition time based on height.
    */
-  timeout?: TransitionDuration,
+  timeout: TransitionDuration,
 };
 
 /**
@@ -90,7 +91,7 @@ export type Props = {
 class Grow extends React.Component<ProvidedProps & Props> {
   static defaultProps = {
     appear: true,
-    timeout: 'auto',
+    timeout: ('auto': TransitionDuration),
     transitionClasses: {},
   };
 
@@ -114,7 +115,7 @@ class Grow extends React.Component<ProvidedProps & Props> {
       this.autoTimeout = duration;
     } else if (typeof timeout === 'number') {
       duration = timeout;
-    } else if (timeout) {
+    } else if (timeout && typeof timeout.enter === 'number') {
       duration = timeout.enter;
     } else {
       // The propType will warn in this case.
@@ -146,7 +147,7 @@ class Grow extends React.Component<ProvidedProps & Props> {
       this.autoTimeout = duration;
     } else if (typeof timeout === 'number') {
       duration = timeout;
-    } else if (timeout) {
+    } else if (timeout && typeof timeout.exit === 'number') {
       duration = timeout.exit;
     } else {
       // The propType will warn in this case.
@@ -171,15 +172,9 @@ class Grow extends React.Component<ProvidedProps & Props> {
   };
 
   addEndListener = (node, next: Function) => {
-    let timeout;
-
     if (this.props.timeout === 'auto') {
-      timeout = this.autoTimeout || 0;
-    } else {
-      timeout = this.props.timeout;
+      setTimeout(next, this.autoTimeout || 0);
     }
-
-    setTimeout(next, timeout);
   };
 
   render() {
@@ -213,6 +208,7 @@ class Grow extends React.Component<ProvidedProps & Props> {
         addEndListener={this.addEndListener}
         appear={appear}
         style={style}
+        timeout={timeout === 'auto' ? null : timeout}
         {...other}
         ref={rootRef}
       >

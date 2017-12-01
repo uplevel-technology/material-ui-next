@@ -40,14 +40,22 @@ export const styles = (theme: Object) => ({
 
 type ProvidedProps = {
   classes: Object,
+  /**
+   * @ignore
+   */
+  theme?: Object,
 };
 
 export type Props = {
   /**
+   * Other base element props.
+   */
+  [otherProp: string]: any,
+  /**
    * If `true`, the ripples will be centered.
    * They won't start at the cursor interaction position.
    */
-  centerRipple?: boolean,
+  centerRipple: boolean,
   /**
    * The content of the component.
    */
@@ -73,12 +81,12 @@ export type Props = {
   /**
    * If `true`, the ripple effect will be disabled.
    */
-  disableRipple?: boolean,
+  disableRipple: boolean,
   /**
    * If `true`, the base button will have a keyboard focus ripple.
    * `disableRipple` must also be `false`.
    */
-  focusRipple?: boolean,
+  focusRipple: boolean,
   /**
    * The CSS class applied while the component is keyboard focused.
    */
@@ -143,7 +151,7 @@ export type Props = {
   /**
    * @ignore
    */
-  tabIndex?: number | string,
+  tabIndex: number | string,
   /**
    * @ignore
    */
@@ -170,6 +178,16 @@ class ButtonBase extends React.Component<ProvidedProps & Props, State> {
   componentDidMount() {
     this.button = findDOMNode(this);
     listenForFocusKeys();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // The blur won't fire when the disabled state is set on a focused input.
+    // We need to book keep the focused state manually.
+    if (!this.props.disabled && nextProps.disabled) {
+      this.setState({
+        keyboardFocused: false,
+      });
+    }
   }
 
   componentWillUpdate(nextProps, nextState) {

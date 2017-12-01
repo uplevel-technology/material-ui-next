@@ -81,7 +81,7 @@ function FormControlLabel(props, context) {
     }),
     React.createElement(
       Typography,
-      { className: classes.label },
+      { component: 'span', className: classes.label },
       label
     )
   );

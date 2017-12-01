@@ -30,14 +30,20 @@ function DialogActions(props) {
 
   return React.createElement(
     'div',
-    _extends({ 'data-mui-test': 'DialogActions', className: classNames(classes.root, className) }, other),
-    React.Children.map(children, button => React.isValidElement(button) && React.createElement(
-      'div',
-      { className: classes.action },
-      React.cloneElement(button, {
-        className: classNames(classes.button, button.props.className)
-      })
-    ))
+    _extends({ className: classNames(classes.root, className) }, other),
+    React.Children.map(children, child => {
+      if (!React.isValidElement(child)) {
+        return null;
+      }
+
+      return React.createElement(
+        'div',
+        { className: classes.action },
+        React.cloneElement(child, {
+          className: classNames(classes.button, child.props.className)
+        })
+      );
+    })
   );
 }
 

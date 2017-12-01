@@ -85,7 +85,9 @@ class Portal extends React.Component {
     // Can't be rendered server-side.
     if (canUseDom) {
       if (open) {
-        return ReactDOM.createPortal(children, this.getLayer());
+        const layer = this.getLayer();
+        // $FlowFixMe layer is non-null
+        return ReactDOM.createPortal(children, layer);
       }
 
       this.unrenderLayer();

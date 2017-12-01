@@ -199,21 +199,21 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * Do not respond to focus events.
    */
-  disableTriggerFocus: require('prop-types').bool,
+  disableTriggerFocus: require('prop-types').bool.isRequired,
 
   /**
    * Do not respond to hover events.
    */
-  disableTriggerHover: require('prop-types').bool,
+  disableTriggerHover: require('prop-types').bool.isRequired,
 
   /**
    * Do not respond to long press touch events.
    */
-  disableTriggerTouch: require('prop-types').bool,
+  disableTriggerTouch: require('prop-types').bool.isRequired,
 
   /**
-   * The relationship between the tooltip and the wrapper componnet is not clear from the DOM.
-   * By providind this property, we can use aria-describedby to solve the accessibility issue.
+   * The relationship between the tooltip and the wrapper component is not clear from the DOM.
+   * By providing this property, we can use aria-describedby to solve the accessibility issue.
    */
   id: require('prop-types').string,
 
@@ -244,27 +244,22 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * The number of milliseconds to wait before showing the tooltip.
    */
-  enterDelay: require('prop-types').number,
+  enterDelay: require('prop-types').number.isRequired,
 
   /**
    * The number of milliseconds to wait before hidding the tooltip.
    */
-  leaveDelay: require('prop-types').number,
+  leaveDelay: require('prop-types').number.isRequired,
 
   /**
    * Tooltip placement
    */
-  placement: require('prop-types').oneOf(['bottom-end', 'bottom-start', 'bottom', 'left-end', 'left-start', 'left', 'right-end', 'right-start', 'right', 'top-end', 'top-start', 'top']),
+  placement: require('prop-types').oneOf(['bottom-end', 'bottom-start', 'bottom', 'left-end', 'left-start', 'left', 'right-end', 'right-start', 'right', 'top-end', 'top-start', 'top']).isRequired,
 
   /**
    * Properties applied to the `Popper` element.
    */
-  PopperProps: require('prop-types').object,
-
-  /**
-   * @ignore
-   */
-  theme: require('prop-types').object
+  PopperProps: require('prop-types').object
 };
 
 var Tooltip = function (_React$Component2) {
@@ -447,7 +442,8 @@ var Tooltip = function (_React$Component2) {
           other = (0, _objectWithoutProperties3.default)(_props, ['children', 'classes', 'className', 'disableTriggerFocus', 'disableTriggerHover', 'disableTriggerTouch', 'enterDelay', 'id', 'leaveDelay', 'open', 'onRequestClose', 'onRequestOpen', 'theme', 'title', 'placement', 'PopperProps']);
 
 
-      var placement = theme.direction === 'rtl' ? flipPlacement(rawPlacement) : rawPlacement;
+      var themeDirection = theme && theme.direction;
+      var placement = themeDirection === 'rtl' ? flipPlacement(rawPlacement) : rawPlacement;
       var open = this.isControlled ? openProp : this.state.open;
       var childrenProps = {};
 
@@ -503,16 +499,28 @@ var Tooltip = function (_React$Component2) {
                 _this3.popper = node;
               }
             }),
-            _react2.default.createElement(
-              'div',
-              {
-                id: id,
-                role: 'tooltip',
-                'aria-hidden': !open,
-                className: (0, _classnames2.default)(classes.tooltip, (0, _defineProperty3.default)({}, classes.tooltipOpen, open), classes['tooltip' + (0, _helpers.capitalizeFirstLetter)(placement.split('-')[0])])
-              },
-              title
-            )
+            function (_ref3) {
+              var popperProps = _ref3.popperProps,
+                  restProps = _ref3.restProps;
+              return _react2.default.createElement(
+                'div',
+                (0, _extends3.default)({}, popperProps, restProps, {
+                  style: (0, _extends3.default)({}, popperProps.style, {
+                    left: popperProps.style.left || 0
+                  }, restProps.style)
+                }),
+                _react2.default.createElement(
+                  'div',
+                  {
+                    id: id,
+                    role: 'tooltip',
+                    'aria-hidden': !open,
+                    className: (0, _classnames2.default)(classes.tooltip, (0, _defineProperty3.default)({}, classes.tooltipOpen, open), classes['tooltip' + (0, _helpers.capitalizeFirstLetter)(placement.split('-')[0])])
+                  },
+                  title
+                )
+              );
+            }
           )
         )
       );

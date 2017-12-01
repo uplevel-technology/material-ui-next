@@ -20,6 +20,12 @@ export const styles = theme => ({
     flex: '0 0 auto',
     marginRight: theme.spacing.unit * 2
   },
+  action: {
+    flex: '0 0 auto',
+    alignSelf: 'flex-start',
+    marginTop: theme.spacing.unit * -1,
+    marginRight: theme.spacing.unit * -2
+  },
   content: {
     flex: '1 1 auto'
   },
@@ -28,10 +34,8 @@ export const styles = theme => ({
 });
 
 function CardHeader(props) {
-  const { avatar, classes, className: classNameProp, subheader, title } = props,
-        other = _objectWithoutProperties(props, ['avatar', 'classes', 'className', 'subheader', 'title']);
-
-  const className = classNames(classes.root, classNameProp);
+  const { avatar, action, classes, className: classNameProp, subheader, title } = props,
+        other = _objectWithoutProperties(props, ['avatar', 'action', 'classes', 'className', 'subheader', 'title']);
 
   // Adjustments that depend on the presence of an avatar
   const titleType = avatar ? 'body2' : 'headline';
@@ -39,7 +43,7 @@ function CardHeader(props) {
 
   return React.createElement(
     CardContent,
-    _extends({ className: className }, other),
+    _extends({ className: classNames(classes.root, classNameProp) }, other),
     avatar && React.createElement(
       'div',
       { className: classes.avatar },
@@ -63,6 +67,11 @@ function CardHeader(props) {
         },
         subheader
       )
+    ),
+    action && React.createElement(
+      'div',
+      { className: classes.action },
+      action
     )
   );
 }

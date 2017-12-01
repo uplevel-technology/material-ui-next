@@ -27,23 +27,27 @@ export const styles = theme => {
   }, shadows);
 };
 
-function Paper(props) {
-  const {
-    classes,
-    className: classNameProp,
-    component: ComponentProp,
-    square,
-    elevation
-  } = props,
-        other = _objectWithoutProperties(props, ['classes', 'className', 'component', 'square', 'elevation']);
+class Paper extends React.Component {
 
-  warning(elevation >= 0 && elevation < 25, `Material-UI: this elevation \`${elevation}\` is not implemented.`);
+  render() {
+    const _props = this.props,
+          {
+      classes,
+      className: classNameProp,
+      component: ComponentProp,
+      square,
+      elevation
+    } = _props,
+          other = _objectWithoutProperties(_props, ['classes', 'className', 'component', 'square', 'elevation']);
 
-  const className = classNames(classes.root, classes[`shadow${elevation >= 0 ? elevation : 0}`], {
-    [classes.rounded]: !square
-  }, classNameProp);
+    warning(elevation >= 0 && elevation < 25, `Material-UI: this elevation \`${elevation}\` is not implemented.`);
 
-  return React.createElement(ComponentProp, _extends({ className: className }, other));
+    const className = classNames(classes.root, classes[`shadow${elevation >= 0 ? elevation : 0}`], {
+      [classes.rounded]: !square
+    }, classNameProp);
+
+    return React.createElement(ComponentProp, _extends({ className: className }, other));
+  }
 }
 
 Paper.defaultProps = {
@@ -51,5 +55,4 @@ Paper.defaultProps = {
   elevation: 2,
   square: false
 };
-
 export default withStyles(styles, { name: 'MuiPaper' })(Paper);

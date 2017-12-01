@@ -58,7 +58,7 @@ export const styles = theme => ({
 });
 
 /**
- * A `TableRow` based component for placing inside `TableFooter` for pagination.
+ * A `TableCell` based component for placing inside `TableFooter` for pagination.
  */
 class TablePagination extends React.Component {
   constructor(...args) {
@@ -71,7 +71,8 @@ class TablePagination extends React.Component {
     }, _temp;
   }
 
-  componentWillReceiveProps({ count, onChangePage, rowsPerPage }) {
+  componentWillReceiveProps(nextProps) {
+    const { count, onChangePage, rowsPerPage } = nextProps;
     const newLastPage = Math.max(0, Math.ceil(count / rowsPerPage) - 1);
     if (this.props.page > newLastPage) {
       onChangePage(null, newLastPage);
@@ -99,8 +100,10 @@ class TablePagination extends React.Component {
     let colSpan;
 
     if (Component === TableCell || Component === 'td') {
-      colSpan = colSpanProp || 9001; // col-span over everything
+      colSpan = colSpanProp || 1000; // col-span over everything
     }
+
+    const themeDirection = theme && theme.direction;
 
     return React.createElement(
       Component,
@@ -109,19 +112,21 @@ class TablePagination extends React.Component {
         Toolbar,
         { className: classes.toolbar },
         React.createElement('div', { className: classes.spacer }),
-        React.createElement(
+        rowsPerPageOptions.length > 1 && React.createElement(
           Typography,
           { type: 'caption', className: classes.caption },
           labelRowsPerPage
         ),
-        React.createElement(
+        rowsPerPageOptions.length > 1 && React.createElement(
           Select,
           {
             classes: { root: classes.selectRoot, select: classes.select },
-            InputClasses: {
-              root: classes.input
-            },
-            input: React.createElement(Input, { disableUnderline: true }),
+            input: React.createElement(Input, {
+              classes: {
+                root: classes.input
+              },
+              disableUnderline: true
+            }),
             value: rowsPerPage,
             onChange: onChangeRowsPerPage
           },
@@ -147,7 +152,7 @@ class TablePagination extends React.Component {
           React.createElement(
             IconButton,
             { onClick: this.handleBackButtonClick, disabled: page === 0 },
-            theme.direction === 'rtl' ? React.createElement(KeyboardArrowRight, null) : React.createElement(KeyboardArrowLeft, null)
+            themeDirection === 'rtl' ? React.createElement(KeyboardArrowRight, null) : React.createElement(KeyboardArrowLeft, null)
           ),
           React.createElement(
             IconButton,
@@ -155,7 +160,7 @@ class TablePagination extends React.Component {
               onClick: this.handleNextButtonClick,
               disabled: page >= Math.ceil(count / rowsPerPage) - 1
             },
-            theme.direction === 'rtl' ? React.createElement(KeyboardArrowLeft, null) : React.createElement(KeyboardArrowRight, null)
+            themeDirection === 'rtl' ? React.createElement(KeyboardArrowLeft, null) : React.createElement(KeyboardArrowRight, null)
           )
         )
       )

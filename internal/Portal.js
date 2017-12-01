@@ -158,7 +158,9 @@ var Portal = function (_React$Component) {
       // Can't be rendered server-side.
       if (_inDOM2.default) {
         if (open) {
-          return _reactDom2.default.createPortal(children, this.getLayer());
+          var layer = this.getLayer();
+          // $FlowFixMe layer is non-null
+          return _reactDom2.default.createPortal(children, layer);
         }
 
         this.unrenderLayer();

@@ -45,7 +45,7 @@ var _classnames = require('classnames');
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _Modal = require('../internal/Modal');
+var _Modal = require('../Modal');
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
@@ -68,6 +68,7 @@ var _transitions = require('../styles/transitions');
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFlowReactPropTypes_proptype_Node || require('prop-types').any;
+// @inheritedComponent Modal
 
 var babelPluginFlowReactPropTypes_proptype_TransitionDuration = require('../internal/transition').babelPluginFlowReactPropTypes_proptype_TransitionDuration || require('prop-types').any;
 
@@ -99,7 +100,13 @@ var styles = exports.styles = function styles(theme) {
       WebkitOverflowScrolling: 'touch', // Add iOS momentum scrolling.
       // temporary style
       position: 'fixed',
-      top: 0
+      top: 0,
+      // We disable the focus ring for mouse, touch and keyboard users.
+      // At some point, it would be better to keep it for keyboard users.
+      // :focus-ring CSS pseudo-class will help.
+      '&:focus': {
+        outline: 'none'
+      }
     },
     paperAnchorLeft: {
       left: 0,
@@ -149,7 +156,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * Side from which the drawer will appear.
    */
-  anchor: require('prop-types').oneOf(['left', 'top', 'right', 'bottom']),
+  anchor: require('prop-types').oneOf(['left', 'top', 'right', 'bottom']).isRequired,
 
   /**
    * The contents of the drawer.
@@ -169,13 +176,13 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * The elevation of the drawer.
    */
-  elevation: require('prop-types').number,
+  elevation: require('prop-types').number.isRequired,
 
   /**
    * The duration for the transition, in milliseconds.
    * You may specify a single timeout for all transitions, or individually with an object.
    */
-  transitionDuration: typeof babelPluginFlowReactPropTypes_proptype_TransitionDuration === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionDuration : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionDuration),
+  transitionDuration: typeof babelPluginFlowReactPropTypes_proptype_TransitionDuration === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionDuration.isRequired ? babelPluginFlowReactPropTypes_proptype_TransitionDuration.isRequired : babelPluginFlowReactPropTypes_proptype_TransitionDuration : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionDuration).isRequired,
 
   /**
    * Properties applied to the `Modal` element.
@@ -192,12 +199,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * If `true`, the drawer is open.
    */
-  open: require('prop-types').bool,
-
-  /**
-   * @igonre
-   */
-  theme: require('prop-types').object.isRequired,
+  open: require('prop-types').bool.isRequired,
 
   /**
    * Properties applied to the `Slide` element.
@@ -207,7 +209,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * The type of drawer.
    */
-  type: require('prop-types').oneOf(['permanent', 'persistent', 'temporary'])
+  type: require('prop-types').oneOf(['permanent', 'persistent', 'temporary']).isRequired
 };
 
 var Drawer = function (_React$Component) {
@@ -258,7 +260,7 @@ var Drawer = function (_React$Component) {
           other = (0, _objectWithoutProperties3.default)(_props, ['anchor', 'children', 'classes', 'className', 'elevation', 'transitionDuration', 'ModalProps', 'onRequestClose', 'open', 'SlideProps', 'theme', 'type']);
 
 
-      var rtl = theme.direction === 'rtl';
+      var rtl = theme && theme.direction === 'rtl';
       var anchor = anchorProp;
       if (rtl && ['left', 'right'].includes(anchor)) {
         anchor = anchor === 'left' ? 'right' : 'left';

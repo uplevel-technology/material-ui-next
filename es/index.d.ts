@@ -38,10 +38,15 @@ export interface Color {
  * Utilies types based on:
  * https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-307871458
  */
-export type Diff<T extends string, U extends string> = ({ [P in T]: P } &
-  { [P in U]: never } & { [x: string]: never })[T];
+
+ /** @internal */
+type Diff<T extends string, U extends string> = (
+  { [P in T]: P } &
+  { [P in U]: never } & { [x: string]: never }
+)[T];
+
+/** @internal */
 export type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
-export type Replace<T, S> = Omit<T, keyof S & keyof T> & S
 
 export namespace PropTypes {
   type Alignment = 'inherit' | 'left' | 'center' | 'right' | 'justify';
@@ -69,6 +74,12 @@ export {
 } from './Dialog';
 export { default as Divider } from './Divider';
 export { default as Drawer } from './Drawer';
+export {
+  default as ExpansionPanel,
+  ExpansionPanelActions,
+  ExpansionPanelDetails,
+  ExpansionPanelSummary,
+} from './ExpansionPanel';
 export { FormControl, FormGroup, FormLabel, FormHelperText, FormControlLabel } from './Form';
 export { default as Hidden } from './Hidden';
 export { default as Icon } from './Icon';
@@ -85,12 +96,14 @@ export {
   ListSubheader,
 } from './List';
 export { default as Menu, MenuItem, MenuList } from './Menu';
+export { default as Modal } from './Modal';
 export { default as Paper } from './Paper';
 export { default as Popover } from './Popover';
 export { CircularProgress, LinearProgress } from './Progress';
 export { default as Radio, RadioGroup } from './Radio';
 export { default as Select } from './Select';
 export { default as Snackbar, SnackbarContent } from './Snackbar';
+export { default as Stepper, Step, StepButton, StepContent, StepLabel } from './Stepper';
 export { MuiThemeProvider, withStyles, WithStyles, withTheme, createMuiTheme } from './styles';
 
 import * as colors from './colors';
@@ -111,7 +124,7 @@ export { default as Tabs, Tab } from './Tabs';
 export { default as Typography } from './Typography';
 export { default as TextField } from './TextField';
 export { default as Toolbar } from './Toolbar';
-
 export { default as Tooltip } from './Tooltip';
+export { Slide, Grow, Fade, Collapse } from './transitions';
 
 export { default as withWidth } from './utils/withWidth';

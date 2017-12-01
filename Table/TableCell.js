@@ -17,7 +17,25 @@ var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProp
 
 var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
-var _ref;
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _react = require('react');
 
@@ -36,6 +54,8 @@ var _withStyles = require('../styles/withStyles');
 var _withStyles2 = _interopRequireDefault(_withStyles);
 
 var _helpers = require('../utils/helpers');
+
+var _colorManipulator = require('../styles/colorManipulator');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -74,17 +94,19 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * If `true`, content will align to the right.
    */
-  numeric: require('prop-types').bool,
+  numeric: require('prop-types').bool.isRequired,
 
   /**
    * Sets the padding applied to the cell.
    */
-  padding: require('prop-types').oneOf(['default', 'checkbox', 'dense', 'none'])
+  padding: require('prop-types').oneOf(['default', 'checkbox', 'dense', 'none']).isRequired
 };
 var styles = exports.styles = function styles(theme) {
   return {
     root: {
-      borderBottom: '1px solid ' + theme.palette.text.lightDivider,
+      // Workaround for a rendering bug with spanned columns in Chrome 62.0.
+      // Removes the alpha (sets it to 1), and lightens or darkens the theme color.
+      borderBottom: '1px solid \n    ' + (theme.palette.type === 'light' ? (0, _colorManipulator.lighten)((0, _colorManipulator.fade)(theme.palette.text.lightDivider, 1), 0.925) : (0, _colorManipulator.darken)((0, _colorManipulator.fade)(theme.palette.text.lightDivider, 1), 0.685)),
       textAlign: 'left'
     },
     numeric: {
@@ -113,47 +135,53 @@ var styles = exports.styles = function styles(theme) {
   };
 };
 
-function TableCell(props, context) {
-  var _classNames;
+var TableCell = function (_React$Component) {
+  (0, _inherits3.default)(TableCell, _React$Component);
 
-  var classes = props.classes,
-      classNameProp = props.className,
-      children = props.children,
-      numeric = props.numeric,
-      padding = props.padding,
-      component = props.component,
-      other = (0, _objectWithoutProperties3.default)(props, ['classes', 'className', 'children', 'numeric', 'padding', 'component']);
-  var table = context.table;
-
-  var Component = void 0;
-  if (component) {
-    Component = component;
-  } else {
-    Component = table && table.head ? 'th' : 'td';
+  function TableCell() {
+    (0, _classCallCheck3.default)(this, TableCell);
+    return (0, _possibleConstructorReturn3.default)(this, (TableCell.__proto__ || (0, _getPrototypeOf2.default)(TableCell)).apply(this, arguments));
   }
 
-  var className = (0, _classnames2.default)(classes.root, (_classNames = {}, (0, _defineProperty3.default)(_classNames, classes.numeric, numeric), (0, _defineProperty3.default)(_classNames, classes['padding' + (0, _helpers.capitalizeFirstLetter)(padding)], padding !== 'none' && padding !== 'default'), (0, _defineProperty3.default)(_classNames, classes.paddingDefault, padding !== 'none'), (0, _defineProperty3.default)(_classNames, classes.head, table && table.head), (0, _defineProperty3.default)(_classNames, classes.footer, table && table.footer), _classNames), classNameProp);
+  (0, _createClass3.default)(TableCell, [{
+    key: 'render',
+    value: function render() {
+      var _classNames;
 
-  return _react2.default.createElement(
-    Component,
-    (0, _extends3.default)({ className: className }, other),
-    children
-  );
-}
+      var _props = this.props,
+          classes = _props.classes,
+          classNameProp = _props.className,
+          children = _props.children,
+          numeric = _props.numeric,
+          padding = _props.padding,
+          component = _props.component,
+          other = (0, _objectWithoutProperties3.default)(_props, ['classes', 'className', 'children', 'numeric', 'padding', 'component']);
+      var table = this.context.table;
 
-TableCell.propTypes = process.env.NODE_ENV !== "production" ? (_ref = {
-  classes: require('prop-types').object.isRequired,
-  padding: require('prop-types').oneOf(['default', 'checkbox', 'dense', 'none']).isRequired,
-  numeric: require('prop-types').bool.isRequired,
-  children: typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node)
-}, (0, _defineProperty3.default)(_ref, 'classes', require('prop-types').object), (0, _defineProperty3.default)(_ref, 'className', require('prop-types').string), (0, _defineProperty3.default)(_ref, 'component', typeof babelPluginFlowReactPropTypes_proptype_ElementType === 'function' ? babelPluginFlowReactPropTypes_proptype_ElementType : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_ElementType)), (0, _defineProperty3.default)(_ref, 'numeric', require('prop-types').bool), (0, _defineProperty3.default)(_ref, 'padding', require('prop-types').oneOf(['default', 'checkbox', 'dense', 'none'])), _ref) : {};
+      var Component = void 0;
+      if (component) {
+        Component = component;
+      } else {
+        Component = table && table.head ? 'th' : 'td';
+      }
+
+      var className = (0, _classnames2.default)(classes.root, (_classNames = {}, (0, _defineProperty3.default)(_classNames, classes.numeric, numeric), (0, _defineProperty3.default)(_classNames, classes['padding' + (0, _helpers.capitalizeFirstLetter)(padding)], padding !== 'none' && padding !== 'default'), (0, _defineProperty3.default)(_classNames, classes.paddingDefault, padding !== 'none'), (0, _defineProperty3.default)(_classNames, classes.head, table && table.head), (0, _defineProperty3.default)(_classNames, classes.footer, table && table.footer), _classNames), classNameProp);
+
+      return _react2.default.createElement(
+        Component,
+        (0, _extends3.default)({ className: className }, other),
+        children
+      );
+    }
+  }]);
+  return TableCell;
+}(_react2.default.Component);
+
 TableCell.defaultProps = {
   numeric: false,
   padding: 'default'
 };
-
 TableCell.contextTypes = {
   table: _propTypes2.default.object.isRequired
 };
-
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiTableCell' })(TableCell);

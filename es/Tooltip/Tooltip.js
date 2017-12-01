@@ -261,7 +261,8 @@ class Tooltip extends React.Component {
           PopperOther = _objectWithoutProperties(_props.PopperProps, ['PopperClassName']),
           other = _objectWithoutProperties(_props, ['children', 'classes', 'className', 'disableTriggerFocus', 'disableTriggerHover', 'disableTriggerTouch', 'enterDelay', 'id', 'leaveDelay', 'open', 'onRequestClose', 'onRequestOpen', 'theme', 'title', 'placement', 'PopperProps']);
 
-    const placement = theme.direction === 'rtl' ? flipPlacement(rawPlacement) : rawPlacement;
+    const themeDirection = theme && theme.direction;
+    const placement = themeDirection === 'rtl' ? flipPlacement(rawPlacement) : rawPlacement;
     const open = this.isControlled ? openProp : this.state.open;
     const childrenProps = {};
 
@@ -314,15 +315,23 @@ class Tooltip extends React.Component {
               this.popper = node;
             }
           }),
-          React.createElement(
+          ({ popperProps, restProps }) => React.createElement(
             'div',
-            {
-              id: id,
-              role: 'tooltip',
-              'aria-hidden': !open,
-              className: classNames(classes.tooltip, { [classes.tooltipOpen]: open }, classes[`tooltip${capitalizeFirstLetter(placement.split('-')[0])}`])
-            },
-            title
+            _extends({}, popperProps, restProps, {
+              style: _extends({}, popperProps.style, {
+                left: popperProps.style.left || 0
+              }, restProps.style)
+            }),
+            React.createElement(
+              'div',
+              {
+                id: id,
+                role: 'tooltip',
+                'aria-hidden': !open,
+                className: classNames(classes.tooltip, { [classes.tooltipOpen]: open }, classes[`tooltip${capitalizeFirstLetter(placement.split('-')[0])}`])
+              },
+              title
+            )
           )
         )
       )

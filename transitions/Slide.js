@@ -127,7 +127,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * Direction the child node will enter from.
    */
-  direction: require('prop-types').oneOf(['left', 'right', 'up', 'down']),
+  direction: require('prop-types').oneOf(['left', 'right', 'up', 'down']).isRequired,
 
   /**
    * If `true`, show the component; triggers the enter or exit animation.
@@ -173,12 +173,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
    * The duration for the transition, in milliseconds.
    * You may specify a single timeout for all transitions, or individually with an object.
    */
-  timeout: typeof babelPluginFlowReactPropTypes_proptype_TransitionDuration === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionDuration : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionDuration),
-
-  /**
-   * @ignore
-   */
-  theme: require('prop-types').object
+  timeout: typeof babelPluginFlowReactPropTypes_proptype_TransitionDuration === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionDuration.isRequired ? babelPluginFlowReactPropTypes_proptype_TransitionDuration.isRequired : babelPluginFlowReactPropTypes_proptype_TransitionDuration : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionDuration).isRequired
 };
 
 
@@ -258,6 +253,15 @@ var Slide = function (_React$Component) {
       if (_this.props.onExit) {
         _this.props.onExit(node);
       }
+    }, _this.handleExited = function (node) {
+      // No need for transitions when the component is hidden
+      node.style.transition = '';
+      // $FlowFixMe - https://github.com/facebook/flow/pull/5161
+      node.style.webkitTransition = '';
+
+      if (_this.props.onExited) {
+        _this.props.onExited(node);
+      }
     }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
   }
 
@@ -265,15 +269,11 @@ var Slide = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       // state.firstMount handle SSR, once the component is mounted, we need
-      // to propery hide it.
+      // to properly hide it.
       if (!this.props.in) {
         // We need to set initial translate values of transition element
         // otherwise component will be shown when in=false.
-        var element = (0, _reactDom.findDOMNode)(this.transition);
-        if (element instanceof HTMLElement) {
-          element.style.visibility = 'inherit';
-          setTranslateValue(this.props, element);
-        }
+        this.updatePosition();
       }
     }
   }, {
@@ -284,9 +284,27 @@ var Slide = function (_React$Component) {
       });
     }
   }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps) {
+      if (prevProps.direction !== this.props.direction && !this.props.in) {
+        // We need to update the position of the drawer when the direction change and
+        // when it's hidden.
+        this.updatePosition();
+      }
+    }
+  }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       this.handleResize.cancel();
+    }
+  }, {
+    key: 'updatePosition',
+    value: function updatePosition() {
+      var element = (0, _reactDom.findDOMNode)(this.transition);
+      if (element instanceof HTMLElement) {
+        element.style.visibility = 'inherit';
+        setTranslateValue(this.props, element);
+      }
     }
   }, {
     key: 'render',
@@ -298,9 +316,10 @@ var Slide = function (_React$Component) {
           onEnter = _props.onEnter,
           onEntering = _props.onEntering,
           onExit = _props.onExit,
+          onExited = _props.onExited,
           styleProp = _props.style,
           theme = _props.theme,
-          other = (0, _objectWithoutProperties3.default)(_props, ['children', 'onEnter', 'onEntering', 'onExit', 'style', 'theme']);
+          other = (0, _objectWithoutProperties3.default)(_props, ['children', 'onEnter', 'onEntering', 'onExit', 'onExited', 'style', 'theme']);
 
 
       var style = (0, _extends3.default)({}, styleProp);
@@ -318,6 +337,7 @@ var Slide = function (_React$Component) {
             onEnter: this.handleEnter,
             onEntering: this.handleEntering,
             onExit: this.handleExit,
+            onExited: this.handleExited,
             appear: true,
             style: style
           }, other, {
@@ -334,7 +354,6 @@ var Slide = function (_React$Component) {
 }(_react2.default.Component);
 
 Slide.defaultProps = {
-  direction: 'down',
   timeout: {
     enter: _transitions.duration.enteringScreen,
     exit: _transitions.duration.leavingScreen

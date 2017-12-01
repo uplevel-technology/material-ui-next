@@ -95,7 +95,7 @@ function TextField(props) {
     ),
     select ? React.createElement(
       Select,
-      _extends({ input: InputComponent }, SelectProps),
+      _extends({ value: value, input: InputComponent }, SelectProps),
       children
     ) : InputComponent,
     helperText && React.createElement(

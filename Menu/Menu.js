@@ -123,7 +123,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * If `true`, the menu is visible.
    */
-  open: require('prop-types').bool,
+  open: require('prop-types').bool.isRequired,
 
   /**
    * @ignore
@@ -136,17 +136,12 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   PopoverClasses: require('prop-types').object,
 
   /**
-   * @ignore
-   */
-  theme: require('prop-types').object,
-
-  /**
    * The length of the transition in `ms`, or 'auto'
    */
   transitionDuration: require('prop-types').oneOfType([require('prop-types').number, require('prop-types').shape({
     enter: require('prop-types').number,
     exit: require('prop-types').number
-  }), require('prop-types').oneOf(['auto'])])
+  }), require('prop-types').oneOf(['auto'])]).isRequired
 };
 
 
@@ -271,14 +266,15 @@ var Menu = function (_React$Component) {
           other = (0, _objectWithoutProperties3.default)(_props, ['children', 'classes', 'MenuListProps', 'onEnter', 'PaperProps', 'PopoverClasses', 'theme']);
 
 
+      var themeDirection = theme && theme.direction;
       return _react2.default.createElement(
         _Popover2.default,
         (0, _extends3.default)({
           getContentAnchorEl: this.getContentAnchorEl,
           classes: PopoverClasses,
           onEnter: this.handleEnter,
-          anchorOrigin: theme.direction === 'rtl' ? rtlOrigin : ltrOrigin,
-          transformOrigin: theme.direction === 'rtl' ? rtlOrigin : ltrOrigin,
+          anchorOrigin: themeDirection === 'rtl' ? rtlOrigin : ltrOrigin,
+          transformOrigin: themeDirection === 'rtl' ? rtlOrigin : ltrOrigin,
           PaperProps: (0, _extends3.default)({}, PaperProps, {
             classes: (0, _extends3.default)({}, PaperProps.classes, {
               root: classes.paper

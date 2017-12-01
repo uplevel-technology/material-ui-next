@@ -15,24 +15,27 @@ export const styles = {
     alignItems: 'center',
     padding: '2px 4px'
   },
-  actionSpacing: {
+  action: {
     margin: '0 4px'
   }
 };
 
-function CardActions(props) {
-  const { disableActionSpacing, children, classes, className } = props,
-        other = _objectWithoutProperties(props, ['disableActionSpacing', 'children', 'classes', 'className']);
+class CardActions extends React.Component {
 
-  return React.createElement(
-    'div',
-    _extends({ className: classNames(classes.root, className) }, other),
-    disableActionSpacing ? children : cloneChildrenWithClassName(children, classes.actionSpacing)
-  );
+  render() {
+    const _props = this.props,
+          { disableActionSpacing, children, classes, className } = _props,
+          other = _objectWithoutProperties(_props, ['disableActionSpacing', 'children', 'classes', 'className']);
+
+    return React.createElement(
+      'div',
+      _extends({ className: classNames(classes.root, className) }, other),
+      disableActionSpacing ? children : cloneChildrenWithClassName(children, classes.action)
+    );
+  }
 }
 
 CardActions.defaultProps = {
   disableActionSpacing: false
 };
-
 export default withStyles(styles, { name: 'MuiCardActions' })(CardActions);

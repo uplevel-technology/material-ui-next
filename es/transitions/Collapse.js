@@ -50,7 +50,7 @@ class Collapse extends React.Component {
         this.autoTransitionDuration = duration2;
       } else if (typeof timeout === 'number') {
         node.style.transitionDuration = `${timeout}ms`;
-      } else if (timeout) {
+      } else if (timeout && typeof timeout.enter === 'number') {
         node.style.transitionDuration = `${timeout.enter}ms`;
       } else {
         // The propType will warn in this case.
@@ -84,7 +84,7 @@ class Collapse extends React.Component {
         this.autoTransitionDuration = duration2;
       } else if (typeof timeout === 'number') {
         node.style.transitionDuration = `${timeout}ms`;
-      } else if (timeout) {
+      } else if (timeout && typeof timeout.exit === 'number') {
         node.style.transitionDuration = `${timeout.exit}ms`;
       } else {
         // The propType will warn in this case.
@@ -96,15 +96,9 @@ class Collapse extends React.Component {
         this.props.onExiting(node);
       }
     }, this.addEndListener = (node, next) => {
-      let timeout;
-
       if (this.props.timeout === 'auto') {
-        timeout = this.autoTransitionDuration || 0;
-      } else {
-        timeout = this.props.timeout;
+        setTimeout(next, this.autoTransitionDuration || 0);
       }
-
-      setTimeout(next, timeout);
     }, _temp;
   }
 
@@ -114,8 +108,10 @@ class Collapse extends React.Component {
       appear,
       children,
       classes,
+      className,
       component: ComponentProp,
       collapsedHeight,
+      containerProps,
       onEnter,
       onEntering,
       onEntered,
@@ -125,7 +121,7 @@ class Collapse extends React.Component {
       timeout,
       theme
     } = _props,
-          other = _objectWithoutProperties(_props, ['appear', 'children', 'classes', 'component', 'collapsedHeight', 'onEnter', 'onEntering', 'onEntered', 'onExit', 'onExiting', 'style', 'timeout', 'theme']);
+          other = _objectWithoutProperties(_props, ['appear', 'children', 'classes', 'className', 'component', 'collapsedHeight', 'containerProps', 'onEnter', 'onEntering', 'onEntered', 'onExit', 'onExiting', 'style', 'timeout', 'theme']);
 
     return React.createElement(
       Transition,
@@ -137,16 +133,17 @@ class Collapse extends React.Component {
         onExiting: this.handleExiting,
         onExit: this.handleExit,
         addEndListener: this.addEndListener,
-        style: _extends({ minHeight: collapsedHeight }, style)
+        style: _extends({ minHeight: collapsedHeight }, style),
+        timeout: timeout === 'auto' ? null : timeout
       }, other),
       state => {
         return React.createElement(
           ComponentProp,
-          {
+          _extends({
             className: classNames(classes.container, {
               [classes.entered]: state === 'entered'
-            })
-          },
+            }, className)
+          }, containerProps),
           React.createElement(
             'div',
             {

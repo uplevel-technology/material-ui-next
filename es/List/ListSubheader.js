@@ -39,28 +39,32 @@ export const styles = theme => ({
   }
 });
 
-function ListSubheader(props) {
-  const {
-    children,
-    classes,
-    className: classNameProp,
-    component: ComponentProp,
-    color,
-    disableSticky,
-    inset
-  } = props,
-        other = _objectWithoutProperties(props, ['children', 'classes', 'className', 'component', 'color', 'disableSticky', 'inset']);
-  const className = classNames(classes.root, {
-    [classes[`color${capitalizeFirstLetter(color)}`]]: color !== 'default',
-    [classes.inset]: inset,
-    [classes.sticky]: !disableSticky
-  }, classNameProp);
+class ListSubheader extends React.Component {
 
-  return React.createElement(
-    ComponentProp,
-    _extends({ className: className }, other),
-    children
-  );
+  render() {
+    const _props = this.props,
+          {
+      children,
+      classes,
+      className: classNameProp,
+      component: ComponentProp,
+      color,
+      disableSticky,
+      inset
+    } = _props,
+          other = _objectWithoutProperties(_props, ['children', 'classes', 'className', 'component', 'color', 'disableSticky', 'inset']);
+    const className = classNames(classes.root, {
+      [classes[`color${capitalizeFirstLetter(color)}`]]: color !== 'default',
+      [classes.inset]: inset,
+      [classes.sticky]: !disableSticky
+    }, classNameProp);
+
+    return React.createElement(
+      ComponentProp,
+      _extends({ className: className }, other),
+      children
+    );
+  }
 }
 
 ListSubheader.defaultProps = {
@@ -69,7 +73,5 @@ ListSubheader.defaultProps = {
   disableSticky: false,
   inset: false
 };
-
 ListSubheader.muiName = 'ListSubheader';
-
 export default withStyles(styles, { name: 'MuiListSubheader' })(ListSubheader);

@@ -60,65 +60,69 @@ export const styles = theme => ({
   }
 });
 
-function CircularProgress(props) {
-  const {
-    classes,
-    className,
-    color,
-    size,
-    style,
-    thickness,
-    mode,
-    value,
-    min,
-    max
-  } = props,
-        other = _objectWithoutProperties(props, ['classes', 'className', 'color', 'size', 'style', 'thickness', 'mode', 'value', 'min', 'max']);
+class CircularProgress extends React.Component {
 
-  const rootProps = {};
+  render() {
+    const _props = this.props,
+          {
+      classes,
+      className,
+      color,
+      size,
+      style,
+      thickness,
+      mode,
+      value,
+      min,
+      max
+    } = _props,
+          other = _objectWithoutProperties(_props, ['classes', 'className', 'color', 'size', 'style', 'thickness', 'mode', 'value', 'min', 'max']);
 
-  const circleStyle = {};
-  if (mode === 'determinate') {
-    const relVal = getRelativeValue(value, min, max) * 100;
-    const circumference = 2 * Math.PI * (SIZE / 2 - 5);
+    const rootProps = {};
 
-    circleStyle.strokeDashoffset = `${Math.round((100 - relVal) / 100 * circumference * 1000) / 1000}px`;
-    circleStyle.strokeDasharray = Math.round(circumference * 1000) / 1000;
+    const circleStyle = {};
+    if (mode === 'determinate') {
+      const relVal = getRelativeValue(value, min, max) * 100;
+      const circumference = 2 * Math.PI * (SIZE / 2 - 5);
 
-    rootProps['aria-valuenow'] = value;
-    rootProps['aria-valuemin'] = min;
-    rootProps['aria-valuemax'] = max;
+      circleStyle.strokeDashoffset = `${Math.round((100 - relVal) / 100 * circumference * 1000) / 1000}px`;
+      circleStyle.strokeDasharray = Math.round(circumference * 1000) / 1000;
+
+      rootProps['aria-valuenow'] = value;
+      rootProps['aria-valuemin'] = min;
+      rootProps['aria-valuemax'] = max;
+    }
+
+    return React.createElement(
+      'div',
+      _extends({
+        className: classNames(classes.root, color !== 'inherit' && classes[`${color}Color`], className),
+        style: _extends({ width: size, height: size }, style),
+        role: 'progressbar'
+      }, rootProps, other),
+      React.createElement(
+        'svg',
+        {
+          className: classNames({
+            [classes.svgIndeterminate]: mode === 'indeterminate',
+            [classes.svgDeterminate]: mode === 'determinate'
+          }),
+          viewBox: `0 0 ${SIZE} ${SIZE}`
+        },
+        React.createElement('circle', {
+          className: classNames(classes.circle, {
+            [classes.circleIndeterminate]: mode === 'indeterminate'
+          }),
+          style: circleStyle,
+          cx: SIZE / 2,
+          cy: SIZE / 2,
+          r: SIZE / 2 - 5,
+          fill: 'none',
+          strokeWidth: thickness
+        })
+      )
+    );
   }
-
-  return React.createElement(
-    'div',
-    _extends({
-      className: classNames(classes.root, color !== 'inherit' && classes[`${color}Color`], className),
-      style: _extends({ width: size, height: size }, style),
-      role: 'progressbar'
-    }, rootProps, other),
-    React.createElement(
-      'svg',
-      {
-        className: classNames({
-          [classes.svgIndeterminate]: mode === 'indeterminate',
-          [classes.svgDeterminate]: mode === 'determinate'
-        }),
-        viewBox: `0 0 ${SIZE} ${SIZE}`
-      },
-      React.createElement('circle', {
-        className: classNames(classes.circle, {
-          [classes.circleIndeterminate]: mode === 'indeterminate'
-        }),
-        style: circleStyle,
-        cx: SIZE / 2,
-        cy: SIZE / 2,
-        r: SIZE / 2 - 5,
-        fill: 'none',
-        strokeWidth: thickness
-      })
-    )
-  );
 }
 
 CircularProgress.defaultProps = {
@@ -130,5 +134,4 @@ CircularProgress.defaultProps = {
   min: 0,
   max: 100
 };
-
-export default withStyles(styles, { name: 'MuiCircularProgress' })(CircularProgress);
+export default withStyles(styles, { name: 'MuiCircularProgress', flip: false })(CircularProgress);

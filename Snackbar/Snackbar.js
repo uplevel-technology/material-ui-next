@@ -5,10 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.styles = undefined;
 
-var _extends2 = require('babel-runtime/helpers/extends');
-
-var _extends3 = _interopRequireDefault(_extends2);
-
 var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProperties');
 
 var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
@@ -36,6 +32,10 @@ var _inherits3 = _interopRequireDefault(_inherits2);
 var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _extends8 = require('babel-runtime/helpers/extends');
+
+var _extends9 = _interopRequireDefault(_extends8);
 
 var _react = require('react');
 
@@ -107,40 +107,20 @@ var styles = exports.styles = function styles(theme) {
       justifyContent: 'center',
       alignItems: 'center'
     },
-    anchorTopCenter: (0, _defineProperty3.default)({
-      extend: [top]
-    }, theme.breakpoints.up('md'), {
-      extend: [center]
-    }),
-    anchorBottomCenter: (0, _defineProperty3.default)({
-      extend: [bottom]
-    }, theme.breakpoints.up('md'), {
-      extend: [center]
-    }),
-    anchorTopRight: (0, _defineProperty3.default)({
-      extend: [top, right]
-    }, theme.breakpoints.up('md'), {
-      left: 'auto',
-      extend: [topSpace, rightSpace]
-    }),
-    anchorBottomRight: (0, _defineProperty3.default)({
-      extend: [bottom, right]
-    }, theme.breakpoints.up('md'), {
-      left: 'auto',
-      extend: [bottomSpace, rightSpace]
-    }),
-    anchorTopLeft: (0, _defineProperty3.default)({
-      extend: [top, left]
-    }, theme.breakpoints.up('md'), {
-      right: 'auto',
-      extend: [topSpace, leftSpace]
-    }),
-    anchorBottomLeft: (0, _defineProperty3.default)({
-      extend: [bottom, left]
-    }, theme.breakpoints.up('md'), {
-      right: 'auto',
-      extend: [bottomSpace, leftSpace]
-    })
+    anchorTopCenter: (0, _extends9.default)({}, top, (0, _defineProperty3.default)({}, theme.breakpoints.up('md'), (0, _extends9.default)({}, center))),
+    anchorBottomCenter: (0, _extends9.default)({}, bottom, (0, _defineProperty3.default)({}, theme.breakpoints.up('md'), (0, _extends9.default)({}, center))),
+    anchorTopRight: (0, _extends9.default)({}, top, right, (0, _defineProperty3.default)({}, theme.breakpoints.up('md'), (0, _extends9.default)({
+      left: 'auto'
+    }, topSpace, rightSpace))),
+    anchorBottomRight: (0, _extends9.default)({}, bottom, right, (0, _defineProperty3.default)({}, theme.breakpoints.up('md'), (0, _extends9.default)({
+      left: 'auto'
+    }, bottomSpace, rightSpace))),
+    anchorTopLeft: (0, _extends9.default)({}, top, left, (0, _defineProperty3.default)({}, theme.breakpoints.up('md'), (0, _extends9.default)({
+      right: 'auto'
+    }, topSpace, leftSpace))),
+    anchorBottomLeft: (0, _extends9.default)({}, bottom, left, (0, _defineProperty3.default)({}, theme.breakpoints.up('md'), (0, _extends9.default)({
+      right: 'auto'
+    }, bottomSpace, leftSpace)))
   };
 };
 
@@ -160,7 +140,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   anchorOrigin: require('prop-types').shape({
     horizontal: require('prop-types').oneOfType([require('prop-types').oneOf(['left']), require('prop-types').oneOf(['center']), require('prop-types').oneOf(['right']), require('prop-types').number]),
     vertical: require('prop-types').oneOfType([require('prop-types').oneOf(['top']), require('prop-types').oneOf(['center']), require('prop-types').oneOf(['bottom']), require('prop-types').number])
-  }),
+  }).isRequired,
 
   /**
    * The number of milliseconds to wait before automatically dismissing.
@@ -198,11 +178,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
    * e.g. <Snackbar key={message} />, otherwise, the message may update-in-place and
    * features such as autoHideDuration may be canceled.
    */
-  key: function key(props, propName, componentName) {
-    if (!Object.prototype.hasOwnProperty.call(props, propName)) {
-      throw new Error('Prop `' + propName + '` has type \'any\', but was not provided to `' + componentName + '`. Pass undefined or any other value.');
-    }
-  },
+  key: require('prop-types').any,
 
   /**
    * The message to display.
@@ -282,7 +258,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
    * The duration for the transition, in milliseconds.
    * You may specify a single timeout for all transitions, or individually with an object.
    */
-  transitionDuration: typeof babelPluginFlowReactPropTypes_proptype_TransitionDuration === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionDuration : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionDuration)
+  transitionDuration: typeof babelPluginFlowReactPropTypes_proptype_TransitionDuration === 'function' ? babelPluginFlowReactPropTypes_proptype_TransitionDuration.isRequired ? babelPluginFlowReactPropTypes_proptype_TransitionDuration.isRequired : babelPluginFlowReactPropTypes_proptype_TransitionDuration : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_TransitionDuration).isRequired
 };
 
 var Snackbar = function (_React$Component) {
@@ -319,7 +295,7 @@ var Snackbar = function (_React$Component) {
     }, _this.handlePause = function () {
       clearTimeout(_this.timerAutoHide);
     }, _this.handleResume = function () {
-      if (_this.props.autoHideDuration !== undefined) {
+      if (_this.props.autoHideDuration != null) {
         if (_this.props.resumeHideDuration !== undefined) {
           _this.setAutoHideTimer(_this.props.resumeHideDuration);
           return;
@@ -378,13 +354,13 @@ var Snackbar = function (_React$Component) {
 
       var autoHideDuration = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 
-      if (!this.props.onRequestClose || this.props.autoHideDuration === undefined) {
+      if (!this.props.onRequestClose || this.props.autoHideDuration == null) {
         return;
       }
 
       clearTimeout(this.timerAutoHide);
       this.timerAutoHide = setTimeout(function () {
-        if (!_this2.props.onRequestClose || _this2.props.autoHideDuration === undefined) {
+        if (!_this2.props.onRequestClose || _this2.props.autoHideDuration == null) {
           return;
         }
 
@@ -444,7 +420,7 @@ var Snackbar = function (_React$Component) {
         onExiting: onExiting,
         onExited: (0, _helpers.createChainedFunction)(this.handleTransitionExited, onExited)
       };
-      var transitionContent = children || _react2.default.createElement(_SnackbarContent2.default, (0, _extends3.default)({ message: message, action: action }, SnackbarContentProps));
+      var transitionContent = children || _react2.default.createElement(_SnackbarContent2.default, (0, _extends9.default)({ message: message, action: action }, SnackbarContentProps));
 
       var transition = void 0;
       if (TransitionProp) {
@@ -456,7 +432,7 @@ var Snackbar = function (_React$Component) {
       } else {
         transition = _react2.default.createElement(
           _Slide2.default,
-          (0, _extends3.default)({ direction: vertical === 'top' ? 'down' : 'up' }, transitionProps),
+          (0, _extends9.default)({ direction: vertical === 'top' ? 'down' : 'up' }, transitionProps),
           transitionContent
         );
       }
@@ -469,7 +445,7 @@ var Snackbar = function (_React$Component) {
           { onClickAway: this.handleClickAway },
           _react2.default.createElement(
             'div',
-            (0, _extends3.default)({
+            (0, _extends9.default)({
               className: (0, _classnames2.default)(classes.root, classes['anchor' + (0, _helpers.capitalizeFirstLetter)(vertical) + (0, _helpers.capitalizeFirstLetter)(horizontal)], className),
               onMouseEnter: this.handleMouseEnter,
               onMouseLeave: this.handleMouseLeave

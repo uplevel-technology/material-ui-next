@@ -50,25 +50,28 @@ export const styles = theme => ({
   }
 });
 
-function AppBar(props) {
-  const { children, classes, className: classNameProp, color, position } = props,
-        other = _objectWithoutProperties(props, ['children', 'classes', 'className', 'color', 'position']);
+class AppBar extends React.Component {
 
-  const className = classNames(classes.root, classes[`position${capitalizeFirstLetter(position)}`], {
-    [classes[`color${capitalizeFirstLetter(color)}`]]: color !== 'inherit',
-    'mui-fixed': position === 'fixed' // Useful for the Dialog
-  }, classNameProp);
+  render() {
+    const _props = this.props,
+          { children, classes, className: classNameProp, color, position } = _props,
+          other = _objectWithoutProperties(_props, ['children', 'classes', 'className', 'color', 'position']);
 
-  return React.createElement(
-    Paper,
-    _extends({ square: true, component: 'header', elevation: 4, className: className }, other),
-    children
-  );
+    const className = classNames(classes.root, classes[`position${capitalizeFirstLetter(position)}`], {
+      [classes[`color${capitalizeFirstLetter(color)}`]]: color !== 'inherit',
+      'mui-fixed': position === 'fixed' // Useful for the Dialog
+    }, classNameProp);
+
+    return React.createElement(
+      Paper,
+      _extends({ square: true, component: 'header', elevation: 4, className: className }, other),
+      children
+    );
+  }
 }
 
 AppBar.defaultProps = {
   color: 'primary',
   position: 'fixed'
 };
-
 export default withStyles(styles, { name: 'MuiAppBar' })(AppBar);

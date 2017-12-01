@@ -17,8 +17,25 @@ var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProp
 
 var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
-var _ref;
-// @inheritedComponent ButtonBase
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _react = require('react');
 
@@ -43,6 +60,7 @@ var _ArrowDownward2 = _interopRequireDefault(_ArrowDownward);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFlowReactPropTypes_proptype_Node || require('prop-types').any;
+// @inheritedComponent ButtonBase
 
 var styles = exports.styles = function styles(theme) {
   return {
@@ -91,7 +109,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * If `true`, the label will have the active styling (should be true for the sorted column).
    */
-  active: require('prop-types').bool,
+  active: require('prop-types').bool.isRequired,
 
   /**
    * Label contents, the arrow will be appended automatically.
@@ -111,41 +129,48 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * The current sort direction.
    */
-  direction: require('prop-types').oneOf(['asc', 'desc'])
+  direction: require('prop-types').oneOf(['asc', 'desc']).isRequired
 };
-
 
 /**
  * A button based label for placing inside `TableCell` for column sorting.
  */
-function TableSortLabel(props) {
-  var active = props.active,
-      classes = props.classes,
-      classNameProp = props.className,
-      children = props.children,
-      direction = props.direction,
-      other = (0, _objectWithoutProperties3.default)(props, ['active', 'classes', 'className', 'children', 'direction']);
+var TableSortLabel = function (_React$Component) {
+  (0, _inherits3.default)(TableSortLabel, _React$Component);
 
-  var className = (0, _classnames2.default)(classes.root, (0, _defineProperty3.default)({}, classes.active, active), classNameProp);
+  function TableSortLabel() {
+    (0, _classCallCheck3.default)(this, TableSortLabel);
+    return (0, _possibleConstructorReturn3.default)(this, (TableSortLabel.__proto__ || (0, _getPrototypeOf2.default)(TableSortLabel)).apply(this, arguments));
+  }
 
-  var iconClassName = (0, _classnames2.default)(classes.icon, (0, _defineProperty3.default)({}, classes[direction], !!direction));
+  (0, _createClass3.default)(TableSortLabel, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          active = _props.active,
+          classes = _props.classes,
+          classNameProp = _props.className,
+          children = _props.children,
+          direction = _props.direction,
+          other = (0, _objectWithoutProperties3.default)(_props, ['active', 'classes', 'className', 'children', 'direction']);
 
-  return _react2.default.createElement(
-    _ButtonBase2.default,
-    (0, _extends3.default)({ className: className, component: 'span', disableRipple: true }, other),
-    children,
-    _react2.default.createElement(_ArrowDownward2.default, { className: iconClassName })
-  );
-}
+      var className = (0, _classnames2.default)(classes.root, (0, _defineProperty3.default)({}, classes.active, active), classNameProp);
 
-TableSortLabel.propTypes = process.env.NODE_ENV !== "production" ? (_ref = {
-  active: require('prop-types').bool.isRequired,
-  classes: require('prop-types').object.isRequired,
-  direction: require('prop-types').oneOf(['asc', 'desc']).isRequired
-}, (0, _defineProperty3.default)(_ref, 'active', require('prop-types').bool), (0, _defineProperty3.default)(_ref, 'children', typeof babelPluginFlowReactPropTypes_proptype_Node === 'function' ? babelPluginFlowReactPropTypes_proptype_Node : require('prop-types').shape(babelPluginFlowReactPropTypes_proptype_Node)), (0, _defineProperty3.default)(_ref, 'classes', require('prop-types').object), (0, _defineProperty3.default)(_ref, 'className', require('prop-types').string), (0, _defineProperty3.default)(_ref, 'direction', require('prop-types').oneOf(['asc', 'desc'])), _ref) : {};
+      var iconClassName = (0, _classnames2.default)(classes.icon, (0, _defineProperty3.default)({}, classes[direction], !!direction));
+
+      return _react2.default.createElement(
+        _ButtonBase2.default,
+        (0, _extends3.default)({ className: className, component: 'span', disableRipple: true }, other),
+        children,
+        _react2.default.createElement(_ArrowDownward2.default, { className: iconClassName })
+      );
+    }
+  }]);
+  return TableSortLabel;
+}(_react2.default.Component);
+
 TableSortLabel.defaultProps = {
   active: false,
   direction: 'desc'
 };
-
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiTableSortLabel' })(TableSortLabel);

@@ -32,25 +32,27 @@ export const styles = theme => ({
   }
 });
 
-function Icon(props) {
-  const { children, classes, className: classNameProp, color } = props,
-        other = _objectWithoutProperties(props, ['children', 'classes', 'className', 'color']);
+class Icon extends React.Component {
 
-  const className = classNames('material-icons', classes.root, {
-    [classes[`color${capitalizeFirstLetter(color)}`]]: color !== 'inherit'
-  }, classNameProp);
+  render() {
+    const _props = this.props,
+          { children, classes, className: classNameProp, color } = _props,
+          other = _objectWithoutProperties(_props, ['children', 'classes', 'className', 'color']);
 
-  return React.createElement(
-    'span',
-    _extends({ className: className, 'aria-hidden': 'true' }, other),
-    children
-  );
+    const className = classNames('material-icons', classes.root, {
+      [classes[`color${capitalizeFirstLetter(color)}`]]: color !== 'inherit'
+    }, classNameProp);
+
+    return React.createElement(
+      'span',
+      _extends({ className: className, 'aria-hidden': 'true' }, other),
+      children
+    );
+  }
 }
 
 Icon.defaultProps = {
   color: 'inherit'
 };
-
 Icon.muiName = 'Icon';
-
 export default withStyles(styles, { name: 'MuiIcon' })(Icon);

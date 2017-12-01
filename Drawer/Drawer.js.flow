@@ -1,9 +1,10 @@
 // @flow
+// @inheritedComponent Modal
 
 import React from 'react';
 import type { Node } from 'react';
 import classNames from 'classnames';
-import Modal from '../internal/Modal';
+import Modal from '../Modal';
 import withStyles from '../styles/withStyles';
 import Slide from '../transitions/Slide';
 import Paper from '../Paper';
@@ -39,6 +40,12 @@ export const styles = (theme: Object) => ({
     // temporary style
     position: 'fixed',
     top: 0,
+    // We disable the focus ring for mouse, touch and keyboard users.
+    // At some point, it would be better to keep it for keyboard users.
+    // :focus-ring CSS pseudo-class will help.
+    '&:focus': {
+      outline: 'none',
+    },
   },
   paperAnchorLeft: {
     left: 0,
@@ -83,19 +90,22 @@ export type Anchor = 'left' | 'top' | 'right' | 'bottom';
 export type Type = 'permanent' | 'persistent' | 'temporary';
 
 type ProvidedProps = {
-  anchor: Anchor,
   classes: Object,
-  elevation: number,
-  transitionDuration: TransitionDuration,
-  open: boolean,
-  type: Type,
+  /**
+   * @ignore
+   */
+  theme?: Object,
 };
 
 export type Props = {
   /**
+   * Other base element props.
+   */
+  [otherProp: string]: any,
+  /**
    * Side from which the drawer will appear.
    */
-  anchor?: Anchor,
+  anchor: Anchor,
   /**
    * The contents of the drawer.
    */
@@ -111,12 +121,12 @@ export type Props = {
   /**
    * The elevation of the drawer.
    */
-  elevation?: number,
+  elevation: number,
   /**
    * The duration for the transition, in milliseconds.
    * You may specify a single timeout for all transitions, or individually with an object.
    */
-  transitionDuration?: TransitionDuration,
+  transitionDuration: TransitionDuration,
   /**
    * Properties applied to the `Modal` element.
    */
@@ -130,11 +140,7 @@ export type Props = {
   /**
    * If `true`, the drawer is open.
    */
-  open?: boolean,
-  /**
-   * @igonre
-   */
-  theme: Object,
+  open: boolean,
   /**
    * Properties applied to the `Slide` element.
    */
@@ -142,7 +148,7 @@ export type Props = {
   /**
    * The type of drawer.
    */
-  type?: Type,
+  type: Type,
 };
 
 type State = {
@@ -153,10 +159,10 @@ class Drawer extends React.Component<ProvidedProps & Props, State> {
   static defaultProps = {
     anchor: 'left',
     elevation: 16,
-    transitionDuration: {
+    transitionDuration: ({
       enter: duration.enteringScreen,
       exit: duration.leavingScreen,
-    },
+    }: TransitionDuration),
     open: false,
     type: 'temporary', // Mobile first.
   };
@@ -191,7 +197,7 @@ class Drawer extends React.Component<ProvidedProps & Props, State> {
       ...other
     } = this.props;
 
-    const rtl = theme.direction === 'rtl';
+    const rtl = theme && theme.direction === 'rtl';
     let anchor = anchorProp;
     if (rtl && ['left', 'right'].includes(anchor)) {
       anchor = anchor === 'left' ? 'right' : 'left';

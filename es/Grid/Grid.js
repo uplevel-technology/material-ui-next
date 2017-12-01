@@ -113,6 +113,9 @@ export const styles = theme => _extends({
   'wrap-xs-nowrap': {
     flexWrap: 'nowrap'
   },
+  'wrap-xs-wrap-reverse': {
+    flexWrap: 'wrap-reverse'
+  },
   'align-items-xs-center': {
     alignItems: 'center'
   },
@@ -158,77 +161,81 @@ export const styles = theme => _extends({
   return accumulator;
 }, {}));
 
-function Grid(props) {
-  const {
-    classes,
-    className: classNameProp,
-    component: ComponentProp,
-    container,
-    item,
-    alignContent,
-    alignItems,
-    direction,
-    spacing,
-    hidden,
-    justify,
-    wrap,
-    xs,
-    sm,
-    md,
-    lg,
-    xl
-  } = props,
-        other = _objectWithoutProperties(props, ['classes', 'className', 'component', 'container', 'item', 'alignContent', 'alignItems', 'direction', 'spacing', 'hidden', 'justify', 'wrap', 'xs', 'sm', 'md', 'lg', 'xl']);
+class Grid extends React.Component {
 
-  const className = classNames({
-    [classes.typeContainer]: container,
-    [classes.typeItem]: item,
-    [classes[`spacing-xs-${String(spacing)}`]]: container && spacing !== 0,
-    [classes[`direction-xs-${String(direction)}`]]: direction !== Grid.defaultProps.direction,
-    [classes[`wrap-xs-${String(wrap)}`]]: wrap !== Grid.defaultProps.wrap,
-    [classes[`align-items-xs-${String(alignItems)}`]]: alignItems !== Grid.defaultProps.alignItems,
-    [classes[`align-content-xs-${String(alignContent)}`]]: alignContent !== Grid.defaultProps.alignContent,
-    [classes[`justify-xs-${String(justify)}`]]: justify !== Grid.defaultProps.justify,
-    [classes['grid-xs']]: xs === true,
-    [classes[`grid-xs-${String(xs)}`]]: xs && xs !== true,
-    [classes['grid-sm']]: sm === true,
-    [classes[`grid-sm-${String(sm)}`]]: sm && sm !== true,
-    [classes['grid-md']]: md === true,
-    [classes[`grid-md-${String(md)}`]]: md && md !== true,
-    [classes['grid-lg']]: lg === true,
-    [classes[`grid-lg-${String(lg)}`]]: lg && lg !== true,
-    [classes['grid-xl']]: xl === true,
-    [classes[`grid-xl-${String(xl)}`]]: xl && xl !== true
-  }, classNameProp);
-  const gridProps = _extends({ className }, other);
-
-  if (hidden) {
-    return React.createElement(
-      Hidden,
+  render() {
+    const _props = this.props,
+          {
+      classes,
+      className: classNameProp,
+      component: ComponentProp,
+      container,
+      item,
+      alignContent,
+      alignItems,
+      direction,
+      spacing,
       hidden,
-      React.createElement(ComponentProp, gridProps)
-    );
-  }
+      justify,
+      wrap,
+      xs,
+      sm,
+      md,
+      lg,
+      xl
+    } = _props,
+          other = _objectWithoutProperties(_props, ['classes', 'className', 'component', 'container', 'item', 'alignContent', 'alignItems', 'direction', 'spacing', 'hidden', 'justify', 'wrap', 'xs', 'sm', 'md', 'lg', 'xl']);
 
-  return React.createElement(ComponentProp, gridProps);
+    const className = classNames({
+      [classes.typeContainer]: container,
+      [classes.typeItem]: item,
+      [classes[`spacing-xs-${String(spacing)}`]]: container && spacing !== 0,
+      [classes[`direction-xs-${String(direction)}`]]: direction !== Grid.defaultProps.direction,
+      [classes[`wrap-xs-${String(wrap)}`]]: wrap !== Grid.defaultProps.wrap,
+      [classes[`align-items-xs-${String(alignItems)}`]]: alignItems !== Grid.defaultProps.alignItems,
+      [classes[`align-content-xs-${String(alignContent)}`]]: alignContent !== Grid.defaultProps.alignContent,
+      [classes[`justify-xs-${String(justify)}`]]: justify !== Grid.defaultProps.justify,
+      [classes['grid-xs']]: xs === true,
+      [classes[`grid-xs-${String(xs)}`]]: xs && xs !== true,
+      [classes['grid-sm']]: sm === true,
+      [classes[`grid-sm-${String(sm)}`]]: sm && sm !== true,
+      [classes['grid-md']]: md === true,
+      [classes[`grid-md-${String(md)}`]]: md && md !== true,
+      [classes['grid-lg']]: lg === true,
+      [classes[`grid-lg-${String(lg)}`]]: lg && lg !== true,
+      [classes['grid-xl']]: xl === true,
+      [classes[`grid-xl-${String(xl)}`]]: xl && xl !== true
+    }, classNameProp);
+    const gridProps = _extends({ className }, other);
+
+    if (hidden) {
+      return React.createElement(
+        Hidden,
+        hidden,
+        React.createElement(ComponentProp, gridProps)
+      );
+    }
+
+    return React.createElement(ComponentProp, gridProps);
+  }
 }
 
+// Add a wrapper component to generate some helper messages in the development
+// environment.
+/* eslint-disable react/no-multi-comp */
+/* eslint-disable react/prefer-stateless-function */
+// eslint-disable-next-line import/no-mutable-exports
 Grid.defaultProps = {
   alignContent: 'stretch',
   alignItems: 'stretch',
   component: 'div',
   container: false,
   direction: 'row',
-  hidden: undefined,
   item: false,
   justify: 'flex-start',
   spacing: 16,
   wrap: 'wrap'
 };
-
-// Add a wrapper component to generate some helper messages in the development
-// environment.
-// eslint-disable-next-line import/no-mutable-exports
 let GridWrapper = Grid;
 
 if (process.env.NODE_ENV !== 'production') {

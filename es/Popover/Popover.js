@@ -2,6 +2,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
+// @inheritedComponent Modal
+
 import React from 'react';
 
 import ReactDOM from 'react-dom';
@@ -10,7 +12,7 @@ import contains from 'dom-helpers/query/contains';
 import debounce from 'lodash/debounce';
 import EventListener from 'react-event-listener';
 import withStyles from '../styles/withStyles';
-import Modal from '../internal/Modal';
+import Modal from '../Modal';
 
 import Grow from '../transitions/Grow';
 import Paper from '../Paper';

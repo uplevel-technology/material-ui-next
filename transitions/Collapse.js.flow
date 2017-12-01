@@ -30,19 +30,22 @@ export const styles = (theme: Object) => ({
 export type TransitionDuration = number | { enter?: number, exit?: number } | 'auto';
 
 type ProvidedProps = {
-  appear: boolean,
   classes: Object,
-  component: ElementType,
-  collapsedHeight: string,
-  timeout: TransitionDuration,
-  theme: Object,
+  /**
+   * @ignore
+   */
+  theme?: Object,
 };
 
 export type Props = {
   /**
+   * Other base element props.
+   */
+  [otherProp: string]: any,
+  /**
    * @ignore
    */
-  appear?: boolean,
+  appear: boolean,
   /**
    * The content node to be collapsed.
    */
@@ -52,15 +55,23 @@ export type Props = {
    */
   classes?: Object,
   /**
+   * @ignore
+   */
+  className?: String,
+  /**
    * The component used for the root node.
    * Either a string to use a DOM element or a component.
    * The default value is a `button`.
    */
-  component?: ElementType,
+  component: ElementType,
   /**
    * The height of the container when collapsed.
    */
-  collapsedHeight?: string,
+  collapsedHeight: string,
+  /**
+   * Properties applied to the `Collapse` container.
+   */
+  containerProps?: Object,
   /**
    * If `true`, the component will transition in.
    */
@@ -90,24 +101,24 @@ export type Props = {
    */
   style?: Object,
   /**
-   * @ignore
-   */
-  theme?: Object,
-  /**
    * The duration for the transition, in milliseconds.
    * You may specify a single timeout for all transitions, or individually with an object.
    *
    * Set to 'auto' to automatically calculate transition time based on height.
    */
-  timeout?: TransitionDuration,
+  timeout: TransitionDuration,
+  /**
+   * @ignore
+   */
+  unmountOnExit?: boolean,
 };
 
 class Collapse extends React.Component<ProvidedProps & Props> {
   static defaultProps = {
     appear: false,
-    component: 'div',
+    component: ('div': ElementType),
     collapsedHeight: '0px',
-    timeout: duration.standard,
+    timeout: (duration.standard: TransitionDuration),
   };
 
   wrapper = null;
@@ -131,7 +142,7 @@ class Collapse extends React.Component<ProvidedProps & Props> {
       this.autoTransitionDuration = duration2;
     } else if (typeof timeout === 'number') {
       node.style.transitionDuration = `${timeout}ms`;
-    } else if (timeout) {
+    } else if (timeout && typeof timeout.enter === 'number') {
       node.style.transitionDuration = `${timeout.enter}ms`;
     } else {
       // The propType will warn in this case.
@@ -171,7 +182,7 @@ class Collapse extends React.Component<ProvidedProps & Props> {
       this.autoTransitionDuration = duration2;
     } else if (typeof timeout === 'number') {
       node.style.transitionDuration = `${timeout}ms`;
-    } else if (timeout) {
+    } else if (timeout && typeof timeout.exit === 'number') {
       node.style.transitionDuration = `${timeout.exit}ms`;
     } else {
       // The propType will warn in this case.
@@ -185,15 +196,9 @@ class Collapse extends React.Component<ProvidedProps & Props> {
   };
 
   addEndListener = (node, next: Function) => {
-    let timeout;
-
     if (this.props.timeout === 'auto') {
-      timeout = this.autoTransitionDuration || 0;
-    } else {
-      timeout = this.props.timeout;
+      setTimeout(next, this.autoTransitionDuration || 0);
     }
-
-    setTimeout(next, timeout);
   };
 
   render() {
@@ -201,8 +206,10 @@ class Collapse extends React.Component<ProvidedProps & Props> {
       appear,
       children,
       classes,
+      className,
       component: ComponentProp,
       collapsedHeight,
+      containerProps,
       onEnter,
       onEntering,
       onEntered,
@@ -224,14 +231,20 @@ class Collapse extends React.Component<ProvidedProps & Props> {
         onExit={this.handleExit}
         addEndListener={this.addEndListener}
         style={{ minHeight: collapsedHeight, ...style }}
+        timeout={timeout === 'auto' ? null : timeout}
         {...other}
       >
         {state => {
           return (
             <ComponentProp
-              className={classNames(classes.container, {
-                [classes.entered]: state === 'entered',
-              })}
+              className={classNames(
+                classes.container,
+                {
+                  [classes.entered]: state === 'entered',
+                },
+                className,
+              )}
+              {...containerProps}
             >
               <div
                 className={classes.wrapper}

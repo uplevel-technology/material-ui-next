@@ -23,22 +23,25 @@ export const styles = {
  * It provides compact row layout.
  * For the `Radio`, you should be using the `RadioGroup` component instead of this one.
  */
-function FormGroup(props) {
-  const { classes, className, children, row } = props,
-        other = _objectWithoutProperties(props, ['classes', 'className', 'children', 'row']);
-  const rootClassName = classNames(classes.root, {
-    [classes.row]: row
-  }, className);
+class FormGroup extends React.Component {
 
-  return React.createElement(
-    'div',
-    _extends({ className: rootClassName }, other),
-    children
-  );
+  render() {
+    const _props = this.props,
+          { classes, className, children, row } = _props,
+          other = _objectWithoutProperties(_props, ['classes', 'className', 'children', 'row']);
+    const rootClassName = classNames(classes.root, {
+      [classes.row]: row
+    }, className);
+
+    return React.createElement(
+      'div',
+      _extends({ className: rootClassName }, other),
+      children
+    );
+  }
 }
 
 FormGroup.defaultProps = {
   row: false
 };
-
 export default withStyles(styles, { name: 'MuiFormGroup' })(FormGroup);

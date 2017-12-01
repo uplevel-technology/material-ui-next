@@ -40,7 +40,7 @@ class SelectInput extends React.Component {
       }
 
       if (this.props.onChange) {
-        const { onChange } = this.props;
+        const { onChange, name } = this.props;
         let value;
         let target;
 
@@ -61,7 +61,7 @@ class SelectInput extends React.Component {
         }
 
         event.persist();
-        event.target = _extends({}, target, { value });
+        event.target = _extends({}, target, { value, name });
 
         onChange(event, child);
       }

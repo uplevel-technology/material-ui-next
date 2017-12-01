@@ -30,56 +30,60 @@ export const styles = theme => ({
   img: {
     maxWidth: '100%',
     width: '100%',
-    height: 'auto'
+    height: 'auto',
+    textAlign: 'center'
   }
 });
 
-function Avatar(props) {
-  const {
-    alt,
-    classes,
-    className: classNameProp,
-    children: childrenProp,
-    childrenClassName: childrenClassNameProp,
-    component: ComponentProp,
-    imgProps,
-    sizes,
-    src,
-    srcSet
-  } = props,
-        other = _objectWithoutProperties(props, ['alt', 'classes', 'className', 'children', 'childrenClassName', 'component', 'imgProps', 'sizes', 'src', 'srcSet']);
+class Avatar extends React.Component {
 
-  const className = classNames(classes.root, {
-    [classes.colorDefault]: childrenProp && !src && !srcSet
-  }, classNameProp);
-  let children = null;
+  render() {
+    const _props = this.props,
+          {
+      alt,
+      classes,
+      className: classNameProp,
+      children: childrenProp,
+      childrenClassName: childrenClassNameProp,
+      component: ComponentProp,
+      imgProps,
+      sizes,
+      src,
+      srcSet
+    } = _props,
+          other = _objectWithoutProperties(_props, ['alt', 'classes', 'className', 'children', 'childrenClassName', 'component', 'imgProps', 'sizes', 'src', 'srcSet']);
 
-  if (childrenProp) {
-    if (childrenClassNameProp && typeof childrenProp !== 'string' && React.isValidElement(childrenProp)) {
-      const childrenClassName = classNames(childrenClassNameProp, childrenProp.props.className);
-      children = React.cloneElement(childrenProp, { className: childrenClassName });
-    } else {
-      children = childrenProp;
+    const className = classNames(classes.root, {
+      [classes.colorDefault]: childrenProp && !src && !srcSet
+    }, classNameProp);
+    let children = null;
+
+    if (childrenProp) {
+      if (childrenClassNameProp && typeof childrenProp !== 'string' && React.isValidElement(childrenProp)) {
+        const childrenClassName = classNames(childrenClassNameProp, childrenProp.props.className);
+        children = React.cloneElement(childrenProp, { className: childrenClassName });
+      } else {
+        children = childrenProp;
+      }
+    } else if (src || srcSet) {
+      children = React.createElement('img', _extends({
+        alt: alt,
+        src: src,
+        srcSet: srcSet,
+        sizes: sizes,
+        className: classes.img
+      }, imgProps));
     }
-  } else if (src || srcSet) {
-    children = React.createElement('img', _extends({
-      alt: alt,
-      src: src,
-      srcSet: srcSet,
-      sizes: sizes,
-      className: classes.img
-    }, imgProps));
-  }
 
-  return React.createElement(
-    ComponentProp,
-    _extends({ className: className }, other),
-    children
-  );
+    return React.createElement(
+      ComponentProp,
+      _extends({ className: className }, other),
+      children
+    );
+  }
 }
 
 Avatar.defaultProps = {
   component: 'div'
 };
-
 export default withStyles(styles, { name: 'MuiAvatar' })(Avatar);

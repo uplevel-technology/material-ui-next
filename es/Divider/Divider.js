@@ -30,17 +30,21 @@ export const styles = theme => ({
   }
 });
 
-function Divider(props) {
-  const { absolute, classes, className: classNameProp, inset, light } = props,
-        other = _objectWithoutProperties(props, ['absolute', 'classes', 'className', 'inset', 'light']);
+class Divider extends React.Component {
 
-  const className = classNames(classes.root, {
-    [classes.absolute]: absolute,
-    [classes.inset]: inset,
-    [light ? classes.light : classes.default]: true
-  }, classNameProp);
+  render() {
+    const _props = this.props,
+          { absolute, classes, className: classNameProp, inset, light } = _props,
+          other = _objectWithoutProperties(_props, ['absolute', 'classes', 'className', 'inset', 'light']);
 
-  return React.createElement('hr', _extends({ className: className }, other));
+    const className = classNames(classes.root, {
+      [classes.absolute]: absolute,
+      [classes.inset]: inset,
+      [light ? classes.light : classes.default]: true
+    }, classNameProp);
+
+    return React.createElement('hr', _extends({ className: className }, other));
+  }
 }
 
 Divider.defaultProps = {
@@ -48,5 +52,4 @@ Divider.defaultProps = {
   inset: false,
   light: false
 };
-
 export default withStyles(styles, { name: 'MuiDivider' })(Divider);

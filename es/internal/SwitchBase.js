@@ -38,129 +38,125 @@ export const styles = {
 // so that the API documentation is updated.
 
 
-export default function createSwitch({
-  defaultIcon = React.createElement(CheckBoxOutlineBlankIcon, null),
-  defaultCheckedIcon = React.createElement(CheckBoxIcon, null),
-  inputType = 'checkbox'
-} = {}) {
-  /**
-   * @ignore - internal component.
-   */
-  class SwitchBase extends React.Component {
-    constructor(...args) {
-      var _temp;
+/**
+ * @ignore - internal component.
+ */
+class SwitchBase extends React.Component {
+  constructor(...args) {
+    var _temp;
 
-      return _temp = super(...args), this.state = {}, this.input = null, this.button = null, this.isControlled = null, this.handleInputChange = event => {
-        const checked = event.target.checked;
-
-        if (!this.isControlled) {
-          this.setState({ checked });
-        }
-
-        if (this.props.onChange) {
-          this.props.onChange(event, checked);
-        }
-      }, _temp;
-    }
-
-    componentWillMount() {
-      const { props } = this;
-
-      this.isControlled = props.checked !== undefined;
+    return _temp = super(...args), this.state = {}, this.input = null, this.button = null, this.isControlled = null, this.handleInputChange = event => {
+      const checked = event.target.checked;
 
       if (!this.isControlled) {
-        // not controlled, use internal state
-        this.setState({
-          checked: props.defaultChecked !== undefined ? props.defaultChecked : false
-        });
-      }
-    }
-
-    render() {
-      const _props = this.props,
-            {
-        checked: checkedProp,
-        classes,
-        className: classNameProp,
-        checkedIcon,
-        disabled: disabledProp,
-        icon: iconProp,
-        inputProps,
-        inputRef,
-        name,
-        onChange,
-        tabIndex,
-        value
-      } = _props,
-            other = _objectWithoutProperties(_props, ['checked', 'classes', 'className', 'checkedIcon', 'disabled', 'icon', 'inputProps', 'inputRef', 'name', 'onChange', 'tabIndex', 'value']);
-
-      const { muiFormControl } = this.context;
-      let disabled = disabledProp;
-
-      if (muiFormControl) {
-        if (typeof disabled === 'undefined') {
-          disabled = muiFormControl.disabled;
-        }
+        this.setState({ checked });
       }
 
-      const checked = this.isControlled ? checkedProp : this.state.checked;
-      const className = classNames(classes.root, classes.default, classNameProp, {
-        [classes.checked]: checked,
-        [classes.disabled]: disabled
+      if (this.props.onChange) {
+        this.props.onChange(event, checked);
+      }
+    }, _temp;
+  }
+
+  componentWillMount() {
+    const { props } = this;
+
+    this.isControlled = props.checked !== undefined;
+
+    if (!this.isControlled) {
+      // not controlled, use internal state
+      this.setState({
+        checked: props.defaultChecked !== undefined ? props.defaultChecked : false
       });
-
-      let icon = checked ? checkedIcon : iconProp;
-
-      if (typeof icon === 'string') {
-        icon = React.createElement(
-          Icon,
-          null,
-          icon
-        );
-      }
-
-      return React.createElement(
-        IconButton,
-        _extends({
-          'data-mui-test': 'SwitchBase',
-          component: 'span',
-          className: className,
-          disabled: disabled,
-          tabIndex: null,
-          role: undefined,
-          rootRef: node => {
-            this.button = node;
-          }
-        }, other),
-        icon,
-        React.createElement('input', _extends({
-          type: inputType,
-          name: name,
-          checked: this.isControlled ? checkedProp : undefined,
-          onChange: this.handleInputChange,
-          className: classes.input,
-          disabled: disabled,
-          tabIndex: tabIndex,
-          value: value
-        }, inputProps, {
-          ref: node => {
-            this.input = node;
-            if (inputRef) {
-              inputRef(node);
-            }
-          }
-        }))
-      );
     }
   }
 
-  SwitchBase.defaultProps = {
-    checkedIcon: defaultCheckedIcon,
-    disableRipple: false,
-    icon: defaultIcon
-  };
-  SwitchBase.contextTypes = {
-    muiFormControl: PropTypes.object
-  };
-  return withStyles(styles, { name: 'MuiSwitchBase' })(SwitchBase);
+  render() {
+    const _props = this.props,
+          {
+      checked: checkedProp,
+      classes,
+      className: classNameProp,
+      checkedIcon,
+      disabled: disabledProp,
+      icon: iconProp,
+      inputProps,
+      inputRef,
+      inputType,
+      name,
+      onChange,
+      tabIndex,
+      value
+    } = _props,
+          other = _objectWithoutProperties(_props, ['checked', 'classes', 'className', 'checkedIcon', 'disabled', 'icon', 'inputProps', 'inputRef', 'inputType', 'name', 'onChange', 'tabIndex', 'value']);
+
+    const { muiFormControl } = this.context;
+    let disabled = disabledProp;
+
+    if (muiFormControl) {
+      if (typeof disabled === 'undefined') {
+        disabled = muiFormControl.disabled;
+      }
+    }
+
+    const checked = this.isControlled ? checkedProp : this.state.checked;
+    const className = classNames(classes.root, classes.default, classNameProp, {
+      [classes.checked]: checked,
+      [classes.disabled]: disabled
+    });
+
+    let icon = checked ? checkedIcon : iconProp;
+
+    if (typeof icon === 'string') {
+      icon = React.createElement(
+        Icon,
+        null,
+        icon
+      );
+    }
+
+    return React.createElement(
+      IconButton,
+      _extends({
+        'data-mui-test': 'SwitchBase',
+        component: 'span',
+        className: className,
+        disabled: disabled,
+        tabIndex: null,
+        role: undefined,
+        rootRef: node => {
+          this.button = node;
+        }
+      }, other),
+      icon,
+      React.createElement('input', _extends({
+        type: inputType,
+        name: name,
+        checked: this.isControlled ? checkedProp : undefined,
+        onChange: this.handleInputChange,
+        className: classes.input,
+        disabled: disabled,
+        tabIndex: tabIndex,
+        value: value
+      }, inputProps, {
+        ref: node => {
+          this.input = node;
+          if (inputRef) {
+            inputRef(node);
+          }
+        }
+      }))
+    );
+  }
 }
+
+SwitchBase.defaultProps = {
+  checkedIcon: React.createElement(CheckBoxIcon, null), // defaultCheckedIcon
+  disableRipple: false,
+  icon: React.createElement(CheckBoxOutlineBlankIcon, null), // defaultIcon
+  inputType: 'checkbox'
+};
+SwitchBase.contextTypes = {
+  muiFormControl: PropTypes.object
+};
+export default withStyles(styles, { name: 'MuiSwitchBase' })(SwitchBase);

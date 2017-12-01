@@ -61,7 +61,7 @@ var _withStyles = require('../styles/withStyles');
 
 var _withStyles2 = _interopRequireDefault(_withStyles);
 
-var _Modal = require('../internal/Modal');
+var _Modal = require('../Modal');
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
@@ -76,6 +76,7 @@ var _Paper2 = _interopRequireDefault(_Paper);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var babelPluginFlowReactPropTypes_proptype_Node = require('react').babelPluginFlowReactPropTypes_proptype_Node || require('prop-types').any;
+// @inheritedComponent Modal
 
 var babelPluginFlowReactPropTypes_proptype_TransitionClasses = require('../internal/transition').babelPluginFlowReactPropTypes_proptype_TransitionClasses || require('prop-types').any;
 
@@ -188,7 +189,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   anchorOrigin: require('prop-types').shape({
     horizontal: require('prop-types').oneOfType([require('prop-types').oneOf(['left']), require('prop-types').oneOf(['center']), require('prop-types').oneOf(['right']), require('prop-types').number]).isRequired,
     vertical: require('prop-types').oneOfType([require('prop-types').oneOf(['top']), require('prop-types').oneOf(['center']), require('prop-types').oneOf(['bottom']), require('prop-types').number]).isRequired
-  }),
+  }).isRequired,
 
   /**
    * The content of the component.
@@ -218,7 +219,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   /**
    * Specifies how close to the edge of the window the popover can appear.
    */
-  marginThreshold: require('prop-types').number,
+  marginThreshold: require('prop-types').number.isRequired,
 
   /**
    * Callback fired before the component is entering.
@@ -283,7 +284,7 @@ var babelPluginFlowReactPropTypes_proptype_Props = {
   transformOrigin: require('prop-types').shape({
     horizontal: require('prop-types').oneOfType([require('prop-types').oneOf(['left']), require('prop-types').oneOf(['center']), require('prop-types').oneOf(['right']), require('prop-types').number]).isRequired,
     vertical: require('prop-types').oneOfType([require('prop-types').oneOf(['top']), require('prop-types').oneOf(['center']), require('prop-types').oneOf(['bottom']), require('prop-types').number]).isRequired
-  }),
+  }).isRequired,
 
   /**
    * The animation classNames applied to the component as it enters or exits.
